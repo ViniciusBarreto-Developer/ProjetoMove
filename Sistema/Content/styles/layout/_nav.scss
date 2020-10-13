@@ -1,0 +1,82 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+
+.dark-text {
+    background-color: #fff;
+    transition: background-color 0.3s;
+
+    * {
+        color: $text-color !important;
+        transition: color 0.5s;
+    }
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: auto;
+    padding: 1rem $nav-padding-x 0 $nav-padding-x;
+    transition: background-color 0.2s;
+
+
+    .navbar-logo {
+        width: 4rem;
+
+        img {
+            min-width: 4rem;
+            width: 100%;
+        }
+    }
+
+    .navbar-list {
+        display: flex;
+        list-style: none;
+        margin-left: auto;
+        //:last-child {
+        //  margin-left: 4vw;
+        //}
+        justify-content: space-between;
+
+        li:not(:last-of-type) {
+            margin-right: 4rem;
+        }
+
+        li a {
+            color: #fff;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        li a::after {
+            content: "";
+            background: #fff;
+            display: block;
+            height: 2px;
+            border-radius: 30px;
+            width: 0px;
+            margin: 0 auto;
+            transition: width 0.2s;
+        }
+
+        li a:hover::after {
+            width: 100%;
+        }
+    }
+}
+
+@include medium-max() {
+    .navbar {
+        background: #fff;
+        height: auto;
+        position: fixed;
+        top: 0;
+
+
+        .navbar-list li * {
+            color: $text-color;
+        }
+    }
+}

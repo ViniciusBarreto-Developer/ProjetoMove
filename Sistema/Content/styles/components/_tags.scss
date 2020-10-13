@@ -1,0 +1,71 @@
+﻿@import '../abstracts/_variables.scss';
+
+
+
+.tag-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 30px;
+    background: $neutral-color;
+    width: fit-content;
+    margin: 4rem auto;
+
+    :not(:last-of-type) {
+        margin-right: -0.8rem; //must be equal to horizontal padding of the .tag * -1
+    }
+
+    .tag-container {
+        padding: 0.5rem 1rem;
+        transition: filter 0.3s;
+
+        :hover {
+            filter: brightness(99%);
+        }
+
+        .tag {
+            display: flex;
+            border: 1px solid $border-color;
+            border-radius: 30px;
+            padding: 0.2rem 1rem;
+            width: fit-content;
+            background: #fff;
+
+            p {
+                font-size: $font-size-sm;
+            }
+
+            svg {
+                width: $font-size-sm;
+                margin-left: 0.4rem;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.interests {
+    background: $secondary-color;
+    padding-right: 2rem;
+    min-width: 80px;
+    width: 80px;
+    position: relative;
+
+
+    .add-tag {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        right: -1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background: $primary-color;
+        color: #fff;
+        font-size: $font-size-xl;
+        cursor: pointer;
+    }
+}

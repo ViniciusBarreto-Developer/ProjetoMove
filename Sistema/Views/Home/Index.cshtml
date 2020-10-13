@@ -1,3 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    //ViewBag.Title = "Home Page";
 }
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Bem vindo, @User.Identity.Name</h1>
+}
+
+
+@*<div class="tag-group interests">
+
+    <div class="add-tag">
+        <span class="iconify" data-icon="tabler:plus" data-inline="false"></span>
+    </div>
+</div>*@
