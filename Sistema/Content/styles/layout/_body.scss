@@ -1,0 +1,41 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+
+html {
+    height: 100%;
+}
+
+body {
+    background: url('../img/blob-top.svg') #fff;
+    background-position: calc(100%) -200px;
+    background-repeat: no-repeat;
+    z-index: -1;
+    min-height: 100%;
+    //com margin-top: auto no footer empurra o footer para o fim da pg
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    padding: $container-padding;
+    margin-top: 4rem;
+    height: auto;
+    min-height: 100%;
+
+    h1, h2, h3, h4, h4, h6 {
+        font-size: $font-size-title;
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+}
+
+@include medium-max() {
+    body {
+        background: none;
+    }
+
+    .content-container {
+        margin-top: 8rem;
+    }
+}

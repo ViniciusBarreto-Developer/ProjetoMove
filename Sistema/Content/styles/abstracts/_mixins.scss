@@ -1,0 +1,22 @@
+﻿@import 'variables';
+
+
+@mixin small-max() {
+    @media only screen and (max-width: $small-breakpoint) {
+        @content;
+    }
+}
+
+@mixin medium-max() {
+    @media only screen and (max-width: $medium-breakpoint) {
+        @content;
+    }
+}
+
+@mixin large-min() {
+    @media only screen and (min-width: $large-breakpoint) {
+        @content;
+    }
+}
+
+

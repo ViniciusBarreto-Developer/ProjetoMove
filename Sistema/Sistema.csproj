@@ -164,12 +164,49 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\blob-bg.svg" />
+    <Content Include="Content\img\blob-footer.svg" />
+    <Content Include="Content\img\blob-middle.svg" />
+    <Content Include="Content\img\blob-top.svg" />
+    <Content Include="Content\img\footer.svg" />
+    <Content Include="Content\img\hero.svg" />
+    <Content Include="Content\img\logo.svg" />
+    <Content Include="Content\styles\main.css">
+      <DependentUpon>main.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\styles\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\styles\style.css" />
+    <Content Include="Content\styles\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\styles\main.scss" />
+    <Content Include="Content\styles\abstracts\_mixins.scss" />
+    <Content Include="Content\styles\abstracts\_variables.scss" />
+    <Content Include="Content\styles\base\_custom-reset.scss" />
+    <Content Include="Content\styles\base\_normalize.scss" />
+    <Content Include="Content\styles\base\_reset.scss" />
+    <Content Include="Content\styles\base\_typography.scss" />
+    <Content Include="Content\styles\components\_avatar.scss" />
+    <Content Include="Content\styles\components\_buttons.scss" />
+    <Content Include="Content\styles\components\_errors.scss" />
+    <Content Include="Content\styles\components\_tags.scss" />
+    <Content Include="Content\styles\layout\_body.scss" />
+    <Content Include="Content\styles\layout\_footer.scss" />
+    <Content Include="Content\styles\layout\_nav.scss" />
+    <Content Include="Content\styles\pages\_cadastro-user.scss" />
+    <Content Include="Content\styles\pages\_login.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

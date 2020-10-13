@@ -3,43 +3,57 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Move</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>MOVE @ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    @Styles.Render("~/content/styles/style.min.css")
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Move", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink(User.Identity.Name.Split('|')[0] + " - Sair", "Sair", "Home")</li>
-                    }
-                    else
-                    {
-                        <li><a href="@Url.Action("Cadastro","Home")"><span class="glyphicon glyphicon-user"></span> Cadastro</a></li>
-                        <li><a href="@Url.Action("Acesso","Home")"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+
+    <header>
+        <nav class="navbar">
+            <a href='@Url.Action("Index", "Home")' class="navbar-logo">
+                @*<img src='@Url.Content("~/Content/Images/MyLinkImage.png")' />*@
+                <img src='@Url.Content("~/content/img/logo.svg")' alt="Logo" />
+            </a>
+
+            <ul class="navbar-list">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@User.Identity.Name</li>
+                    <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Cadastro", "Cadastro", "Home")</li>
+                    <li>@Html.ActionLink("Entrar", "Acesso", "Home")</li>
+                }
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-container">
         @RenderBody()
-        <hr />
-        <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year - Move</p>
-        </footer>
+
+
     </div>
+    <footer class="footer">
+        <ul class="socials">
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:brand-facebook" data-inline="false"></span></a>
+            </li>
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:brand-instagram" data-inline="false"></span></a>
+            </li>
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:mail" data-inline="false"></span></a>
+            </li>
+        </ul>
+        <p>Copyright by MOVE</p>
+        <div></div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
