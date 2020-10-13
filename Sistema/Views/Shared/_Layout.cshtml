@@ -10,6 +10,31 @@
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <a href='@Url.Action("Index", "Home")' class="navbar-logo">
+                @*<img src='@Url.Content("~/Content/Images/MyLinkImage.png")' />*@
+                <img src='@Url.Content("~/content/img/logo.svg")' alt="Logo" />
+            </a>
+
+
+
+            <ul class="navbar-list">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@User.Identity.Name</li>
+                    <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+ }
+                else
+                {
+                    <li>@Html.ActionLink("Cadastro", "Cadastro", "Home")</li>
+                    <li>@Html.ActionLink("Entrar", "Acesso", "Home")</li>
+}
+            </ul>
+        </nav>
+    </header>
+    <div class="content-container">
+        @RenderBody()
     </div>
     <footer class="footer">
         <ul class="socials">
@@ -26,7 +51,6 @@
         <p>Copyright by MOVE</p>
         <div></div>
     </footer>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
