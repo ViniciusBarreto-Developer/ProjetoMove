@@ -23,6 +23,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(User.Identity.Name.Split('|')[0] + " - Sair", "Sair", "Home")</li>
+                        <li><a href="@Url.Action("EditarUsuario","Home")"><span class="glyphicon glyphicon-edit"></span> Editar Cadastro</a></li>
                     }
                     else
                     {

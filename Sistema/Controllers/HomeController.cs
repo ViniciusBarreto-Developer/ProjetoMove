@@ -15,14 +15,23 @@ namespace Sistema.Controllers
         {
             return View();
         }
-
+        public ActionResult EditarUsuario(Cadastro cad)
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarUsuario(Usuario usu)
+        {
+            return View();
+        }
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
         public ActionResult Acesso()
-        {
+        {            
             return View();
         }
         [HttpPost]
