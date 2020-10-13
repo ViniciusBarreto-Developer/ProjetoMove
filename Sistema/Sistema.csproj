@@ -143,6 +143,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010131920129_CriacaoBanco.cs" />
+    <Compile Include="Migrations\202010131920129_CriacaoBanco.Designer.cs">
+      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArquivosProjeto.cs" />
     <Compile Include="Models\Contexto.cs" />
@@ -202,6 +206,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202010131920129_CriacaoBanco.resx">
+      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
