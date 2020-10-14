@@ -22,7 +22,8 @@
             <ul class="navbar-list">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li>@User.Identity.Name</li>
+                    string[] user = User.Identity.Name.Split(' ');
+                    <li>@user[1]</li>
                     <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
  }
                 else

@@ -17,7 +17,7 @@ namespace Sistema.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento")]
-        public DateTime DataNascimento { get; set; }
+        public string DataNascimento { get; set; }
         [Required]
         public long Cpf { get; set; }
         [MaxLength(100)]

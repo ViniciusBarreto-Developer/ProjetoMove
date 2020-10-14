@@ -1,6 +1,8 @@
 ﻿using Sistema.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,15 +17,50 @@ namespace Sistema.Controllers
         {
             return View();
         }
-        public ActionResult EditarUsuario(Cadastro cad)
+        public ActionResult EditarUsuario()
         {
-            return View();
+            string[] user = User.Identity.Name.Split(' ');
+
+            Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
+            Cadastro cad = new Cadastro();
+
+            cad.Nome = usu.Nome;
+            cad.NomeSocial = usu.NomeSocial;
+            cad.DataNascimento = usu.DataNascimento;
+            cad.Cpf = usu.Cpf;
+            
+            cad.Email = usu.Email;
+            cad.EmailRecuperacao = usu.EmailRecuperacao;
+            cad.Senha = "";
+            cad.ConfirmaSenha = "";
+            
+            return View(cad);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarUsuario(Usuario usu)
+        public ActionResult EditarUsuario(Cadastro cad)
         {
-            return View();
+            string[] user = User.Identity.Name.Split(' ');
+
+            if (ModelState.IsValid)
+            {
+                Usuario usu = db.Usuario.Find(user[1]);
+
+                usu.Nome = cad.Nome;
+                usu.NomeSocial = cad.NomeSocial;
+                usu.DataNascimento = cad.DataNascimento;
+                usu.Cpf = cad.Cpf;
+
+                usu.Email = cad.Email;
+                usu.EmailRecuperacao = cad.EmailRecuperacao;
+                usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
+
+                db.Usuario.AddOrUpdate(usu);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            return View(cad);
         }
         public ActionResult Sair()
         {
@@ -43,7 +80,7 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null)
             {
-                FormsAuthentication.SetAuthCookie(usu.Email, false);
+                FormsAuthentication.SetAuthCookie(usu.Id + " " + usu.Email, false);
                 return RedirectToAction("Index", "Home");
             }
             else
