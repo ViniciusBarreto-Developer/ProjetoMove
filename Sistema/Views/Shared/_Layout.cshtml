@@ -23,14 +23,17 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     string[] user = User.Identity.Name.Split(' ');
+
                     <li>@user[1]</li>
+                    <li>@Html.ActionLink("Editar Dados", "EditarUsuario", "Home")</li>
                     <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
- }
+
+                }
                 else
                 {
                     <li>@Html.ActionLink("Cadastro", "Cadastro", "Home")</li>
                     <li>@Html.ActionLink("Entrar", "Acesso", "Home")</li>
-}
+                }
             </ul>
         </nav>
     </header>

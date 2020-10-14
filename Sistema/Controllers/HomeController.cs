@@ -44,7 +44,7 @@ namespace Sistema.Controllers
 
             if (ModelState.IsValid)
             {
-                Usuario usu = db.Usuario.Find(user[1]);
+                Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
 
                 usu.Nome = cad.Nome;
                 usu.NomeSocial = cad.NomeSocial;
