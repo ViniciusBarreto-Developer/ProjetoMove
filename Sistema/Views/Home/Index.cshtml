@@ -4,7 +4,8 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <h1>Bem vindo, @User.Identity.Name</h1>
+    string[] user = User.Identity.Name.Split(' ');
+    <h1>Bem vindo, @user[1]</h1>
 }
 
 
