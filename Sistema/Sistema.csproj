@@ -235,6 +235,9 @@
     <Content Include="Views\Home\Acesso.cshtml" />
     <Content Include="Views\Home\Cadastro.cshtml" />
     <Content Include="Views\Home\EditarUsuario.cshtml" />
+    <Content Include="Views\Home\Email.cshtml" />
+    <Content Include="Views\Home\EsqueceuSenha.cshtml" />
+    <Content Include="Views\Home\Redefinir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
