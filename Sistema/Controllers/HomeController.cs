@@ -55,6 +55,7 @@ namespace Sistema.Controllers
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
 
+                FormsAuthentication.SetAuthCookie(usu.Id + " " + usu.Email, false);
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
