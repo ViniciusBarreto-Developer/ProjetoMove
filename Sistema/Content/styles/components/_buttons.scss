@@ -1,6 +1,9 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
+a.btn {
+    display: block;
+}
 .btn {
     border: none;
     border-radius: 100px;
@@ -15,14 +18,14 @@
 
 .btn-primary {
     background-color: $primary-color;
-    :hover {
+   &:hover {
         background-color: $primary-darker;
     }
 }
 
 .btn-secondary {
     background-color: $secondary-color;
-    :hover {
+   &:hover {
         background-color: $secondary-darker;
     }
 }

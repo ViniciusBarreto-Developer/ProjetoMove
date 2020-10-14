@@ -514,21 +514,16 @@ $font-size-lg: 1.138rem; 18.22px
 $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
-.dark-text {
-  background-color: #fff;
-  transition: background-color 0.3s; }
-  .dark-text * {
-    color: #333333 !important;
-    transition: color 0.5s; }
-
 .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin-bottom: auto;
-  padding: 1rem 4rem 0 4rem;
-  transition: background-color 0.2s; }
+  padding: 0.5rem 4rem 0.5rem 4rem;
+  transition: background-color 0.2s;
+  position: fixed;
+  top: 0; }
   .navbar .navbar-logo {
     width: 4rem; }
     .navbar .navbar-logo img {
@@ -537,25 +532,48 @@ $font-size-lg: 1.138rem; 18.22px
   .navbar .navbar-list {
     display: flex;
     list-style: none;
-    margin-left: auto;
-    justify-content: space-between; }
-    .navbar .navbar-list li:not(:last-of-type) {
-      margin-right: 4rem; }
+    margin-left: auto; }
+    .navbar .navbar-list li:not(:first-of-type) {
+      margin-left: 5vw; }
     .navbar .navbar-list li a {
+      padding: 0.5rem 1rem;
       color: #fff;
       white-space: nowrap;
-      transition: color 0.3s; }
-    .navbar .navbar-list li a::after {
-      content: "";
-      background: #fff;
-      display: block;
-      height: 2px;
+      transition: color 0.3s, border-color 0.2s;
+      border-width: 1px;
+      border-style: solid;
+      border-color: transparent;
+      border-radius: 30px; }
+    .navbar .navbar-list li a:hover {
+      border-width: 1px;
+      border-style: solid;
+      border-color: #fff;
       border-radius: 30px;
-      width: 0px;
-      margin: 0 auto;
-      transition: width 0.2s; }
-    .navbar .navbar-list li a:hover::after {
-      width: 100%; }
+      transition: border-color 0.2s; }
+
+.navbar-light {
+  background-color: #fff;
+  transition: background-color 0.2s; }
+  .navbar-light .navbar-list {
+    /*li a::after {
+            content: "";
+            background: $primary-color;
+            display: block;
+            height: 2px;
+            border-radius: 30px;
+            width: 0px;
+            margin: 0 auto;
+            transition: width 0.2s;
+        }
+
+        li a:hover::after {
+            width: 100%;
+        }*/ }
+    .navbar-light .navbar-list li a:hover {
+      border-color: #333333; }
+  .navbar-light .navbar-list li a {
+    color: #333333;
+    transition: color 0.5s; }
 
 @media only screen and (max-width: 768px) {
   .navbar {
@@ -563,7 +581,7 @@ $font-size-lg: 1.138rem; 18.22px
     height: auto;
     position: fixed;
     top: 0; }
-    .navbar .navbar-list li * {
+    .navbar .navbar-list li a {
       color: #333333; } }
 
 /*MINOR THIRD*/
@@ -606,7 +624,7 @@ body {
 
 .content-container {
   padding: 0 10%;
-  margin-top: 4rem;
+  margin-top: 8rem;
   height: auto;
   min-height: 100%; }
   .content-container h1, .content-container h2, .content-container h3, .content-container h4, .content-container h4, .content-container h6 {
@@ -728,6 +746,9 @@ $font-size-lg: 1.138rem; 18.22px
 $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
+a.btn {
+  display: block; }
+
 .btn {
   border: none;
   border-radius: 100px;
@@ -741,12 +762,12 @@ $font-size-lg: 1.138rem; 18.22px
 
 .btn-primary {
   background-color: #05f296; }
-  .btn-primary :hover {
+  .btn-primary:hover {
     background-color: #02e88f; }
 
 .btn-secondary {
   background-color: #9b51e0; }
-  .btn-secondary :hover {
+  .btn-secondary:hover {
     background-color: #9747e1; }
 
 .form-btns {

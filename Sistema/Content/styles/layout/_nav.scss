@@ -2,15 +2,7 @@
 @import '../abstracts/mixins';
 
 
-.dark-text {
-    background-color: #fff;
-    transition: background-color 0.3s;
 
-    * {
-        color: $text-color !important;
-        transition: color 0.5s;
-    }
-}
 
 .navbar {
     display: flex;
@@ -18,8 +10,10 @@
     align-items: center;
     width: 100%;
     margin-bottom: auto;
-    padding: 1rem $nav-padding-x 0 $nav-padding-x;
+    padding: 0.5rem $nav-padding-x 0.5rem $nav-padding-x;
     transition: background-color 0.2s;
+    position: fixed;
+    top: 0;
 
 
     .navbar-logo {
@@ -38,21 +32,39 @@
         //:last-child {
         //  margin-left: 4vw;
         //}
-        justify-content: space-between;
-
-        li:not(:last-of-type) {
-            margin-right: 4rem;
+        li:not(:first-of-type) {
+            margin-left: $nav-items-spacing;
         }
 
         li a {
+            padding: 0.5rem 1rem;
             color: #fff;
             white-space: nowrap;
-            transition: color 0.3s;
+            transition: color 0.3s, border-color 0.2s;
+            border-width: 1px;
+            border-style: solid;
+            border-color: transparent;
+            border-radius: 30px;
         }
 
-        li a::after {
+        li a:hover {
+            border-width: 1px;
+            border-style: solid;
+            border-color: #fff;
+            border-radius: 30px;
+            transition: border-color 0.2s;
+        }
+    }
+}
+
+.navbar-light {
+    background-color: #fff;
+    transition: background-color 0.2s;
+
+    .navbar-list {
+        /*li a::after {
             content: "";
-            background: #fff;
+            background: $primary-color;
             display: block;
             height: 2px;
             border-radius: 30px;
@@ -63,7 +75,15 @@
 
         li a:hover::after {
             width: 100%;
+        }*/
+        li a:hover {
+            border-color: $text-color;
         }
+    }
+
+    .navbar-list li a {
+        color: $text-color;
+        transition: color 0.5s;
     }
 }
 
@@ -75,7 +95,7 @@
         top: 0;
 
 
-        .navbar-list li * {
+        .navbar-list li a {
             color: $text-color;
         }
     }
