@@ -19,7 +19,7 @@ namespace Sistema.Controllers
         }
         public ActionResult EditarUsuario()
         {
-            string[] user = User.Identity.Name.Split(' ');
+            string[] user = User.Identity.Name.Split('*');
 
             Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
             Cadastro cad = new Cadastro();
@@ -40,7 +40,7 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditarUsuario(Cadastro cad)
         {
-            string[] user = User.Identity.Name.Split(' ');
+            string[] user = User.Identity.Name.Split('*');
 
             if (ModelState.IsValid)
             {
@@ -55,7 +55,15 @@ namespace Sistema.Controllers
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
 
-                FormsAuthentication.SetAuthCookie(usu.Id + " " + usu.Email, false);
+                if (usu.NomeSocial == null || usu.NomeSocial == "")
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.Nome, false);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.NomeSocial, false);
+                }
+
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -81,7 +89,14 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null)
             {
-                FormsAuthentication.SetAuthCookie(usu.Id + " " + usu.Email, false);
+                if(usu.NomeSocial == null || usu.NomeSocial == "")
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.Nome, false);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.NomeSocial, false);
+                }                
                 return RedirectToAction("Index", "Home");
             }
             else

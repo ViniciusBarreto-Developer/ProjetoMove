@@ -22,7 +22,7 @@
             <ul class="navbar-list">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    string[] user = User.Identity.Name.Split(' ');
+                    string[] user = User.Identity.Name.Split('*');
 
                     <li>@user[1]</li>
                     <li>@Html.ActionLink("Editar Dados", "EditarUsuario", "Home")</li>
