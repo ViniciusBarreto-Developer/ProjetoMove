@@ -4,7 +4,7 @@
 a.btn {
     display: block;
 }
-.btn {
+.btn, .swal2-styled.swal2-confirm {
     border: none;
     border-radius: 100px;
     padding: 0.8rem 1.5rem;
@@ -16,9 +16,14 @@ a.btn {
     transition: background-color 0.3s;
 }
 
-.btn-primary {
+.swal2-styled.swal2-confirm:focus {
+    box-shadow: none;
+}
+
+.btn-primary, .swal2-styled.swal2-confirm {
     background-color: $primary-color;
-   &:hover {
+
+    &:hover {
         background-color: $primary-darker;
     }
 }

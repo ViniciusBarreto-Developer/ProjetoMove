@@ -1,6 +1,6 @@
 ﻿@import '../abstracts/_variables.scss';
 
-.login {
+.single-col {
     .form-group {
         width: 18rem;
     }
@@ -8,6 +8,15 @@
     .form-btns {
         align-self: center;
         width: 18rem;
+    }
+    .forgot-password {
+        display: block;
+        padding: 1rem 0;
+        font-size: $font-size-sm;
+        color: $text-color;
+        &:hover {
+            color: $secondary-darker;
+        }
     }
 }
 

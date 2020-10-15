@@ -749,7 +749,7 @@ $font-size-lg: 1.138rem; 18.22px
 a.btn {
   display: block; }
 
-.btn {
+.btn, .swal2-styled.swal2-confirm {
   border: none;
   border-radius: 100px;
   padding: 0.8rem 1.5rem;
@@ -760,9 +760,12 @@ a.btn {
   cursor: pointer;
   transition: background-color 0.3s; }
 
-.btn-primary {
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: none; }
+
+.btn-primary, .swal2-styled.swal2-confirm {
   background-color: #05f296; }
-  .btn-primary:hover {
+  .btn-primary:hover, .swal2-styled.swal2-confirm:hover {
     background-color: #02e88f; }
 
 .btn-secondary {
@@ -948,9 +951,17 @@ $font-size-lg: 1.138rem; 18.22px
 $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
-.login .form-group {
+.single-col .form-group {
   width: 18rem; }
 
-.login .form-btns {
+.single-col .form-btns {
   align-self: center;
   width: 18rem; }
+
+.single-col .forgot-password {
+  display: block;
+  padding: 1rem 0;
+  font-size: 0.833rem;
+  color: #333333; }
+  .single-col .forgot-password:hover {
+    color: #9747e1; }

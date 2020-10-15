@@ -6,8 +6,9 @@
     <title>MOVE @ViewBag.Title</title>
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.css" rel="stylesheet" />
     @Styles.Render("~/content/styles/style.min.css")
-    @Scripts.Render("~/scripts/script.js");
+    @Scripts.Render("~/scripts/script.js")
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body>
@@ -18,15 +19,12 @@
                 <img src='@Url.Content("~/content/img/logo.svg")' alt="Logo" />
             </a>
 
-
-
             <ul class="navbar-list">
                 @if (User.Identity.IsAuthenticated)
                 {
                     string[] user = User.Identity.Name.Split('*');
 
-                    <li>@user[1]</li>
-                    <li>@Html.ActionLink("Editar Dados", "EditarUsuario", "Home")</li>
+                    <li>@Html.ActionLink(user[1], "EditarUsuario", "Home")</li>
                     <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
 
                 }
@@ -62,7 +60,7 @@
     <script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>tinymce.init({ selector: 'textarea' });</script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
 
     @if (TempData["MSG"] != null)
     {
@@ -82,9 +80,15 @@
             case "info":
             titulo = "Informação";
             break;
-            }
-            swal(titulo, "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
-            "@TempData["MSG"].ToString().Split('|')[0]");
+                }
+            Swal.fire({
+                      title: titulo,
+                      text: "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
+                      icon: "@TempData["MSG"].ToString().Split('|')[0]",
+                      confirmButtonText: 'OK'
+                    })
+            @*swal.fire(titulo, "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
+            "@TempData["MSG"].ToString().Split('|')[0]");*@
             });
         </script>
     }
