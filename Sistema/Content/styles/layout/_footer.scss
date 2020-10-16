@@ -10,9 +10,9 @@
     height: 25vh;
     padding: 2rem $nav-padding-x;
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
+    position: relative;
 
     * {
         color: #fff;
@@ -20,6 +20,7 @@
 
     .socials {
         display: flex;
+        justify-content: flex-start;
 
         a {
             color: #fff;
@@ -31,11 +32,12 @@
         }
     }
 
-    p {
-        font-size: $font-size-sm;
-        color: #fff;
+    .copyright {
         position: relative;
         top: 1rem;
+        right: $nav-padding-x;
+        font-size: $font-size-sm;
+        justify-content: flex-end;
     }
 }
 
@@ -44,5 +46,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
+
+        .copyright {
+            right: 0;
+        }
     }
+
 }
+

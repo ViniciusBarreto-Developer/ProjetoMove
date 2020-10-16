@@ -165,12 +165,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\blob-bg.svg" />
-    <Content Include="Content\img\blob-footer.svg" />
     <Content Include="Content\img\blob-middle.svg" />
     <Content Include="Content\img\blob-top.svg" />
     <Content Include="Content\img\footer.svg" />
     <Content Include="Content\img\hero.svg" />
     <Content Include="Content\img\logo.svg" />
+    <Content Include="Content\img\blob-footer.svg" />
     <Content Include="Content\styles\main.css">
       <DependentUpon>main.scss</DependentUpon>
     </Content>
@@ -181,6 +181,7 @@
     <Content Include="Content\styles\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
+    <Content Include="favicon-16x16.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
