@@ -614,13 +614,19 @@ html {
   height: 100%; }
 
 body {
-  background: url("../img/blob-top.svg") #fff;
-  background-position: calc(100%) -200px;
-  background-repeat: no-repeat;
-  z-index: -1;
   min-height: 100%;
   display: flex;
   flex-direction: column; }
+
+.bg-blob-top {
+  background: url("../img/blob-top.svg") #fff;
+  background-position: 100% -200px;
+  background-repeat: no-repeat; }
+
+.bg-blob-2 {
+  background: url("../img/blob-top.svg"), url("../img/blob-middle.svg");
+  background-position: 100% -200px, 0 80vh;
+  background-repeat: no-repeat; }
 
 .content-container {
   padding: 0 10%;
@@ -633,7 +639,7 @@ body {
     margin-bottom: 4rem; }
 
 @media only screen and (max-width: 768px) {
-  body {
+  .bg-blob-top, .bg-blob-2 {
     background: none; }
   .content-container {
     margin-top: 8rem; } }
@@ -700,6 +706,83 @@ $font-size-lg: 1.138rem; 18.22px
     justify-content: flex-end; }
     .footer .copyright {
       right: 0; } }
+
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto; }
+
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  /*grid-template-columns: repeat(auto-fit, minmax(100px, 200px));*/
+  column-gap: 2rem;
+  width: 100%;
+  margin-bottom: 4rem; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+  margin-top: 1rem; }
+  .form-group label {
+    margin-bottom: 0.4rem; }
+  .form-group input {
+    font-size: 0.833rem;
+    border: 1px solid #9F9999;
+    border-radius: 20px;
+    padding: 0.5rem 0.7rem; }
+  .form-group input:focus {
+    outline: none !important;
+    border: 1px solid #9b51e0;
+    transition: 0.5s; }
+
+.single-col .form-group {
+  width: 18rem; }
+
+.single-col .form-btns {
+  align-self: center;
+  width: 18rem; }
+
+.single-col .forgot-password {
+  display: block;
+  padding: 1rem 0;
+  font-size: 0.833rem;
+  color: #333333; }
+  .single-col .forgot-password:hover {
+    color: #9747e1; }
+
+@media only screen and (min-width: 1024px) {
+  .form-section {
+    justify-content: center;
+    grid-template-columns: 18rem 18rem 18rem; } }
 
 /*MINOR THIRD*/
 /*2.986em (47.78px) A Visual Type Scale
@@ -955,17 +1038,3 @@ $font-size-lg: 1.138rem; 18.22px
 $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
-.single-col .form-group {
-  width: 18rem; }
-
-.single-col .form-btns {
-  align-self: center;
-  width: 18rem; }
-
-.single-col .forgot-password {
-  display: block;
-  padding: 1rem 0;
-  font-size: 0.833rem;
-  color: #333333; }
-  .single-col .forgot-password:hover {
-    color: #9747e1; }

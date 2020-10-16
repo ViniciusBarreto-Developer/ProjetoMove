@@ -7,14 +7,23 @@ html {
 }
 
 body {
-    background: url('../img/blob-top.svg') #fff;
-    background-position: calc(100%) -200px;
-    background-repeat: no-repeat;
-    z-index: -1;
+    
     min-height: 100%;
     //com margin-top: auto no footer empurra o footer para o fim da pg
     display: flex;
     flex-direction: column;
+}
+
+.bg-blob-top {
+    background: url('../img/blob-top.svg') #fff;
+    background-position: 100% -200px;
+    background-repeat: no-repeat;
+}
+
+.bg-blob-2 {
+    background: url('../img/blob-top.svg'), url('../img/blob-middle.svg');
+    background-position: 100% -200px, 0 80vh;
+    background-repeat: no-repeat;
 }
 
 .content-container {
@@ -31,7 +40,7 @@ body {
 }
 
 @include medium-max() {
-    body {
+    .bg-blob-top, .bg-blob-2 {
         background: none;
     }
 
