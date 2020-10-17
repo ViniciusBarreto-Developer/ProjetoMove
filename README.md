@@ -17,10 +17,9 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [C#](https://docs.microsoft.com/pt-br/dotnet/csharp/)
 - [.NET Framework](https://dotnet.microsoft.com/apps/aspnet)
 - [Entity Framework](https://docs.microsoft.com/pt-br/ef/)
-- [Sass](https://sass-lang.com/)
+- [SCSS](https://sass-lang.com/)
 - [MySQL](https://www.mysql.com/)
 
 
