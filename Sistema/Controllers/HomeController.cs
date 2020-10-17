@@ -13,7 +13,7 @@ namespace Sistema.Controllers
     public class HomeController : Controller
     {
         Contexto db = new Contexto();
-        public ActionResult Index()
+        public ActionResult Principal()
         {
             return View();
         }
@@ -66,7 +66,7 @@ namespace Sistema.Controllers
 
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Principal");
 
             }
             return View(cad);
@@ -74,7 +74,7 @@ namespace Sistema.Controllers
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return RedirectToAction("Principal");
         }
         public ActionResult Acesso()
         {
@@ -97,7 +97,7 @@ namespace Sistema.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Principal", "Home");
             }
             else
             {
@@ -175,7 +175,7 @@ namespace Sistema.Controllers
                     msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
                     Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
                     TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Principal");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View();
@@ -202,19 +202,19 @@ namespace Sistema.Controllers
                             return View(red);
                         }
                         TempData["MSG"] = "warning|Esse link já expirou!";
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Principal");
                     }
                     catch
                     {
                         TempData["MSG"] = "error|Hash inválida!";
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Principal");
                     }
                 }
                 TempData["MSG"] = "error|Hash inválida!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Principal");
             }
             TempData["MSG"] = "error|Acesso inválido!";
-            return RedirectToAction("Index");
+            return RedirectToAction("Principal");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -231,18 +231,13 @@ namespace Sistema.Controllers
                     db.Entry(usu).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["MSG"] = "success|Senha redefinida com sucesso!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Principal");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View(red);
             }
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
-        }
-
-        public ActionResult Inicial()
-        {
-            return View();
-        }
+        }        
     }
 }

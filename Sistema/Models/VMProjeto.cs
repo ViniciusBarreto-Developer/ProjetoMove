@@ -6,9 +6,10 @@ using System.Web;
 
 namespace Sistema.Models
 {
-    public class VMProjeto
+    public class PesquisarProjetos
     {
         [Required]
-        public string NomeTag { get; set; }
+        [Display(Name = "")]
+        public string Palavra { get; set; }
     }
 }
