@@ -28,12 +28,12 @@ namespace Sistema.Controllers
             cad.NomeSocial = usu.NomeSocial;
             cad.DataNascimento = usu.DataNascimento;
             cad.Cpf = usu.Cpf;
-            
+
             cad.Email = usu.Email;
             cad.EmailRecuperacao = usu.EmailRecuperacao;
             cad.Senha = "";
             cad.ConfirmaSenha = "";
-            
+
             return View(cad);
         }
         [HttpPost]
@@ -77,7 +77,7 @@ namespace Sistema.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult Acesso()
-        {            
+        {
             return View();
         }
         [HttpPost]
@@ -89,14 +89,14 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null)
             {
-                if(usu.NomeSocial == null || usu.NomeSocial == "")
+                if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
                     FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.Nome, false);
                 }
                 else
                 {
                     FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
-                }                
+                }
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -173,7 +173,7 @@ namespace Sistema.Controllers
                     db.SaveChanges();
                     string msg = "<h3>Sistema</h3>";
                     msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
-                Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
+                    Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
                     TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
                     return RedirectToAction("Index");
                 }
@@ -238,6 +238,11 @@ namespace Sistema.Controllers
             }
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
+        }
+
+        public ActionResult Inicial()
+        {
+            return View();
         }
     }
 }

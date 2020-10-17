@@ -2,10 +2,11 @@
     //ViewBag.Title = "Home Page";
 }
 
+
+
 @if (User.Identity.IsAuthenticated)
 {
-    string[] user = User.Identity.Name.Split('|');
-    <h1>Bem vinde, @user[1]</h1>
+  
 }
 
 
