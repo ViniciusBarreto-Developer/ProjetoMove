@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVE @ViewBag.Title</title>
@@ -12,6 +13,23 @@
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body>
+    <style>
+        .iconify
+        {
+            width: 20px;
+            height: 20px;
+        }
+
+        .copyright
+        {
+           font-family: 10px;          
+        }
+
+        .footer
+        {
+            margin-top: 100px;
+        }
+    </style>
     <header>
         <nav class="navbar">
             <a href='@Url.Action("Principal", "Home")' class="navbar-logo">
@@ -51,11 +69,11 @@
                 <a href="#"><span class="iconify" data-icon="tabler:mail" data-inline="false"></span></a>
             </li>
         </ul>
-        
+
         <div class="copyright">
-            <p>Copyright by MOVE</p>
+            Copyright by MOVE
         </div>
-        
+
         <div></div>
     </footer>
     @Scripts.Render("~/bundles/jquery")

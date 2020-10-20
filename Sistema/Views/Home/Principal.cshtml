@@ -1,30 +1,104 @@
-﻿@model Sistema.Models.PesquisarProjetos
-
+﻿
+@model Sistema.Models.PesquisarProjetos
 @{
     ViewBag.Title = "Principal";
 }
+<style>
 
-@using (Html.BeginForm()) 
+    .mensagem {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    p {
+        font-family: arial;
+    }
+
+    .texto {
+        width: 30rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .imagem img{
+        width: 100%;
+    }
+
+    .flex {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .pesquisa-btn {
+        padding: 8px;
+        border-radius: 50%;
+        background-color: #05f296;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+
+    .search {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .botao {
+        align-self:flex-end;
+        margin-left: 1rem;
+    }
+</style>
+
+<div class="flex">
+    <div class="texto">
+        <p>
+            A plataforma online em  que você cadastra seu projeto de qualquer segmento
+            e encontra parceiros e investidores para alavancar e tirar sua idéia do papel.
+            Bora mover?
+        </p>
+    </div>
+
+    <div class="imagem">
+        <img src="~/imagens/img.svg" alt="imagem sucesso">
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Pesquisar Projetos</h4>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Palavra, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+    <div class="form single-col">
+        <div class="search">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Palavra, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Palavra, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Palavra, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="botao">
+                <button type="submit" class="pesquisa-btn">
+                    <span class="iconify" data-icon="tabler:search" data-inline="false"></span>
+                </button>
             </div>
         </div>
     </div>
 }
+    <ul class="tag-group">
+        <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+        <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+        <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+        <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+    </ul>
 
+<div class="mensagem">
+    <p>Os projetos com as tags que você pesquisar aparecerão bem aqui ;)</p>
+</div>
