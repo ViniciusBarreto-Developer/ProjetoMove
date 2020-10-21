@@ -1,0 +1,104 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.profile-bg {
+    background: url('~/Content/img/bg-profile.svg') $primary-color no-repeat;
+    background-position: 50% -100px;
+}
+
+.profile-section {
+    padding-bottom: 2rem;
+
+    .bg {
+        width: 100%;
+        height: 35vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $primary-color;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+
+    .username {
+        font-size: $font-size-title;
+        text-align: center;
+        margin-bottom: 2rem !important;
+    }
+
+    .profile-info {
+        display: grid;
+        /*grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+       grid-template-rows: 1fr 1fr;*/
+        grid-template-areas: 'email email' 'bio bio';
+        grid-row-gap: 2rem;
+
+        .bio {
+            grid-area: bio;
+            width: 50%;
+            position: relative;
+            margin: 0 auto;
+            vertical-align: text-top;
+
+            .bio-text {
+                justify-self: center;
+            }
+
+            .edit-bio {
+                position: absolute;
+                bottom: 0;
+                right: -$font-size-title;
+                text-align: right;
+                font-size: $font-size-title;
+                color: $text-color;
+            }
+        }
+    }
+
+    .profile-interests {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 3rem;
+
+        .tag-group {
+            max-width: 40%;
+        }
+    }
+
+    .my-projects-title {
+        font-size: $font-size-xl;
+        display: inline;
+        text-align: left;
+    }
+}
+
+
+
+.projects-section {
+    width: 100%;
+    background: $background-color;
+    padding: 2% 0;
+}
+
+@include medium-max() {
+    .profile-section .profile-info .bio {
+        width: 100%;
+    }
+
+    .profile-section .profile-interests .tag-group {
+        max-width: 100%;
+    }
+}
+
+@include small-max() {
+    .profile-section .profile-interests {
+        justify-content: center;
+    }
+}
+
+@include large-min() {
+    .projects-section {
+        grid-template-columns: repeat(3, minmax(300px, 1fr));
+    }
+}

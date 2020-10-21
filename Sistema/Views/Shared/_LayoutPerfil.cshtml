@@ -11,7 +11,8 @@
     @Scripts.Render("~/scripts/script.js")
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
-<body class="bg-blob-top">
+
+<body>
     <header>
         <nav class="navbar">
             <a href='@Url.Action("Index", "Home")' class="navbar-logo">
@@ -20,25 +21,16 @@
             </a>
 
             <ul class="navbar-list">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    string[] user = User.Identity.Name.Split('*');
-
-                    <li>@Html.ActionLink(user[1], "EditarUsuario", "Home")</li>
-                    <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
-
-                }
-                else
-                {
-                    <li>@Html.ActionLink("Cadastro", "Cadastro", "Home")</li>
-                    <li>@Html.ActionLink("Entrar", "Acesso", "Home")</li>
-                }
+                <li>@Html.ActionLink("Descobrir", "Index", "Home")</li>
+                <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
             </ul>
         </nav>
     </header>
-    <div class="content-container">
+
+    <div class="">
         @RenderBody()
     </div>
+
     <footer class="footer">
         <ul class="socials">
             <li>
@@ -51,19 +43,19 @@
                 <a href="#"><span class="iconify" data-icon="tabler:mail" data-inline="false"></span></a>
             </li>
         </ul>
-        
+
         <div class="copyright">
             <p>Copyright by MOVE</p>
         </div>
-        
+
         <div></div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @*<script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
-            referrerpolicy="origin"></script>
-    <script>tinymce.init({ selector: 'textarea' });</script>*@
+                referrerpolicy="origin"></script>
+        <script>tinymce.init({ selector: 'textarea' });</script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
 
     @if (TempData["MSG"] != null)
@@ -98,3 +90,4 @@
     }
 </body>
 </html>
+

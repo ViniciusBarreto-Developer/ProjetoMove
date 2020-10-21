@@ -164,6 +164,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\bg-profile.svg" />
     <Content Include="Content\img\blob-bg.svg" />
     <Content Include="Content\img\blob-middle.svg" />
     <Content Include="Content\img\blob-top.svg" />
@@ -209,6 +210,8 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\styles\components\_forms.scss" />
+    <Content Include="Content\styles\pages\_meuperfil.scss" />
+    <Content Include="Content\styles\components\_cards.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -242,6 +245,7 @@
     <Content Include="Views\Home\EsqueceuSenha.cshtml" />
     <Content Include="Views\Home\Redefinir.cshtml" />
     <Content Include="Views\Home\MeuPerfil.cshtml" />
+    <Content Include="Views\Shared\_LayoutPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

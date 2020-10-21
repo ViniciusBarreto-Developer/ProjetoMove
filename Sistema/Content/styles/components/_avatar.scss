@@ -1,7 +1,19 @@
 ﻿@import '../abstracts/_variables.scss';
 
 .profile-pic {
-    width: 16rem;
+    max-width: 16rem;
+    /*display: flex;
+    justify-content: center;*/
+    margin: 0 auto 1rem auto;
+    position: relative;
+}
+
+.profile-pic-edit {
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+    font-size: $font-size-title;
+    color: $text-color;
 }
 
 .profile-pic-mini {
@@ -11,4 +23,6 @@
 .circle-pic {
     border-radius: 50%;
     width: 100%;
+    
 }
+

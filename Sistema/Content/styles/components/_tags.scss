@@ -3,54 +3,53 @@
 
 
 .tag-group {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
     border-radius: 30px;
     background: $neutral-color;
-    width: fit-content;
-    margin: 4rem auto;
-
-    :not(:last-of-type) {
-        margin-right: -0.8rem; //must be equal to horizontal padding of the .tag * -1
-    }
-
-    .tag-container {
-        padding: 0.5rem 1rem;
-        transition: filter 0.3s;
-
-        :hover {
-            filter: brightness(99%);
-        }
-
-        .tag {
-            display: flex;
-            border: 1px solid $border-color;
-            border-radius: 30px;
-            padding: 0.2rem 1rem;
-            width: fit-content;
-            background: #fff;
-
-            p {
-                font-size: $font-size-sm;
-            }
-
-            svg {
-                width: $font-size-sm;
-                margin-left: 0.4rem;
-                cursor: pointer;
-            }
-        }
+    margin-top: 2rem;
+    padding: 0 0.25rem 0.5rem 0.25rem;
+    //:not(:last-of-type) {
+    //margin-right: -1rem; //must be equal to horizontal padding of the .tag * -1
+    //}
+    .iconify {
+        font-size: $font-size-lg;
+        margin-left: 0.4rem;
+        cursor: pointer;
     }
 }
 
+.tag-container {
+    display: inline-flex;
+    padding: 0.5rem 0.25rem 0 0.25rem;
+    transition: filter 0.3s;
+
+
+
+    .tag {
+        display: flex;
+        border: 1px solid $border-color;
+        border-radius: 30px;
+        padding: 0.2rem 0.5rem;
+        background: #fff;
+        font-size: $font-size-sm;
+
+        .tag-text {
+            line-height: 1.3rem;
+            vertical-align: bottom;
+        }
+
+        
+    }
+}
+
+
 .interests {
     background: $secondary-color;
-    padding-right: 2rem;
-    min-width: 80px;
-    width: 80px;
+    padding-right: 1rem;
     position: relative;
-
 
     .add-tag {
         display: flex;
@@ -67,5 +66,8 @@
         color: #fff;
         font-size: $font-size-xl;
         cursor: pointer;
+        .iconify {
+            margin: 0;
+        }
     }
 }

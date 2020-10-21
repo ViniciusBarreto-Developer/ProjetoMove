@@ -17,6 +17,8 @@ namespace Sistema.Controllers
         {
             return View();
         }
+
+       
         public ActionResult EditarUsuario()
         {
             string[] user = User.Identity.Name.Split('*');
@@ -238,6 +240,11 @@ namespace Sistema.Controllers
             }
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
+        }
+
+        public ActionResult MeuPerfil()
+        {
+            return View();
         }
     }
 }

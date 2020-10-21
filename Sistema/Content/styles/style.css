@@ -515,6 +515,7 @@ $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
 .navbar {
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -632,11 +633,10 @@ body {
   padding: 0 10%;
   margin-top: 8rem;
   height: auto;
-  min-height: 100%; }
-  .content-container h1, .content-container h2, .content-container h3, .content-container h4, .content-container h4, .content-container h6 {
-    font-size: 2.074rem;
-    text-align: center;
-    margin-bottom: 4rem; }
+  min-height: 100%;
+  /*h1, h2, h3, h4, h4, h6 {
+        font-size: $font-size-title;
+    }*/ }
 
 @media only screen and (max-width: 768px) {
   .bg-blob-top, .bg-blob-2 {
@@ -798,7 +798,18 @@ $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
 .profile-pic {
-  width: 16rem; }
+  max-width: 16rem;
+  /*display: flex;
+    justify-content: center;*/
+  margin: 0 auto 1rem auto;
+  position: relative; }
+
+.profile-pic-edit {
+  position: absolute;
+  bottom: 1rem;
+  right: 0;
+  font-size: 2.074rem;
+  color: #333333; }
 
 .profile-pic-mini {
   width: 3rem; }
@@ -834,7 +845,8 @@ $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
 a.btn {
-  display: block; }
+  display: block;
+  line-height: 1.15; }
 
 .btn, .swal2-styled.swal2-confirm {
   border: none;
@@ -913,39 +925,37 @@ $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
 .tag-group {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   border-radius: 30px;
   background: #eee9e9;
-  width: fit-content;
-  margin: 4rem auto; }
-  .tag-group :not(:last-of-type) {
-    margin-right: -0.8rem; }
-  .tag-group .tag-container {
-    padding: 0.5rem 1rem;
-    transition: filter 0.3s; }
-    .tag-group .tag-container :hover {
-      filter: brightness(99%); }
-    .tag-group .tag-container .tag {
-      display: flex;
-      border: 1px solid #9F9999;
-      border-radius: 30px;
-      padding: 0.2rem 1rem;
-      width: fit-content;
-      background: #fff; }
-      .tag-group .tag-container .tag p {
-        font-size: 0.833rem; }
-      .tag-group .tag-container .tag svg {
-        width: 0.833rem;
-        margin-left: 0.4rem;
-        cursor: pointer; }
+  margin-top: 2rem;
+  padding: 0 0.25rem 0.5rem 0.25rem; }
+  .tag-group .iconify {
+    font-size: 1.2rem;
+    margin-left: 0.4rem;
+    cursor: pointer; }
+
+.tag-container {
+  display: inline-flex;
+  padding: 0.5rem 0.25rem 0 0.25rem;
+  transition: filter 0.3s; }
+  .tag-container .tag {
+    display: flex;
+    border: 1px solid #9F9999;
+    border-radius: 30px;
+    padding: 0.2rem 0.5rem;
+    background: #fff;
+    font-size: 0.833rem; }
+    .tag-container .tag .tag-text {
+      line-height: 1.3rem;
+      vertical-align: bottom; }
 
 .interests {
   background: #9b51e0;
-  padding-right: 2rem;
-  min-width: 80px;
-  width: 80px;
+  padding-right: 1rem;
   position: relative; }
   .interests .add-tag {
     display: flex;
@@ -962,6 +972,8 @@ $font-size-lg: 1.138rem; 18.22px
     color: #fff;
     font-size: 1.44rem;
     cursor: pointer; }
+    .interests .add-tag .iconify {
+      margin: 0; }
 
 /*MINOR THIRD*/
 /*2.986em (47.78px) A Visual Type Scale
@@ -989,52 +1001,142 @@ $font-size-lg: 1.138rem; 18.22px
 $font-size-normal: 1rem; 16px
 $font-size-lg: 1.138rem; 18.22px
 */
-.form {
+.project-group {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto; }
+  flex-wrap: wrap;
+  justify-content: space-evenly; }
 
-.form-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  /*grid-template-columns: repeat(auto-fit, minmax(100px, 200px));*/
-  column-gap: 2rem;
+.card-container {
+  padding: 1rem 0; }
+
+.project-card {
+  width: 360px;
+  height: 480px;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-radius: 60px;
+  background: #fff; }
+  .project-card a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; }
+  .project-card .card-img {
+    border-radius: 30px;
+    width: 100%;
+    height: 200px;
+    overflow: hidden; }
+    .project-card .card-img img {
+      width: 100%; }
+  .project-card .card-title {
+    font-size: 1.2rem;
+    margin: 1rem 0 1rem 0;
+    color: #333333; }
+  .project-card .card-text {
+    text-align: left;
+    color: #333333; }
+  .project-card .card-tags {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    color: #333333;
+    vertical-align: bottom;
+    width: 100%; }
+
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+.profile-bg {
+  background: url("~/Content/img/bg-profile.svg") #05f296 no-repeat;
+  background-position: 50% -100px; }
+
+.profile-section {
+  padding-bottom: 2rem; }
+  .profile-section .bg {
+    width: 100%;
+    height: 35vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #05f296;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px; }
+  .profile-section .username {
+    font-size: 2.074rem;
+    text-align: center;
+    margin-bottom: 2rem !important; }
+  .profile-section .profile-info {
+    display: grid;
+    /*grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+       grid-template-rows: 1fr 1fr;*/
+    grid-template-areas: 'email email' 'bio bio';
+    grid-row-gap: 2rem; }
+    .profile-section .profile-info .bio {
+      grid-area: bio;
+      width: 50%;
+      position: relative;
+      margin: 0 auto;
+      vertical-align: text-top; }
+      .profile-section .profile-info .bio .bio-text {
+        justify-self: center; }
+      .profile-section .profile-info .bio .edit-bio {
+        position: absolute;
+        bottom: 0;
+        right: -2.074rem;
+        text-align: right;
+        font-size: 2.074rem;
+        color: #333333; }
+  .profile-section .profile-interests {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 3rem; }
+    .profile-section .profile-interests .tag-group {
+      max-width: 40%; }
+  .profile-section .my-projects-title {
+    font-size: 1.44rem;
+    display: inline;
+    text-align: left; }
+
+.projects-section {
   width: 100%;
-  margin-bottom: 4rem; }
+  background: #EEE;
+  padding: 2% 0; }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 30%;
-  margin-top: 1rem; }
-  .form-group label {
-    margin-bottom: 0.4rem; }
-  .form-group input {
-    font-size: 0.833rem;
-    border: 1px solid #9F9999;
-    border-radius: 20px;
-    padding: 0.5rem 0.7rem; }
-  .form-group input:focus {
-    outline: none !important;
-    border: 1px solid #9b51e0;
-    transition: 0.5s; }
+@media only screen and (max-width: 768px) {
+  .profile-section .profile-info .bio {
+    width: 100%; }
+  .profile-section .profile-interests .tag-group {
+    max-width: 100%; } }
+
+@media only screen and (max-width: 480px) {
+  .profile-section .profile-interests {
+    justify-content: center; } }
 
 @media only screen and (min-width: 1024px) {
-  .form-section {
-    justify-content: center;
-    grid-template-columns: 18rem 18rem 18rem; } }
-
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
+  .projects-section {
+    grid-template-columns: repeat(3, minmax(300px, 1fr)); } }

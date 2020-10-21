@@ -1,7 +1,7 @@
 ﻿
 
 @import 'abstracts/variables';
-@import 'abstracts/_mixins.scss';
+@import 'abstracts/mixins';
 
 @import 'base/normalize';
 @import 'base/reset';
@@ -17,9 +17,9 @@
 @import 'components/buttons';
 @import 'components/errors';
 @import 'components/tags';
+@import 'components/cards';
 
-@import 'pages/cadastro-user';
-@import 'pages/login.scss';
+@import 'pages/meuperfil';
 
 
 
