@@ -1,0 +1,52 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+
+.flex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .texto {
+        width: 30rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .imagem img {
+        width: 100%;
+    }
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .form-group {
+        margin-right: 1rem;
+    }
+
+    .botao {
+        align-self: flex-end;
+
+        .pesquisa-btn {
+            padding: 8px;
+            border-radius: 50%;
+            background-color: $primary-color;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+    }
+}
+
+.mensagem {
+    font-size: 15px;
+    text-align: center;
+}

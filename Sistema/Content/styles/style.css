@@ -787,6 +787,16 @@ a.btn {
   .form-btns :not(:first-child) {
     margin-left: 20%; }
 
+.pesquisa-btn {
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: #05f296;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 /*MINOR THIRD*/
 /*2.986em (47.78px) A Visual Type Scale
 2.488em (39.81px) A Visual Type Scale
@@ -969,3 +979,65 @@ $font-size-lg: 1.138rem; 18.22px
   color: #333333; }
   .single-col .forgot-password:hover {
     color: #9747e1; }
+
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+/*MINOR THIRD*/
+/*2.986em (47.78px) A Visual Type Scale
+2.488em (39.81px) A Visual Type Scale
+2.074em (33.18px) A Visual Type Scale
+1.728em (27.65px) A Visual Type Scale
+1.44em (23.04px) A Visual Type Scale
+1.2em (19.20px) A Visual Type Scale
+1em (16.00px) A Visual Type Scale
+0.833em (13.33px) A Visual Type Scale*/
+/*$font-size-sm: 0.937rem; 15px
+$font-size-normal: 1rem; 16px
+$font-size-lg: 1.138rem; 18.22px
+*/
+.flex {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .flex .texto {
+    width: 30rem;
+    text-align: center;
+    margin-bottom: 2rem; }
+  .flex .imagem img {
+    width: 100%; }
+
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .search .form-group {
+    margin-right: 1rem; }
+  .search .botao {
+    align-self: flex-end; }
+    .search .botao .pesquisa-btn {
+      padding: 8px;
+      border-radius: 50%;
+      background-color: #05f296;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none; }
+
+.mensagem {
+  font-size: 15px;
+  text-align: center; }
