@@ -87,9 +87,8 @@
 @include medium-max() {
     .navbar {
         background: #fff;
-        height: auto;
         position: fixed;
-        top: 0;
+
 
 
         .navbar-list li a {
@@ -97,3 +96,4 @@
         }
     }
 }
+

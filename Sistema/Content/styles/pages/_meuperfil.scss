@@ -79,7 +79,12 @@
     width: 100%;
     background: $background-color;
     padding: 2% 0;
+
+    .glider-contain {
+        width: 80%;
+    }
 }
+
 
 @include medium-max() {
     .profile-section .profile-info .bio {

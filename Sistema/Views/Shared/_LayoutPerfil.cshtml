@@ -7,8 +7,8 @@
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
     @Styles.Render("~/content/styles/style.min.css")
-    @Scripts.Render("~/scripts/script.js")
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 
@@ -54,6 +54,11 @@
 
         <div></div>
     </footer>
+
+    @Scripts.Render("~/scripts/script.js")
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -92,6 +97,47 @@
             });
         </script>
     }
+    <script>
+        window.addEventListener('load', function () {
+            new Glider(document.querySelector('.glider'), {
+                // Mobile-first defaults
+                slidesToShow: 'auto',
+                slidesToScroll: 1,
+                itemWidth: 300,
+                exactWidth: true,
+                scrollLock: true,
+                draggable: true,
+                dots: '#resp-dots',
+                arrows: {
+                    prev: '.glider-prev',
+                    next: '.glider-next'
+                },
+                responsive: [
+                    {
+                        // screens greater than >= 775px
+                        breakpoint: 768,
+                        settings: {
+                            // Set to `auto` and provide item width to adjust to viewport
+                            slidesToShow: 'auto',
+                            slidesToScroll: 1,
+                            itemWidth: 360,
+                            duration: 0.25
+                        }
+                    }, {
+                        // screens greater than >= 1024px
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 'auto',
+                            slidesToScroll: 1,
+                            itemWidth: 360,
+                            exactWidth: false,
+                            duration: 0.5
+                        }
+                    }
+                ]
+            })
+        });
+    </script>
 </body>
 </html>
 
