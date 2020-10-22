@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVE @ViewBag.Title</title>
@@ -13,7 +13,7 @@
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body class="bg-blob-top">
-    <header>
+    <header id="top">
         <nav class="navbar">
             <a href='@Url.Action("Principal", "Home")' class="navbar-logo">
                 @*<img src='@Url.Content("~/Content/Images/MyLinkImage.png")' />*@
@@ -40,6 +40,11 @@
     <div class="content-container">
         @RenderBody() @*Entra o conteudo das paginas filhas*@
     </div>
+
+    <div class="back-to-top hidden">
+        <a href="#"><span class="iconify" data-icon="tabler:arrow-up" data-inline="false"></span></a>
+    </div>
+
     <footer class="footer">
         <ul class="socials">
             <li>
@@ -63,8 +68,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @*<script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
-            referrerpolicy="origin"></script>
-    <script>tinymce.init({ selector: 'textarea' });</script>*@
+                referrerpolicy="origin"></script>
+        <script>tinymce.init({ selector: 'textarea' });</script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
 
     @if (TempData["MSG"] != null)

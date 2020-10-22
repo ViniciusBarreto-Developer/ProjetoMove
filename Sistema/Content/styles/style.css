@@ -1,30 +1,4 @@
-﻿/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+﻿/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
 /**
@@ -470,52 +444,14 @@ a {
 li {
   list-style: none; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 body {
   font-family: 'Roboto', sans-serif;
   color: #333333;
   font-size: 1rem; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .navbar {
-  z-index: 5;
+  position: absolute;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -523,8 +459,8 @@ $font-size-lg: 1.138rem; 18.22px
   margin-bottom: auto;
   padding: 0.5rem 4rem 0.5rem 4rem;
   transition: background-color 0.2s;
-  position: fixed;
-  top: 0; }
+  /*position: fixed;
+    top: 0;*/ }
   .navbar .navbar-logo {
     width: 4rem; }
     .navbar .navbar-logo img {
@@ -585,34 +521,9 @@ $font-size-lg: 1.138rem; 18.22px
     .navbar .navbar-list li a {
       color: #333333; } }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 html {
-  height: 100%; }
+  height: 100%;
+  scroll-behavior: smooth; }
 
 body {
   min-height: 100%;
@@ -644,32 +555,6 @@ body {
   .content-container {
     margin-top: 8rem; } }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .footer {
   margin-top: auto;
   background: url("../img/blob-footer.svg") #fff no-repeat;
@@ -689,7 +574,7 @@ $font-size-lg: 1.138rem; 18.22px
     justify-content: flex-start; }
     .footer .socials a {
       color: #fff;
-      font-size: 2.074rem; }
+      font-size: 1.44rem; }
     .footer .socials :not(:last-child) {
       margin-right: 1rem; }
   .footer .copyright {
@@ -707,32 +592,6 @@ $font-size-lg: 1.138rem; 18.22px
     .footer .copyright {
       right: 0; } }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .form {
   display: flex;
   flex-direction: column;
@@ -784,19 +643,6 @@ $font-size-lg: 1.138rem; 18.22px
     justify-content: center;
     grid-template-columns: 18rem 18rem 18rem; } }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .profile-pic {
   max-width: 16rem;
   /*display: flex;
@@ -818,32 +664,6 @@ $font-size-lg: 1.138rem; 18.22px
   border-radius: 50%;
   width: 100%; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 a.btn {
   display: block;
   line-height: 1.15; }
@@ -892,19 +712,6 @@ a.btn {
   justify-content: center;
   align-items: center; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .validation-summary-error {
   background: #ff9090;
   border-radius: 30px;
@@ -921,19 +728,6 @@ $font-size-lg: 1.138rem; 18.22px
   margin-top: 0.5rem;
   padding: 0.5rem; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .tag-group {
   display: inline-flex;
   flex-direction: row;
@@ -985,32 +779,6 @@ $font-size-lg: 1.138rem; 18.22px
     .interests .add-tag .iconify {
       margin: 0; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .project-group {
   display: flex;
   flex-wrap: wrap;
@@ -1054,32 +822,36 @@ $font-size-lg: 1.138rem; 18.22px
     vertical-align: bottom;
     width: 100%; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
+.back-to-top {
+  display: flex;
+  align-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  /*margin-left: $nav-padding-x;*/
+  border-radius: 50%;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
+  position: fixed;
+  bottom: 20%;
+  left: 4rem;
+  z-index: 10;
+  background: #eee9e9;
+  transition: transform 0.3s; }
+  .back-to-top:hover {
+    transform: scale(1.02); }
+  .back-to-top a {
+    text-align: center;
+    width: 100%;
+    line-height: 1.15rem;
+    font-size: 1.44rem;
+    color: #333333; }
+
+@media only screen and (max-width: 768px) {
+  .back-to-top {
+    display: none; } }
+
+.hidden {
+  display: none; }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -1116,32 +888,6 @@ $font-size-lg: 1.138rem; 18.22px
     justify-content: center;
     grid-template-columns: 18rem 18rem 18rem; } }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .flex {
   width: 100%;
   display: flex;
@@ -1182,32 +928,6 @@ $font-size-lg: 1.138rem; 18.22px
   font-size: 15px;
   text-align: center; }
 
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
-/*MINOR THIRD*/
-/*2.986em (47.78px) A Visual Type Scale
-2.488em (39.81px) A Visual Type Scale
-2.074em (33.18px) A Visual Type Scale
-1.728em (27.65px) A Visual Type Scale
-1.44em (23.04px) A Visual Type Scale
-1.2em (19.20px) A Visual Type Scale
-1em (16.00px) A Visual Type Scale
-0.833em (13.33px) A Visual Type Scale*/
-/*$font-size-sm: 0.937rem; 15px
-$font-size-normal: 1rem; 16px
-$font-size-lg: 1.138rem; 18.22px
-*/
 .profile-bg {
   background: url("~/Content/img/bg-profile.svg") #05f296 no-repeat;
   background-position: 50% -100px; }
