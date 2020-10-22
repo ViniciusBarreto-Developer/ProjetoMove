@@ -3,7 +3,8 @@
 
 
 .navbar {
-    z-index: 5;
+    position: absolute;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,8 +12,8 @@
     margin-bottom: auto;
     padding: 0.5rem $nav-padding-x 0.5rem $nav-padding-x;
     transition: background-color 0.2s;
-    position: fixed;
-    top: 0;
+    /*position: fixed;
+    top: 0;*/
 
 
     .navbar-logo {
@@ -28,9 +29,6 @@
         display: flex;
         list-style: none;
         margin-left: auto;
-        //:last-child {
-        //  margin-left: 4vw;
-        //}
         li:not(:first-of-type) {
             margin-left: $nav-items-spacing;
         }

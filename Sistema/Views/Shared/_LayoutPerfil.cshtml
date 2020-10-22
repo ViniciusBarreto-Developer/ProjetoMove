@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header>
+    <header id="top">
         <nav class="navbar">
             <a href='@Url.Action("Index", "Home")' class="navbar-logo">
                 @*<img src='@Url.Content("~/Content/Images/MyLinkImage.png")' />*@
@@ -21,7 +21,7 @@
             </a>
 
             <ul class="navbar-list">
-                <li>@Html.ActionLink("Descobrir", "Index", "Home")</li>
+                <li>@Html.ActionLink("Descobrir", "Principal", "Home")</li>
                 <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
             </ul>
         </nav>
@@ -29,6 +29,10 @@
 
     <div class="">
         @RenderBody()
+    </div>
+
+    <div class="back-to-top hidden">
+        <a href="#"><span class="iconify" data-icon="tabler:arrow-up" data-inline="false"></span></a>
     </div>
 
     <footer class="footer">
