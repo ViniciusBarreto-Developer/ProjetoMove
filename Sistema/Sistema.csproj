@@ -158,6 +158,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTag.cs" />
+    <Compile Include="Models\VMProjeto.cs" />
     <Compile Include="Models\VMUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -209,6 +210,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\styles\pages\_principal.scss" />
     <Content Include="Content\styles\components\_forms.scss" />
     <Content Include="Content\styles\pages\_meuperfil.scss" />
     <Content Include="Content\styles\components\_cards.scss" />
@@ -236,7 +238,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Acesso.cshtml" />
     <Content Include="Views\Home\Cadastro.cshtml" />
@@ -244,6 +245,7 @@
     <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Home\EsqueceuSenha.cshtml" />
     <Content Include="Views\Home\Redefinir.cshtml" />
+    <Content Include="Views\Home\Principal.cshtml" />
     <Content Include="Views\Home\MeuPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutPerfil.cshtml" />
   </ItemGroup>

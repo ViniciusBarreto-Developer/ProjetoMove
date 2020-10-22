@@ -49,3 +49,14 @@ a.btn {
     }
 }
 
+.pesquisa-btn{
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: $primary-color;
+    color: white;
+    font-size: $font-size-lg;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+

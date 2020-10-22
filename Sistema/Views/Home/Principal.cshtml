@@ -1,0 +1,52 @@
+﻿
+@model Sistema.Models.PesquisarProjetos
+@{
+    ViewBag.Title = "Principal";
+}
+
+<div class="flex">
+    <div class="texto">
+        <p>
+            A plataforma online em  que você cadastra seu projeto de qualquer segmento
+            e encontra parceiros e investidores para alavancar e tirar sua idéia do papel.
+            Bora mover?
+        </p>
+    </div>
+
+    <div class="imagem">
+        <img src="~/Content/img/hero.svg" alt="imagem sucesso">
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form single-col">
+        <div class="search">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Palavra, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Palavra, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Palavra, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="botao">
+                <button type="submit" class="pesquisa-btn">
+                    <span class="iconify" data-icon="tabler:search" data-inline="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<ul class="tag-group">
+    <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+    <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+    <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+    <li class="tag-container"><div class="tag"><p>Game</p></div></li>
+</ul>
+
+<div class="mensagem">
+    <p>Os projetos com as tags que você pesquisar aparecerão bem aqui ;)</p>
+</div>

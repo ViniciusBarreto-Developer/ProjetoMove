@@ -13,7 +13,7 @@ namespace Sistema.Controllers
     public class HomeController : Controller
     {
         Contexto db = new Contexto();
-        public ActionResult Index()
+        public ActionResult Principal()
         {
             return View();
         }
@@ -21,7 +21,7 @@ namespace Sistema.Controllers
        
         public ActionResult EditarUsuario()
         {
-            string[] user = User.Identity.Name.Split('*');
+            string[] user = User.Identity.Name.Split('|');
 
             Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
             Cadastro cad = new Cadastro();
@@ -30,19 +30,19 @@ namespace Sistema.Controllers
             cad.NomeSocial = usu.NomeSocial;
             cad.DataNascimento = usu.DataNascimento;
             cad.Cpf = usu.Cpf;
-            
+
             cad.Email = usu.Email;
             cad.EmailRecuperacao = usu.EmailRecuperacao;
             cad.Senha = "";
             cad.ConfirmaSenha = "";
-            
+
             return View(cad);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarUsuario(Cadastro cad)
         {
-            string[] user = User.Identity.Name.Split('*');
+            string[] user = User.Identity.Name.Split('|');
 
             if (ModelState.IsValid)
             {
@@ -59,16 +59,16 @@ namespace Sistema.Controllers
 
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.Nome, false);
+                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.Nome, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.NomeSocial, false);
+                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
                 }
 
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Principal");
 
             }
             return View(cad);
@@ -76,10 +76,10 @@ namespace Sistema.Controllers
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
+            return RedirectToAction("Principal");
         }
         public ActionResult Acesso()
-        {            
+        {
             return View();
         }
         [HttpPost]
@@ -91,15 +91,15 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null)
             {
-                if(usu.NomeSocial == null || usu.NomeSocial == "")
+                if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.Nome, false);
+                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.Nome, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "*" + usu.NomeSocial, false);
-                }                
-                return RedirectToAction("Index", "Home");
+                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
+                }
+                return RedirectToAction("Principal", "Home");
             }
             else
             {
@@ -175,9 +175,9 @@ namespace Sistema.Controllers
                     db.SaveChanges();
                     string msg = "<h3>Sistema</h3>";
                     msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
-                Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
+                    Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
                     TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Principal");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View();
@@ -204,19 +204,19 @@ namespace Sistema.Controllers
                             return View(red);
                         }
                         TempData["MSG"] = "warning|Esse link já expirou!";
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Principal");
                     }
                     catch
                     {
                         TempData["MSG"] = "error|Hash inválida!";
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Principal");
                     }
                 }
                 TempData["MSG"] = "error|Hash inválida!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Principal");
             }
             TempData["MSG"] = "error|Acesso inválido!";
-            return RedirectToAction("Index");
+            return RedirectToAction("Principal");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -233,7 +233,7 @@ namespace Sistema.Controllers
                     db.Entry(usu).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["MSG"] = "success|Senha redefinida com sucesso!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Principal");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View(red);
