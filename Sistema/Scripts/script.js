@@ -1,4 +1,4 @@
-﻿    let timer = null;
+﻿let timer = null;
 
 document.onreadystatechange = () => {
     window.onscroll = () => {

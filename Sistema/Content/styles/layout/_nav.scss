@@ -15,12 +15,11 @@
     /*position: fixed;
     top: 0;*/
 
-
     .navbar-logo {
         width: 4rem;
 
         img {
-            min-width: 4rem;
+            min-width: 3rem;
             width: 100%;
         }
     }
@@ -34,18 +33,19 @@
         }
 
         li a {
-            padding: 0.5rem 1rem;
             color: #fff;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
             white-space: nowrap;
             transition: color 0.3s, border-color 0.2s;
-            border-width: 1px;
+            border-width: 2px;
             border-style: solid;
             border-color: transparent;
             border-radius: 30px;
         }
 
         li a:hover {
-            border-width: 1px;
+            border-width: 2px;
             border-style: solid;
             border-color: #fff;
             border-radius: 30px;
@@ -54,34 +54,8 @@
     }
 }
 
-.navbar-light {
-    background-color: #fff;
-    transition: background-color 0.2s;
-
-    .navbar-list {
-        /*li a::after {
-            content: "";
-            background: $primary-color;
-            display: block;
-            height: 2px;
-            border-radius: 30px;
-            width: 0px;
-            margin: 0 auto;
-            transition: width 0.2s;
-        }
-
-        li a:hover::after {
-            width: 100%;
-        }*/
-        li a:hover {
-            border-color: $text-color;
-        }
-    }
-
-    .navbar-list li a {
-        color: $text-color;
-        transition: color 0.5s;
-    }
+.navbar.navbar-profile {
+    background: $primary-color;
 }
 
 @include medium-max() {
@@ -89,10 +63,23 @@
         background: #fff;
         position: fixed;
 
-
-
         .navbar-list li a {
             color: $text-color;
+        }
+    }
+
+    .navbar.navbar-profile {
+        .navbar-list li a {
+            color: #fff;
+        }
+    }
+}
+
+@include small-max() {
+    .navbar {
+        padding: 0.5rem 2rem;
+        .navbar-logo {
+            width: 3rem;
         }
     }
 }

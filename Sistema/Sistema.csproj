@@ -173,6 +173,7 @@
     <Content Include="Content\img\hero.svg" />
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\img\blob-footer.svg" />
+    <Content Include="Content\img\move_logoPerfil.png" />
     <Content Include="Content\styles\main.css">
       <DependentUpon>main.scss</DependentUpon>
     </Content>

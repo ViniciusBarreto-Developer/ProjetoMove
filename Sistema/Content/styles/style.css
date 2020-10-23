@@ -5,6 +5,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 html {
   line-height: 1.15;
   /* 1 */
@@ -464,7 +465,7 @@ body {
   .navbar .navbar-logo {
     width: 4rem; }
     .navbar .navbar-logo img {
-      min-width: 4rem;
+      min-width: 3rem;
       width: 100%; }
   .navbar .navbar-list {
     display: flex;
@@ -473,51 +474,39 @@ body {
     .navbar .navbar-list li:not(:first-of-type) {
       margin-left: 5vw; }
     .navbar .navbar-list li a {
-      padding: 0.5rem 1rem;
       color: #fff;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
       white-space: nowrap;
       transition: color 0.3s, border-color 0.2s;
-      border-width: 1px;
+      border-width: 2px;
       border-style: solid;
       border-color: transparent;
       border-radius: 30px; }
     .navbar .navbar-list li a:hover {
-      border-width: 1px;
+      border-width: 2px;
       border-style: solid;
       border-color: #fff;
       border-radius: 30px;
       transition: border-color 0.2s; }
 
-.navbar-light {
-  background-color: #fff;
-  transition: background-color 0.2s; }
-  .navbar-light .navbar-list {
-    /*li a::after {
-            content: "";
-            background: $primary-color;
-            display: block;
-            height: 2px;
-            border-radius: 30px;
-            width: 0px;
-            margin: 0 auto;
-            transition: width 0.2s;
-        }
-
-        li a:hover::after {
-            width: 100%;
-        }*/ }
-    .navbar-light .navbar-list li a:hover {
-      border-color: #333333; }
-  .navbar-light .navbar-list li a {
-    color: #333333;
-    transition: color 0.5s; }
+.navbar.navbar-profile {
+  background: #05f296; }
 
 @media only screen and (max-width: 768px) {
   .navbar {
     background: #fff;
     position: fixed; }
     .navbar .navbar-list li a {
-      color: #333333; } }
+      color: #333333; }
+  .navbar.navbar-profile .navbar-list li a {
+    color: #fff; } }
+
+@media only screen and (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem 2rem; }
+    .navbar .navbar-logo {
+      width: 3rem; } }
 
 html {
   height: 100%;
