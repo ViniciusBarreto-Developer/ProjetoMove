@@ -23,7 +23,7 @@ namespace Sistema.Controllers
         {
             string[] user = User.Identity.Name.Split('|');
 
-            Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
+            Usuario usu = db.Usuario.Find(Convert.ToInt32(user[2]));
             Cadastro cad = new Cadastro();
 
             cad.Nome = usu.Nome;
@@ -46,7 +46,7 @@ namespace Sistema.Controllers
 
             if (ModelState.IsValid)
             {
-                Usuario usu = db.Usuario.Find(Convert.ToInt32(user[0]));
+                Usuario usu = db.Usuario.Find(Convert.ToInt32(user[2]));
 
                 usu.Nome = cad.Nome;
                 usu.NomeSocial = cad.NomeSocial;
@@ -59,11 +59,11 @@ namespace Sistema.Controllers
 
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.Nome, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome + "|" + usu.Id, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial + "|" + usu.Id, false);
                 }
 
                 db.Usuario.AddOrUpdate(usu);
@@ -93,11 +93,11 @@ namespace Sistema.Controllers
             {
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.Nome, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome + "|" + usu.Id, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Id + "|" + usu.NomeSocial, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial + "|" + usu.Id, false);
                 }
                 return RedirectToAction("Principal", "Home");
             }

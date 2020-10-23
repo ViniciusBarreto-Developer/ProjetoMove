@@ -11,11 +11,13 @@
         <img class="circle-pic" src="https://images.generated.photos/d9cnAQBYXb01cPV7O71580U3GYQNS6bhlEXT2F4jwsw/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwOTY0MTVfMDY3/MzMwNV8wODE0NTQ0/LmpwZw.jpg" alt="Foto de perfil" />
         <a class="profile-pic-edit" href="#"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
-
-    <h1 class="username">Asa Noturna</h1>
-
+    @{
+        string[] user = User.Identity.Name.Split('|');
+    }
+        <h1 class="username">@user[1]</h1>
+    
     <div class="profile-info">
-        <p>Email: email@teste.com</p>
+        <p>@user[0]</p>
         <div class="bio">
             <p class="bio-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             <a class="edit-bio" href="#"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></a>
