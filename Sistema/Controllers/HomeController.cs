@@ -22,8 +22,9 @@ namespace Sistema.Controllers
         public ActionResult EditarUsuario()
         {
             string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
 
-            Usuario usu = db.Usuario.Find(Convert.ToInt32(user[2]));
+            Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
             Cadastro cad = new Cadastro();
 
             cad.Nome = usu.Nome;
@@ -43,10 +44,11 @@ namespace Sistema.Controllers
         public ActionResult EditarUsuario(Cadastro cad)
         {
             string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
 
             if (ModelState.IsValid)
             {
-                Usuario usu = db.Usuario.Find(Convert.ToInt32(user[2]));
+                Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
                 usu.Nome = cad.Nome;
                 usu.NomeSocial = cad.NomeSocial;
@@ -59,11 +61,11 @@ namespace Sistema.Controllers
 
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome + "|" + usu.Id, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial + "|" + usu.Id, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
                 }
 
                 db.Usuario.AddOrUpdate(usu);
@@ -93,11 +95,11 @@ namespace Sistema.Controllers
             {
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome + "|" + usu.Id, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial + "|" + usu.Id, false);
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
                 }
                 return RedirectToAction("Principal", "Home");
             }
