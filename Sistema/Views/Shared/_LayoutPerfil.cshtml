@@ -92,19 +92,15 @@
                       icon: "@TempData["MSG"].ToString().Split('|')[0]",
                       confirmButtonText: 'OK'
                     })
-            @*swal.fire(titulo, "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
-            "@TempData["MSG"].ToString().Split('|')[0]");*@
             });
         </script>
     }
     <script>
         window.addEventListener('load', function () {
             new Glider(document.querySelector('.glider'), {
-                // Mobile-first defaults
-                slidesToShow: 'auto',
+                slidesToShow: 0.999,
                 slidesToScroll: 1,
                 itemWidth: 300,
-                exactWidth: true,
                 scrollLock: true,
                 draggable: true,
                 dots: '#resp-dots',
@@ -114,23 +110,20 @@
                 },
                 responsive: [
                     {
-                        // screens greater than >= 775px
                         breakpoint: 768,
                         settings: {
-                            // Set to `auto` and provide item width to adjust to viewport
-                            slidesToShow: 'auto',
-                            slidesToScroll: 1,
+                            slidesToShow: 2,
+                            slidesToScroll: 'auto',
                             itemWidth: 360,
                             duration: 0.25
                         }
                     }, {
-                        // screens greater than >= 1024px
                         breakpoint: 1024,
                         settings: {
                             slidesToShow: 'auto',
-                            slidesToScroll: 1,
+                            slidesToScroll: 'auto',
                             itemWidth: 360,
-                            exactWidth: false,
+                  
                             duration: 0.5
                         }
                     }

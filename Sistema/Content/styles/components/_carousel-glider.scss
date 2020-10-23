@@ -1,12 +1,32 @@
-﻿
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
 .glider-prev, .glider-next {
     top: 50%;
 }
 
 .glider-prev {
     left: -50px;
+
+    &:focus {
+        color: #666;
+    }
 }
 
 .glider-next {
     right: -50px;
+
+    &:focus {
+        color: #666;
+    }
 }
+
+.glider-dot {
+    background: #fff;
+}
+
+.glider-dot.active {
+    background: $secondary-color;
+}
+
+

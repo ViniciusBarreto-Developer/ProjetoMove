@@ -784,7 +784,7 @@ a.btn {
 }*/
 .card-container {
   padding: 1rem 2rem;
-  max-width: 360px !important; }
+  width: 320px; }
 
 .project-card {
   padding: 2rem 1rem;
@@ -819,13 +819,15 @@ a.btn {
     vertical-align: bottom;
     width: 100%; }
 
-@media only screen and (max-width: 480px) {
-  .project-card {
-    width: 100%; } }
-
 @media only screen and (max-width: 768px) {
   .card-container {
     padding: 1rem 1rem 1rem 0; } }
+
+@media only screen and (max-width: 480px) {
+  .project-card {
+    width: 100%; }
+  .card-container {
+    padding: 1rem 0; } }
 
 .back-to-top {
   display: flex;
@@ -862,9 +864,19 @@ a.btn {
 
 .glider-prev {
   left: -50px; }
+  .glider-prev:focus {
+    color: #666; }
 
 .glider-next {
   right: -50px; }
+  .glider-next:focus {
+    color: #666; }
+
+.glider-dot {
+  background: #fff; }
+
+.glider-dot.active {
+  background: #9b51e0; }
 
 .form {
   display: flex;

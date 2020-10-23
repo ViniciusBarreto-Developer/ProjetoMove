@@ -9,7 +9,7 @@
 
 .card-container {
     padding: 1rem 2rem;
-    max-width: 360px !important;
+    width: 320px;
 }
 
 .project-card {
@@ -59,14 +59,18 @@
     }
 }
 
+@include medium-max() {
+    .card-container {
+        padding: 1rem 1rem 1rem 0;
+    }
+}
+
 @include small-max() {
     .project-card {
         width: 100%;
     }
-}
 
-@include medium-max() {
     .card-container {
-        padding: 1rem 1rem 1rem 0;
+        padding: 1rem 0;
     }
 }
