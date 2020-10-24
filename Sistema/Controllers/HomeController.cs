@@ -1,9 +1,11 @@
-﻿using Sistema.Models;
+﻿using Microsoft.Ajax.Utilities;
+using Sistema.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -17,8 +19,6 @@ namespace Sistema.Controllers
         {
             return View();
         }
-
-       
         public ActionResult EditarUsuario()
         {
             string[] user = User.Identity.Name.Split('|');
@@ -246,7 +246,27 @@ namespace Sistema.Controllers
 
         public ActionResult MeuPerfil()
         {
-            return View();
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+
+            if(user[0] == null || user[0] == "")
+            {
+                return RedirectToAction("Principal");
+            }
+                            
+            return View(db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault());
+        }
+
+        public ActionResult ExcluirConta()
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+            db.Usuario.Remove(usu);
+            db.SaveChanges();
+
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Principal");
         }
     }
 }
