@@ -44,6 +44,42 @@ function modalBehavior() {
     }
 }
 
+function editBio() {
+    const editBioBtn = document.querySelector('#editBio');
+    const bioTxt = document.querySelector('#editTxt')
+    const confirmBioBtn = document.querySelector('#confirmBio');
+    editBioBtn.addEventListener('click', () => {
+        if (bioTxt.hasAttribute('readonly')) {
+            allowEdit();
+        }
+        else {
+            blockEdit();
+        }
+    });
+    confirmBioBtn.addEventListener('click', () => {
+        if (bioTxt.hasAttribute('readonly')) {
+            allowEdit();
+        }
+        else {
+            blockEdit();
+        }
+    });
+
+    function allowEdit() {
+        bioTxt.toggleAttribute('readonly');
+        bioTxt.focus();
+        toggleBtnEdit();
+    }
+    function blockEdit() {
+        bioTxt.toggleAttribute('readonly');
+        toggleBtnEdit();
+    }
+    function toggleBtnEdit() {
+        editBioBtn.classList.toggle('hidden-animated');
+        confirmBioBtn.classList.toggle('hidden-animated');
+    }
+}
+
 let timer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,5 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     modalBehavior();
-});
 
+    editBio();
+});

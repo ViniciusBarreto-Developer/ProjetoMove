@@ -7,7 +7,7 @@
 }
 
 .profile-section {
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
 
     .bg {
         width: 100%;
@@ -42,6 +42,11 @@
 
             .bio-text {
                 justify-self: center;
+                border: none;
+                resize:none;
+                width:100%;
+                min-height: 4rem;
+                padding: 0.5rem 0.7rem;
             }
 
             .edit-bio {
@@ -51,6 +56,9 @@
                 text-align: right;
                 font-size: $font-size-title;
                 color: $text-color;
+                border:none;
+                background: none;
+                cursor: pointer;
             }
         }
     }
@@ -62,7 +70,7 @@
         margin-bottom: 3rem;
 
         .tag-group {
-            max-width: 40%;
+            max-width: 50%;
         }
     }
 

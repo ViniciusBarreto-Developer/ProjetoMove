@@ -439,6 +439,9 @@ table {
   padding: 0;
   box-sizing: border-box; }
 
+*:focus {
+  outline-color: #05f296; }
+
 a {
   text-decoration: none; }
 
@@ -1023,7 +1026,7 @@ a.btn {
   background-position: 50% -100px; }
 
 .profile-section {
-  padding-bottom: 2rem; }
+  padding-bottom: 0.5rem; }
   .profile-section .bg {
     width: 100%;
     height: 35vh;
@@ -1050,21 +1053,29 @@ a.btn {
       margin: 0 auto;
       vertical-align: text-top; }
       .profile-section .profile-info .bio .bio-text {
-        justify-self: center; }
+        justify-self: center;
+        border: none;
+        resize: none;
+        width: 100%;
+        min-height: 4rem;
+        padding: 0.5rem 0.7rem; }
       .profile-section .profile-info .bio .edit-bio {
         position: absolute;
         bottom: 0;
         right: -2.074rem;
         text-align: right;
         font-size: 2.074rem;
-        color: #333333; }
+        color: #333333;
+        border: none;
+        background: none;
+        cursor: pointer; }
   .profile-section .profile-interests {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 3rem; }
     .profile-section .profile-interests .tag-group {
-      max-width: 40%; }
+      max-width: 50%; }
   .profile-section .my-projects-title {
     font-size: 1.44rem;
     display: inline;

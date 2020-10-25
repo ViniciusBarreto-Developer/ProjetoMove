@@ -171,6 +171,7 @@
     <Content Include="Content\img\blob-top.svg" />
     <Content Include="Content\img\footer.svg" />
     <Content Include="Content\img\hero.svg" />
+    <Content Include="Content\img\login_img.svg" />
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\img\blob-footer.svg" />
     <Content Include="Content\img\move_logoPerfil.png" />

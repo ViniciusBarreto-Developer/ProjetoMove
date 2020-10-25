@@ -19,8 +19,9 @@
     <div class="profile-info">
         <p>@Model.Email</p>
         <div class="bio">
-            <p class="bio-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum</p>
-                <a class="edit-bio" href="#"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></a>
+            <textarea class="bio-text" readonly id="editTxt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a tortor eros. Integer fringilla nibh ut.</textarea>
+                <button class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></button>
+                <button class="edit-bio hidden-animated" id="confirmBio"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
         </div>
     </div>
 
@@ -38,12 +39,7 @@
             <li class="tag-container">
                 <div class="tag"><span class="tag-text">Nome</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
             </li>
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">Nome da tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">Batman</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
+            
 
             <li>
                 <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
