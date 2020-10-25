@@ -49,14 +49,44 @@ a.btn {
     }
 }
 
-.pesquisa-btn{
-    padding: 1rem;
+.pesquisa-btn {
+    padding: 8px;
     border-radius: 50%;
     background-color: $primary-color;
-    color: white;
     font-size: $font-size-lg;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: $primary-darker;
+    }
+}
+
+.add-tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    background: $primary-color;
+    color: #fff;
+    font-size: $font-size-xl;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: $primary-darker;
+    }
+
+    .iconify {
+        margin: 0;
+    }
 }
 

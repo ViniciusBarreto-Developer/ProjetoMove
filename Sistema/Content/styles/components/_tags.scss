@@ -52,20 +52,10 @@
     position: relative;
 
     .add-tag {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2rem;
-        height: 2rem;
         position: absolute;
         right: -1rem;
         top: 50%;
         transform: translateY(-50%);
-        border-radius: 50%;
-        background: $primary-color;
-        color: #fff;
-        font-size: $font-size-xl;
-        cursor: pointer;
         .iconify {
             margin: 0;
         }

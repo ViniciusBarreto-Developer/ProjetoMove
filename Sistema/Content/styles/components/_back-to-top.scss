@@ -13,7 +13,7 @@
     position: fixed;
     bottom: 20%;
     left: $nav-padding-x;
-    z-index: 10;
+    z-index: 9;
     background: $neutral-color;
     transition: transform 0.3s;
 
@@ -36,6 +36,7 @@
         display: none;
     }
 }
+
 .hidden {
     display: none;
 }

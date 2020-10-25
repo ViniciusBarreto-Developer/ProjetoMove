@@ -217,6 +217,7 @@
     <Content Include="Content\styles\components\_cards.scss" />
     <Content Include="Content\styles\components\_back-to-top.scss" />
     <Content Include="Content\styles\components\_carousel-glider.scss" />
+    <Content Include="Content\styles\components\_modal.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
