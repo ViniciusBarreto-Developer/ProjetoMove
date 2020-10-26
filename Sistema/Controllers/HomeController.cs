@@ -70,7 +70,7 @@ namespace Sistema.Controllers
 
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
-                return RedirectToAction("Principal");
+                return RedirectToAction("MeuPerfil");
 
             }
             return View(cad);
@@ -249,14 +249,13 @@ namespace Sistema.Controllers
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
 
-            if(user[0] == null || user[0] == "")
+            if (user[0] == null || user[0] == "")
             {
                 return RedirectToAction("Principal");
             }
-                            
+
             return View(db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault());
         }
-
         public ActionResult ExcluirConta()
         {
             string[] user = User.Identity.Name.Split('|');
@@ -268,5 +267,16 @@ namespace Sistema.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Principal");
         }
+        [HttpPut]
+        public ActionResult EditarBiografia(int id, string bio)
+        {
+            var usu = db.Usuario.Find(id);
+            usu.Biografia = bio;
+            db.Usuario.AddOrUpdate(usu);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuPerfil");
+        }
+
     }
 }

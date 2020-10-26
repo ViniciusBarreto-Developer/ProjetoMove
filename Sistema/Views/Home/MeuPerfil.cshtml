@@ -19,9 +19,16 @@
     <div class="profile-info">
         <p>@Model.Email</p>
         <div class="bio">
-            <textarea class="bio-text" readonly id="editTxt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a tortor eros. Integer fringilla nibh ut.</textarea>
-                <button class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></button>
-                <button class="edit-bio hidden-animated" id="confirmBio"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
+            @if (Model.Biografia == "" || Model.Biografia == null)
+            {
+                <textarea class="bio-text" readonly id="editTxt">Adicione uma Biografia!</textarea>
+            }
+            else
+            {
+                <textarea class="bio-text" readonly id="editTxt">@Model.Biografia</textarea>
+            }
+            <button class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></button>
+            <button class="edit-bio hidden-animated" id="confirmBio"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
         </div>
     </div>
 
@@ -39,7 +46,7 @@
             <li class="tag-container">
                 <div class="tag"><span class="tag-text">Nome</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
             </li>
-            
+
 
             <li>
                 <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
@@ -153,7 +160,7 @@
         <button aria-label="Next" class="glider-next"><span class="iconify" data-icon="tabler:chevron-right" data-inline="false"></span></button>
         <div role="tablist" id="resp-dots" class="glider-dots"></div>
     </div>
-    
+
 </section>
 
 <div class="modal-bg hidden-animated" id="modalTags">
@@ -161,7 +168,7 @@
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar interesses</h3>
-            <div class="close-modal"  data-close-modal="modalTags"  >
+            <div class="close-modal" data-close-modal="modalTags">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
@@ -211,7 +218,7 @@
             </div>
         </div>
         <div class="modal-body">
-            
+
 
             <form action="/" method="post" class="form single-col">
                 <div class="form-group-row">
