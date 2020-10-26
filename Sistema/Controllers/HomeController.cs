@@ -267,11 +267,13 @@ namespace Sistema.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Principal");
         }
-        [HttpPut]
-        public ActionResult EditarBiografia(int id, string bio)
+        [HttpPost]
+        public ActionResult EditarBiografia(Usuario usuario)
         {
-            var usu = db.Usuario.Find(id);
-            usu.Biografia = bio;
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+            usu.Biografia = usuario.Biografia;
             db.Usuario.AddOrUpdate(usu);
             db.SaveChanges();
 

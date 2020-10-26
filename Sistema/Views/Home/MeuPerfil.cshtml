@@ -19,16 +19,12 @@
     <div class="profile-info">
         <p>@Model.Email</p>
         <div class="bio">
-            @if (Model.Biografia == "" || Model.Biografia == null)
+            @using (Html.BeginForm("EditarBiografia", "Home", FormMethod.Post))
             {
-                <textarea class="bio-text" readonly id="editTxt">Adicione uma Biografia!</textarea>
+                @Html.TextAreaFor(model => model.Biografia, new { @class = "bio-text", @readonly = true, @id = "editTxt"})
+                <a class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></a>
+                <button class="edit-bio hidden-animated" id="confirmBio" type="submit"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
             }
-            else
-            {
-                <textarea class="bio-text" readonly id="editTxt">@Model.Biografia</textarea>
-            }
-            <button class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></button>
-            <button class="edit-bio hidden-animated" id="confirmBio"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
         </div>
     </div>
 
