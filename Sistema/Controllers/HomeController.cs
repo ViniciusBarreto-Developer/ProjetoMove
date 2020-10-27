@@ -253,8 +253,21 @@ namespace Sistema.Controllers
             {
                 return RedirectToAction("Principal");
             }
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            return View(db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault());
+            MeuPerfil mp = new MeuPerfil();
+
+            mp.Id = usu.Id;
+            mp.Biografia = usu.Biografia;
+            mp.Nome = usu.Nome;
+            mp.Email = usu.Email;
+            mp.Foto = usu.Foto;
+            mp.NomeSocial = usu.NomeSocial;
+            mp.UsuarioTags = db.UsuarioTag.ToList();
+            mp.IntegrantesProjetos = db.IntegrantesProjeto.ToList();
+            mp.ProjetosSalvos = db.ProjetosSalvos.ToList();
+
+            return View(mp);
         }
         public ActionResult ExcluirConta()
         {
@@ -279,6 +292,30 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
+        public ActionResult ExcluirTag(int id)
+        {
+            var tag = db.UsuarioTag.Where(t => t.Id == id).ToList().FirstOrDefault();
+            db.UsuarioTag.Remove(tag);
+            db.SaveChanges();
 
+            return RedirectToAction("MeuPerfil");
+        }
+        [HttpPost]
+        public ActionResult AdicionarTag(MeuPerfil mp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            var tag = db.Tag.Where(t => t.Nome == mp.PesquisaTag).ToList().FirstOrDefault();
+
+            var usutag = new UsuarioTag();
+            usutag.TagId = tag.Id;
+            usutag.UsuarioId = usu.Id;
+
+            db.UsuarioTag.Add(usutag);
+            db.SaveChanges();
+            return RedirectToAction("MeuPerfil");
+        }
     }
 }

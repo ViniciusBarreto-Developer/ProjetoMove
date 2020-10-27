@@ -1,4 +1,4 @@
-﻿@model Sistema.Models.Usuario
+﻿@model Sistema.Models.MeuPerfil
 
 @{
     ViewBag.Title = "- Meu Perfil";
@@ -13,15 +13,21 @@
         <img class="circle-pic" src="https://images.generated.photos/d9cnAQBYXb01cPV7O71580U3GYQNS6bhlEXT2F4jwsw/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwOTY0MTVfMDY3/MzMwNV8wODE0NTQ0/LmpwZw.jpg" alt="Foto de perfil" />
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
-
-    <h1 class="username">@Model.Nome</h1>
+    @if (Model.NomeSocial == null)
+    {
+        <h1 class="username">@Model.Nome</h1>
+    }
+    else
+    {
+        <h1 class="username">@Model.NomeSocial</h1>
+    }
 
     <div class="profile-info">
         <p>@Model.Email</p>
         <div class="bio">
             @using (Html.BeginForm("EditarBiografia", "Home", FormMethod.Post))
             {
-                @Html.TextAreaFor(model => model.Biografia, new { @class = "bio-text", @readonly = true, @id = "editTxt"})
+                @Html.TextAreaFor(model => model.Biografia, new { @class = "bio-text", @readonly = true, @id = "editTxt" })
                 <a class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></a>
                 <button class="edit-bio hidden-animated" id="confirmBio" type="submit"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
             }
@@ -30,19 +36,15 @@
 
     <div class="profile-interests">
         <ul class="tag-group interests">
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">Nome da tag só que maior</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">Nome da tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
-            <li class="tag-container">
-                <div class="tag"><span class="tag-text">Nome</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-            </li>
-
+            @foreach (var item in Model.UsuarioTags)
+            {
+                if (item.UsuarioId == Model.Id)
+                {
+                    <li class="tag-container">
+                        <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
+                    </li>
+                }
+            }
 
             <li>
                 <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
@@ -170,34 +172,26 @@
         </div>
         <div class="modal-body">
             <ul class="tag-group">
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Nome da tag só que maior</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Nome da tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Nome</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Nome da tag</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Batman</span><span class="iconify" data-icon="tabler:x" data-inline="true"></span></div>
-                </li>
+                @foreach (var item in Model.UsuarioTags)
+                {
+                    if (item.UsuarioId == Model.Id)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                        </li>
+                    }
+                }
             </ul>
 
-            <form action="/" method="post" class="form single-col">
+
+            @using (Html.BeginForm("AdicionarTag", "Home", FormMethod.Post, new { @class = "form single-col" }))
+            {
                 <div class="form-group-row">
-                    <input type="text" name="name" value="" />
-                    <button class="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    @Html.EditorFor(model => model.PesquisaTag)
+                    <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
                 </div>
+            }
 
-
-            </form>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" data-close-modal="modalTags">Confirmar</button>
@@ -208,28 +202,18 @@
 
     <div class="modal">
         <div class="modal-header">
-            <h3 class="modal-title">Editar interesses</h3>
+            <h3 class="modal-title">Editar Foto</h3>
             <div class="close-modal" data-close-modal="modalPic">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
         <div class="modal-body">
 
-
-            <form action="/" method="post" class="form single-col">
-                <div class="form-group-row">
-                    <input type="text" name="name" value="" />
-                    <button class="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
-                </div>
-
-
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" data-close-modal="modalPic">Confirmar</button>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-close-modal="modalPic">Confirmar</button>
+            </div>
         </div>
     </div>
 </div>
-
 
 
