@@ -1112,6 +1112,9 @@ a.btn {
   .projects-section .glider-contain {
     width: 80%; }
 
+#modalTags .modal .modal-body .form-group-row {
+  margin: 2rem auto 0 auto; }
+
 @media only screen and (max-width: 768px) {
   .profile-section .profile-info .bio {
     width: 100%; }

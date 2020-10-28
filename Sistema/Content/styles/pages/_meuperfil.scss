@@ -81,8 +81,6 @@
     }
 }
 
-
-
 .projects-section {
     width: 100%;
     background: $background-color;
@@ -91,6 +89,10 @@
     .glider-contain {
         width: 80%;
     }
+}
+
+#modalTags .modal .modal-body .form-group-row{
+    margin: 2rem auto 0 auto;
 }
 
 
