@@ -152,13 +152,13 @@
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Funcoes.cs" />
     <Compile Include="Models\IntegrantesProjeto.cs" />
-    <Compile Include="Models\MeuPerfil.cs" />
     <Compile Include="Models\Projeto.cs" />
     <Compile Include="Models\ProjetosSalvos.cs" />
     <Compile Include="Models\ProjetoTags.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTag.cs" />
+    <Compile Include="Models\VMPerfil.cs" />
     <Compile Include="Models\VMProjeto.cs" />
     <Compile Include="Models\VMUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

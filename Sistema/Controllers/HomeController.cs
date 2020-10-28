@@ -255,19 +255,19 @@ namespace Sistema.Controllers
             }
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            MeuPerfil mp = new MeuPerfil();
+            VMPerfil vmp = new VMPerfil();
 
-            mp.Id = usu.Id;
-            mp.Biografia = usu.Biografia;
-            mp.Nome = usu.Nome;
-            mp.Email = usu.Email;
-            mp.Foto = usu.Foto;
-            mp.NomeSocial = usu.NomeSocial;
-            mp.UsuarioTags = db.UsuarioTag.ToList();
-            mp.IntegrantesProjetos = db.IntegrantesProjeto.ToList();
-            mp.ProjetosSalvos = db.ProjetosSalvos.ToList();
+            vmp.Id = usu.Id;
+            vmp.Biografia = usu.Biografia;
+            vmp.Nome = usu.Nome;
+            vmp.Email = usu.Email;
+            vmp.Foto = usu.Foto;
+            vmp.NomeSocial = usu.NomeSocial;
+            vmp.UsuarioTags = db.UsuarioTag.ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.ToList();
 
-            return View(mp);
+            return View(vmp);
         }
         public ActionResult ExcluirConta()
         {
@@ -301,13 +301,13 @@ namespace Sistema.Controllers
             return RedirectToAction("MeuPerfil");
         }
         [HttpPost]
-        public ActionResult AdicionarTag(MeuPerfil mp)
+        public ActionResult AdicionarTag(VMPerfil vmp)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            var tag = db.Tag.Where(t => t.Nome == mp.PesquisaTag).ToList().FirstOrDefault();
+            var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
 
             var usutag = new UsuarioTag();
             usutag.TagId = tag.Id;

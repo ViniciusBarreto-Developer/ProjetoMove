@@ -1,4 +1,4 @@
-﻿@model Sistema.Models.MeuPerfil
+﻿@model Sistema.Models.VMPerfil
 
 @{
     ViewBag.Title = "- Meu Perfil";
@@ -162,7 +162,6 @@
 </section>
 
 <div class="modal-bg hidden-animated" id="modalTags">
-
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar interesses</h3>
@@ -183,7 +182,6 @@
                 }
             </ul>
 
-
             @using (Html.BeginForm("AdicionarTag", "Home", FormMethod.Post, new { @class = "form single-col" }))
             {
                 <div class="form-group-row">
@@ -191,15 +189,14 @@
                     <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
                 </div>
             }
-
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" data-close-modal="modalTags">Confirmar</button>
         </div>
     </div>
 </div>
-<div class="modal-bg hidden-animated" id="modalPic">
 
+<div class="modal-bg hidden-animated" id="modalPic">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar Foto</h3>
