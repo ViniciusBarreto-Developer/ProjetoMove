@@ -1,10 +1,10 @@
 ﻿@model Sistema.Models.Cadastro
 
 @{
-    ViewBag.Title = "EditarUsuario";
+    ViewBag.Title = "Editar cadastro";
 }
 
-<h2>Editar Cadastro</h2>
+<h1 class="heading-page">Editar informações de cadastro</h1>
 
 @using (Html.BeginForm())
 {
@@ -59,12 +59,9 @@
                 @Html.ValidationMessageFor(model => model.ConfirmaSenha, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-section">
-            <div class="form-group">
-                @Html.ActionLink("Excluir Conta", "ExcluirConta", "Home")
-            </div>
-        </div>
+
         <div class="form-btns">
+            @Html.ActionLink("Excluir Conta", "ExcluirConta", "Home", new { @class = "btn delete-acc" })
             @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
             <input type="submit" value="Salvar" class="btn btn-primary" />
         </div>

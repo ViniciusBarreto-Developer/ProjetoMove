@@ -1,0 +1,11 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.heading-page {
+    margin: 2rem 0;
+    font-size: $font-size-xl;
+}
+
+.sub-heading {
+    margin-bottom: 2rem;
+}
