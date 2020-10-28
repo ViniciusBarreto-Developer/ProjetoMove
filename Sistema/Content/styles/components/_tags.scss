@@ -11,6 +11,7 @@
     background: $neutral-color;
     margin-top: 2rem;
     padding: 0 0.25rem 0.5rem 0.25rem;
+
     //:not(:last-of-type) {
     //margin-right: -1rem; //must be equal to horizontal padding of the .tag * -1
     //}
@@ -25,8 +26,6 @@
     display: inline-flex;
     padding: 0.5rem 0.25rem 0 0.25rem;
     transition: filter 0.3s;
-
-
 
     .tag {
         display: flex;

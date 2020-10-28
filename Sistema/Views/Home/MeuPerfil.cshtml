@@ -10,7 +10,10 @@
 
     </div>
     <div class="profile-pic">
-        <img class="circle-pic" src="https://images.generated.photos/d9cnAQBYXb01cPV7O71580U3GYQNS6bhlEXT2F4jwsw/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwOTY0MTVfMDY3/MzMwNV8wODE0NTQ0/LmpwZw.jpg" alt="Foto de perfil" />
+        @*<img class="circle-pic" src="https://images.generated.photos/d9cnAQBYXb01cPV7O71580U3GYQNS6bhlEXT2F4jwsw/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwOTY0MTVfMDY3/MzMwNV8wODE0NTQ0/LmpwZw.jpg" alt="Foto de perfil" />*@
+        <div class="circle-pic" style="height: 16rem;display: flex; justify-content: center; align-items: center; background: #eee; color: #c1c1c1; font-size: 10rem" >
+            <p style="height: fit-content">@Model.Nome.ToString()[0]</p>
+        </div>
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
     @if (Model.NomeSocial == null)

@@ -15,6 +15,7 @@ a.btn {
     letter-spacing: 0.05rem;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-align:center;
 }
 
 .swal2-styled.swal2-confirm:focus {
@@ -39,9 +40,9 @@ a.btn {
 .form-btns {
     align-self: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin: 4rem 0;
-    align-self: center;
+    margin: 2rem 0;
     width: 100%;
 
     :not(:first-child) {
@@ -90,3 +91,27 @@ a.btn {
     }
 }
 
+.delete-acc {
+    background: #ff9090;
+
+    &:hover {
+        background: #ff9090;
+    }
+}
+
+
+@include medium-max() {
+    .form-btns {
+        flex-direction: column;
+        justify-content: flex-start;
+
+        * {
+            flex: 1 0 auto;
+        }
+
+        :not(:first-child) {
+            margin-left: 0;
+            margin-top: 1.2rem;
+        }
+    }
+}

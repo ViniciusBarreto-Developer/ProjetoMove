@@ -15,7 +15,6 @@
     column-gap: 2rem;
     //width: 60%;
     width: 100%;
-    margin-bottom: 4rem;
 }
 
 .form-group {
@@ -80,8 +79,6 @@
         border: 1px solid $secondary-color;
         transition: 0.5s;
     }
-
-
 }
 
 
@@ -91,4 +88,3 @@
         grid-template-columns: 18rem 18rem 18rem;
     }
 }
-
