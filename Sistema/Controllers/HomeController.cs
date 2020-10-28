@@ -19,29 +19,29 @@ namespace Sistema.Controllers
         {
             return View();
         }
-        public ActionResult EditarUsuario()
+        public ActionResult EditarCadastro()
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
 
             Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-            Cadastro cad = new Cadastro();
+            EditarCadastro edit = new EditarCadastro();
 
-            cad.Nome = usu.Nome;
-            cad.NomeSocial = usu.NomeSocial;
-            cad.DataNascimento = usu.DataNascimento;
-            cad.Cpf = usu.Cpf;
+            edit.Nome = usu.Nome;
+            edit.NomeSocial = usu.NomeSocial;
+            edit.DataNascimento = usu.DataNascimento;
+            edit.Cpf = usu.Cpf;
 
-            cad.Email = usu.Email;
-            cad.EmailRecuperacao = usu.EmailRecuperacao;
-            cad.Senha = "";
-            cad.ConfirmaSenha = "";
+            edit.Email = usu.Email;
+            edit.EmailRecuperacao = usu.EmailRecuperacao;
+            edit.Senha = null;
+            edit.ConfirmarNovaSenha = null;
 
-            return View(cad);
+            return View(edit);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarUsuario(Cadastro cad)
+        public ActionResult EditarCadastro(EditarCadastro edit)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -50,30 +50,44 @@ namespace Sistema.Controllers
             {
                 Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-                usu.Nome = cad.Nome;
-                usu.NomeSocial = cad.NomeSocial;
-                usu.DataNascimento = cad.DataNascimento;
-                usu.Cpf = cad.Cpf;
-
-                usu.Email = cad.Email;
-                usu.EmailRecuperacao = cad.EmailRecuperacao;
-                usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
-
-                if (usu.NomeSocial == null || usu.NomeSocial == "")
+                if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+
+                    usu.Nome = edit.Nome;
+                    usu.NomeSocial = edit.NomeSocial;
+                    usu.DataNascimento = edit.DataNascimento;
+                    usu.Cpf = edit.Cpf;
+
+                    usu.Email = edit.Email;
+                    usu.EmailRecuperacao = edit.EmailRecuperacao;
+
+                    if (edit.Senha != null)
+                    {
+                        usu.Senha = Funcoes.HashTexto(edit.Senha, "SHA512");
+                    }
+
+                    if (usu.NomeSocial == null || usu.NomeSocial == "")
+                    {
+                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+                    }
+                    else
+                    {
+                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
+                    }
+
+                    db.Usuario.AddOrUpdate(usu);
+                    db.SaveChanges();
+                    TempData["MSG"] = "success|Seus dados foram atualizados!";
+                    return RedirectToAction("MeuPerfil");
                 }
                 else
                 {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
+                    TempData["MSG"] = "error|Senha atual errada";
+                    return RedirectToAction("EditarCadastro");
                 }
 
-                db.Usuario.AddOrUpdate(usu);
-                db.SaveChanges();
-                return RedirectToAction("MeuPerfil");
-
             }
-            return View(cad);
+            return View(edit);
         }
         public ActionResult Sair()
         {
@@ -316,11 +330,12 @@ namespace Sistema.Controllers
 
             var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
 
-            foreach(var item in db.UsuarioTag)
+            foreach (var item in db.UsuarioTag)
             {
-                if(item.TagId == tag.Id)
+                if (item.TagId == tag.Id && item.UsuarioId == usu.Id)
                 {
                     TempData["MSG"] = "error|Tag já cadastrada";
+                    return RedirectToAction("MeuPerfil");
                 }
             }
             var usutag = new UsuarioTag();

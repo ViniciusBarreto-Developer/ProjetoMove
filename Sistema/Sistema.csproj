@@ -248,13 +248,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Acesso.cshtml" />
     <Content Include="Views\Home\Cadastro.cshtml" />
-    <Content Include="Views\Home\EditarUsuario.cshtml" />
     <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Home\EsqueceuSenha.cshtml" />
     <Content Include="Views\Home\Redefinir.cshtml" />
     <Content Include="Views\Home\Principal.cshtml" />
     <Content Include="Views\Home\MeuPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutPerfil.cshtml" />
+    <Content Include="Views\Home\EditarCadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
