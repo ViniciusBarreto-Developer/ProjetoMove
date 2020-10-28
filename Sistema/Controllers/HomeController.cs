@@ -19,6 +19,71 @@ namespace Sistema.Controllers
         {
             return View();
         }
+        public ActionResult Cadastro()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Cadastro(Cadastro cad)
+        {
+            if (ModelState.IsValid)
+            {
+                if (db.Usuario.Where(x => x.Email == cad.Email).ToList().Count > 0)
+                {
+                    ModelState.AddModelError("", "E-mail já cadastrado");
+                    return View(cad);
+                }
+                Usuario usu = new Usuario();
+                usu.Nome = cad.Nome;
+                usu.NomeSocial = cad.NomeSocial;
+                usu.DataNascimento = cad.DataNascimento;
+                usu.Cpf = cad.Cpf;
+                usu.Email = cad.Email;
+                usu.EmailRecuperacao = cad.EmailRecuperacao;
+                usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
+                usu.Biografia = "Clique no botão ao lado para editar sua Biografia! ";
+
+                db.Usuario.Add(usu);
+                db.SaveChanges();
+                return RedirectToAction("Acesso");
+            }
+            return View();
+        }        
+        public ActionResult Acesso()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Acesso(Acesso ace, string ReturnUrl)
+        {
+            string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
+            Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
+            senhacrip).ToList().FirstOrDefault();
+            if (usu != null)
+            {
+                if (usu.NomeSocial == null || usu.NomeSocial == "")
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+                }
+                else
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
+                }
+                return RedirectToAction("Principal", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Usuário/Senha inválidos");
+                return View();
+            }
+        }
+        public ActionResult Sair()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Principal");
+        }
         public ActionResult EditarCadastro()
         {
             string[] user = User.Identity.Name.Split('|');
@@ -89,70 +154,16 @@ namespace Sistema.Controllers
             }
             return View(edit);
         }
-        public ActionResult Sair()
+        public ActionResult ExcluirConta()
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+            db.Usuario.Remove(usu);
+            db.SaveChanges();
+
             FormsAuthentication.SignOut();
             return RedirectToAction("Principal");
-        }
-        public ActionResult Acesso()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Acesso(Acesso ace, string ReturnUrl)
-        {
-            string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
-            Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
-            senhacrip).ToList().FirstOrDefault();
-            if (usu != null)
-            {
-                if (usu.NomeSocial == null || usu.NomeSocial == "")
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-                }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
-                }
-                return RedirectToAction("Principal", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Usuário/Senha inválidos");
-                return View();
-            }
-        }
-        public ActionResult Cadastro()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Cadastro(Cadastro cad)
-        {
-            if (ModelState.IsValid)
-            {
-                if (db.Usuario.Where(x => x.Email == cad.Email).ToList().Count > 0)
-                {
-                    ModelState.AddModelError("", "E-mail já cadastrado");
-                    return View(cad);
-                }
-                Usuario usu = new Usuario();
-                usu.Nome = cad.Nome;
-                usu.NomeSocial = cad.NomeSocial;
-                usu.DataNascimento = cad.DataNascimento;
-                usu.Cpf = cad.Cpf;
-                usu.Email = cad.Email;
-                usu.EmailRecuperacao = cad.EmailRecuperacao;
-                usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
-                usu.Biografia = "Clique no botão ao lado para editar sua Biografia! ";
-
-                db.Usuario.Add(usu);
-                db.SaveChanges();
-                return RedirectToAction("Acesso");
-            }
-            return View();
         }
         public ActionResult Email()
         {
@@ -257,8 +268,7 @@ namespace Sistema.Controllers
             }
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
-        }
-
+        }        
         public ActionResult MeuPerfil()
         {
             string[] user = User.Identity.Name.Split('|');
@@ -283,18 +293,7 @@ namespace Sistema.Controllers
             vmp.ProjetosSalvos = db.ProjetosSalvos.ToList();
 
             return View(vmp);
-        }
-        public ActionResult ExcluirConta()
-        {
-            string[] user = User.Identity.Name.Split('|');
-            string email = user[0];
-            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-            db.Usuario.Remove(usu);
-            db.SaveChanges();
-
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Principal");
-        }
+        }        
         [HttpPost]
         public ActionResult EditarBiografia(Usuario usuario)
         {
@@ -306,15 +305,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }
-        public ActionResult ExcluirTag(int id)
-        {
-            var tag = db.UsuarioTag.Where(t => t.Id == id).ToList().FirstOrDefault();
-            db.UsuarioTag.Remove(tag);
-            db.SaveChanges();
-
-            return RedirectToAction("MeuPerfil");
-        }
+        }        
         [HttpPost]
         public ActionResult AdicionarTag(VMPerfil vmp)
         {
@@ -346,6 +337,14 @@ namespace Sistema.Controllers
             db.SaveChanges();
             return RedirectToAction("MeuPerfil");
 
+        }
+        public ActionResult ExcluirTag(int id)
+        {
+            var tag = db.UsuarioTag.Where(t => t.Id == id).ToList().FirstOrDefault();
+            db.UsuarioTag.Remove(tag);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuPerfil");
         }
     }
 }
