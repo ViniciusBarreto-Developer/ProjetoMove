@@ -703,7 +703,7 @@ a.btn {
   margin: 2rem 0;
   width: 100%; }
   .form-btns :not(:first-child) {
-    margin-left: 20%; }
+    margin-left: 10%; }
 
 .pesquisa-btn {
   padding: 8px;
@@ -969,6 +969,15 @@ a.btn {
   transition: opacity 0.2s, visibility 0.1s;
   overflow: hidden; }
 
+.heading-page {
+  margin: 2rem 0;
+  font-size: 1.44rem;
+  text-align: center; }
+
+.sub-heading {
+  text-align: center;
+  margin-bottom: 2rem; }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -1116,10 +1125,3 @@ a.btn {
 @media only screen and (min-width: 1024px) {
   .projects-section {
     grid-template-columns: repeat(3, minmax(300px, 1fr)); } }
-
-.heading-page {
-  margin: 2rem 0;
-  font-size: 1.44rem; }
-
-.sub-heading {
-  margin-bottom: 2rem; }
