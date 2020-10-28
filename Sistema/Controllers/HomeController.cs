@@ -132,6 +132,7 @@ namespace Sistema.Controllers
                 usu.Email = cad.Email;
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
+                usu.Biografia = "Clique no botão ao lado para editar sua Biografia! ";
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
@@ -307,8 +308,21 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
+            if (db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault() == null)
+            {
+                TempData["MSG"] = "error|Tag não encontrada";
+                return RedirectToAction("MeuPerfil");
+            }
+
             var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
 
+            foreach(var item in db.UsuarioTag)
+            {
+                if(item.TagId == tag.Id)
+                {
+                    TempData["MSG"] = "error|Tag já cadastrada";
+                }
+            }
             var usutag = new UsuarioTag();
             usutag.TagId = tag.Id;
             usutag.UsuarioId = usu.Id;
@@ -316,6 +330,7 @@ namespace Sistema.Controllers
             db.UsuarioTag.Add(usutag);
             db.SaveChanges();
             return RedirectToAction("MeuPerfil");
+
         }
     }
 }
