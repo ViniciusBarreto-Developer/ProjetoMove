@@ -288,9 +288,9 @@ namespace Sistema.Controllers
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
             vmp.NomeSocial = usu.NomeSocial;
-            vmp.UsuarioTags = db.UsuarioTag.ToList();
-            vmp.IntegrantesProjetos = db.IntegrantesProjeto.ToList();
-            vmp.ProjetosSalvos = db.ProjetosSalvos.ToList();
+            vmp.UsuarioTags = db.UsuarioTag.Where(x=> x.UsuarioId == usu.Id).ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             return View(vmp);
         }        

@@ -43,8 +43,7 @@
                 int x = 0;
                 foreach (var item in Model.UsuarioTags)
                 {
-
-                    if (item.UsuarioId == Model.Id && x < 4)
+                    if (x < 4)
                     {
                         <li class="tag-container">
                             <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
@@ -115,7 +114,6 @@
                             <li class="tag-container">
                                 <div class="tag"><span class="tag-text">Batman</span></div>
                             </li>
-
                         </ul>
                     </a>
                 </div>
@@ -185,12 +183,23 @@
         </div>
         <div class="modal-body">
             <ul class="tag-group">
-                @foreach (var item in Model.UsuarioTags)
-                {
-                    if (item.UsuarioId == Model.Id)
+                @{
+                    int i = 0;
+                    foreach (var item in Model.UsuarioTags)
+                    {
+
+                        if (item.UsuarioId == Model.Id)
+                        {
+                            <li class="tag-container">
+                                <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            </li>
+                            i++;
+                        }
+                    }
+                    if (i == 0)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
                         </li>
                     }
                 }
@@ -205,8 +214,8 @@
             }
         </div>
         @*<div class="modal-footer">
-            <button class="btn btn-primary" data-close-modal="modalTags">Confirmar</button>
-        </div>*@
+                <button class="btn btn-primary" data-close-modal="modalTags">Confirmar</button>
+            </div>*@
     </div>
 </div>
 
