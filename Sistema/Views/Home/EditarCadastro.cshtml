@@ -74,10 +74,36 @@
         </div>
 
         <div class="form-btns">
-            @Html.ActionLink("Excluir Conta", "ExcluirConta", "Home", new { @class = "btn delete-acc" })
+            <a class="btn delete-acc" data-open-modal="modalExcluir">Excluir Conta</a>
             @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
             <input type="submit" value="Salvar" class="btn btn-primary" />
         </div>
     </div>
 }
+<div class="modal-bg hidden-animated" id="modalExcluir">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Confirmar Exclusão da Conta</h3>
+            <div class="close-modal" data-close-modal="modalExcluir">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("ExcluirConta", "Home", FormMethod.Post, new { @class = "form single-col" }))
+        {
+            <div class="modal-body">
+                
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SenhaAtual, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.SenhaAtual, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+
+</div>
 

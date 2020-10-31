@@ -42,10 +42,12 @@ namespace Sistema.Controllers
                 usu.Email = cad.Email;
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
-                usu.Biografia = "Clique no botão ao lado para editar sua Biografia! ";
+                usu.Biografia = "     Aqui você pode colocar sua área de formação, seus interesses, e também as formas que as pessoas podem entrar em contato com você de forma mais rápida! Clique ao lado para personalizar sua Bio!";
+                usu.ativo = true;
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
+                TempData["MSG"] = "success|Cadastro Concluído!";
                 return RedirectToAction("Acesso");
             }
             return View();
@@ -61,7 +63,7 @@ namespace Sistema.Controllers
             string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
             senhacrip).ToList().FirstOrDefault();
-            if (usu != null)
+            if (usu != null && usu.ativo != false)
             {
                 if (usu.NomeSocial == null || usu.NomeSocial == "")
                 {
@@ -97,7 +99,11 @@ namespace Sistema.Controllers
             edit.DataNascimento = usu.DataNascimento;
             edit.Cpf = usu.Cpf;
 
-            edit.Email = usu.Email;
+            if (usu.Email != edit.Email && db.Usuario.Where(x => x.Email == edit.Email).ToList().Count == 0)
+            {
+                edit.Email = usu.Email;
+            }
+                
             edit.EmailRecuperacao = usu.EmailRecuperacao;
             edit.Senha = null;
             edit.ConfirmarNovaSenha = null;
@@ -154,16 +160,27 @@ namespace Sistema.Controllers
             }
             return View(edit);
         }
-        public ActionResult ExcluirConta()
+        public ActionResult ExcluirConta(EditarCadastro edit)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-            db.Usuario.Remove(usu);
-            db.SaveChanges();
+            if(edit.SenhaAtual == null)
+            {
+                TempData["MSG"] = "error|Preencha o campo Senha Atual";
+                return RedirectToAction("EditarCadastro");
+            }
+            if(Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
+            {
+                usu.ativo = false;
+                db.Usuario.AddOrUpdate(usu);
+                db.SaveChanges();
 
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Principal");
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Principal");
+            }
+            TempData["MSG"] = "error|Senha atual errada";
+            return RedirectToAction("EditarCadastro");
         }
         public ActionResult Email()
         {

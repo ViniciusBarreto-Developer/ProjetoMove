@@ -18,6 +18,8 @@ namespace Sistema.Models
         public string Logo { get; set; }
         [Required]
         public DateTime DataCadastro { get; set; }
+        [Required]
+        public bool ativo { get; set; }
         ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         ICollection<ProjetoTags> ProjetoTags { get; set; }

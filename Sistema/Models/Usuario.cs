@@ -35,6 +35,8 @@ namespace Sistema.Models
         public string Senha { get; set; }
         public string Foto { get; set; }
         public string Biografia { get; set; }
+        [Required]
+        public bool ativo { get; set; }
         public string Hash { get; set; }
         ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
         ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }

@@ -187,14 +187,10 @@
                     int i = 0;
                     foreach (var item in Model.UsuarioTags)
                     {
-
-                        if (item.UsuarioId == Model.Id)
-                        {
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
-                            </li>
-                            i++;
-                        }
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                        </li>
+                        i++;
                     }
                     if (i == 0)
                     {
@@ -228,10 +224,9 @@
             </div>
         </div>
         <div class="modal-body">
-
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-close-modal="modalPic">Confirmar</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-close-modal="modalPic">Confirmar</button>
         </div>
     </div>
 </div>

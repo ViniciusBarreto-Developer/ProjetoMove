@@ -32,6 +32,7 @@ namespace Sistema.Models
             usu.Property(x => x.EmailRecuperacao).HasColumnName("usu_emailRecuperacao");
             usu.Property(x => x.Senha).HasColumnName("usu_senha");
             usu.Property(x => x.Biografia).HasColumnName("usu_biografia");
+            usu.Property(x => x.ativo).HasColumnName("usu_ativo");
 
             var pro = mb.Entity<Projeto>();
             pro.ToTable("pro_projeto");
