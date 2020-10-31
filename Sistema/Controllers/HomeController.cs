@@ -34,9 +34,14 @@ namespace Sistema.Controllers
                     ModelState.AddModelError("", "E-mail já cadastrado");
                     return View(cad);
                 }
+                if (db.Usuario.Where(x => x.EmailRecuperacao == cad.EmailRecuperacao).ToList().Count > 0)
+                {
+                    ModelState.AddModelError("", "E-mail de Recuperação já cadastrado");
+                    return View(cad);
+                }
                 if (cad.Email == cad.EmailRecuperacao)
                 {
-                    ModelState.AddModelError("", "O E-mail de recuperação não pode ser igual ao E-mail");
+                    ModelState.AddModelError("", "O E-mail de Recuperação não pode ser igual ao E-mail");
                     return View(cad);
                 }
                 Usuario usu = new Usuario();
@@ -56,7 +61,7 @@ namespace Sistema.Controllers
                 return RedirectToAction("Acesso");
             }
             return View();
-        }        
+        }
         public ActionResult Acesso()
         {
             return View();
@@ -98,17 +103,12 @@ namespace Sistema.Controllers
 
             Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
             EditarCadastro edit = new EditarCadastro();
-            
+
             edit.Nome = usu.Nome;
             edit.NomeSocial = usu.NomeSocial;
             edit.DataNascimento = usu.DataNascimento;
             edit.Cpf = usu.Cpf;
-
-            if (usu.Email != edit.Email && db.Usuario.Where(x => x.Email == edit.Email).ToList().Count == 0)
-            {
-                edit.Email = usu.Email;
-            }
-                
+            edit.Email = usu.Email;
             edit.EmailRecuperacao = usu.EmailRecuperacao;
             edit.Senha = null;
             edit.ConfirmarNovaSenha = null;
@@ -128,14 +128,34 @@ namespace Sistema.Controllers
 
                 if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
                 {
+                    if (edit.Email == edit.EmailRecuperacao)
+                    {
+                        ModelState.AddModelError("", "O E-mail de Recuperação não pode ser igual ao E-mail");
+                        return View(edit);
+                    }
+                    if (usu.Email != edit.Email)
+                    {
+                        if (db.Usuario.Where(x => x.Email == edit.Email).ToList().Count > 0)
+                        {                            
+                            ModelState.AddModelError("", "E-mail já cadastrado");
+                            return View(edit);
+                        }
+                    }
+                    if (usu.EmailRecuperacao != edit.EmailRecuperacao)
+                    {
+                        if (db.Usuario.Where(x => x.EmailRecuperacao == edit.EmailRecuperacao).ToList().Count > 0)
+                        {                            
+                            ModelState.AddModelError("", "E-mail de Recuperação já cadastrado");
+                            return View(edit);
+                        }
+                    }
 
                     usu.Nome = edit.Nome;
                     usu.NomeSocial = edit.NomeSocial;
                     usu.DataNascimento = edit.DataNascimento;
                     usu.Cpf = edit.Cpf;
-
-                    usu.Email = edit.Email;
-                    usu.EmailRecuperacao = edit.EmailRecuperacao;
+                    edit.Email = usu.Email;
+                    edit.EmailRecuperacao = usu.EmailRecuperacao;
 
                     if (edit.Senha != null)
                     {
@@ -170,12 +190,12 @@ namespace Sistema.Controllers
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-            if(edit.SenhaAtual == null)
+            if (edit.SenhaAtual == null)
             {
                 TempData["MSG"] = "error|Preencha o campo Senha Atual";
                 return RedirectToAction("EditarCadastro");
             }
-            if(Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
+            if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
             {
                 usu.ativo = false;
                 db.Usuario.AddOrUpdate(usu);
@@ -290,7 +310,7 @@ namespace Sistema.Controllers
             }
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
-        }        
+        }
         public ActionResult MeuPerfil()
         {
             string[] user = User.Identity.Name.Split('|');
@@ -310,12 +330,12 @@ namespace Sistema.Controllers
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
             vmp.NomeSocial = usu.NomeSocial;
-            vmp.UsuarioTags = db.UsuarioTag.Where(x=> x.UsuarioId == usu.Id).ToList();
+            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             return View(vmp);
-        }        
+        }
         [HttpPost]
         public ActionResult EditarBiografia(Usuario usuario)
         {
@@ -327,7 +347,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }        
+        }
         [HttpPost]
         public ActionResult AdicionarTag(VMPerfil vmp)
         {
