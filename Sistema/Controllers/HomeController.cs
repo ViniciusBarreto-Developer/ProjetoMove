@@ -34,6 +34,11 @@ namespace Sistema.Controllers
                     ModelState.AddModelError("", "E-mail já cadastrado");
                     return View(cad);
                 }
+                if (cad.Email == cad.EmailRecuperacao)
+                {
+                    ModelState.AddModelError("", "O E-mail de recuperação não pode ser igual ao E-mail");
+                    return View(cad);
+                }
                 Usuario usu = new Usuario();
                 usu.Nome = cad.Nome;
                 usu.NomeSocial = cad.NomeSocial;
@@ -58,7 +63,7 @@ namespace Sistema.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Acesso(Acesso ace, string ReturnUrl)
+        public ActionResult Acesso(Acesso ace)
         {
             string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
@@ -93,7 +98,7 @@ namespace Sistema.Controllers
 
             Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
             EditarCadastro edit = new EditarCadastro();
-
+            
             edit.Nome = usu.Nome;
             edit.NomeSocial = usu.NomeSocial;
             edit.DataNascimento = usu.DataNascimento;
@@ -357,7 +362,7 @@ namespace Sistema.Controllers
         }
         public ActionResult ExcluirTag(int id)
         {
-            var tag = db.UsuarioTag.Where(t => t.Id == id).ToList().FirstOrDefault();
+            var tag = db.UsuarioTag.Find(id);
             db.UsuarioTag.Remove(tag);
             db.SaveChanges();
 

@@ -25,11 +25,11 @@ namespace Sistema.Models
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email*")]
+        [Display(Name = "E-mail*")]
         public string Email { get; set; }
         [MaxLength(100)]
         [Required]
-        [Display(Name = "Email de recuperação*")]
+        [Display(Name = "E-mail de recuperação*")]
         [DataType(DataType.EmailAddress)]
         public string EmailRecuperacao { get; set; }
         [Required]
@@ -47,23 +47,26 @@ namespace Sistema.Models
     {
         [StringLength(200, MinimumLength = 2)]
         [Required]
+        [Display(Name = "Nome*")]
         public string Nome { get; set; }
         [StringLength(200, MinimumLength = 2)]
         [Display(Name = "Nome social")]
         public string NomeSocial { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Data de nascimento")]
+        [Display(Name = "Data de nascimento*")]
         public string DataNascimento { get; set; }
         [Required]
+        [Display(Name = "Cpf*")]
         public long Cpf { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail*")]
         public string Email { get; set; }
         [MaxLength(100)]
         [Required]
-        [Display(Name = "Email de recuperação")]
+        [Display(Name = "E-mail de recuperação*")]
         [DataType(DataType.EmailAddress)]
         public string EmailRecuperacao { get; set; }
         [Display(Name = "Nova senha")]

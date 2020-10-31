@@ -22,7 +22,8 @@ namespace Sistema.Migrations
             new Models.Tag { Id = 3, Nome = "Beleza" },
             new Models.Tag { Id = 4, Nome = "Esporte" },
             new Models.Tag { Id = 5, Nome = "Finança" },
-            new Models.Tag { Id = 6, Nome = "Música" });
+            new Models.Tag { Id = 6, Nome = "Música" },
+            new Models.Tag { Id = 7, Nome = "Games" });
         }
     }
 }
