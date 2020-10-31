@@ -19,7 +19,7 @@ namespace Sistema.Models
         [Required]
         public DateTime DataCadastro { get; set; }
         [Required]
-        public bool ativo { get; set; }
+        public bool Ativo { get; set; }
         ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         ICollection<ProjetoTags> ProjetoTags { get; set; }

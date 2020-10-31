@@ -41,6 +41,7 @@ namespace Sistema.Models
             pro.Property(x => x.Descricao).HasColumnName("pro_descricao");
             pro.Property(x => x.Logo).HasColumnName("pro_logo");
             pro.Property(x => x.DataCadastro).HasColumnName("pro_dataCadastro");
+            pro.Property(x => x.Ativo).HasColumnName("pro_ativo");
 
             var tag = mb.Entity<Tag>();
             tag.ToTable("tag_tag");
