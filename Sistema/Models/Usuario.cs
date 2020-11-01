@@ -20,7 +20,7 @@ namespace Sistema.Models
         [Display(Name = "Data de Nascimento")]
         public string DataNascimento { get; set; }
         [Required]
-        public long Cpf { get; set; }
+        public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]

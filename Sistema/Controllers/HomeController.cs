@@ -1,12 +1,16 @@
 ﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sistema.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -27,7 +31,9 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            if (ModelState.IsValid)
+            CaptchaResponse response = ValidadeCaptcha(Request["g-recaptcha-response"]);
+
+            if (/*response.Success && */ModelState.IsValid)
             {
                 if (db.Usuario.Where(x => x.Email == cad.Email).ToList().Count > 0)
                 {
@@ -59,8 +65,24 @@ namespace Sistema.Controllers
                 db.SaveChanges();
                 TempData["MSG"] = "success|Cadastro Concluído!";
                 return RedirectToAction("Acesso");
+
             }
+            //else if (response.Success == false)
+            //{
+            //    ModelState.AddModelError("", "reCAPTCHA Inválido");
+            //    return View();
+            //}
             return View();
+        }
+
+        public static CaptchaResponse ValidadeCaptcha(string response)
+        {
+            string secret = WebConfigurationManager.AppSettings["recaptchaPrivateKey"];
+            var client = new WebClient();
+            var jsonResult = client.DownloadString(
+                string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
+                secret, response));
+            return JsonConvert.DeserializeObject<CaptchaResponse>(jsonResult.ToString());
         }
         public ActionResult Acesso()
         {

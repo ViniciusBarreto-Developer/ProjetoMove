@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Sistema.Models
         public string DataNascimento { get; set; }
         [Required]
         [Display(Name = "Cpf*")]
-        public long Cpf { get; set; }
+        public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -43,6 +44,13 @@ namespace Sistema.Models
         [Compare("Senha")]
         public string ConfirmaSenha { get; set; }
     }
+    public class CaptchaResponse
+    {
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+        [JsonProperty("error-codes")]
+        public List<string> ErrorMessage { get; set; }
+    }
     public class EditarCadastro
     {
         [StringLength(200, MinimumLength = 2)]
@@ -58,7 +66,7 @@ namespace Sistema.Models
         public string DataNascimento { get; set; }
         [Required]
         [Display(Name = "Cpf*")]
-        public long Cpf { get; set; }
+        public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -78,7 +86,7 @@ namespace Sistema.Models
         [Compare("Senha")]
         public string ConfirmarNovaSenha { get; set; }
         [Required]
-        [Display(Name = "Senha Atual*")]
+        [Display(Name = "Senha atual*")]
         [DataType(DataType.Password)]
         public string SenhaAtual { get; set; }
     }
