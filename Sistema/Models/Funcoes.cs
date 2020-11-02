@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 
@@ -81,26 +83,28 @@ public class Funcoes
             string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
             secret, response));
         return JsonConvert.DeserializeObject<CaptchaResponse>(jsonResult.ToString());
+
+        //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
     }
     public static bool ValidateCPF(string cpf)
     {
         int soma = 0, mult = 10;
 
-        for (int i = 0; i < cpf.Length-2; i++)
+        for (int i = 0; i < cpf.Length - 2; i++)
         {
-            soma += (Convert.ToInt32(cpf[i])-48) * mult;
+            soma += (Convert.ToInt32(cpf[i]) - 48) * mult;
             mult--;
         }
-        if(soma % 11 == 0 || soma % 11 == 1)
+        if (soma % 11 == 0 || soma % 11 == 1)
         {
-            if(Convert.ToInt32(cpf[9]) - 48 != 0)
+            if (Convert.ToInt32(cpf[9]) - 48 != 0)
             {
                 return false;
             }
         }
         else
         {
-            if(Convert.ToInt32(cpf[9]) - 48 != (11-(soma % 11)))
+            if (Convert.ToInt32(cpf[9]) - 48 != (11 - (soma % 11)))
             {
                 return false;
             }
@@ -121,7 +125,7 @@ public class Funcoes
         }
         else
         {
-            if (Convert.ToInt32(cpf[10])-48 != (11 - (soma % 11)))
+            if (Convert.ToInt32(cpf[10]) - 48 != (11 - (soma % 11)))
             {
                 return false;
             }

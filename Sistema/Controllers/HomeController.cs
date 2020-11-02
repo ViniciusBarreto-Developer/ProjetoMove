@@ -31,9 +31,10 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            CaptchaResponse response = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);
+            CaptchaResponse captchaResponse = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);
+            
 
-            if (response.Success && ModelState.IsValid)
+            if (captchaResponse.Success && ModelState.IsValid)
             {
                 if (db.Usuario.Where(x => x.Email == cad.Email).ToList().Count > 0)
                 {
@@ -67,7 +68,7 @@ namespace Sistema.Controllers
                 return RedirectToAction("Acesso");
 
             }
-            else if (response.Success == false)
+            else if (captchaResponse.Success == false)
             {
                 ModelState.AddModelError("", "reCAPTCHA Inválido");
                 return View();
