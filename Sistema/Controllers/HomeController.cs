@@ -31,8 +31,7 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            CaptchaResponse captchaResponse = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);
-            
+            CaptchaResponse captchaResponse = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);            
 
             if (captchaResponse.Success && ModelState.IsValid)
             {
@@ -49,6 +48,11 @@ namespace Sistema.Controllers
                 if (cad.Email == cad.EmailRecuperacao)
                 {
                     ModelState.AddModelError("", "O E-mail de Recuperação não pode ser igual ao E-mail");
+                    return View(cad);
+                }
+                if (Funcoes.ValidateCPF(cad.Cpf) == false)
+                {
+                    ModelState.AddModelError("", "O CPF não é válido");
                     return View(cad);
                 }
                 Usuario usu = new Usuario();
