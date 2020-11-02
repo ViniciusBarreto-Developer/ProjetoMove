@@ -31,9 +31,9 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            CaptchaResponse response = ValidadeCaptcha(Request["g-recaptcha-response"]);
+            CaptchaResponse response = ValidateCaptcha(Request["g-recaptcha-response"]);
 
-            if (/*response.Success && */ModelState.IsValid)
+            if (response.Success && ModelState.IsValid)
             {
                 if (db.Usuario.Where(x => x.Email == cad.Email).ToList().Count > 0)
                 {
@@ -67,15 +67,15 @@ namespace Sistema.Controllers
                 return RedirectToAction("Acesso");
 
             }
-            //else if (response.Success == false)
-            //{
-            //    ModelState.AddModelError("", "reCAPTCHA Inválido");
-            //    return View();
-            //}
+            else if (response.Success == false)
+            {
+                ModelState.AddModelError("", "reCAPTCHA Inválido");
+                return View();
+            }
             return View();
         }
 
-        public static CaptchaResponse ValidadeCaptcha(string response)
+        public static CaptchaResponse ValidateCaptcha(string response)
         {
             string secret = WebConfigurationManager.AppSettings["recaptchaPrivateKey"];
             var client = new WebClient();
