@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Sistema.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Configuration;
 
 public class Funcoes
 {
@@ -68,5 +72,60 @@ public class Funcoes
         utf8Decode.GetChars(stringValor, 0, stringValor.Length, decodeChar, 0);
         string resultado = new String(decodeChar);
         return resultado;
+    }
+    public static CaptchaResponse ValidateCaptcha(string response)
+    {
+        string secret = WebConfigurationManager.AppSettings["recaptchaPrivateKey"];
+        var client = new WebClient();
+        var jsonResult = client.DownloadString(
+            string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
+            secret, response));
+        return JsonConvert.DeserializeObject<CaptchaResponse>(jsonResult.ToString());
+    }
+    public static bool ValidateCPF(string cpf)
+    {
+        int soma = 0, mult = 10;
+
+        for (int i = 0; i < cpf.Length-2; i++)
+        {
+            soma += (Convert.ToInt32(cpf[i])-48) * mult;
+            mult--;
+        }
+        if(soma % 11 == 0 || soma % 11 == 1)
+        {
+            if(Convert.ToInt32(cpf[9]) - 48 != 0)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(Convert.ToInt32(cpf[9]) - 48 != (11-(soma % 11)))
+            {
+                return false;
+            }
+        }
+        soma = 0;
+        mult = 11;
+        for (int i = 0; i < cpf.Length - 1; i++)
+        {
+            soma += (Convert.ToInt32(cpf[i]) - 48) * mult;
+            mult--;
+        }
+        if (soma % 11 == 0 || soma % 11 == 1)
+        {
+            if (Convert.ToInt32(cpf[10]) - 48 != 0)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (Convert.ToInt32(cpf[10])-48 != (11 - (soma % 11)))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -22,6 +22,7 @@ namespace Sistema.Models
         public string DataNascimento { get; set; }
         [Required]
         [Display(Name = "Cpf*")]
+        [StringLength(11, MinimumLength = 11)]
         public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
@@ -66,6 +67,7 @@ namespace Sistema.Models
         public string DataNascimento { get; set; }
         [Required]
         [Display(Name = "Cpf*")]
+        [StringLength(11, MinimumLength = 11)]
         public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]

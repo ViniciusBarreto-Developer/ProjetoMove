@@ -31,7 +31,7 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            CaptchaResponse response = ValidateCaptcha(Request["g-recaptcha-response"]);
+            CaptchaResponse response = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);
 
             if (response.Success && ModelState.IsValid)
             {
@@ -74,16 +74,7 @@ namespace Sistema.Controllers
             }
             return View();
         }
-
-        public static CaptchaResponse ValidateCaptcha(string response)
-        {
-            string secret = WebConfigurationManager.AppSettings["recaptchaPrivateKey"];
-            var client = new WebClient();
-            var jsonResult = client.DownloadString(
-                string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
-                secret, response));
-            return JsonConvert.DeserializeObject<CaptchaResponse>(jsonResult.ToString());
-        }
+        
         public ActionResult Acesso()
         {
             return View();
@@ -125,7 +116,7 @@ namespace Sistema.Controllers
 
             Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
             EditarCadastro edit = new EditarCadastro();
-
+            
             edit.Nome = usu.Nome;
             edit.NomeSocial = usu.NomeSocial;
             edit.DataNascimento = usu.DataNascimento;
@@ -172,6 +163,11 @@ namespace Sistema.Controllers
                         }
                     }
 
+                    if(Funcoes.ValidateCPF(edit.Cpf) == false)
+                    {
+                        ModelState.AddModelError("", "O CPF não é válido");
+                        return View(edit);
+                    }
                     usu.Nome = edit.Nome;
                     usu.NomeSocial = edit.NomeSocial;
                     usu.DataNascimento = edit.DataNascimento;
