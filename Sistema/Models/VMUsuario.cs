@@ -22,7 +22,7 @@ namespace Sistema.Models
         public string DataNascimento { get; set; }
         [Required]
         [Display(Name = "Cpf*")]
-        [StringLength(11, MinimumLength = 11)]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "O CPF deve ter no mínimo 11 números")]
         public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
@@ -66,8 +66,7 @@ namespace Sistema.Models
         [Display(Name = "Data de nascimento*")]
         public string DataNascimento { get; set; }
         [Required]
-        [Display(Name = "Cpf*")]
-        [StringLength(11, MinimumLength = 11)]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "O CPF deve ter no mínimo 11 números")]
         public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]

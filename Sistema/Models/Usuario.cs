@@ -20,6 +20,7 @@ namespace Sistema.Models
         [Display(Name = "Data de Nascimento")]
         public string DataNascimento { get; set; }
         [Required]
+        [StringLength(14, MinimumLength = 14)]
         public string Cpf { get; set; }
         [MaxLength(100)]
         [Required]
