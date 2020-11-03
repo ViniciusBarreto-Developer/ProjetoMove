@@ -594,6 +594,8 @@ body {
   /*grid-template-columns: repeat(auto-fit, minmax(100px, 200px));*/
   column-gap: 2rem;
   width: 100%; }
+  .form-section:first-of-type {
+    margin-bottom: 4rem; }
 
 .form-group {
   display: flex;
@@ -647,8 +649,7 @@ body {
 
 .profile-pic {
   width: 16rem;
-  /*display: flex;
-    justify-content: center;*/
+  height: 16rem;
   margin: 0 auto 1rem auto;
   position: relative; }
 
@@ -665,6 +666,16 @@ body {
 .circle-pic {
   border-radius: 50%;
   width: 100%; }
+
+.avatar-placeholder {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  color: #c1c1c1;
+  font-size: 10rem; }
 
 a.btn {
   display: block;
@@ -889,9 +900,6 @@ a.btn {
   .back-to-top {
     display: none; } }
 
-.hidden {
-  display: none; }
-
 .glider-prev, .glider-next {
   top: 50%; }
 
@@ -963,12 +971,6 @@ a.btn {
   .modal .form-group-row input {
     margin-right: 0.5rem; }
 
-.hidden-animated {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.1s;
-  overflow: hidden; }
-
 .heading-page {
   margin: 2rem 0;
   font-size: 1.44rem;
@@ -978,41 +980,14 @@ a.btn {
   text-align: center;
   margin-bottom: 2rem; }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto; }
+.hidden {
+  display: none; }
 
-.form-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  /*grid-template-columns: repeat(auto-fit, minmax(100px, 200px));*/
-  column-gap: 2rem;
-  width: 100%;
-  margin-bottom: 4rem; }
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 30%;
-  margin-top: 1rem; }
-  .form-group label {
-    margin-bottom: 0.4rem; }
-  .form-group input {
-    font-size: 0.833rem;
-    border: 1px solid #9F9999;
-    border-radius: 20px;
-    padding: 0.5rem 0.7rem; }
-  .form-group input:focus {
-    outline: none !important;
-    border: 1px solid #874AFF;
-    transition: 0.5s; }
-
-@media only screen and (min-width: 1024px) {
-  .form-section {
-    justify-content: center;
-    grid-template-columns: 18rem 18rem 18rem; } }
+.hidden-animated {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.1s;
+  overflow: hidden; }
 
 .flex {
   width: 100%;

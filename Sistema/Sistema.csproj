@@ -207,8 +207,6 @@
     <Content Include="Content\styles\layout\_body.scss" />
     <Content Include="Content\styles\layout\_footer.scss" />
     <Content Include="Content\styles\layout\_nav.scss" />
-    <Content Include="Content\styles\pages\_cadastro-user.scss" />
-    <Content Include="Content\styles\pages\_login.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -221,6 +219,7 @@
     <Content Include="Content\styles\components\_carousel-glider.scss" />
     <Content Include="Content\styles\components\_modal.scss" />
     <Content Include="Content\styles\components\_headings.scss" />
+    <Content Include="Content\styles\components\_hidden.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

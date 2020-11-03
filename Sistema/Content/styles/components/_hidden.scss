@@ -1,0 +1,13 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.hidden {
+    display: none;
+}
+
+.hidden-animated {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.1s;
+    overflow: hidden;
+}

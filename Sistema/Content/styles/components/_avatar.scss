@@ -2,8 +2,7 @@
 
 .profile-pic {
     width: 16rem;
-    /*display: flex;
-    justify-content: center;*/
+    height: 16rem;
     margin: 0 auto 1rem auto;
     position: relative;
 }
@@ -24,5 +23,16 @@
     border-radius: 50%;
     width: 100%;
     
+}
+
+.avatar-placeholder {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    color: #c1c1c1;
+    font-size: 10rem
 }
 
