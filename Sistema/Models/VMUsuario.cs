@@ -37,7 +37,7 @@ namespace Sistema.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Senha*")]
-        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula e um número.Deve ser no mínimo 6 caracteres")]
+        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).(?=.*[A-Z]).{8,20})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula e um número.Deve ser no mínimo 8 caracteres")]
         public string Senha { get; set; }
         [Required]
         [Display(Name = "Confirmar senha*")]
@@ -80,7 +80,7 @@ namespace Sistema.Models
         public string EmailRecuperacao { get; set; }
         [Display(Name = "Nova senha")]
         [DataType(DataType.Password)]
-        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula e um número.Deve ser no mínimo 6 caracteres")]
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula, um número e um caracter especial, mínimo 8 caracteres")]
         public string Senha { get; set; }
         [Display(Name = "Confirmar nova senha")]
         [DataType(DataType.Password)]
@@ -97,7 +97,7 @@ namespace Sistema.Models
         [EmailAddress]
         public string Email { get; set; }
         [DataType(DataType.Password)]
-        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula e um número. Deve ser no mínimo 6 caracteres")]
+        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula, um número e um caracter especial, mínimo 8 caracteres")]
         public string Senha { get; set; }
     }
     public class Mensagem
