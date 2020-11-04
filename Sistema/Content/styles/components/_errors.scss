@@ -1,7 +1,7 @@
 ﻿@import '../abstracts/variables';
 
-.validation-summary-error {
-    background: #ff9090;
+.validation-summary-error, .validation-summary-error {
+    /*background: #fff;*/
     border-radius: 30px;
     margin-top: 0.5rem;
     padding: 0.5rem;
@@ -9,11 +9,11 @@
 
 .text-danger {
     font-size: $font-size-sm;
-    color: red;
+    color: #ff9090;
 }
 
 .field-validation-error {
-    background: #ff9090;
+   /* background: #fff;*/
     border-radius: 30px;
     margin-top: 0.5rem;
     padding: 0.5rem;
