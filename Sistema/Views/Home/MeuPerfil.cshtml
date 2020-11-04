@@ -22,7 +22,15 @@
             }
         </div>
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
-    </div>    
+    </div>
+    @if (Model.NomeSocial == null)
+    {
+        <h1 class="username">@Model.Nome</h1>
+    }
+    else
+    {
+        <h1 class="username">@Model.NomeSocial</h1>
+    }
 
     <div class="profile-info">
         <div class="bio">
