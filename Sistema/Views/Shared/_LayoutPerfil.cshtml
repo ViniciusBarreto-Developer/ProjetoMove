@@ -100,40 +100,51 @@
     }
     <script>
         window.addEventListener('load', function () {
-            new Glider(document.querySelector('.glider'), {
-                slidesToShow: 0.999,
-                slidesToScroll: 1,
-                itemWidth: 300,
-                scrollLock: true,
-                draggable: true,
-                dots: '#resp-dots',
-                arrows: {
-                    prev: '.glider-prev',
-                    next: '.glider-next'
-                },
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 'auto',
-                            itemWidth: 360,
-                            duration: 0.25
-                        }
-                    }, {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 'auto',
-                            slidesToScroll: 'auto',
-                            itemWidth: 360,
+            const gliders = document.querySelectorAll('.glider');
+            const arrowPrev = document.querySelectorAll('.glider-prev');
+            const arrowNext = document.querySelectorAll('.glider-next');
+            const respDots = document.querySelectorAll('.glider-dots');
+           
 
-                            duration: 0.5
+            gliders.forEach((glider, index) => {
+                
+
+                new Glider(glider, {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    itemWidth: 300,
+                    scrollLock: true,
+                    draggable: true,
+                    dots: respDots[index],
+                    arrows: {
+                        prev: arrowPrev[index],
+                        next: arrowNext[index]
+                    },
+                    responsive: [
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 'auto',
+                                itemWidth: 320,
+                                duration: 0.25
+                            }
+                        },
+
+                        {
+                            breakpoint: 1279,
+                            settings: {
+                                slidesToShow: 'auto',
+                                slidesToScroll: 'auto',
+                                itemWidth: 320,
+                                duration: 0.25
+                            }
                         }
-                    }
-                ]
+                    ]
+                })
             })
         });
-    </script>    
+    </script>
 </body>
 </html>
 

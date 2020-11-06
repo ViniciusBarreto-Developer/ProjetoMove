@@ -43,8 +43,8 @@
             .bio-text {
                 justify-self: center;
                 border: none;
-                resize:none;
-                width:100%;
+                resize: none;
+                width: 100%;
                 min-height: 4rem;
                 padding: 0.5rem 0.7rem;
             }
@@ -56,7 +56,7 @@
                 text-align: right;
                 font-size: $font-size-title;
                 color: $text-color;
-                border:none;
+                border: none;
                 background: none;
                 cursor: pointer;
             }
@@ -74,24 +74,58 @@
         }
     }
 
-    .my-projects-title {
-        font-size: $font-size-xl;
-        display: inline;
-        text-align: left;
-    }
+    
+}
+
+.profile-section-title {
+    font-size: $font-size-xl;
+    display: inline;
+    text-align: left;
 }
 
 .projects-section {
+    position: relative;
+    min-height: 120px;
     width: 100%;
     background: $background-color;
-    padding: 2% 0;
+    padding: 2vh 0;
 
     .glider-contain {
         width: 80%;
+        margin-bottom: 2rem;
+
+        .card-container {
+            width: 450px;
+            height: 320px;
+
+            .project-card {
+
+            }
+        }
+    }
+
+}
+
+.add-project {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: right;
+    padding: 2px 10%;
+
+    .btn {
+        display: inline-block;
+        .iconify {
+            font-size: $font-size-lg;
+            margin-left: 0.5rem;
+            position: relative;
+            top: 2px;
+        }
     }
 }
 
-#modalTags .modal .modal-body .form-group-row{
+#modalTags .modal .modal-body .form-group-row {
     margin: 2rem auto 0 auto;
 }
 
@@ -103,6 +137,10 @@
 
     .profile-section .profile-interests .tag-group {
         max-width: 100%;
+    }
+
+    .add-project {
+        text-align: center;
     }
 }
 
