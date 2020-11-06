@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
@@ -31,7 +32,7 @@ namespace Sistema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(Cadastro cad)
         {
-            CaptchaResponse captchaResponse = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);            
+            CaptchaResponse captchaResponse = Funcoes.ValidateCaptcha(Request["g-recaptcha-response"]);
 
             if (captchaResponse.Success && ModelState.IsValid)
             {
@@ -79,7 +80,18 @@ namespace Sistema.Controllers
             }
             return View();
         }
-        
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult ValidarEmail(string email)
+        {
+            Usuario u = db.Usuario.Where(t => t.Email == email).FirstOrDefault();
+            if (u == null)
+            {
+                return Json("n");
+            }
+
+            return Json("s");
+        }
         public ActionResult Acesso()
         {
             return View();
@@ -121,7 +133,7 @@ namespace Sistema.Controllers
 
             Usuario usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
             EditarCadastro edit = new EditarCadastro();
-            
+
             edit.Nome = usu.Nome;
             edit.NomeSocial = usu.NomeSocial;
             edit.DataNascimento = usu.DataNascimento;
@@ -154,7 +166,7 @@ namespace Sistema.Controllers
                     if (usu.Email != edit.Email)
                     {
                         if (db.Usuario.Where(x => x.Email == edit.Email).ToList().Count > 0)
-                        {                            
+                        {
                             ModelState.AddModelError("", "E-mail já cadastrado");
                             return View(edit);
                         }
@@ -162,13 +174,13 @@ namespace Sistema.Controllers
                     if (usu.EmailRecuperacao != edit.EmailRecuperacao)
                     {
                         if (db.Usuario.Where(x => x.EmailRecuperacao == edit.EmailRecuperacao).ToList().Count > 0)
-                        {                            
+                        {
                             ModelState.AddModelError("", "E-mail de Recuperação já cadastrado");
                             return View(edit);
                         }
                     }
 
-                    if(Funcoes.ValidateCPF(edit.Cpf) == false)
+                    if (Funcoes.ValidateCPF(edit.Cpf) == false)
                     {
                         ModelState.AddModelError("", "O CPF não é válido");
                         return View(edit);
@@ -358,6 +370,44 @@ namespace Sistema.Controllers
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             return View(vmp);
+        }
+        [HttpPost]
+        public ActionResult GetImage(string filename, HttpPostedFileBase blob)
+        {
+            var fullPath = "~/Uploads/" + filename;
+            blob.SaveAs(Server.MapPath(fullPath));
+            return Json("ok");
+        }
+        public ActionResult EditarFoto(HttpPostedFileBase arq)
+        {
+            string valor = "";
+
+            if (arq != null)
+            {
+                Funcoes.Upload.CriarDiretorio();
+                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
+                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                if (valor == "sucesso")
+                {
+                    string[] user = User.Identity.Name.Split('|');
+                    string email = user[0];
+                    var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+                    usu.Foto = nomearq;
+                    db.Usuario.AddOrUpdate(usu);
+                    db.SaveChanges();
+                    return RedirectToAction("MeuPerfil");
+                }
+                else
+                {
+                    ModelState.AddModelError("", valor);
+                    return RedirectToAction("MeuPerfil");
+                }
+            }
+            else
+            {
+                TempData["MSG"] = "error|Escolha uma imagem primeiro";
+                return RedirectToAction("MeuPerfil");
+            }
         }
         [HttpPost]
         public ActionResult EditarBiografia(Usuario usuario)

@@ -10,17 +10,23 @@
 
     </div>
     <div class="profile-pic">
-        @*<img class="circle-pic" src="https://images.generated.photos/d9cnAQBYXb01cPV7O71580U3GYQNS6bhlEXT2F4jwsw/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwOTY0MTVfMDY3/MzMwNV8wODE0NTQ0/LmpwZw.jpg" alt="Foto de perfil" />*@
-        <div class="circle-pic avatar-placeholder">
-            @if (Model.NomeSocial == null)
-            {
-                <p>@Model.Nome.ToString()[0])</p>
-            }
-            else
-            {
-                <p>@Model.NomeSocial.ToString()[0]</p>
-            }
-        </div>
+        @if (Model.Foto == null)
+        {
+            <div class="circle-pic avatar-placeholder">
+                @if (Model.NomeSocial == null)
+                {
+                    <p>@Model.Nome.ToString()[0])</p>
+                }
+                else
+                {
+                    <p>@Model.NomeSocial.ToString()[0]</p>
+                }
+            </div>
+        }
+        else
+        {
+            <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
+        }
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
     @if (Model.NomeSocial == null)
@@ -195,7 +201,7 @@
                     foreach (var item in Model.UsuarioTags)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
                         </li>
                         i++;
                     }
@@ -227,12 +233,35 @@
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" data-close-modal="modalPic">Confirmar</button>
-        </div>
+        @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <img class="my-image" id="img" src="~/Uploads/@Model.Foto" />
+            </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-primary" type="file" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
     </div>
 </div>
+<script>
+    var el = document.getElementById('img');
+    var vanilla = new Croppie(el, {
+        viewport: { width: 200, height: 200, type: 'circle' },
+        boundary: { width: 250, height: 250 },
+        showZoomer: true,
+        enableOrientation: true
+    });
+    vanilla.bind({
+        url: 'demo/demo-2.jpg',
+        orientation: 4
+    });
+    //on button click
+    vanilla.result('blob').then(function (blob) {
+        // do something with cropped blob
+    });
+</script>
+
 
 
