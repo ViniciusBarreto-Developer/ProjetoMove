@@ -177,16 +177,10 @@
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\img\blob-footer.svg" />
     <Content Include="Content\img\move_logoPerfil.png" />
-    <Content Include="Content\styles\main.css">
-      <DependentUpon>main.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\styles\main.min.css">
-      <DependentUpon>main.css</DependentUpon>
-    </Content>
+    <Content Include="Content\styles\main.css" />
+    <Content Include="Content\styles\main.min.css" />
     <Content Include="Content\styles\style.css" />
-    <Content Include="Content\styles\style.min.css">
-      <DependentUpon>style.css</DependentUpon>
-    </Content>
+    <Content Include="Content\styles\style.min.css" />
     <Content Include="favicon-16x16.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -194,7 +188,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\styles\main.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <Content Include="Content\styles\abstracts\_mixins.scss" />
     <Content Include="Content\styles\abstracts\_variables.scss" />
     <Content Include="Content\styles\base\_custom-reset.scss" />
@@ -202,25 +199,22 @@
     <Content Include="Content\styles\base\_reset.scss" />
     <Content Include="Content\styles\base\_typography.scss" />
     <Content Include="Content\styles\components\_avatar.scss" />
+    <Content Include="Content\styles\components\_back-to-top.scss" />
     <Content Include="Content\styles\components\_buttons.scss" />
+    <Content Include="Content\styles\components\_cards.scss" />
+    <Content Include="Content\styles\components\_carousel-glider.scss" />
     <Content Include="Content\styles\components\_errors.scss" />
+    <Content Include="Content\styles\components\_forms.scss" />
+    <Content Include="Content\styles\components\_headings.scss" />
+    <Content Include="Content\styles\components\_hidden.scss" />
+    <Content Include="Content\styles\components\_modal.scss" />
     <Content Include="Content\styles\components\_tags.scss" />
     <Content Include="Content\styles\layout\_body.scss" />
     <Content Include="Content\styles\layout\_footer.scss" />
     <Content Include="Content\styles\layout\_nav.scss" />
-    <None Include="compilerconfig.json" />
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
-    <Content Include="Content\styles\pages\_principal.scss" />
-    <Content Include="Content\styles\components\_forms.scss" />
+    <Content Include="Content\styles\main.scss" />
     <Content Include="Content\styles\pages\_meuperfil.scss" />
-    <Content Include="Content\styles\components\_cards.scss" />
-    <Content Include="Content\styles\components\_back-to-top.scss" />
-    <Content Include="Content\styles\components\_carousel-glider.scss" />
-    <Content Include="Content\styles\components\_modal.scss" />
-    <Content Include="Content\styles\components\_headings.scss" />
-    <Content Include="Content\styles\components\_hidden.scss" />
+    <Content Include="Content\styles\pages\_principal.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
