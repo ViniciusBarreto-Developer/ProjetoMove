@@ -461,5 +461,13 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
+        public ActionResult ExcluirProjetosSalvos(int id)
+        {
+            var pro = db.ProjetosSalvos.Find(id);
+            db.ProjetosSalvos.Remove(pro);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuPerfil");
+        }
     }
 }
