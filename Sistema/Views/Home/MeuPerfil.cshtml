@@ -85,98 +85,28 @@
 
     <div class="glider-contain">
         <div class="glider">
-            <div class="card-container">
-                <div class="project-card">
-                    <a href="#">
-                        <div class="card-img">
-                            <img src="http://placekitten.com/500/300" alt="Imagem do projeto" />
-                        </div>
-                        <h3 class="card-title">Meu projeto</h3>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum...</p>
-                        <ul class="card-tags">
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-
-                        </ul>
-                    </a>
+            @foreach (var item in Model.IntegrantesProjetos)
+            {
+                <div class="card-container">
+                    <div class="project-card">
+                        <a href="#">
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                            </div>
+                            <h3 class="card-title">@item.Projeto.Nome</h3>
+                            <p class="card-text">@item.Projeto.Descricao</p>
+                            <ul class="card-tags">
+                                @foreach (var pro in item.Projeto.ProjetoTags)
+                                {
+                                    <li class="tag-container">
+                                        <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                    </li>
+                                }
+                            </ul>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="card-container">
-                <div class="project-card">
-                    <a href="#">
-                        <div class="card-img">
-                            <img src="http://placekitten.com/500/300" alt="Imagem do projeto" />
-                        </div>
-                        <h3 class="card-title">Meu projeto2</h3>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum...</p>
-                        <ul class="card-tags">
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-
-            <div class="card-container">
-                <div class="project-card">
-                    <a href="#">
-                        <div class="card-img">
-                            <img src="http://placekitten.com/500/300" alt="Imagem do projeto" />
-                        </div>
-                        <h3 class="card-title">Meu projeto3</h3>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum...</p>
-                        <ul class="card-tags">
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-
-            <div class="card-container">
-                <div class="project-card">
-                    <a href="#">
-                        <div class="card-img">
-                            <img src="http://placekitten.com/500/300" alt="Imagem do projeto" />
-                        </div>
-                        <h3 class="card-title">Meu projeto4</h3>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum...</p>
-                        <ul class="card-tags">
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Batman</span></div>
-                            </li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
+            }                                    
         </div>
 
         <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>

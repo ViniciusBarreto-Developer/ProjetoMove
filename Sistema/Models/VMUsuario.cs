@@ -37,7 +37,7 @@ namespace Sistema.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Senha*")]
-        [RegularExpression("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).(?=.*[A-Z]).{8,20})", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula e um número.Deve ser no mínimo 8 caracteres")]
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", ErrorMessage = "A senha deve conter aos menos uma letra maiúscula, minúscula, um número e um caracter especial, mínimo 8 caracteres")]
         public string Senha { get; set; }
         [Required]
         [Display(Name = "Confirmar senha*")]

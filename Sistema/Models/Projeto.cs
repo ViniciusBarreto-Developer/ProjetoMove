@@ -20,9 +20,9 @@ namespace Sistema.Models
         public DateTime DataCadastro { get; set; }
         [Required]
         public bool Ativo { get; set; }
-        ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
-        ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
-        ICollection<ProjetoTags> ProjetoTags { get; set; }
+        public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
+        public virtual ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
+        public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }
 
     }
 }
