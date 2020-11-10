@@ -188,7 +188,7 @@
     <div class="add-project"><a class="btn btn-primary">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
-<section class="content-container">
+<section class="content-container section-separator">
     <h2 class="profile-section-title">Projetos salvos</h2>
 </section>
 
@@ -341,7 +341,8 @@
             {
                 <div class="form-group-row">
                     @Html.EditorFor(model => model.PesquisaTag)
-                    <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    <span id="msg"></span>
                 </div>
             }
         </div>
@@ -360,31 +361,33 @@
         {
             <div class="modal-body">
                 <img class="my-image" id="img" src="~/Uploads/@Model.Foto" />
+            <div id="img">
+
+                </div>
             </div>
             <div class="modal-footer">
-                <input name="arq" class="btn btn-primary" type="file" />
+                <input name="arq" class="btn btn-secondary" type="file" />
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }
     </div>
 </div>
-<script>
-    var el = document.getElementById('img');
-    var vanilla = new Croppie(el, {
-        viewport: { width: 200, height: 200, type: 'circle' },
-        boundary: { width: 250, height: 250 },
-        showZoomer: true,
-        enableOrientation: true
+
+
+@*<script>
+    $uploadCrop = $('#img').croppie({
+
+        viewport: {
+            width: 200,
+            height: 200,
+            type: 'circle'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
     });
-    vanilla.bind({
-        url: 'demo/demo-2.jpg',
-        orientation: 4
-    });
-    //on button click
-    vanilla.result('blob').then(function (blob) {
-        // do something with cropped blob
-    });
-</script>
+</script>*@
 
 
 

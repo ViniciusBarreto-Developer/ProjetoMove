@@ -1098,6 +1098,9 @@ a.btn {
     .profile-section .profile-interests .tag-group {
       max-width: 50%; }
 
+.section-separator {
+  padding-bottom: 0.5rem; }
+
 .profile-section-title {
   font-size: 1.44rem;
   display: inline;
