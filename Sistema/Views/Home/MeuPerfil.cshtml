@@ -7,26 +7,29 @@
 
 <section class="profile-section content-container">
     <div class="bg">
-
     </div>
-    <div class="profile-pic">
-        @if (Model.Foto == null)
-        {
-            <div class="circle-pic avatar-placeholder">
-                @if (Model.NomeSocial == null)
-                {
-                    <p>@Model.Nome.ToString()[0])</p>
-                }
-                else
-                {
-                    <p>@Model.NomeSocial.ToString()[0]</p>
-                }
-            </div>
-        }
-        else
-        {
-            <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
-        }
+    
+    <div class="profile-pic-container">
+        <div class="profile-pic">
+            @if (Model.Foto == null)
+            {
+                <div class="circle-pic avatar-placeholder">
+                    @if (Model.NomeSocial == null)
+                    {
+                        <p>@Model.Nome.ToString()[0]</p>
+                    }
+                    else
+                    {
+                        <p>@Model.NomeSocial.ToString()[0]</p>
+                    }
+                </div>
+            }
+            else
+            {
+                <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
+            }
+
+        </div>
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
     @if (Model.NomeSocial == null)
@@ -141,7 +144,7 @@
     <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjeto">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
-<section class="content-container">
+<section class="content-container section-separator">
     <h2 class="profile-section-title">Projetos salvos</h2>
 </section>
 
@@ -169,7 +172,7 @@
                             </ul>
                         </a>
 
-                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
 
                     </div>
                 </div>
@@ -183,9 +186,7 @@
     </div>
 
 </section>
-<section class="content-container">
-    <h2 class="profile-section-title"></h2>
-</section>
+
 
 <div class="modal-bg hidden-animated" id="modalTags">
     <div class="modal">
@@ -202,7 +203,7 @@
                     foreach (var item in Model.UsuarioTags)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
                         </li>
                         i++;
                     }
@@ -219,7 +220,8 @@
             {
                 <div class="form-group-row">
                     @Html.EditorFor(model => model.PesquisaTag)
-                    <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    <span id="msg"></span>
                 </div>
             }
         </div>
@@ -237,10 +239,12 @@
         @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
-                <img class="my-image" id="img" src="~/Uploads/@Model.Foto" />
+                <div class="profile-pic" id="preview-container">
+                    <img class="circle-pic" id="img-preview"/>
+                </div>
             </div>
             <div class="modal-footer">
-                <input name="arq" class="btn btn-primary" type="file" />
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }
@@ -271,23 +275,7 @@
         }
     </div>
 </div>
-<script>
-    var el = document.getElementById('img');
-    var vanilla = new Croppie(el, {
-        viewport: { width: 200, height: 200, type: 'circle' },
-        boundary: { width: 250, height: 250 },
-        showZoomer: true,
-        enableOrientation: true
-    });
-    vanilla.bind({
-        url: 'demo/demo-2.jpg',
-        orientation: 4
-    });
-    //on button click
-    vanilla.result('blob').then(function (blob) {
-        // do something with cropped blob
-    });
-</script>
+
 
 
 

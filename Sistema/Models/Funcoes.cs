@@ -172,9 +172,9 @@ public class Funcoes
                     string extensao = Path.GetExtension(flpUpload.FileName).ToLower();
                     string diretorio = HttpContext.Current.Request.PhysicalApplicationPath + "Uploads\\" + nome;
                     if (tamanho > permitido)
-                        return "Tamanho Máximo permitido é de " + permitido + " kb!";
-                    else if ((extensao != ".png" && extensao != ".jpg"))
-                        return "Extensão inválida, só são permitidas .png e .jpg!";
+                        return "O tamanho máximo permitido é de " + permitido + " kb!";
+                    else if ((extensao != ".png" && extensao != ".jpg" && extensao != ".jpeg"))
+                        return "Extensão inválida, só são permitidas .png, .jpg e .jpeg!";
                     else
                     {
                         if (!File.Exists(diretorio))

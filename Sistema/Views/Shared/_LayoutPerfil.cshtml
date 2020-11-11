@@ -9,9 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
     @Styles.Render("~/content/styles/style.min.css")
+    @Scripts.Render("~/bundles/jquery")
     <link href="~/Content/croppie.css" rel="stylesheet" />
     <script src="~/Scripts/croppie.js"></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 </head>
 
 <body>
@@ -62,12 +64,9 @@
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @*<script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
-                referrerpolicy="origin"></script>
-        <script>tinymce.init({ selector: 'textarea' });</script>*@
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
 
     @if (TempData["MSG"] != null)
@@ -98,16 +97,17 @@
             });
         </script>
     }
+
     <script>
         window.addEventListener('load', function () {
             const gliders = document.querySelectorAll('.glider');
             const arrowPrev = document.querySelectorAll('.glider-prev');
             const arrowNext = document.querySelectorAll('.glider-next');
             const respDots = document.querySelectorAll('.glider-dots');
-           
+
 
             gliders.forEach((glider, index) => {
-                
+
 
                 new Glider(glider, {
                     slidesToShow: 1,

@@ -69,35 +69,47 @@
 
         <div class="form-btns">
             @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
-            <input type="submit" value="Concluir" class="btn btn-primary" />
+            <input type="submit" disabled="disabled" value="Concluir" class="btn btn-primary" id="concluir"/>
         </div>
     </div>
 }
-<script>
-    $("#Email").focusout(function () {
-        var email = $(this).val();
-        $.ajax({
-            dataType: "json",
-            type: "POST",
-            url: "/Usuarios/ValidarEmail",
-            data: { email },
-            success: function (retorno) {
-                if (retorno == "s") {
-                    $("#botao").attr('disabled', 'disabled');
-                    $("#msg").text("E-mail já cadastrado");
-                    $("#msg").removeAttr("class");
-                    $("#msg").attr("class", "text-danger");
-                }
-                else {
-                    $("#botao").removeAttr("disabled");
-                    $("#msg").text("E-mail validado");
-                    $("#msg").removeAttr("class");
-                    $("#msg").attr("class", "text-success");
-                }
+
+@*<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const emailInput = document.querySelector('#Email');
+        const msg = document.querySelector('#msg');
+        const button = document.querySelector('#concluir');
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        }
+        emailInput.addEventListener('focusout', () => {
+
+            const data = {
+                email: emailInput.value
             }
-        });
-    });
-</script>
+
+            fetch("/Home/ValidarEmail", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+                .then((res) => res.json())
+                .then((resJson) => {
+                    if (resJson === "s") {
+                        msg.innerText = "E-mail já cadastrado";
+                        msg.classList.add("text-danger", "field-validation-error")
+                        button.setAttribute("disabled", "disabled");
+                    }
+                    else {
+                        button.removeAttribute("disabled");
+                    }
+                });
+        })
+    })
+
+</script>*@
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")

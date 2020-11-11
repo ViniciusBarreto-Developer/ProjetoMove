@@ -20,6 +20,19 @@
         border-bottom-right-radius: 30px;
     }
 
+    .profile-pic-container {
+        position: relative;
+        width: 16rem;
+        height: 16rem;
+        margin: 0 auto;
+
+        .profile-pic-edit {
+            position: absolute;
+            bottom: 1rem;
+            right: 0;
+        }
+    }
+
     .username {
         font-size: $font-size-title;
         text-align: center;
@@ -73,10 +86,11 @@
             max-width: 50%;
         }
     }
-
-    
 }
 
+.section-separator {
+    padding-bottom: 0.5rem;
+}
 .profile-section-title {
     font-size: $font-size-xl;
     display: inline;
