@@ -477,30 +477,12 @@ namespace Sistema.Controllers
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-
-            Projeto pro = new Projeto();
-
+            
             if (ModelState.IsValid)
             {
-                if (arquivo != null)
-                {
-                    string valor = "";
+                Projeto pro = new Projeto();
 
-                    Funcoes.Upload.CriarDiretorio();
-                    string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arquivo.FileName);
-                    valor = Funcoes.Upload.UploadArquivo(arquivo, nomearq);
-
-                    if (valor == "sucesso")
-                    {
-                        pro.Logo = nomearq;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", valor);
-                        return RedirectToAction("MeuPerfil");
-                    }
-                }
-                pro.Logo = "";
+                pro.Logo = "projeto.jpg";
                 pro.Nome = vmp.NomeProjeto;
                 pro.Descricao = vmp.Descricao;
                 pro.Ativo = true;
@@ -515,6 +497,14 @@ namespace Sistema.Controllers
                 inte.UsuarioID = usu.Id;
 
                 db.IntegrantesProjeto.AddOrUpdate(inte);
+                db.SaveChanges();
+
+                ProjetoTags tags = new ProjetoTags();
+
+                tags.ProjetoId = pro.Id;
+                tags.TagId = 1;
+
+                db.ProjetoTags.AddOrUpdate(tags);
                 db.SaveChanges();
                 return RedirectToAction("MeuPerfil");
             }
