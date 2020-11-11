@@ -952,7 +952,8 @@ a.btn {
   text-align: center;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.2s, visibility 0.1s; }
+  transition: opacity 0.2s, visibility 0.1s;
+  overflow: auto; }
   .modal-bg .modal {
     margin-bottom: auto;
     display: inline-flex;
