@@ -169,7 +169,7 @@
                             </ul>
                         </a>
 
-                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
 
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                     foreach (var item in Model.UsuarioTags)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
                         </li>
                         i++;
                     }
