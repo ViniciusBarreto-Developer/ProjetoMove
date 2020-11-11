@@ -472,24 +472,26 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
-        public ActionResult CriarProjeto(VMPerfil vmp, HttpPostedFileBase arq)
+        public ActionResult CriarProjeto(HttpPostedFileBase arquivo, VMPerfil vmp)
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
             Projeto pro = new Projeto();
+
             if (ModelState.IsValid)
             {
-                if (arq != null)
+                if (arquivo != null)
                 {
                     string valor = "";
 
                     Funcoes.Upload.CriarDiretorio();
-                    string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                    valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                    string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arquivo.FileName);
+                    valor = Funcoes.Upload.UploadArquivo(arquivo, nomearq);
+
                     if (valor == "sucesso")
                     {
-                        string[] user = User.Identity.Name.Split('|');
-                        string email = user[0];
-                        var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-
                         pro.Logo = nomearq;
                     }
                     else
@@ -502,7 +504,17 @@ namespace Sistema.Controllers
                 pro.Nome = vmp.NomeProjeto;
                 pro.Descricao = vmp.Descricao;
                 pro.Ativo = true;
+                pro.DataCadastro = DateTime.Now;
                 db.Projeto.AddOrUpdate(pro);
+                db.SaveChanges();
+
+                IntegrantesProjeto inte = new IntegrantesProjeto();
+
+                inte.Adm = true;
+                inte.ProjetoId = pro.Id;
+                inte.UsuarioID = usu.Id;
+
+                db.IntegrantesProjeto.AddOrUpdate(inte);
                 db.SaveChanges();
                 return RedirectToAction("MeuPerfil");
             }
