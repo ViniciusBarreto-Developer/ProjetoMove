@@ -262,7 +262,6 @@
         @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
-                @*<img class="my-image" id="img" src="~/Uploads/@Model.Logo" />*@
                 <div class="form-group">
                     @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.EditorFor(model => model.NomeProjeto)
@@ -273,7 +272,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input name="arquivo" class="btn btn-primary" type="file" />
                 <button class="btn btn-primary">Criar</button>
             </div>
         }
