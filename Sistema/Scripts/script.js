@@ -3,6 +3,7 @@
     modalBehavior();
     editBio();
     validateEmail();
+    imgUploadPreview();
 });
 
 function backToTop() {
@@ -137,5 +138,23 @@ function validateEmail() {
                     }
                 });
         });
+    }
+}
+
+function imgUploadPreview() {
+    const imgInput = document.querySelector("#img-input");
+
+    if (imgInput) {
+        const previewContainer = document.querySelector("#preview-container");
+        const preview = document.querySelector("#img-preview");
+        if (preview.src === "") {
+            previewContainer.classList.add("hidden");
+        }
+
+        imgInput.addEventListener("change", (e) => {  
+            previewContainer.classList.remove("hidden");
+            preview.src = URL.createObjectURL(e.target.files[0]);
+            preview.onload = () => URL.revokeObjectURL(preview.src)
+        })
     }
 }

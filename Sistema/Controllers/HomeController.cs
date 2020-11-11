@@ -400,6 +400,7 @@ namespace Sistema.Controllers
                 else
                 {
                     ModelState.AddModelError("", valor);
+                    TempData["MSG"] = "error|" + valor;
                     return RedirectToAction("MeuPerfil");
                 }
             }

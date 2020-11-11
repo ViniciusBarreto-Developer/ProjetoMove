@@ -653,12 +653,13 @@ body {
   width: 16rem;
   height: 16rem;
   margin: 0 auto 1rem auto;
-  position: relative; }
+  border-radius: 50%;
+  background: #eee9e9;
+  display: flex;
+  align-content: center;
+  overflow: hidden; }
 
 .profile-pic-edit {
-  position: absolute;
-  bottom: 1rem;
-  right: 0;
   font-size: 2.074rem;
   color: #333333; }
 
@@ -666,8 +667,8 @@ body {
   width: 3rem; }
 
 .circle-pic {
-  border-radius: 50%;
-  width: 100%; }
+  width: 100%;
+  object-fit: cover; }
 
 .avatar-placeholder {
   height: 100%;
@@ -1058,6 +1059,15 @@ a.btn {
     background: #05f296;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px; }
+  .profile-section .profile-pic-container {
+    position: relative;
+    width: 16rem;
+    height: 16rem;
+    margin: 0 auto; }
+    .profile-section .profile-pic-container .profile-pic-edit {
+      position: absolute;
+      bottom: 1rem;
+      right: 0; }
   .profile-section .username {
     font-size: 2.074rem;
     text-align: center;
