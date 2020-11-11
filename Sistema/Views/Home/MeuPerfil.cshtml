@@ -138,7 +138,7 @@
 
     </div>
 
-    <div class="add-project"><a class="btn btn-primary">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
+    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjeto">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
 <section class="content-container">
@@ -242,6 +242,31 @@
             <div class="modal-footer">
                 <input name="arq" class="btn btn-primary" type="file" />
                 <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal-bg hidden-animated" id="modalProjeto">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Criar Projeto</h3>
+            <div class="close-modal" data-close-modal="modalProjeto">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <img class="my-image" id="img" src="~/Uploads/@Model.Logo" />
+                @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.NomeProjeto)
+                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Descricao)
+            </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-primary" type="file" />
+                <button class="btn btn-primary">Criar</button>
             </div>
         }
     </div>

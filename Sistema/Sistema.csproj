@@ -159,7 +159,6 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTag.cs" />
     <Compile Include="Models\VMPerfil.cs" />
-    <Compile Include="Models\VMProjeto.cs" />
     <Compile Include="Models\VMUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -392,6 +392,8 @@ namespace Sistema.Controllers
                     string[] user = User.Identity.Name.Split('|');
                     string email = user[0];
                     var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+                    //Excluir foto antiga
+                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + usu.Foto);
                     usu.Foto = nomearq;
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
@@ -468,6 +470,42 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
+        }
+        public ActionResult CriarProjeto(VMPerfil vmp, HttpPostedFileBase arq)
+        {
+            Projeto pro = new Projeto();
+            if (ModelState.IsValid)
+            {
+                if (arq != null)
+                {
+                    string valor = "";
+
+                    Funcoes.Upload.CriarDiretorio();
+                    string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
+                    valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                    if (valor == "sucesso")
+                    {
+                        string[] user = User.Identity.Name.Split('|');
+                        string email = user[0];
+                        var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+                        pro.Logo = nomearq;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", valor);
+                        return RedirectToAction("MeuPerfil");
+                    }
+                }
+                pro.Logo = "";
+                pro.Nome = vmp.NomeProjeto;
+                pro.Descricao = vmp.Descricao;
+                pro.Ativo = true;
+                db.Projeto.AddOrUpdate(pro);
+                db.SaveChanges();
+                return RedirectToAction("MeuPerfil");
+            }
+            return View(vmp);
         }
     }
 }
