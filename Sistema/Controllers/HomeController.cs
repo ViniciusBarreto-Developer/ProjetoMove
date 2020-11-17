@@ -506,11 +506,10 @@ namespace Sistema.Controllers
 
                 db.ProjetoTags.AddOrUpdate(tags);
                 db.SaveChanges();
-                return RedirectToAction("MeuPerfil");
+                return RedirectToAction("CadastrarProjeto");
             }
             return View(vmp);
         }
-
         public ActionResult CadastrarProjeto()
         {
             return View();

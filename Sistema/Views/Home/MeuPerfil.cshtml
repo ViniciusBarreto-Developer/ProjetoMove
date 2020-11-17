@@ -90,49 +90,34 @@
         <div class="glider">
             @foreach (var item in Model.IntegrantesProjetos)
             {
-                <div class="card-container">
-                    <div class="project-card">
-                        <a href="#">
-                            <div class="card-img">
-                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
-                            </div>
-                            <h3 class="card-title">@item.Projeto.Nome</h3>
-                            <p class="card-text">@item.Projeto.Descricao</p>
-                            <ul class="card-tags">
-                                @foreach (var pro in item.Projeto.ProjetoTags)
-                                {
-                                    <li class="tag-container">
-                                        <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                    </li>
-                                }
-                            </ul>
-                        </a>
+                if (item.Projeto.Ativo == true)
+                {
+                    <div class="card-container">
+                        <div class="project-card">
+                            <a href="#">
+                                <div class="card-img">
+                                    <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                                </div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                                <ul class="card-tags">
+                                    @foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+                                        int n = 0;
+                                        if (n < 3)
+                                        {
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
+                                        }
+                                    }
+                                </ul>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                }
             }
-            @*<div class="card-container">
-                    <div class="project-card">
-                        <a href="#">
-                            <div class="card-img">
-                                <img src="http://placekitten.com/500/300" alt="Imagem do projeto" />
-                            </div>
-                            <h3 class="card-title">Meu projeto</h3>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis nisl libero, quis imperdiet turpis dapibus sit amet. Suspendisse vulputate lorem sit amet ipsum imperdiet rutrum...</p>
-                            <ul class="card-tags">
-                                <li class="tag-container">
-                                    <div class="tag"><span class="tag-text">Batman</span></div>
-                                </li>
-                                <li class="tag-container">
-                                    <div class="tag"><span class="tag-text">Batman</span></div>
-                                </li>
-                                <li class="tag-container">
-                                    <div class="tag"><span class="tag-text">Batman</span></div>
-                                </li>
-
-                            </ul>
-                        </a>
-                    </div>
-                </div>*@
         </div>
 
         <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
@@ -141,7 +126,7 @@
 
     </div>
 
-    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjeto">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
+    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjetos">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
 <section class="content-container section-separator">
@@ -154,28 +139,36 @@
         <div class="glider">
             @foreach (var item in Model.ProjetosSalvos)
             {
-                <div class="card-container">
-                    <div class="project-card">
-                        <a href="#">
-                            <div class="card-img">
-                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
-                            </div>
-                            <h3 class="card-title">@item.Projeto.Nome</h3>
-                            <p class="card-text">@item.Projeto.Descricao</p>
-                            <ul class="card-tags">
-                                @foreach (var pro in item.Projeto.ProjetoTags)
-                                {
-                                    <li class="tag-container">
-                                        <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                    </li>
-                                }
-                            </ul>
-                        </a>
+                if (item.Projeto.Ativo == true)
+                {
+                    <div class="card-container">
+                        <div class="project-card">
+                            <a href="#">
+                                <div class="card-img">
+                                    <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                                </div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                                <ul class="card-tags">
+                                    @foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+                                        int n = 0;
+                                        if (n < 3)
+                                        {
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
+                                        }
+                                    }
+                                </ul>
+                            </a>
 
-                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+                            <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
 
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
 
@@ -228,6 +221,33 @@
     </div>
 </div>
 
+<div class="modal-bg hidden" id="modalProjetos">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Foto</h3>
+            <div class="close-modal" data-close-modal="modalProjetos">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.NomeProjeto)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Criar</button>
+            </div>
+        }
+    </div>
+</div>
+
 <div class="modal-bg hidden" id="modalPic">
     <div class="modal">
         <div class="modal-header">
@@ -251,32 +271,6 @@
     </div>
 </div>
 
-<div class="modal-bg hidden-animated" id="modalProjeto">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Criar Projeto</h3>
-            <div class="close-modal" data-close-modal="modalProjeto">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="modal-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.NomeProjeto)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text" })
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Criar</button>
-            </div>
-        }
-    </div>
-</div>
 
 
 
