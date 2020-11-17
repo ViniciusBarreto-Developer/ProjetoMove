@@ -411,5 +411,11 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
+
+        public ActionResult CadastrarProjeto()
+        {
+            return View();
+        }
+
     }
 }

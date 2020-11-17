@@ -661,7 +661,8 @@ body {
   color: #333333; }
 
 .profile-pic-mini {
-  width: 3rem; }
+  width: 3rem;
+  height: 3rem; }
 
 .circle-pic {
   border-radius: 50%;
@@ -1103,3 +1104,115 @@ a.btn {
 @media only screen and (min-width: 1024px) {
   .projects-section {
     grid-template-columns: repeat(3, minmax(300px, 1fr)); } }
+
+.form-horizontal {
+  width: 100%; }
+
+.retangulo {
+  width: 70vw;
+  background-color: lightgray;
+  border-radius: 2rem;
+  margin: 0 auto;
+  padding: 2rem; }
+
+.infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap; }
+  .infos .img-projeto {
+    min-width: 10rem;
+    max-width: 23rem; }
+    .infos .img-projeto img {
+      width: 100%;
+      border-radius: 20px; }
+  .infos .descricao {
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 10rem; }
+  .infos .input-infos {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem; }
+    .infos .input-infos input {
+      font-size: 0.833rem;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 0.7rem;
+      width: 50%;
+      margin: 0 auto; }
+      .infos .input-infos input :focus {
+        outline: none !important;
+        border: 1px solid #874AFF;
+        transition: 0.5s; }
+  .infos .bio-text {
+    justify-self: center;
+    border: none;
+    border-radius: 20px;
+    resize: none;
+    width: 100%;
+    min-height: 10rem;
+    padding: 0.5rem 0.7rem; }
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  align-items: center; }
+  .upload .upload-dica {
+    width: 80%;
+    text-align: center; }
+  .upload .upload-input {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 1rem 0; }
+    .upload .upload-input svg {
+      width: 6rem;
+      height: 6rem;
+      color: #05f296; }
+      .upload .upload-input svg:hover {
+        color: #02e88f; }
+  .upload .upload-arq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; }
+  .upload .uploads-icon {
+    padding: 2rem; }
+    .upload .uploads-icon svg {
+      width: 4rem;
+      height: 4rem; }
+
+.projeto-equipe {
+  width: 70vw;
+  text-align: center;
+  margin: 0 auto;
+  padding: 2rem; }
+  .projeto-equipe .title-equipe {
+    cursor: pointer; }
+  .projeto-equipe .equipe-container {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; }
+    .projeto-equipe .equipe-container .profile-pic {
+      margin: 0; }
+
+.integrante-modal {
+  text-align: left; }
+  .integrante-modal .integrante-edit {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; }
+
+@media only screen and (max-width: 768px) {
+  .retangulo {
+    width: 100%;
+    padding: 1rem; }
+  .infos .input-infos input {
+    width: 80%; } }

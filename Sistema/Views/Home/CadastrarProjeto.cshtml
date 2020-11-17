@@ -1,0 +1,145 @@
+﻿@model Sistema.Models.Mensagem
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal espaco">
+        <div class="retangulo">
+            <div class="infos">
+                <div class="imagem">
+                    <div class="img-projeto"> <img src="~/Content/img/edit_GirlTech01.png" /> </div>
+                </div>
+                <div class="descricao">
+                    <div class="input-infos">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="infos-txt">
+                        <textarea class="bio-text" id="editTxt"></textarea>
+                    </div>
+                    <div>
+                        <ul class="tag-group interests">
+
+                            <li class="tag-container">
+                                <div class="tag"><span class="tag-text">Tag</span></div>
+                            </li>
+
+                            <li>
+                                <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload">
+                <p class="upload-dica">
+                    Recomedamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
+                </p>
+                <button class="upload-input" type="submit">
+                    <span class="iconify" data-icon="tabler:cloud-upload" data-inline="false"></span>
+                </button>
+                <div class="upload-arq">
+                    @*<p>
+                            Seus uploads de documentos aparecerão aqui ;)
+                        </p>*@
+
+                    <div class="uploads-icon">
+                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                    </div>
+                    <div class="uploads-icon">
+                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                    </div>
+                    <div class="uploads-icon">
+                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                    </div>
+                    <div class="uploads-icon">
+                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="projeto-equipe">
+            <a class="title-equipe" data-open-modal="modalEquipe"> Equipe <span class="iconify" data-icon="tabler:user-plus" data-inline="false"></span></a>
+            <div class="equipe-container">
+                <div class="profile-pic profile-pic-mini">
+                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                </div>
+                <div class="profile-pic profile-pic-mini">
+                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                </div>
+                <div class="profile-pic profile-pic-mini">
+                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-btns">
+            @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
+            <input type="submit" value="Concluir" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<div class="modal-bg hidden-animated" id="modalTags">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar interesses</h3>
+            <div class="close-modal" data-close-modal="modalTags">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <ul class="tag-group">
+
+                <li class="tag-container">
+                    <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
+                </li>
+
+            </ul>
+
+            @using (Html.BeginForm("AdicionarTag", "Home", FormMethod.Post, new { @class = "form single-col" }))
+            {
+                <div class="form-group-row">
+                    <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal-bg hidden-animated" id="modalEquipe">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Equipe</h3>
+            <div class="close-modal" data-close-modal="modalEquipe">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="integrante-modal">
+                <div class="integrante-edit">
+                    <div class="profile-pic profile-pic-mini">
+                        <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                    </div>
+                    <button class="btn btn-secondary">Administrador</button>
+                    <button class="btn delete-acc">Excluir</button>
+                </div>
+                <p>maria@gmail.com</p>
+            </div>
+            <form>
+                <div class="form-group"><label>E-mail </label><input type="text" /></div>
+                <button class="btn btn-primary">+</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-close-modal="modalEquipe">Confirmar</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
