@@ -42,6 +42,7 @@
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <span id="msg"></span>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmailRecuperacao, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -59,16 +60,59 @@
                 @Html.ValidationMessageFor(model => model.ConfirmaSenha, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <div class="g-recaptcha" data-sitekey="6LcX5N0ZAAAAAP6ALQ-c9xmnE-SolRb56MSNFgyg"></div>
+
+        <div class="form-section">
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LcX5N0ZAAAAAP6ALQ-c9xmnE-SolRb56MSNFgyg"></div>
+            </div>
         </div>
 
         <div class="form-btns">
             @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
-            <input type="submit" value="Concluir" class="btn btn-primary" />
+            <input type="submit" disabled="disabled" value="Concluir" class="btn btn-primary" id="concluir"/>
         </div>
     </div>
 }
+
+@*<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const emailInput = document.querySelector('#Email');
+        const msg = document.querySelector('#msg');
+        const button = document.querySelector('#concluir');
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        }
+        emailInput.addEventListener('focusout', () => {
+
+            const data = {
+                email: emailInput.value
+            }
+
+            fetch("/Home/ValidarEmail", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+                .then((res) => res.json())
+                .then((resJson) => {
+                    if (resJson === "s") {
+                        msg.innerText = "E-mail já cadastrado";
+                        msg.classList.add("text-danger", "field-validation-error")
+                        button.setAttribute("disabled", "disabled");
+                    }
+                    else {
+                        button.removeAttribute("disabled");
+                    }
+                });
+        })
+    })
+
+</script>*@
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
 }
+
+

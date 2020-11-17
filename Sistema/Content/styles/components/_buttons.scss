@@ -2,9 +2,10 @@
 @import '../abstracts/mixins';
 
 a.btn {
-    display: block;
+    display: inline;
     line-height: 1.15;
 }
+
 .btn, .swal2-styled.swal2-confirm {
     border: none;
     border-radius: 100px;
@@ -97,6 +98,20 @@ a.btn {
     &:hover {
         background: #ff9090;
     }
+}
+
+.btn-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    font-size: $font-size-xl;
+    background: $danger-color;
+    color: #fff;
+    cursor:pointer;
 }
 
 

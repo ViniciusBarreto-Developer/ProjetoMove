@@ -4,13 +4,14 @@
     width: 16rem;
     height: 16rem;
     margin: 0 auto 1rem auto;
-    position: relative;
+    border-radius: 50%;
+    background: $neutral-color;
+    display: flex;
+    align-content: center;
+    overflow: hidden;
 }
 
 .profile-pic-edit {
-    position: absolute;
-    bottom: 1rem;
-    right: 0;
     font-size: $font-size-title;
     color: $text-color;
 }
@@ -21,9 +22,8 @@
 }
 
 .circle-pic {
-    border-radius: 50%;
     width: 100%;
-    
+    object-fit: cover;
 }
 
 .avatar-placeholder {

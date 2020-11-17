@@ -9,7 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
     @Styles.Render("~/content/styles/style.min.css")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/croppie.css" rel="stylesheet" />
+    <script src="~/Scripts/croppie.js"></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 </head>
 
 <body>
@@ -60,12 +64,9 @@
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @*<script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
-                referrerpolicy="origin"></script>
-        <script>tinymce.init({ selector: 'textarea' });</script>*@
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
 
     @if (TempData["MSG"] != null)
@@ -96,42 +97,54 @@
             });
         </script>
     }
+
     <script>
         window.addEventListener('load', function () {
-            new Glider(document.querySelector('.glider'), {
-                slidesToShow: 0.999,
-                slidesToScroll: 1,
-                itemWidth: 300,
-                scrollLock: true,
-                draggable: true,
-                dots: '#resp-dots',
-                arrows: {
-                    prev: '.glider-prev',
-                    next: '.glider-next'
-                },
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 'auto',
-                            itemWidth: 360,
-                            duration: 0.25
-                        }
-                    }, {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 'auto',
-                            slidesToScroll: 'auto',
-                            itemWidth: 360,
+            const gliders = document.querySelectorAll('.glider');
+            const arrowPrev = document.querySelectorAll('.glider-prev');
+            const arrowNext = document.querySelectorAll('.glider-next');
+            const respDots = document.querySelectorAll('.glider-dots');
 
-                            duration: 0.5
+
+            gliders.forEach((glider, index) => {
+
+
+                new Glider(glider, {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    itemWidth: 300,
+                    scrollLock: true,
+                    draggable: true,
+                    dots: respDots[index],
+                    arrows: {
+                        prev: arrowPrev[index],
+                        next: arrowNext[index]
+                    },
+                    responsive: [
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 'auto',
+                                itemWidth: 320,
+                                duration: 0.25
+                            }
+                        },
+
+                        {
+                            breakpoint: 1279,
+                            settings: {
+                                slidesToShow: 'auto',
+                                slidesToScroll: 'auto',
+                                itemWidth: 320,
+                                duration: 0.25
+                            }
                         }
-                    }
-                ]
+                    ]
+                })
             })
         });
-    </script>    
+    </script>
 </body>
 </html>
 
