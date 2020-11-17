@@ -1,0 +1,166 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.form-horizontal {
+    width: 100%;
+}
+
+.retangulo {
+    width: 70vw;
+    background-color: lightgray;
+    border-radius: 2rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    .img-projeto {
+        min-width: 10rem;
+        max-width: 23rem;
+
+        img {
+            width: 100%;
+            border-radius: 20px;
+        }
+    }
+
+    .descricao {
+        text-align: center;
+        flex: 1 1 auto;
+        min-width: 10rem;
+    }
+
+    .input-infos {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        input {
+            font-size: $font-size-sm;
+            border: none;
+            border-radius: 20px;
+            padding: 0.5rem 0.7rem;
+            width: 50%;
+            margin: 0 auto;
+
+            :focus {
+                outline: none !important;
+                border: 1px solid $secondary-color;
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .bio-text {
+        justify-self: center;
+        border: none;
+        border-radius: 20px;
+        resize: none;
+        width: 100%;
+        min-height: 10rem;
+        padding: 0.5rem 0.7rem;
+    }
+}
+
+.upload {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    align-items: center;
+
+    .upload-dica {
+        width: 80%;
+        text-align: center;
+    }
+
+    .upload-input {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 1rem 0;
+
+        svg {
+            width: 6rem;
+            height: 6rem;
+            color: $primary-color;
+
+            &:hover {
+                color: $primary-darker;
+            }
+        }
+    }
+
+   
+
+    .upload-arq {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .uploads-icon {
+        padding: 2rem;
+
+        svg {
+            width: 4rem;
+            height: 4rem;
+        }
+    }
+}
+
+.projeto-equipe {
+    width:70vw;
+    text-align:center;
+    margin: 0 auto;
+    padding: 2rem;
+
+    .title-equipe{
+        cursor:pointer;
+    }
+
+    .equipe-container{
+        width: 100%;
+        justify-content:center;
+        padding:1rem 0;
+        display: flex;
+        flex-wrap:wrap;
+        gap: 1rem;
+
+        .profile-pic{
+            margin: 0;
+        }
+    }
+}
+
+.integrante-modal{
+    text-align:left;
+
+    .integrante-edit{
+        width: 100%;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .retangulo {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .infos {
+        .input-infos {
+            input {
+                width: 80%;
+            }
+        }
+    }
+}

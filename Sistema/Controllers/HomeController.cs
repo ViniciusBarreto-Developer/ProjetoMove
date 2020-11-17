@@ -392,6 +392,8 @@ namespace Sistema.Controllers
                     string[] user = User.Identity.Name.Split('|');
                     string email = user[0];
                     var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+                    //Excluir foto antiga
+                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + usu.Foto);
                     usu.Foto = nomearq;
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
@@ -469,6 +471,44 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
+        }
+        public ActionResult CriarProjeto(HttpPostedFileBase arquivo, VMPerfil vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+            
+            if (ModelState.IsValid)
+            {
+                Projeto pro = new Projeto();
+
+                pro.Logo = "projeto.jpg";
+                pro.Nome = vmp.NomeProjeto;
+                pro.Descricao = vmp.Descricao;
+                pro.Ativo = true;
+                pro.DataCadastro = DateTime.Now;
+                db.Projeto.AddOrUpdate(pro);
+                db.SaveChanges();
+
+                IntegrantesProjeto inte = new IntegrantesProjeto();
+
+                inte.Adm = true;
+                inte.ProjetoId = pro.Id;
+                inte.UsuarioID = usu.Id;
+
+                db.IntegrantesProjeto.AddOrUpdate(inte);
+                db.SaveChanges();
+
+                ProjetoTags tags = new ProjetoTags();
+
+                tags.ProjetoId = pro.Id;
+                tags.TagId = 1;
+
+                db.ProjetoTags.AddOrUpdate(tags);
+                db.SaveChanges();
+                return RedirectToAction("MeuPerfil");
+            }
+            return View(vmp);
         }
     }
 }
