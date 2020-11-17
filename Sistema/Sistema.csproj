@@ -170,6 +170,7 @@
     <Content Include="Content\img\blob-bg.svg" />
     <Content Include="Content\img\blob-middle.svg" />
     <Content Include="Content\img\blob-top.svg" />
+    <Content Include="Content\img\edit_GirlTech01.png" />
     <Content Include="Content\img\footer.svg" />
     <Content Include="Content\img\hero.svg" />
     <Content Include="Content\img\login_img.svg" />
@@ -214,6 +215,7 @@
     <Content Include="Content\styles\main.scss" />
     <Content Include="Content\styles\pages\_meuperfil.scss" />
     <Content Include="Content\styles\pages\_principal.scss" />
+    <Content Include="Content\styles\components\_animations.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
@@ -251,6 +253,7 @@
     <Content Include="Views\Home\MeuPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutPerfil.cshtml" />
     <Content Include="Views\Home\EditarCadastro.cshtml" />
+    <Content Include="Views\Home\CadastrarProjeto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -294,6 +297,14 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.10.9\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

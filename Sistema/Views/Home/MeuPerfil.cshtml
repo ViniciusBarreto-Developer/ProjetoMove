@@ -126,7 +126,7 @@
 
     </div>
 
-    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjeto">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
+    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjetos">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
 <section class="content-container section-separator">
@@ -181,7 +181,7 @@
 </section>
 
 
-<div class="modal-bg hidden-animated" id="modalTags">
+<div class="modal-bg hidden" id="modalTags">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar interesses</h3>
@@ -221,7 +221,34 @@
     </div>
 </div>
 
-<div class="modal-bg hidden-animated" id="modalPic">
+<div class="modal-bg hidden" id="modalProjetos">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Foto</h3>
+            <div class="close-modal" data-close-modal="modalProjetos">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.NomeProjeto)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Criar</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal-bg hidden" id="modalPic">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar Foto</h3>
@@ -244,32 +271,6 @@
     </div>
 </div>
 
-<div class="modal-bg hidden-animated" id="modalProjeto">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Criar Projeto</h3>
-            <div class="close-modal" data-close-modal="modalProjeto">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="modal-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.NomeProjeto)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text" })
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Criar</button>
-            </div>
-        }
-    </div>
-</div>
 
 
 

@@ -45,15 +45,20 @@ function modalBehavior() {
 
         function openModal(targetId) {
             return () => {
+                const modalBg = document.querySelector(`#${targetId}`);
+                const modal = document.querySelector(`#${targetId}`).firstElementChild
                 document.body.style.overflow = 'hidden';
-                document.querySelector(`#${targetId}`).classList.remove('hidden-animated');
+                modalBg.classList.remove('hidden');
+                modal.classList.add('scale-in-center');
             }
         }
 
         function closeModal(targetId) {
             return () => {
                 document.body.style.overflow = 'visible';
-                document.querySelector(`#${targetId}`).classList.add('hidden-animated');
+                document.querySelector(`#${targetId}`).classList.add('hidden');
+                document.querySelector(`#${targetId}`).firstElementChild.classList.remove('scale-in-center');
+
             }
         }
 
