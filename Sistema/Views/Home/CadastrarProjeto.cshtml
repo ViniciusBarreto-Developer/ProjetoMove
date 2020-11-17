@@ -56,26 +56,25 @@
             <p class="upload-dica">
                 Recomedamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
             </p>
-            <button class="upload-input" type="submit">
+            <button class="upload-input" data-open-modal="modalUploads">
                 <span class="iconify" data-icon="tabler:cloud-upload" data-inline="false"></span>
             </button>
             <div class="upload-arq">
-                @*<p>
-                        Seus uploads de documentos aparecerão aqui ;)
-                    </p>*@
+                @{
+                    int quant = 0;
+                    foreach (var item in Model.ArquivosProjetos)
+                    {
+                        <div class="uploads-icon">
+                            <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                        </div>
+                        quant++;
+                    }
+                    if (quant == 0)
+                    {
+                        <p>Seus uploads de documentos aparecerão aqui ;)</p>
+                    }
+                }
 
-                <div class="uploads-icon">
-                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                </div>
-                <div class="uploads-icon">
-                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                </div>
-                <div class="uploads-icon">
-                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                </div>
-                <div class="uploads-icon">
-                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                </div>
             </div>
         </div>
     </div>
@@ -113,7 +112,7 @@
                     foreach (var item in Model.ProjetoTags)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTagProjeto", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
                         </li>
                         i++;
                     }
@@ -193,6 +192,25 @@
                     <img class="circle-pic" id="img-preview" />
                 </div>
             </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal-bg hidden" id="modalUploads">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Uploads</h3>
+            <div class="close-modal" data-close-modal="modalUploads">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("AdicionarUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
             <div class="modal-footer">
                 <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
                 <button class="btn btn-primary">Confirmar</button>

@@ -541,6 +541,14 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
+        public ActionResult ExcluirTagProjeto(int id)
+        {
+            var tag = db.ProjetoTags.Find(id);
+            db.ProjetoTags.Remove(tag);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuPerfil");
+        }
         public ActionResult ExcluirIntegrante(int id)
         {
             var tag = db.IntegrantesProjeto.Find(id);
@@ -612,6 +620,41 @@ namespace Sistema.Controllers
 
 
             return View(vm);
+        }
+        public ActionResult AdicionarUpload(HttpPostedFileBase arq, VMProjeto vmp)
+        {
+            string valor = "";
+
+            if (arq != null)
+            {
+                Funcoes.Upload.CriarDiretorio();
+                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
+                string kk = Path.GetExtension(arq.FileName);
+                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                if (valor == "sucesso")
+                {
+                    var arqpro = new ArquivosProjeto();
+                    arqpro.ProjetoId = vmp.Id;
+                    arqpro.Tipo = ArquivosProjeto.Tipos.Arquivo;
+                    arqpro.Arquivo = nomearq;
+
+                    db.ArquivosProjeto.Add(arqpro);
+                    db.SaveChanges();
+                    TempData["MSG"] = "success|Imagem Adicionada!";
+                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+                }
+                else
+                {
+                    ModelState.AddModelError("", valor);
+                    TempData["MSG"] = "error|" + valor;
+                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+                }
+            }
+            else
+            {
+                TempData["MSG"] = "error|Escolha uma imagem primeiro";
+                return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+            }
         }
     }
 }
