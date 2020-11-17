@@ -1,116 +1,145 @@
-﻿@model Sistema.Models.Mensagem
+﻿@model Sistema.Models.VMProjeto
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal espaco">
-        <div class="retangulo">
-            <div class="infos">
-                <div class="imagem">
-                    <div class="img-projeto"> <img src="~/Content/img/edit_GirlTech01.png" /> </div>
-                </div>
-                <div class="descricao">
-                    <div class="input-infos">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="infos-txt">
-                        <textarea class="bio-text" id="editTxt"></textarea>
-                    </div>
-                    <div>
-                        <ul class="tag-group interests">
-
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">Tag</span></div>
-                            </li>
-
-                            <li>
-                                <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<div class="form-horizontal espaco">
+    <div class="retangulo">
+        <div class="infos">
+            <div class="imagem">
+                <div class="img-projeto"> <img src="~/Uploads/@Model.Logo" /> </div>
+                <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
             </div>
+            <div class="descricao">
+                <div class="input-infos">
 
-            <div class="upload">
-                <p class="upload-dica">
-                    Recomedamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
-                </p>
-                <button class="upload-input" type="submit">
-                    <span class="iconify" data-icon="tabler:cloud-upload" data-inline="false"></span>
-                </button>
-                <div class="upload-arq">
-                    @*<p>
-                            Seus uploads de documentos aparecerão aqui ;)
-                        </p>*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    }
 
-                    <div class="uploads-icon">
-                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                    </div>
-                    <div class="uploads-icon">
-                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                    </div>
-                    <div class="uploads-icon">
-                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                    </div>
-                    <div class="uploads-icon">
-                        <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                    </div>
+                </div>
+                <div class="infos-txt">
+                    <textarea class="bio-text" id="editTxt">@Model.Descricao</textarea>
+                </div>
+                <div>
+                    <ul class="tag-group interests">
+
+                        @{
+                            int x = 0;
+                            foreach (var item in Model.ProjetoTags)
+                            {
+                                if (x < 4)
+                                {
+                                    <li class="tag-container">
+                                        <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
+                                    </li>
+                                    x++;
+                                }
+                            }
+                            if (x == 0)
+                            {
+                                <li class="tag-container">
+                                    <div class="tag"><span class="tag-text">As tags aparecerão aqui!</span></div>
+                                </li>
+                            }
+                        }
+
+                        <li>
+                            <button class="add-tag" data-open-modal="modalTag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="projeto-equipe">
-            <a class="title-equipe" data-open-modal="modalEquipe"> Equipe <span class="iconify" data-icon="tabler:user-plus" data-inline="false"></span></a>
-            <div class="equipe-container">
-                <div class="profile-pic profile-pic-mini">
-                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+        <div class="upload">
+            <p class="upload-dica">
+                Recomedamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
+            </p>
+            <button class="upload-input" type="submit">
+                <span class="iconify" data-icon="tabler:cloud-upload" data-inline="false"></span>
+            </button>
+            <div class="upload-arq">
+                @*<p>
+                        Seus uploads de documentos aparecerão aqui ;)
+                    </p>*@
+
+                <div class="uploads-icon">
+                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                 </div>
-                <div class="profile-pic profile-pic-mini">
-                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                <div class="uploads-icon">
+                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                 </div>
-                <div class="profile-pic profile-pic-mini">
-                    <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
+                <div class="uploads-icon">
+                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                </div>
+                <div class="uploads-icon">
+                    <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                 </div>
             </div>
-        </div>
-
-        <div class="form-btns">
-            @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
-            <input type="submit" value="Concluir" class="btn btn-primary" />
         </div>
     </div>
-}
-<div class="modal-bg hidden-animated" id="modalTags">
+
+    <div class="projeto-equipe">
+        <a class="title-equipe" data-open-modal="modalEquipe"> Equipe <span class="iconify" data-icon="tabler:user-plus" data-inline="false"></span></a>
+        <div class="equipe-container">
+            @foreach (var item in Model.IntegrantesProjetos)
+            {
+                <div class="profile-pic profile-pic-mini">
+                    <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-btns">
+        @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
+        <input type="submit" value="Concluir" class="btn btn-primary" />
+    </div>
+</div>
+
+<div class="modal-bg hidden" id="modalTag">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar interesses</h3>
-            <div class="close-modal" data-close-modal="modalTags">
+            <div class="close-modal" data-close-modal="modalTag">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
         <div class="modal-body">
             <ul class="tag-group">
-
-                <li class="tag-container">
-                    <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
-                </li>
-
+                @{
+                    int i = 0;
+                    foreach (var item in Model.ProjetoTags)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTag", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                        </li>
+                        i++;
+                    }
+                    if (i == 0)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
+                        </li>
+                    }
+                }
             </ul>
 
-            @using (Html.BeginForm("AdicionarTag", "Home", FormMethod.Post, new { @class = "form single-col" }))
+            @using (Html.BeginForm("AdicionarTagProjeto", "Home", FormMethod.Post, new { @class = "form single-col" }))
             {
                 <div class="form-group-row">
-                    <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    @Html.EditorFor(model => model.PesquisaTag)
+                    @Html.HiddenFor(model => model.Id)
+                    <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    <span id="msg"></span>
                 </div>
             }
         </div>
     </div>
 </div>
 
-<div class="modal-bg hidden-animated" id="modalEquipe">
+<div class="modal-bg hidden" id="modalEquipe">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Editar Equipe</h3>
@@ -121,24 +150,57 @@
         <div class="modal-body">
             <div class="integrante-modal">
                 <div class="integrante-edit">
-                    <div class="profile-pic profile-pic-mini">
-                        <img class="circle-pic" src="https://images.generated.photos/xsfk8Yl5VWvIAZJNuSVmFIO1hg_YVSFkyVC1ByyQixM/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwNTE3NDcuanBn.jpg" />
-                    </div>
-                    <button class="btn btn-secondary">Administrador</button>
-                    <button class="btn delete-acc">Excluir</button>
+
+                    <ul class="tag-group">
+                        @foreach (var item in Model.IntegrantesProjetos)
+                        {
+                            <li class="tag-container">
+                                <div class="tag"><span class="tag-text">@item.Usuario.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirIntegrante", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            </li>
+
+                        }
+                    </ul>
+
                 </div>
-                <p>maria@gmail.com</p>
             </div>
-            <form>
-                <div class="form-group"><label>E-mail </label><input type="text" /></div>
-                <button class="btn btn-primary">+</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" data-close-modal="modalEquipe">Confirmar</button>
+            @using (Html.BeginForm("AdicionarIntegrante", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PesquisaEmail)
+                    @Html.EditorFor(model => model.PesquisaEmail)
+                    @Html.HiddenFor(model => model.Id)
+                    <button class="btn btn-primary">Confirmar</button>
+                    <span id="msg"></span>
+                </div>
+            }
         </div>
     </div>
 </div>
+
+<div class="modal-bg hidden" id="modalPic">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Foto</h3>
+            <div class="close-modal" data-close-modal="modalPic">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditarLogo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="modal-body">
+                <div class="profile-pic" id="preview-container">
+                    <img class="circle-pic" id="img-preview" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
