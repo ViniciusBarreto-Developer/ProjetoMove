@@ -510,5 +510,10 @@ namespace Sistema.Controllers
             }
             return View(vmp);
         }
+
+        public ActionResult CadastrarProjeto()
+        {
+            return View();
+        }
     }
 }

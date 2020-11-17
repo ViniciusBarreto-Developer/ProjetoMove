@@ -207,6 +207,7 @@
     <Content Include="Content\styles\components\_forms.scss" />
     <Content Include="Content\styles\components\_headings.scss" />
     <Content Include="Content\styles\components\_hidden.scss" />
+    <Content Include="Content\styles\pages\_cadastrarprojeto.scss" />
     <Content Include="Content\styles\components\_modal.scss" />
     <Content Include="Content\styles\components\_tags.scss" />
     <Content Include="Content\styles\layout\_body.scss" />
