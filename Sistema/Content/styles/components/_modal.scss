@@ -2,6 +2,7 @@
 @import '../abstracts/mixins';
 
 
+
 .modal-bg {
     position: fixed;
     top: 0;
@@ -15,6 +16,7 @@
     visibility: visible;
     transition: opacity 0.2s, visibility 0.1s;
     overflow: auto;
+
 
     .modal {
         margin-bottom: auto;
