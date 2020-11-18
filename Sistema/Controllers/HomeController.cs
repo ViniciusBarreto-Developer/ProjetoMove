@@ -371,13 +371,6 @@ namespace Sistema.Controllers
 
             return View(vmp);
         }
-        [HttpPost]
-        public ActionResult GetImage(string filename, HttpPostedFileBase blob)
-        {
-            var fullPath = "~/Uploads/" + filename;
-            blob.SaveAs(Server.MapPath(fullPath));
-            return Json("ok");
-        }
         public ActionResult EditarFoto(HttpPostedFileBase arq)
         {
             string valor = "";
@@ -411,40 +404,7 @@ namespace Sistema.Controllers
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
                 return RedirectToAction("MeuPerfil");
             }
-        }
-        public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
-        {
-            string valor = "";
-
-            if (arq != null)
-            {
-                Funcoes.Upload.CriarDiretorio();
-                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
-                if (valor == "sucesso")
-                {
-                    Projeto pro = db.Projeto.Find(vmp.Id);
-                    //Excluir foto antiga
-                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + pro.Logo);
-                    pro.Logo = nomearq;
-                    db.Projeto.AddOrUpdate(pro);
-                    db.SaveChanges();
-                    TempData["MSG"] = "success|Logo alterada com sucesso!";
-                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-                }
-                else
-                {
-                    ModelState.AddModelError("", valor);
-                    TempData["MSG"] = "error|" + valor;
-                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-                }
-            }
-            else
-            {
-                TempData["MSG"] = "error|Escolha uma imagem primeiro";
-                return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-            }
-        }
+        }       
         [HttpPost]
         public ActionResult EditarBiografia(Usuario usuario)
         {
@@ -456,51 +416,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }
-        [HttpPost]
-        public ActionResult AdicionarTagProjeto(VMProjeto vmp)
-        {
-
-            if (db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault() == null)
-            {
-                TempData["MSG"] = "error|Tag não encontrada";
-                return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-            }
-
-            var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
-
-            foreach (var item in db.ProjetoTags)
-            {
-                if (item.TagId == tag.Id && item.ProjetoId == vmp.Id)
-                {
-                    TempData["MSG"] = "error|Tag já cadastrada";
-                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-                }
-            }
-
-            var protag = new ProjetoTags();
-            protag.TagId = tag.Id;
-            protag.ProjetoId = vmp.Id;
-
-            db.ProjetoTags.Add(protag);
-            db.SaveChanges();
-            return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-        }
-        [HttpPost]
-        public ActionResult AdicionarIntegrante(VMProjeto vmp)
-        {
-            Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();
-
-            var inte = new IntegrantesProjeto();
-            inte.Adm = true;
-            inte.ProjetoId = vmp.Id;
-            inte.UsuarioID = usu.Id;
-
-            db.IntegrantesProjeto.Add(inte);
-            db.SaveChanges();
-
-            return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
-        }
+        }        
         [HttpPost]
         public ActionResult AdicionarTag(VMPerfil vmp)
         {
@@ -540,23 +456,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }
-        public ActionResult ExcluirTagProjeto(int id)
-        {
-            var tag = db.ProjetoTags.Find(id);
-            db.ProjetoTags.Remove(tag);
-            db.SaveChanges();
-
-            return RedirectToAction("MeuPerfil");
-        }
-        public ActionResult ExcluirIntegrante(int id)
-        {
-            var tag = db.IntegrantesProjeto.Find(id);
-            db.IntegrantesProjeto.Remove(tag);
-            db.SaveChanges();
-
-            return RedirectToAction("MeuPerfil");
-        }
+        }                
         public ActionResult ExcluirProjetosSalvos(int id)
         {
             var pro = db.ProjetosSalvos.Find(id);
@@ -600,11 +500,11 @@ namespace Sistema.Controllers
                 db.ProjetoTags.AddOrUpdate(tags);
                 db.SaveChanges();
 
-                return RedirectToAction("CadastrarProjeto", new { id = pro.Id });
+                return RedirectToAction("MeuProjeto", new { id = pro.Id });
             }
             return View(vmp);
         }
-        public ActionResult CadastrarProjeto(int id)
+        public ActionResult MeuProjeto(int id)
         {
             Projeto pro = db.Projeto.Find(id);
 
@@ -618,8 +518,77 @@ namespace Sistema.Controllers
             vm.ArquivosProjetos = pro.ArquivosProjetos;
             vm.IntegrantesProjetos = pro.IntegrantesProjetos;
 
-
             return View(vm);
+        }
+        public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
+        {
+            string valor = "";
+
+            if (arq != null)
+            {
+                Funcoes.Upload.CriarDiretorio();
+                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
+                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                if (valor == "sucesso")
+                {
+                    Projeto pro = db.Projeto.Find(vmp.Id);
+                    //Excluir foto antiga
+                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + pro.Logo);
+                    pro.Logo = nomearq;
+                    db.Projeto.AddOrUpdate(pro);
+                    db.SaveChanges();
+                    TempData["MSG"] = "success|Logo alterada com sucesso!";
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                }
+                else
+                {
+                    ModelState.AddModelError("", valor);
+                    TempData["MSG"] = "error|" + valor;
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                }
+            }
+            else
+            {
+                TempData["MSG"] = "error|Escolha uma imagem primeiro";
+                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+            }
+        }
+        [HttpPost]
+        public ActionResult AdicionarTagProjeto(VMProjeto vmp)
+        {
+
+            if (db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault() == null)
+            {
+                TempData["MSG"] = "error|Tag não encontrada";
+                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+            }
+
+            var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
+
+            foreach (var item in db.ProjetoTags)
+            {
+                if (item.TagId == tag.Id && item.ProjetoId == vmp.Id)
+                {
+                    TempData["MSG"] = "error|Tag já cadastrada";
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                }
+            }
+
+            var protag = new ProjetoTags();
+            protag.TagId = tag.Id;
+            protag.ProjetoId = vmp.Id;
+
+            db.ProjetoTags.Add(protag);
+            db.SaveChanges();
+            return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+        }
+        public ActionResult ExcluirTagProjeto(int id)
+        {
+            var tag = db.ProjetoTags.Find(id);
+            db.ProjetoTags.Remove(tag);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
         }
         public ActionResult AdicionarUpload(HttpPostedFileBase arq, VMProjeto vmp)
         {
@@ -641,20 +610,43 @@ namespace Sistema.Controllers
                     db.ArquivosProjeto.Add(arqpro);
                     db.SaveChanges();
                     TempData["MSG"] = "success|Imagem Adicionada!";
-                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                 }
                 else
                 {
                     ModelState.AddModelError("", valor);
                     TempData["MSG"] = "error|" + valor;
-                    return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                 }
             }
             else
             {
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
-                return RedirectToAction("CadastrarProjeto", new { id = vmp.Id });
+                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
             }
+        }
+        [HttpPost]
+        public ActionResult AdicionarIntegrante(VMProjeto vmp)
+        {
+            Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();
+
+            var inte = new IntegrantesProjeto();
+            inte.Adm = true;
+            inte.ProjetoId = vmp.Id;
+            inte.UsuarioID = usu.Id;
+
+            db.IntegrantesProjeto.Add(inte);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+        }
+        public ActionResult ExcluirIntegrante(int id)
+        {
+            var tag = db.IntegrantesProjeto.Find(id);
+            db.IntegrantesProjeto.Remove(tag);
+            db.SaveChanges();
+
+            return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
         }
     }
 }

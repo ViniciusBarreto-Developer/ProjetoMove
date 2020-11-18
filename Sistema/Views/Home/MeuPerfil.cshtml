@@ -94,7 +94,7 @@
                 {
                     <div class="card-container">
                         <div class="project-card">
-                            <a href="@Url.Action("CadastrarProjeto", new { id = item.ProjetoId })">
+                            <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
                                 <div class="card-img">
                                     <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
                                 </div>
@@ -187,6 +187,28 @@
 
 </section>
 
+<div class="modal-bg hidden" id="modalPic">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Foto</h3>
+            <div class="close-modal" data-close-modal="modalPic">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+                <div class="profile-pic" id="preview-container">
+                    <img class="circle-pic" id="img-preview" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
 
 <div class="modal-bg hidden" id="modalTags">
     <div class="modal">
@@ -255,28 +277,7 @@
     </div>
 </div>
 
-<div class="modal-bg hidden" id="modalPic">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Editar Foto</h3>
-            <div class="close-modal" data-close-modal="modalPic">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="modal-body">
-                <div class="profile-pic" id="preview-container">
-                    <img class="circle-pic" id="img-preview" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                <button class="btn btn-primary">Confirmar</button>
-            </div>
-        }
-    </div>
-</div>
+
 
 
 

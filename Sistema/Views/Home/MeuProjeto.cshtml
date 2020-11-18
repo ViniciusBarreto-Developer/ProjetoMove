@@ -97,6 +97,30 @@
     </div>
 </div>
 
+<div class="modal-bg hidden" id="modalPic">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar Foto</h3>
+            <div class="close-modal" data-close-modal="modalPic">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditarLogo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="modal-body">
+                <div class="profile-pic" id="preview-container">
+                    <img class="circle-pic" id="img-preview" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
+
 <div class="modal-bg hidden" id="modalTag">
     <div class="modal">
         <div class="modal-header">
@@ -138,6 +162,25 @@
     </div>
 </div>
 
+<div class="modal-bg hidden" id="modalUploads">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Uploads</h3>
+            <div class="close-modal" data-close-modal="modalUploads">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        @using (Html.BeginForm("AdicionarUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="modal-footer">
+                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <button class="btn btn-primary">Confirmar</button>
+            </div>
+        }
+    </div>
+</div>
+
 <div class="modal-bg hidden" id="modalEquipe">
     <div class="modal">
         <div class="modal-header">
@@ -175,50 +218,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal-bg hidden" id="modalPic">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Editar Foto</h3>
-            <div class="close-modal" data-close-modal="modalPic">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("EditarLogo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.HiddenFor(model => model.Id)
-            <div class="modal-body">
-                <div class="profile-pic" id="preview-container">
-                    <img class="circle-pic" id="img-preview" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                <button class="btn btn-primary">Confirmar</button>
-            </div>
-        }
-    </div>
-</div>
-
-<div class="modal-bg hidden" id="modalUploads">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Uploads</h3>
-            <div class="close-modal" data-close-modal="modalUploads">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("AdicionarUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.HiddenFor(model => model.Id)
-            <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                <button class="btn btn-primary">Confirmar</button>
-            </div>
-        }
-    </div>
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
