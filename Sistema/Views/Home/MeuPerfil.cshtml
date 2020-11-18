@@ -101,15 +101,19 @@
                                 <h3 class="card-title">@item.Projeto.Nome</h3>
                                 <p class="card-text">@item.Projeto.Descricao</p>
                                 <ul class="card-tags">
-                                    @foreach (var pro in item.Projeto.ProjetoTags)
-                                    {
+                                    @{
                                         int n = 0;
-                                        if (n < 3)
+
+                                        foreach (var pro in item.Projeto.ProjetoTags)
                                         {
-                                            <li class="tag-container">
-                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                            </li>
-                                            n++;
+
+                                            if (n < 3)
+                                            {
+                                                <li class="tag-container">
+                                                    <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                                </li>
+                                                n++;
+                                            }
                                         }
                                     }
                                 </ul>
@@ -150,15 +154,18 @@
                                 <h3 class="card-title">@item.Projeto.Nome</h3>
                                 <p class="card-text">@item.Projeto.Descricao</p>
                                 <ul class="card-tags">
-                                    @foreach (var pro in item.Projeto.ProjetoTags)
-                                    {
+                                    @{
                                         int n = 0;
-                                        if (n < 3)
+
+                                        foreach (var pro in item.Projeto.ProjetoTags)
                                         {
-                                            <li class="tag-container">
-                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                            </li>
-                                            n++;
+                                            if (n < 3)
+                                            {
+                                                <li class="tag-container">
+                                                    <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                                </li>
+                                                n++;
+                                            }
                                         }
                                     }
                                 </ul>
