@@ -87,6 +87,16 @@
     }
 }
 
+.bio-text {
+    font-size: $font-size-sm;
+    justify-self: center;
+    border: none;
+    resize: none;
+    width: 100%;
+    min-height: 4rem;
+    padding: 0.5rem 0.7rem;
+}
+
 
 @include large-min() {
     .form-section {

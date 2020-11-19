@@ -47,17 +47,25 @@ function modalBehavior() {
             return () => {
                 const modalBg = document.querySelector(`#${targetId}`);
                 const modal = document.querySelector(`#${targetId}`).firstElementChild
+
                 document.body.style.overflow = 'hidden';
                 modalBg.classList.remove('hidden');
+                modal.classList.remove('scale-out-center');
                 modal.classList.add('scale-in-center');
             }
         }
 
         function closeModal(targetId) {
             return () => {
-                document.body.style.overflow = 'visible';
-                document.querySelector(`#${targetId}`).classList.add('hidden');
-                document.querySelector(`#${targetId}`).firstElementChild.classList.remove('scale-in-center');
+                const modalBg = document.querySelector(`#${targetId}`);
+                const modal = document.querySelector(`#${targetId}`).firstElementChild
+
+                document.body.style.overflow = 'auto';
+                modal.classList.add('scale-out-center');;
+                modal.classList.remove('scale-in-center');
+                setTimeout(() => {
+                    modalBg.classList.add('hidden');
+                }, 200)
 
             }
         }
