@@ -360,6 +360,16 @@ namespace Sistema.Controllers
         public ActionResult VisitarPerfil(int id)
         {
             Usuario usu = db.Usuario.Find(id);
+
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usuAtual = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            if (usuAtual.Id == usu.Id)
+            {
+                return RedirectToAction("MeuPerfil");
+            }
+
             VMPerfil vmp = new VMPerfil();
 
             vmp.Id = usu.Id;
