@@ -13,9 +13,6 @@ namespace Sistema.Models
         [Required]
         [Display(Name = "Nome*")]
         public string Nome { get; set; }
-        [StringLength(200, MinimumLength = 2)]
-        [Display(Name = "Nome social")]
-        public string NomeSocial { get; set; }
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Data de nascimento*")]
@@ -24,6 +21,8 @@ namespace Sistema.Models
         [Display(Name = "Cpf*")]
         [StringLength(14, MinimumLength = 14, ErrorMessage = "O CPF deve ter no mínimo 11 números")]
         public string Cpf { get; set; }
+        [StringLength(15, MinimumLength = 15)]
+        public string Celular { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -58,16 +57,15 @@ namespace Sistema.Models
         [Required]
         [Display(Name = "Nome*")]
         public string Nome { get; set; }
-        [StringLength(200, MinimumLength = 2)]
-        [Display(Name = "Nome social")]
-        public string NomeSocial { get; set; }
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Data de nascimento*")]
         public string DataNascimento { get; set; }
         [Required]
-        [StringLength(14, MinimumLength = 14, ErrorMessage = "O CPF deve ter no mínimo 11 números")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "O CPF deve ter 11 números")]
         public string Cpf { get; set; }
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "O Celular deve ter 11 números")]
+        public string Celular { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]

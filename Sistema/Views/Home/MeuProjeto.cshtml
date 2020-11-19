@@ -86,8 +86,19 @@
             {
                 <div class="profile-pic profile-pic-mini">
                     <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
-                        <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
-                    </a>                    
+
+                        @if (item.Usuario.Foto == null)
+                        {
+                            <div class="circle-pic avatar-placeholder">
+                                <p>@Model.Nome.ToString()[0]</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                        }
+
+                    </a>
                 </div>
             }
         </div>
@@ -182,7 +193,7 @@
         {
             @Html.HiddenFor(model => model.Id)
             <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file"/>
+                <input name="arq" class="btn btn-secondary" type="file" />
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }

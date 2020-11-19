@@ -12,9 +12,6 @@ namespace Sistema.Models
         [StringLength(200, MinimumLength = 2)]
         [Required]
         public string Nome { get; set; }
-        [StringLength(200, MinimumLength = 2)]
-        [Display(Name = "Nome Social")]
-        public string NomeSocial { get; set; }
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento")]
@@ -22,6 +19,8 @@ namespace Sistema.Models
         [Required]
         [StringLength(14, MinimumLength = 14)]
         public string Cpf { get; set; }
+        [StringLength(15, MinimumLength = 15)]
+        public string Celular { get; set; }
         [MaxLength(100)]
         [Required]
         [DataType(DataType.EmailAddress)]

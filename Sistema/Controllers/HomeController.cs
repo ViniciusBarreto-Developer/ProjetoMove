@@ -58,7 +58,7 @@ namespace Sistema.Controllers
                 }
                 Usuario usu = new Usuario();
                 usu.Nome = cad.Nome;
-                usu.NomeSocial = cad.NomeSocial;
+                usu.Celular = cad.Celular;
                 usu.DataNascimento = cad.DataNascimento;
                 usu.Cpf = cad.Cpf;
                 usu.Email = cad.Email;
@@ -105,14 +105,8 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null && usu.ativo != false)
             {
-                if (usu.NomeSocial == null || usu.NomeSocial == "")
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-                }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
-                }
+                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+
                 return RedirectToAction("Principal", "Home");
             }
             else
@@ -135,7 +129,7 @@ namespace Sistema.Controllers
             EditarCadastro edit = new EditarCadastro();
 
             edit.Nome = usu.Nome;
-            edit.NomeSocial = usu.NomeSocial;
+            edit.Celular = usu.Celular;
             edit.DataNascimento = usu.DataNascimento;
             edit.Cpf = usu.Cpf;
             edit.Email = usu.Email;
@@ -186,7 +180,7 @@ namespace Sistema.Controllers
                         return View(edit);
                     }
                     usu.Nome = edit.Nome;
-                    usu.NomeSocial = edit.NomeSocial;
+                    usu.Celular = edit.Celular;
                     usu.DataNascimento = edit.DataNascimento;
                     usu.Cpf = edit.Cpf;
                     edit.Email = usu.Email;
@@ -197,14 +191,7 @@ namespace Sistema.Controllers
                         usu.Senha = Funcoes.HashTexto(edit.Senha, "SHA512");
                     }
 
-                    if (usu.NomeSocial == null || usu.NomeSocial == "")
-                    {
-                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-                    }
-                    else
-                    {
-                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
-                    }
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
 
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
@@ -364,7 +351,6 @@ namespace Sistema.Controllers
             vmp.Nome = usu.Nome;
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
-            vmp.NomeSocial = usu.NomeSocial;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
@@ -658,7 +644,6 @@ namespace Sistema.Controllers
             vmp.Nome = usu.Nome;
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
-            vmp.NomeSocial = usu.NomeSocial;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
