@@ -7,7 +7,7 @@
 
 .retangulo {
     width: 70vw;
-    background-color: lightgray;
+    background-color: $background-color;
     border-radius: 2rem;
     margin: 0 auto;
     padding: 2rem;
@@ -17,23 +17,29 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 2rem;
+    align-items: center;
+    gap: 5%;
     flex-wrap: wrap;
 
-    .img-projeto {
-        min-width: 10rem;
-        max-width: 23rem;
+    .imagem {
+        text-align: right;
+        max-width: 40%;
+        min-width: 20rem;
+        margin-bottom: 2rem;
 
-        img {
-            width: 100%;
-            border-radius: 20px;
+        .img-projeto {
+            img {
+                width: 100%;
+                border-radius: 20px;
+            }
         }
     }
+
 
     .descricao {
         text-align: center;
         flex: 1 1 auto;
-        min-width: 10rem;
+        min-width: 50%;
     }
 
     .input-infos {
@@ -96,7 +102,7 @@
         }
     }
 
-   
+
 
     .upload-arq {
         display: flex;
@@ -116,41 +122,41 @@
 }
 
 .projeto-equipe {
-    width:70vw;
-    text-align:center;
+    width: 70vw;
+    text-align: center;
     margin: 0 auto;
     padding: 2rem;
 
-    .title-equipe{
-        cursor:pointer;
+    .title-equipe {
+        cursor: pointer;
     }
 
-    .equipe-container{
+    .equipe-container {
         width: 100%;
-        justify-content:center;
-        padding:1rem 0;
+        justify-content: center;
+        padding: 1rem 0;
         display: flex;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
         gap: 1rem;
 
-        .profile-pic{
+        .profile-pic {
             margin: 0;
         }
     }
 }
 
-.integrante-modal{
-    text-align:left;
+.integrante-modal {
+    text-align: left;
 
-    .integrante-edit{
+    .integrante-edit {
         width: 100%;
-        display:flex;
+        display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
     }
 }
 
-@media only screen and (max-width: 768px) {
+@include medium-max() {
     .retangulo {
         width: 100%;
         padding: 1rem;
