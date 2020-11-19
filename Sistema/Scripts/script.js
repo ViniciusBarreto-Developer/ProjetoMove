@@ -1,9 +1,9 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     backToTop();
     modalBehavior();
-    editBio();
     validateEmail();
     imgUploadPreview();
+    editBio();
 });
 
 function backToTop() {
@@ -82,6 +82,20 @@ function modalBehavior() {
 function editBio() {
     const bioTxt = document.querySelector('#editTxt');
     if (bioTxt) {
+        //AJAX edit clicando fora
+        //bioTxt.addEventListener('focusout', () => {
+        //    const data = {
+        //        bio: bioTxt.value
+        //    }
+
+        //    fetch("/Home/EditarBiografia", {
+        //        method: 'POST',
+        //        headers: headers,
+        //        body: JSON.stringify(data)
+        //    })
+        //})
+
+        //JEITO ANTIGO
         const editBioBtn = document.querySelector('#editBio');
         const confirmBioBtn = document.querySelector('#confirmBio');
 
@@ -158,14 +172,14 @@ function imgUploadPreview() {
     const imgInput = document.querySelector("#img-input");
 
     if (imgInput) {
-        const previewContainer = document.querySelector("#preview-container");
+        //const previewContainer = document.querySelector("#preview-container");
         const preview = document.querySelector("#img-preview");
         if (preview.src === "") {
-            previewContainer.classList.add("hidden");
+            preview.classList.add("hidden");
         }
 
         imgInput.addEventListener("change", (e) => {  
-            previewContainer.classList.remove("hidden");
+            preview.classList.remove("hidden");
             preview.src = URL.createObjectURL(e.target.files[0]);
             preview.onload = () => URL.revokeObjectURL(preview.src)
         })

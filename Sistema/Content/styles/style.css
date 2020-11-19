@@ -1246,12 +1246,23 @@ a.btn {
   flex-wrap: wrap; }
   .infos .imagem {
     text-align: right;
-    max-width: 40%;
+    width: 40%;
+    height: 14rem;
     min-width: 20rem;
-    margin-bottom: 2rem; }
-    .infos .imagem .img-projeto img {
-      width: 100%;
-      border-radius: 20px; }
+    margin-bottom: 2rem;
+    border-radius: 20px;
+    background: #EEE; }
+    .infos .imagem .img-projeto {
+      border-radius: 20px;
+      background: #fff;
+      height: 100%;
+      display: flex;
+      align-content: center;
+      overflow: hidden;
+      background: #EEE; }
+      .infos .imagem .img-projeto img {
+        width: 100%;
+        object-fit: cover; }
   .infos .descricao {
     text-align: center;
     flex: 1 1 auto;

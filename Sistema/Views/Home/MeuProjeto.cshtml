@@ -109,13 +109,19 @@
         {
             @Html.HiddenFor(model => model.Id)
             <div class="modal-body">
-                <div class="profile-pic" id="preview-container">
-                    <img class="circle-pic" id="img-preview" />
+                <div class="infos">
+                    <div class="imagem">
+                        <div class="img-projeto" id="preview-container"> <img id="img-preview" /> </div>
+                    </div>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                <button class="btn btn-primary">Confirmar</button>
+
+                <div class="form-btns">
+                    <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                    <button class="btn btn-primary">Confirmar</button>
+                </div>
             </div>
         }
     </div>
@@ -174,7 +180,7 @@
         {
             @Html.HiddenFor(model => model.Id)
             <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
+                <input name="arq" class="btn btn-secondary" type="file"/>
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }
