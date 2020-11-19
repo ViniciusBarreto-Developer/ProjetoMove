@@ -404,7 +404,7 @@ namespace Sistema.Controllers
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
                 return RedirectToAction("MeuPerfil");
             }
-        }       
+        }
         [HttpPost]
         public ActionResult EditarBiografia(Usuario usuario)
         {
@@ -416,7 +416,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }        
+        }
         [HttpPost]
         public ActionResult AdicionarTag(VMPerfil vmp)
         {
@@ -456,7 +456,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuPerfil");
-        }                
+        }
         public ActionResult ExcluirProjetosSalvos(int id)
         {
             var pro = db.ProjetosSalvos.Find(id);
@@ -648,5 +648,23 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
         }
+        public ActionResult VisitarPerfil(int id)
+        {
+            Usuario usu = db.Usuario.Find(id);
+            VMPerfil vmp = new VMPerfil();
+
+            vmp.Id = usu.Id;
+            vmp.Biografia = usu.Biografia;
+            vmp.Nome = usu.Nome;
+            vmp.Email = usu.Email;
+            vmp.Foto = usu.Foto;
+            vmp.NomeSocial = usu.NomeSocial;
+            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
+            return View(vmp);
+        }
+
     }
 }

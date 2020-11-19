@@ -85,7 +85,9 @@
             @foreach (var item in Model.IntegrantesProjetos)
             {
                 <div class="profile-pic profile-pic-mini">
-                    <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                    <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
+                        <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                    </a>                    
                 </div>
             }
         </div>

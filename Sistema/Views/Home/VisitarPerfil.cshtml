@@ -1,0 +1,169 @@
+﻿@model Sistema.Models.VMPerfil
+
+@{
+    ViewBag.Title = "- Meu Perfil";
+    Layout = "~/Views/Shared/_LayoutVisitarPerfil.cshtml";
+}
+
+<section class="profile-section content-container">
+    <div class="bg">
+    </div>
+
+    <div class="profile-pic-container">
+        <div class="profile-pic">
+            @if (Model.Foto == null)
+            {
+                <div class="circle-pic avatar-placeholder">
+                    @if (Model.NomeSocial == null)
+                    {
+                        <p>@Model.Nome.ToString()[0]</p>
+                    }
+                    else
+                    {
+                        <p>@Model.NomeSocial.ToString()[0]</p>
+                    }
+                </div>
+            }
+            else
+            {
+                <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
+            }
+        </div>
+    </div>
+    @if (Model.NomeSocial == null)
+    {
+        <h1 class="username">@Model.Nome</h1>
+    }
+    else
+    {
+        <h1 class="username">@Model.NomeSocial</h1>
+    }
+
+    <div class="profile-info">
+        <div class="bio">
+            <textarea class="bio-text">@Model.Biografia</textarea>
+        </div>
+    </div>
+
+    <div class="profile-interests">
+        <ul class="tag-group interests">
+
+            @{
+                int x = 0;
+                foreach (var item in Model.UsuarioTags)
+                {
+                    if (x < 4)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
+                        </li>
+
+                        x++;
+                    }
+                }
+                if (x == 0)
+                {
+                    <li class="tag-container">
+                        <div class="tag"><span class="tag-text">Este usuário não possui tags cadastradas.</span></div>
+                    </li>
+                }
+                else if(x > 3)
+                {
+                    <li>
+                        <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                    </li>
+                }
+            }
+
+        </ul>
+    </div>
+
+    <h2 class="profile-section-title">Meus Projetos</h2>
+</section>
+
+<section class="projects-section">
+
+    <div class="glider-contain">
+        <div class="glider">
+            @foreach (var item in Model.IntegrantesProjetos)
+            {
+                if (item.Projeto.Ativo == true)
+                {
+                    <div class="card-container">
+                        <div class="project-card">
+                            <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
+                                <div class="card-img">
+                                    <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                                </div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                                <ul class="card-tags">
+                                    @{
+                                        int n = 0;
+
+                                        foreach (var pro in item.Projeto.ProjetoTags)
+                                        {
+
+                                            if (n < 3)
+                                            {
+                                                <li class="tag-container">
+                                                    <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                                </li>
+                                                n++;
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
+        <button aria-label="Next" class="glider-next"><span class="iconify" data-icon="tabler:chevron-right" data-inline="false"></span></button>
+        <div role="tablist" class="glider-dots"></div>
+
+    </div>
+
+</section>
+
+<div class="modal-bg hidden" id="modalTags">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Editar interesses</h3>
+            <div class="close-modal" data-close-modal="modalTags">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <ul class="tag-group">
+                @{
+                    int i = 0;
+                    foreach (var item in Model.UsuarioTags)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
+                        </li>
+                        i++;
+                    }
+                    if (i == 0)
+                    {
+                        <li class="tag-container">
+                            <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
