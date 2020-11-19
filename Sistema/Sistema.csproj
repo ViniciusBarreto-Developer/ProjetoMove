@@ -258,6 +258,7 @@
     <Content Include="Views\Home\MeuProjeto.cshtml" />
     <Content Include="Views\Home\VisitarPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutVisitarPerfil.cshtml" />
+    <Content Include="Views\Home\VisitarProjeto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -492,8 +492,34 @@ namespace Sistema.Controllers
         }
         public ActionResult MeuProjeto(int id)
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
             Projeto pro = db.Projeto.Find(id);
 
+            foreach(var item in pro.IntegrantesProjetos)
+            {
+                if(item.UsuarioID == usu.Id)
+                {
+                    VMProjeto vm = new VMProjeto();
+
+                    vm.Id = pro.Id;
+                    vm.Nome = pro.Nome;
+                    vm.Descricao = pro.Descricao;
+                    vm.Logo = pro.Logo;
+                    vm.ProjetoTags = pro.ProjetoTags;
+                    vm.ArquivosProjetos = pro.ArquivosProjetos;
+                    vm.IntegrantesProjetos = pro.IntegrantesProjetos;
+
+                    return View(vm);
+                }
+            }
+            return RedirectToAction("VisitarProjeto", new { id = id });
+        }
+        public ActionResult VisitarProjeto(int id)
+        {
+            Projeto pro = db.Projeto.Find(id);
             VMProjeto vm = new VMProjeto();
 
             vm.Id = pro.Id;
@@ -506,7 +532,7 @@ namespace Sistema.Controllers
 
             return View(vm);
         }
-        public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
+            public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
         {
             string valor = "";
 

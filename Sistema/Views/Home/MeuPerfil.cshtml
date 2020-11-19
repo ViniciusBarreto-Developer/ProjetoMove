@@ -54,6 +54,12 @@
                         x++;
                     }
                 }
+                if (Model.UsuarioTags.Count > 3)
+                {
+                    <li class="tag-container">
+                        <div class="tag"><span class="tag-text">...</span></div>
+                    </li>
+                }
                 if (x == 0)
                 {
                     <li class="tag-container">

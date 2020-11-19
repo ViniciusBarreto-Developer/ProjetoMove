@@ -28,13 +28,19 @@
                             int x = 0;
                             foreach (var item in Model.ProjetoTags)
                             {
-                                if (x < 4)
+                                if (x < 3)
                                 {
                                     <li class="tag-container">
                                         <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
                                     </li>
                                     x++;
                                 }
+                            }
+                            if (Model.ProjetoTags.Count > 3)
+                            {
+                                <li class="tag-container">
+                                    <div class="tag"><span class="tag-text">...</span></div>
+                                </li>
                             }
                             if (x == 0)
                             {
