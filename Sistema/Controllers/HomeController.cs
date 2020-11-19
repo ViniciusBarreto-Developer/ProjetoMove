@@ -357,6 +357,22 @@ namespace Sistema.Controllers
 
             return View(vmp);
         }
+        public ActionResult VisitarPerfil(int id)
+        {
+            Usuario usu = db.Usuario.Find(id);
+            VMPerfil vmp = new VMPerfil();
+
+            vmp.Id = usu.Id;
+            vmp.Biografia = usu.Biografia;
+            vmp.Nome = usu.Nome;
+            vmp.Email = usu.Email;
+            vmp.Foto = usu.Foto;
+            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
+            return View(vmp);
+        }
         public ActionResult EditarFoto(HttpPostedFileBase arq)
         {
             string valor = "";
@@ -659,23 +675,6 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
-        }
-        public ActionResult VisitarPerfil(int id)
-        {
-            Usuario usu = db.Usuario.Find(id);
-            VMPerfil vmp = new VMPerfil();
-
-            vmp.Id = usu.Id;
-            vmp.Biografia = usu.Biografia;
-            vmp.Nome = usu.Nome;
-            vmp.Email = usu.Email;
-            vmp.Foto = usu.Foto;
-            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
-            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
-            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
-
-            return View(vmp);
-        }
-
+        }        
     }
 }
