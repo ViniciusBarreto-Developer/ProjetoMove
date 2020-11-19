@@ -110,14 +110,19 @@
 
     @Scripts.Render("~/scripts/jquery.mask.min.js")
     <script>
-
+        
         $(document).ready(function () {
 
             $('.cpf').mask('000.000.000-00', { reverse: true });
 
         });
+        $(document).ready(function () {
+
+            $('.celular').mask('(00)0.0000-0000', { reverse: false });
+
+        });
+
     </script>
 
-    
 </body>
 </html>

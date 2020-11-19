@@ -168,6 +168,41 @@ function validateEmail() {
     }
 }
 
+function validateEmailRecuperacao() {
+    const emailInput = document.querySelector('#EmailRecuperacao');
+    if (emailInput) {
+        const msg = document.querySelector('#msgRec');
+        const button = document.querySelector('#concluir');
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        }
+        emailInput.addEventListener('focusout', () => {
+
+            const data = {
+                email: emailInput.value
+            }
+
+            fetch("/Home/ValidarEmailRecuperacao", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+                .then((res) => res.json())
+                .then((resJson) => {
+                    if (resJson === "s") {
+                        msg.innerText = "E-mail já utilizado para recuperação";
+                        msg.classList.add("text-danger", "field-validation-error")
+                        button.setAttribute("disabled", "disabled");
+                    }
+                    else {
+                        button.removeAttribute("disabled");
+                    }
+                });
+        });
+    }
+}
+
 function imgUploadPreview() {
     const imgInput = document.querySelector("#img-input");
 

@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Celular, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Celular, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Celular, new { htmlAttributes = new { @class = "form-control celular"} })
                 @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,6 +48,7 @@
                 @Html.LabelFor(model => model.EmailRecuperacao, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.EmailRecuperacao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EmailRecuperacao, "", new { @class = "text-danger" })
+                <span id="msgRec"></span>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,42 +74,6 @@
         </div>
     </div>
 }
-
-@*<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const emailInput = document.querySelector('#Email');
-        const msg = document.querySelector('#msg');
-        const button = document.querySelector('#concluir');
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Origin": "*"
-        }
-        emailInput.addEventListener('focusout', () => {
-
-            const data = {
-                email: emailInput.value
-            }
-
-            fetch("/Home/ValidarEmail", {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(data)
-            })
-                .then((res) => res.json())
-                .then((resJson) => {
-                    if (resJson === "s") {
-                        msg.innerText = "E-mail já cadastrado";
-                        msg.classList.add("text-danger", "field-validation-error")
-                        button.setAttribute("disabled", "disabled");
-                    }
-                    else {
-                        button.removeAttribute("disabled");
-                    }
-                });
-        })
-    })
-
-</script>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

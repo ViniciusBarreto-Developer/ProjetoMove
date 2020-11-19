@@ -160,7 +160,7 @@ public class Funcoes
             else
                 return false;
         }
-        public static string UploadArquivo(HttpPostedFileBase flpUpload, string nome)
+        public static string UploadImagem(HttpPostedFileBase flpUpload, string nome)
         {
             try
             {
@@ -175,6 +175,37 @@ public class Funcoes
                         return "O tamanho máximo permitido é de " + permitido + " kb!";
                     else if ((extensao != ".png" && extensao != ".jpg" && extensao != ".jpeg"))
                         return "Extensão inválida, só são permitidas .png, .jpg e .jpeg!";
+                    else
+                    {
+                        if (!File.Exists(diretorio))
+                        {
+                            flpUpload.SaveAs(diretorio);
+                            return "sucesso";
+                        }
+                        else
+                            return "Já existe um arquivo com esse nome!";
+                    }
+                }
+                else
+                    return "Erro no Upload!";
+            }
+            catch { return "Erro no Upload"; }
+        }
+        public static string UploadPdf(HttpPostedFileBase flpUpload, string nome)
+        {
+            try
+            {
+                double permitido = 10000;
+                if (flpUpload != null)
+                {
+                    string arq = Path.GetFileName(flpUpload.FileName);
+                    double tamanho = Convert.ToDouble(flpUpload.ContentLength) / 1024;
+                    string extensao = Path.GetExtension(flpUpload.FileName).ToLower();
+                    string diretorio = HttpContext.Current.Request.PhysicalApplicationPath + "Uploads\\" + nome;
+                    if (tamanho > permitido)
+                        return "O tamanho máximo permitido é de " + permitido + " kb!";
+                    else if (extensao != ".pdf" )
+                        return "Extensão inválida, só é permitido .pdf";
                     else
                     {
                         if (!File.Exists(diretorio))

@@ -84,13 +84,59 @@ namespace Sistema.Controllers
         [ValidateInput(false)]
         public JsonResult ValidarEmail(string email)
         {
-            Usuario u = db.Usuario.Where(t => t.Email == email).FirstOrDefault();
-            if (u == null)
+            string[] user = User.Identity.Name.Split('|');
+            string emailAtual = user[0];
+            Usuario usuAtual = db.Usuario.Where(t => t.Email == emailAtual).ToList().FirstOrDefault();
+
+            if (usuAtual == null)
+            {
+                Usuario u = db.Usuario.Where(t => t.Email == email).FirstOrDefault();
+                if (u == null)
+                {
+                    return Json("n");
+                }
+
+                return Json("s");
+            }
+
+            if(usuAtual.Email == email)
             {
                 return Json("n");
             }
+            if(db.Usuario.Where(x => x.Email == email).Count() > 0)
+            {
+                return Json("s");
+            }
+            return Json("n");
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult ValidarEmailRecuperacao(string email)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string emailAtual = user[0];
+            Usuario usuAtual = db.Usuario.Where(t => t.Email == emailAtual).ToList().FirstOrDefault();
 
-            return Json("s");
+            if (usuAtual == null)
+            {
+                Usuario u = db.Usuario.Where(t => t.EmailRecuperacao == email).FirstOrDefault();
+                if (u == null)
+                {
+                    return Json("n");
+                }
+
+                return Json("s");
+            }
+
+            if (usuAtual.EmailRecuperacao == email)
+            {
+                return Json("n");
+            }
+            if (db.Usuario.Where(x => x.EmailRecuperacao == email).Count() > 0)
+            {
+                return Json("s");
+            }
+            return Json("n");
         }
         public ActionResult Acesso()
         {
@@ -391,7 +437,7 @@ namespace Sistema.Controllers
             {
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadImagem(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     string[] user = User.Identity.Name.Split('|');
@@ -566,7 +612,7 @@ namespace Sistema.Controllers
             {
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadImagem(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     Projeto pro = db.Projeto.Find(vmp.Id);
@@ -637,7 +683,7 @@ namespace Sistema.Controllers
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
                 string kk = Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadPdf(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     var arqpro = new ArquivosProjeto();
@@ -647,7 +693,7 @@ namespace Sistema.Controllers
 
                     db.ArquivosProjeto.Add(arqpro);
                     db.SaveChanges();
-                    TempData["MSG"] = "success|Imagem Adicionada!";
+                    TempData["MSG"] = "success|Documento adicionado!";
                     return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                 }
                 else
