@@ -371,8 +371,11 @@ namespace Sistema.Controllers
 
             return View(vmp);
         }
-        public ActionResult EditarFoto(HttpPostedFileBase arq)
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult EditarFoto(HttpPostedFileBase arq)
         {
+
             string valor = "";
 
             if (arq != null)
@@ -390,19 +393,22 @@ namespace Sistema.Controllers
                     usu.Foto = nomearq;
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
-                    return RedirectToAction("MeuPerfil");
+                    //return RedirectToAction("MeuPerfil");
+                    return Json("s");
                 }
                 else
                 {
                     ModelState.AddModelError("", valor);
                     TempData["MSG"] = "error|" + valor;
-                    return RedirectToAction("MeuPerfil");
+                    //return RedirectToAction("MeuPerfil");
+                    return Json("n");
                 }
             }
             else
             {
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
-                return RedirectToAction("MeuPerfil");
+                //return RedirectToAction("MeuPerfil");
+                return Json("n");
             }
         }
         [HttpPost]

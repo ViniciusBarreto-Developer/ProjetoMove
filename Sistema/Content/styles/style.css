@@ -959,7 +959,7 @@ a.btn {
   position: fixed;
   top: 0;
   left: 0;
-  height: 120%;
+  height: 100%;
   width: 100%;
   z-index: 10;
   background: rgba(0, 0, 0, 0.6);
@@ -998,6 +998,8 @@ a.btn {
     .modal-bg .modal .modal-footer {
       text-align: right;
       margin-top: auto; }
+      .modal-bg .modal .modal-footer .form-btns {
+        margin: 0; }
 
 .modal .tag-group {
   margin-top: 0; }

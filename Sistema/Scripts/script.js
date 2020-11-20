@@ -168,20 +168,20 @@ function validateEmail() {
     }
 }
 
-function imgUploadPreview() {
-    const imgInput = document.querySelector("#img-input");
+//function imgUploadPreview() {
+//    const imgInput = document.querySelector("#img-input");
 
-    if (imgInput) {
-        //const previewContainer = document.querySelector("#preview-container");
-        const preview = document.querySelector("#img-preview");
-        if (preview.src === "") {
-            preview.classList.add("hidden");
-        }
+//    if (imgInput) {
+//        //const previewContainer = document.querySelector("#preview-container");
+//        const preview = document.querySelector("#img-preview");
+//        if (preview.src === "") {
+//            preview.classList.add("hidden");
+//        }
 
-        imgInput.addEventListener("change", (e) => {  
-            preview.classList.remove("hidden");
-            preview.src = URL.createObjectURL(e.target.files[0]);
-            preview.onload = () => URL.revokeObjectURL(preview.src)
-        })
-    }
-}
+//        imgInput.addEventListener("change", (e) => {
+//            preview.classList.remove("hidden");
+//            preview.src = URL.createObjectURL(e.target.files[0]);
+//            preview.onload = () => URL.revokeObjectURL(preview.src)
+//        })
+//    }
+//}

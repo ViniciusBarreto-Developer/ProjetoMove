@@ -198,14 +198,20 @@
         @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
-                <div class="profile-pic" id="preview-container">
-                    <img class="circle-pic" id="img-preview" />
+                @*<div class="profile-pic" id="preview-container">
+                        <img class="circle-pic" id="img-preview" />
+                    </div>*@
+                <div class="profile-pic">
+                    <div id="upload-demo">
+
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="form-btns">
-                    <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                    <button class="btn btn-primary">Confirmar</button>
+                    @*<input name="arq" class="btn btn-secondary" type="file" id="img-input" />*@
+                    <input name="arq" class="btn btn-secondary" type="file" id="upload" />
+                    <button class="btn btn-primary upload-result">Confirmar</button>
                 </div>
             </div>
         }
@@ -280,6 +286,69 @@
 </div>
 
 
+@section Scripts {
+    <script src="~/Scripts/croppie.js"></script>
+
+    <script>
+        var $uploadCrop;
+
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    $uploadCrop.croppie('bind', {
+                        url: e.target.result
+                    }).then(function () {
+                        console.log('jQuery bind complete');
+                    });
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                swal("Sorry - your browser doesn't support the FileReader API");
+            }
+        }
+
+        $uploadCrop = $('#upload-demo').croppie({
+            viewport: {
+                width: 256,
+                height: 256,
+                type: 'circle'
+            }
+        });
+
+        $('#upload').on('change', function () { readFile(this); });
+        $('.upload-result').on('click', function (ev) {
+            ev.preventDefault();
+            $uploadCrop.croppie('result', {
+                type: 'blob',
+                size: 'viewport'
+            }).then(function (resp) {
+                resp = resp.slice(0, resp.size, "image/png")
+
+                let data = new FormData();
+                data.append('arq', resp, 'blob.png');
+
+                $.ajax({
+                    url: "/Home/EditarFoto",
+                    type: 'POST',
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        document.location.reload();
+                    }
+                });
+
+            });
+        });
+
+    </script>
+}
 
 
 
