@@ -2,7 +2,6 @@
     backToTop();
     modalBehavior();
     validateEmail();
-    imgUploadPreview();
     editBio();
 });
 
@@ -203,8 +202,8 @@ function validateEmailRecuperacao() {
     }
 }
 
-function imgUploadPreview() {
-    const imgInput = document.querySelector("#img-input");
+//function imgUploadPreview() {
+//    const imgInput = document.querySelector("#img-input");
 
 //    if (imgInput) {
 //        //const previewContainer = document.querySelector("#preview-container");
