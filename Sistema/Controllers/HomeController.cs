@@ -58,7 +58,7 @@ namespace Sistema.Controllers
                 }
                 Usuario usu = new Usuario();
                 usu.Nome = cad.Nome;
-                usu.NomeSocial = cad.NomeSocial;
+                usu.Celular = cad.Celular;
                 usu.DataNascimento = cad.DataNascimento;
                 usu.Cpf = cad.Cpf;
                 usu.Email = cad.Email;
@@ -84,13 +84,59 @@ namespace Sistema.Controllers
         [ValidateInput(false)]
         public JsonResult ValidarEmail(string email)
         {
-            Usuario u = db.Usuario.Where(t => t.Email == email).FirstOrDefault();
-            if (u == null)
+            string[] user = User.Identity.Name.Split('|');
+            string emailAtual = user[0];
+            Usuario usuAtual = db.Usuario.Where(t => t.Email == emailAtual).ToList().FirstOrDefault();
+
+            if (usuAtual == null)
+            {
+                Usuario u = db.Usuario.Where(t => t.Email == email).FirstOrDefault();
+                if (u == null)
+                {
+                    return Json("n");
+                }
+
+                return Json("s");
+            }
+
+            if(usuAtual.Email == email)
             {
                 return Json("n");
             }
+            if(db.Usuario.Where(x => x.Email == email).Count() > 0)
+            {
+                return Json("s");
+            }
+            return Json("n");
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult ValidarEmailRecuperacao(string email)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string emailAtual = user[0];
+            Usuario usuAtual = db.Usuario.Where(t => t.Email == emailAtual).ToList().FirstOrDefault();
 
-            return Json("s");
+            if (usuAtual == null)
+            {
+                Usuario u = db.Usuario.Where(t => t.EmailRecuperacao == email).FirstOrDefault();
+                if (u == null)
+                {
+                    return Json("n");
+                }
+
+                return Json("s");
+            }
+
+            if (usuAtual.EmailRecuperacao == email)
+            {
+                return Json("n");
+            }
+            if (db.Usuario.Where(x => x.EmailRecuperacao == email).Count() > 0)
+            {
+                return Json("s");
+            }
+            return Json("n");
         }
         public ActionResult Acesso()
         {
@@ -105,14 +151,8 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null && usu.ativo != false)
             {
-                if (usu.NomeSocial == null || usu.NomeSocial == "")
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-                }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
-                }
+                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+
                 return RedirectToAction("Principal", "Home");
             }
             else
@@ -135,7 +175,7 @@ namespace Sistema.Controllers
             EditarCadastro edit = new EditarCadastro();
 
             edit.Nome = usu.Nome;
-            edit.NomeSocial = usu.NomeSocial;
+            edit.Celular = usu.Celular;
             edit.DataNascimento = usu.DataNascimento;
             edit.Cpf = usu.Cpf;
             edit.Email = usu.Email;
@@ -186,7 +226,7 @@ namespace Sistema.Controllers
                         return View(edit);
                     }
                     usu.Nome = edit.Nome;
-                    usu.NomeSocial = edit.NomeSocial;
+                    usu.Celular = edit.Celular;
                     usu.DataNascimento = edit.DataNascimento;
                     usu.Cpf = edit.Cpf;
                     edit.Email = usu.Email;
@@ -197,14 +237,7 @@ namespace Sistema.Controllers
                         usu.Senha = Funcoes.HashTexto(edit.Senha, "SHA512");
                     }
 
-                    if (usu.NomeSocial == null || usu.NomeSocial == "")
-                    {
-                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-                    }
-                    else
-                    {
-                        FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.NomeSocial, false);
-                    }
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
 
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
@@ -364,7 +397,32 @@ namespace Sistema.Controllers
             vmp.Nome = usu.Nome;
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
-            vmp.NomeSocial = usu.NomeSocial;
+            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
+            return View(vmp);
+        }
+        public ActionResult VisitarPerfil(int id)
+        {
+            Usuario usu = db.Usuario.Find(id);
+
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usuAtual = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            if (usuAtual.Id == usu.Id)
+            {
+                return RedirectToAction("MeuPerfil");
+            }
+
+            VMPerfil vmp = new VMPerfil();
+
+            vmp.Id = usu.Id;
+            vmp.Biografia = usu.Biografia;
+            vmp.Nome = usu.Nome;
+            vmp.Email = usu.Email;
+            vmp.Foto = usu.Foto;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
@@ -382,7 +440,7 @@ namespace Sistema.Controllers
             {
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadImagem(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     string[] user = User.Identity.Name.Split('|');
@@ -512,8 +570,34 @@ namespace Sistema.Controllers
         }
         public ActionResult MeuProjeto(int id)
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
             Projeto pro = db.Projeto.Find(id);
 
+            foreach(var item in pro.IntegrantesProjetos)
+            {
+                if(item.UsuarioID == usu.Id)
+                {
+                    VMProjeto vm = new VMProjeto();
+
+                    vm.Id = pro.Id;
+                    vm.Nome = pro.Nome;
+                    vm.Descricao = pro.Descricao;
+                    vm.Logo = pro.Logo;
+                    vm.ProjetoTags = pro.ProjetoTags;
+                    vm.ArquivosProjetos = pro.ArquivosProjetos;
+                    vm.IntegrantesProjetos = pro.IntegrantesProjetos;
+
+                    return View(vm);
+                }
+            }
+            return RedirectToAction("VisitarProjeto", new { id = id });
+        }
+        public ActionResult VisitarProjeto(int id)
+        {
+            Projeto pro = db.Projeto.Find(id);
             VMProjeto vm = new VMProjeto();
 
             vm.Id = pro.Id;
@@ -526,7 +610,7 @@ namespace Sistema.Controllers
 
             return View(vm);
         }
-        public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
+            public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
         {
             string valor = "";
 
@@ -534,7 +618,7 @@ namespace Sistema.Controllers
             {
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadImagem(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     Projeto pro = db.Projeto.Find(vmp.Id);
@@ -605,7 +689,7 @@ namespace Sistema.Controllers
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
                 string kk = Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadArquivo(arq, nomearq);
+                valor = Funcoes.Upload.UploadPdf(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     var arqpro = new ArquivosProjeto();
@@ -615,7 +699,7 @@ namespace Sistema.Controllers
 
                     db.ArquivosProjeto.Add(arqpro);
                     db.SaveChanges();
-                    TempData["MSG"] = "success|Imagem Adicionada!";
+                    TempData["MSG"] = "success|Documento adicionado!";
                     return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                 }
                 else
@@ -653,24 +737,6 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
-        }
-        public ActionResult VisitarPerfil(int id)
-        {
-            Usuario usu = db.Usuario.Find(id);
-            VMPerfil vmp = new VMPerfil();
-
-            vmp.Id = usu.Id;
-            vmp.Biografia = usu.Biografia;
-            vmp.Nome = usu.Nome;
-            vmp.Email = usu.Email;
-            vmp.Foto = usu.Foto;
-            vmp.NomeSocial = usu.NomeSocial;
-            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
-            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
-            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
-
-            return View(vmp);
-        }
-
+        }        
     }
 }

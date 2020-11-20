@@ -14,14 +14,7 @@
             @if (Model.Foto == null)
             {
                 <div class="circle-pic avatar-placeholder">
-                    @if (Model.NomeSocial == null)
-                    {
-                        <p>@Model.Nome.ToString()[0]</p>
-                    }
-                    else
-                    {
-                        <p>@Model.NomeSocial.ToString()[0]</p>
-                    }
+                    <p>@Model.Nome.ToString()[0]</p>
                 </div>
             }
             else
@@ -32,14 +25,8 @@
         </div>
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
-    @if (Model.NomeSocial == null)
-    {
-        <h1 class="username">@Model.Nome</h1>
-    }
-    else
-    {
-        <h1 class="username">@Model.NomeSocial</h1>
-    }
+
+    <h1 class="username">@Model.Nome</h1>
 
     <div class="profile-info">
         <div class="bio">
@@ -66,6 +53,12 @@
                         </li>
                         x++;
                     }
+                }
+                if (Model.UsuarioTags.Count > 3)
+                {
+                    <li class="tag-container">
+                        <div class="tag"><span class="tag-text">...</span></div>
+                    </li>
                 }
                 if (x == 0)
                 {
@@ -147,7 +140,7 @@
                 {
                     <div class="card-container">
                         <div class="project-card">
-                            <a href="#">
+                            <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
                                 <div class="card-img">
                                     <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
                                 </div>

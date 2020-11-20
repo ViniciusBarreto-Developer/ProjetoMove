@@ -14,14 +14,7 @@
             @if (Model.Foto == null)
             {
                 <div class="circle-pic avatar-placeholder">
-                    @if (Model.NomeSocial == null)
-                    {
-                        <p>@Model.Nome.ToString()[0]</p>
-                    }
-                    else
-                    {
-                        <p>@Model.NomeSocial.ToString()[0]</p>
-                    }
+                    <p>@Model.Nome.ToString()[0]</p>
                 </div>
             }
             else
@@ -30,14 +23,8 @@
             }
         </div>
     </div>
-    @if (Model.NomeSocial == null)
-    {
-        <h1 class="username">@Model.Nome</h1>
-    }
-    else
-    {
-        <h1 class="username">@Model.NomeSocial</h1>
-    }
+
+    <h1 class="username">@Model.Nome</h1>
 
     <div class="profile-info">
         <div class="bio">
@@ -52,7 +39,7 @@
                 int x = 0;
                 foreach (var item in Model.UsuarioTags)
                 {
-                    if (x < 4)
+                    if (x < 3)
                     {
                         <li class="tag-container">
                             <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
@@ -67,8 +54,11 @@
                         <div class="tag"><span class="tag-text">Este usuário não possui tags cadastradas.</span></div>
                     </li>
                 }
-                else if(x > 3)
+                else if (Model.UsuarioTags.Count > 3)
                 {
+                    <li class="tag-container">
+                        <div class="tag"><span class="tag-text">...</span></div>
+                    </li>
                     <li>
                         <button class="add-tag" data-open-modal="modalTags"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
                     </li>

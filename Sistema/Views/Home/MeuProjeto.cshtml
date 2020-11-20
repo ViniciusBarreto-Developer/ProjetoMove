@@ -28,13 +28,19 @@
                             int x = 0;
                             foreach (var item in Model.ProjetoTags)
                             {
-                                if (x < 4)
+                                if (x < 3)
                                 {
                                     <li class="tag-container">
                                         <div class="tag"><span class="tag-text">@item.Tag.Nome</span></div>
                                     </li>
                                     x++;
                                 }
+                            }
+                            if (Model.ProjetoTags.Count > 3)
+                            {
+                                <li class="tag-container">
+                                    <div class="tag"><span class="tag-text">...</span></div>
+                                </li>
                             }
                             if (x == 0)
                             {
@@ -86,8 +92,19 @@
             {
                 <div class="profile-pic profile-pic-mini">
                     <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
-                        <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
-                    </a>                    
+
+                        @if (item.Usuario.Foto == null)
+                        {
+                            <div class="circle-pic avatar-placeholder">
+                                <p>@Model.Nome.ToString()[0]</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                        }
+
+                    </a>
                 </div>
             }
         </div>
@@ -182,7 +199,7 @@
         {
             @Html.HiddenFor(model => model.Id)
             <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file"/>
+                <input name="arq" class="btn btn-secondary" type="file" />
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }

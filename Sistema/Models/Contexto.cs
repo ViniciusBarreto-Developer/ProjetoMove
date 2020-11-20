@@ -23,10 +23,10 @@ namespace Sistema.Models
             var usu = mb.Entity<Usuario>();
             usu.ToTable("usu_usuario");
             usu.Property(x => x.Id).HasColumnName("usu_codigo");
-            usu.Property(x => x.Nome).HasColumnName("usu_nome");
-            usu.Property(x => x.NomeSocial).HasColumnName("usu_nomeSocial");
+            usu.Property(x => x.Nome).HasColumnName("usu_nome");            
             usu.Property(x => x.DataNascimento).HasColumnName("usu_dataNascimento");
             usu.Property(x => x.Cpf).HasColumnName("usu_cpf");
+            usu.Property(x => x.Celular).HasColumnName("usu_celular");
             usu.Property(x => x.Foto).HasColumnName("usu_foto");
             usu.Property(x => x.Email).HasColumnName("usu_email");
             usu.Property(x => x.EmailRecuperacao).HasColumnName("usu_emailRecuperacao");
