@@ -91,8 +91,10 @@
                                 <div class="card-img">
                                     <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
                                 </div>
-                                <h3 class="card-title">@item.Projeto.Nome</h3>
-                                <p class="card-text">@item.Projeto.Descricao</p>
+                                <div>
+                                    <h3 class="card-title">@item.Projeto.Nome</h3>
+                                    <p class="card-text">@item.Projeto.Descricao</p>
+                                </div>
                                 <ul class="card-tags">
                                     @{
                                         int n = 0;
@@ -307,9 +309,7 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
-            else {
-                swal("Sorry - your browser doesn't support the FileReader API");
-            }
+          
         }
 
         $uploadCrop = $('#upload-demo').croppie({

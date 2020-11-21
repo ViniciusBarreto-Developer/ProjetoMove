@@ -610,7 +610,10 @@ namespace Sistema.Controllers
 
             return View(vm);
         }
-            public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
+        
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
         {
             string valor = "";
 
@@ -628,19 +631,19 @@ namespace Sistema.Controllers
                     db.Projeto.AddOrUpdate(pro);
                     db.SaveChanges();
                     TempData["MSG"] = "success|Logo alterada com sucesso!";
-                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                    return Json('s'); 
                 }
                 else
                 {
                     ModelState.AddModelError("", valor);
                     TempData["MSG"] = "error|" + valor;
-                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                    return Json('n');
                 }
             }
             else
             {
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
-                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                return Json('n');
             }
         }
         [HttpPost]
