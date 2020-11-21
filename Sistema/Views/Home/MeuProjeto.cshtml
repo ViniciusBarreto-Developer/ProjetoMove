@@ -128,18 +128,19 @@
         {
             @Html.HiddenFor(model => model.Id)
             <div class="modal-body">
-                <div class="infos">
-                    <div class="imagem">
-                        <div class="img-projeto" id="preview-container"> <img id="img-preview" /> </div>
+                <div class="preview-container">
+                    <div id="upload-demo">
+
                     </div>
                 </div>
+
+                <span class="file-name" id="preview-file-name"></span>
             </div>
-
             <div class="modal-footer">
-
                 <div class="form-btns">
-                    <input name="arq" class="btn btn-secondary" type="file" id="img-input" />
-                    <button class="btn btn-primary">Confirmar</button>
+                    <label for="upload" class="btn btn-secondary">Selecione um arquivo</label>
+                    <input name="arq" class="btn btn-secondary" type="file" id="upload" />
+                    <button class="btn btn-primary upload-result">Confirmar</button>
                 </div>
             </div>
         }
@@ -245,5 +246,80 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/croppie.js"></script>
+
+    <script>
+        var $uploadCrop;
+
+
+        function readFile(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    $uploadCrop.croppie('bind', {
+                        url: e.target.result
+                    }).then(function () {
+                        console.log('jQuery bind complete');
+                    });
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $uploadCrop = $('#upload-demo').croppie({
+            viewport: {
+                width: 189,
+                height: 133,
+                type: 'square'
+            }
+        });
+
+
+        $('#upload').on('change', function () {
+            crImage.classList.remove('hidden');
+            const file = document.querySelector('#upload').value;
+            const fileName = document.querySelector('#preview-file-name');
+            fileName.innerText = file.substring(file.lastIndexOf('\\') + 1)
+            readFile(this);
+        });
+
+        $('.upload-result').on('click', function (ev) {
+            ev.preventDefault();
+            $uploadCrop.croppie('result', {
+                type: 'blob',
+                //size: 'viewport'
+                size: { width: 756, height: 532 }
+            }).then(function (resp) {
+                resp = resp.slice(0, resp.size, "image/png")
+
+                let data = new FormData();
+                data.append('arq', resp, 'blob.png');
+                const projetoId = document.querySelector('input[name="Id"').value;
+                data.append('Id', projetoId);
+
+                $.ajax({
+                    url: "/Home/EditarLogo",
+                    type: 'POST',
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        document.location.reload();
+                    }
+                });
+
+            });
+        });
+
+        const crImage = document.querySelector('.cr-image');
+        crImage.classList.add('hidden');
+
+    </script>
 }
+
 
