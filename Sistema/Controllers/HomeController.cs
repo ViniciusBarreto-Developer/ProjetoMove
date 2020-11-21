@@ -64,7 +64,7 @@ namespace Sistema.Controllers
                 usu.Email = cad.Email;
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
-                usu.Biografia = "     Aqui você pode colocar sua área de formação, seus interesses, e também as formas que as pessoas podem entrar em contato com você de forma mais rápida! Clique ao lado para personalizar sua Bio!";
+                usu.Biografia = "";
                 usu.ativo = true;
 
                 db.Usuario.Add(usu);
@@ -469,17 +469,18 @@ namespace Sistema.Controllers
                 return Json("n");
             }
         }
-        [HttpPost]
-        public ActionResult EditarBiografia(Usuario usuario)
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public ActionResult EditarBiografia(string biografia)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-            usu.Biografia = usuario.Biografia;
+            usu.Biografia = biografia;
             db.Usuario.AddOrUpdate(usu);
             db.SaveChanges();
 
-            return RedirectToAction("MeuPerfil");
+            return Json('s');
         }
         [HttpPost]
         public ActionResult AdicionarTag(VMPerfil vmp)

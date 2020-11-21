@@ -87,54 +87,22 @@ function modalBehavior() {
 function editBio() {
     const bioTxt = document.querySelector('#editTxt');
     if (bioTxt) {
-        //AJAX edit clicando fora
-        //bioTxt.addEventListener('focusout', () => {
-        //    const data = {
-        //        bio: bioTxt.value
-        //    }
-
-        //    fetch("/Home/EditarBiografia", {
-        //        method: 'POST',
-        //        headers: headers,
-        //        body: JSON.stringify(data)
-        //    })
-        //})
-
-        //JEITO ANTIGO
-        const editBioBtn = document.querySelector('#editBio');
-        const confirmBioBtn = document.querySelector('#confirmBio');
-
-        editBioBtn.addEventListener('click', () => {
-            if (bioTxt.hasAttribute('readonly')) {
-                allowEdit();
+        bioTxt.addEventListener('focusout', () => {
+            const headers = {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*"
             }
-            else {
-                blockEdit();
+            const data = {
+                biografia: bioTxt.value
             }
-        });
 
-        confirmBioBtn.addEventListener('click', () => {
-            if (bioTxt.hasAttribute('readonly')) {
-                allowEdit();
-            }
-            else {
-                blockEdit();
-            }
-        });
+            fetch("/Home/EditarBiografia", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+        })
 
-        function allowEdit() {
-            bioTxt.toggleAttribute('readonly');
-            bioTxt.focus();
-            toggleBtnEdit();
-        }
-        function blockEdit() {
-            bioTxt.toggleAttribute('readonly');
-            toggleBtnEdit();
-        }
-        function toggleBtnEdit() {
-            editBioBtn.classList.toggle('hidden-animated');
-            confirmBioBtn.classList.toggle('hidden-animated');
-        }
     }
 }
 

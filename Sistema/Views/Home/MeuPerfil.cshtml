@@ -32,9 +32,7 @@
         <div class="bio">
             @using (Html.BeginForm("EditarBiografia", "Home", FormMethod.Post))
             {
-                @Html.TextAreaFor(model => model.Biografia, new { @class = "bio-text", @readonly = true, @id = "editTxt" })
-                <a class="edit-bio" id="editBio"><span class="iconify" data-icon="tabler:edit" data-inline="false"></span></a>
-                <button class="edit-bio hidden-animated" id="confirmBio" type="submit"><span class="iconify" data-icon="tabler:checkbox" data-inline="false"></span></button>
+                @Html.TextAreaFor(model => model.Biografia, new { @class = "bio-text", @id = "editTxt", @maxlength = "110", @placeholder = "Aqui você pode colocar sua área de formação, seus interesses, e também as formas que as pessoas podem entrar em contato com você de forma mais rápida!" })
             }
         </div>
     </div>

@@ -56,6 +56,17 @@
 
         .modal-body {
             padding: 2rem 1rem;
+
+            .bio-text {
+                font-size: $font-size-sm;
+                justify-self: center;
+                border: 1px solid $border-color;
+                border-radius: 20px;
+                resize: none;
+                width: 100%;
+                min-height: 4rem;
+                padding: 0.5rem 0.7rem;
+            }
         }
 
         .modal-footer {
@@ -84,5 +95,3 @@
         }
     }
 }
-
-
