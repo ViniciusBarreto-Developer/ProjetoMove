@@ -99,11 +99,11 @@ namespace Sistema.Controllers
                 return Json("s");
             }
 
-            if(usuAtual.Email == email)
+            if (usuAtual.Email == email)
             {
                 return Json("n");
             }
-            if(db.Usuario.Where(x => x.Email == email).Count() > 0)
+            if (db.Usuario.Where(x => x.Email == email).Count() > 0)
             {
                 return Json("s");
             }
@@ -576,9 +576,9 @@ namespace Sistema.Controllers
 
             Projeto pro = db.Projeto.Find(id);
 
-            foreach(var item in pro.IntegrantesProjetos)
+            foreach (var item in pro.IntegrantesProjetos)
             {
-                if(item.UsuarioID == usu.Id)
+                if (item.UsuarioID == usu.Id)
                 {
                     VMProjeto vm = new VMProjeto();
 
@@ -610,7 +610,7 @@ namespace Sistema.Controllers
 
             return View(vm);
         }
-            public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
+        public ActionResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
         {
             string valor = "";
 
@@ -737,6 +737,6 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
-        }        
+        }
     }
 }
