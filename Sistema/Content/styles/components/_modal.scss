@@ -1,7 +1,9 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-
+*[data-open-modal] {
+    cursor: pointer;
+}
 
 .modal-bg {
     position: fixed;
