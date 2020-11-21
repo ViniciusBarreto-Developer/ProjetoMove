@@ -69,10 +69,16 @@ function modalBehavior() {
             }
         }
 
-        function outsideClick(e, modal) {
-            if (e.target === modal) {
-                modal.classList.add('hidden-animated');
-                document.body.style.overflow = 'visible';
+        function outsideClick(e, modalBg) {
+            if (e.target === modalBg) {
+                const modal = document.querySelector('.modal:not(hidden)')
+
+                document.body.style.overflow = 'auto';
+                modal.classList.add('scale-out-center');;
+                modal.classList.remove('scale-in-center');
+                setTimeout(() => {
+                    modalBg.classList.add('hidden');
+                }, 200)
             }
         }
     }
