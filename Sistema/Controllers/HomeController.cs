@@ -807,7 +807,21 @@ namespace Sistema.Controllers
         public ActionResult AdicionarIntegrante(VMProjeto vmp)
         {
             Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();
+            var integrantes = db.IntegrantesProjeto.Where(x => x.ProjetoId == vmp.Id).ToList();
 
+            if (usu == null)
+            {
+                TempData["MSG"] = "error|E-mail não encontrado";
+                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+            }
+            foreach (var item in integrantes)
+            {
+                if (item.UsuarioID == usu.Id)
+                {
+                    TempData["MSG"] = "error|Integrante já adicionado";
+                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                }
+            }
             var inte = new IntegrantesProjeto();
             inte.Adm = false;
             inte.ProjetoId = vmp.Id;
@@ -843,9 +857,9 @@ namespace Sistema.Controllers
                     }
                     else if (quant == 1)
                     {
-                        db.IntegrantesProjeto.Remove(inte);                        
+                        db.IntegrantesProjeto.Remove(inte);
 
-                        Projeto pro = db.Projeto.Find(inte.ProjetoId);                        
+                        Projeto pro = db.Projeto.Find(inte.ProjetoId);
                         pro.Ativo = false;
                         db.Projeto.AddOrUpdate(pro);
 
