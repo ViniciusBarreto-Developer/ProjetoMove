@@ -8,8 +8,19 @@
     <div class="retangulo">
         <div class="infos">
             <div class="imagem">
-                <div class="img-projeto"> <img src="~/Uploads/@Model.Logo" /> </div>
-                <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
+                @if (Model.Logo == "projeto.svg")
+                {
+                    <div class="img-projeto" data-open-modal="modalPic"> <img src="~/Content/img/add-logo.svg" /> </div>
+                }
+                else
+                {
+
+                    <div class="img-projeto" style="" data-open-modal="modalPic">
+                        <img class="logo-overlay" src="~/Content/img/add-logo-transp.svg" />
+                        <img class="blurred" src="~/Uploads/@Model.Logo" />
+                    </div>
+                }
+                @*<a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>*@
             </div>
             <div class="descricao">
                 <div class="input-infos">

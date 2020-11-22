@@ -598,7 +598,7 @@ namespace Sistema.Controllers
             {
                 Projeto pro = new Projeto();
 
-                pro.Logo = "projeto.jpg";
+                pro.Logo = "projeto.svg";
                 pro.Nome = vmp.NomeProjeto;
                 pro.Descricao = vmp.Descricao;
                 pro.Ativo = true;
@@ -690,7 +690,10 @@ namespace Sistema.Controllers
                 {
                     Projeto pro = db.Projeto.Find(vmp.Id);
                     //Excluir foto antiga
-                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + pro.Logo);
+                    if(pro.Logo != "projeto.svg")
+                    {
+                        Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + pro.Logo);
+                    }
                     pro.Logo = nomearq;
                     db.Projeto.AddOrUpdate(pro);
                     db.SaveChanges();

@@ -31,12 +31,27 @@
             border-radius: 20px;
             background: #fff;
             min-width: 189px;
+            min-height: 133px;
             max-width: calc(398px + 1vw);
-            
             display: flex;
             align-content: center;
             overflow: hidden;
             background: $background-color;
+            position: relative;
+            transition: filter 0.2s;
+            
+            &:hover {
+                filter: brightness(97%);
+            }
+
+            .logo-overlay {
+                position: absolute;
+                z-index: 10;
+            }
+
+            .blurred {
+                filter: blur(2px) brightness(90%);
+            }
 
             img {
                 width: 100%;
