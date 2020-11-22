@@ -20,21 +20,20 @@
                         <img class="blurred" src="~/Uploads/@Model.Logo" />
                     </div>
                 }
-                @*<a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>*@
             </div>
             <div class="descricao">
-                <div class="input-infos">
-
-                    @using (Html.BeginForm())
-                    {
+                @using (Html.BeginForm("EditarProjeto", "Home", FormMethod.Post))
+                {
+                    <div class="input-infos">
                         @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-                    }
+                    </div>
+                    <div class="infos-txt">
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text", @id = "editTxt" })
+                        @Html.HiddenFor(k => k.Id)
+                    </div>
+                }
 
-                </div>
-                <div class="infos-txt">
-                    <textarea class="bio-text" id="editTxt">@Model.Descricao</textarea>
-                </div>
                 <div>
                     <ul class="tag-group interests">
 

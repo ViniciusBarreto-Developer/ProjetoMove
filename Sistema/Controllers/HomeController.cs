@@ -639,7 +639,8 @@ namespace Sistema.Controllers
 
                 return RedirectToAction("MeuProjeto", new { id = pro.Id });
             }
-            return View(vmp);
+            TempData["MSG"] = "error|Preencha os dois campos para criar um projeto";
+            return RedirectToAction("MeuPerfil");
         }
         public ActionResult MeuProjeto(int id)
         {
@@ -724,6 +725,18 @@ namespace Sistema.Controllers
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
                 return Json('n');
             }
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public ActionResult EditarProjeto(VMProjeto vmp)
+        {
+            var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+            pro.Nome = vmp.Nome;
+            pro.Descricao = vmp.Descricao;
+            db.Projeto.AddOrUpdate(pro);
+            db.SaveChanges();
+
+            return Json('s');
         }
         [HttpPost]
         public ActionResult AdicionarTagProjeto(VMProjeto vmp)
