@@ -730,17 +730,33 @@ namespace Sistema.Controllers
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
-        public ActionResult EditarProjeto(VMProjeto vmp)
+        public ActionResult EditarDescricao(VMProjeto vmp)
         {
             var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
 
-            if (vmp.Nome == null || vmp.Descricao == null)
+            if (vmp.Descricao == null)
             {
-                TempData["MSG"] = "error|O campo não pode ser vazio";
+                TempData["MSG"] = "error|A Descrição não pode ficar vazia";
+                return Json('n');
+            }
+            pro.Descricao = vmp.Descricao;
+            db.Projeto.AddOrUpdate(pro);
+            db.SaveChanges();
+
+            return Json('s');
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public ActionResult EditarNomeProjeto(VMProjeto vmp)
+        {
+            var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+
+            if (vmp.Nome == null)
+            {
+                TempData["MSG"] = "error|O Nome do Projeto não pode ficar vazio";
                 return Json('n');
             }
             pro.Nome = vmp.Nome;
-            pro.Descricao = vmp.Descricao;
             db.Projeto.AddOrUpdate(pro);
             db.SaveChanges();
 
