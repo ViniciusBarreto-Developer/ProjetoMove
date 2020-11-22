@@ -905,13 +905,20 @@ namespace Sistema.Controllers
 
             IntegrantesProjeto integrante = db.IntegrantesProjeto.Find(id);
             IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == integrante.ProjetoId).FirstOrDefault();
-            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true).Count();
+            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == integrante.ProjetoId).Count();
 
             if (eu.Adm == true)
             {
-                if (integrante.Adm && quantAdm > 1)
+                if (integrante.Adm)
                 {
-                    integrante.Adm = false;
+                    if(quantAdm > 1)
+                    {
+                        integrante.Adm = false;
+                    }
+                    else
+                    {
+                        return Json("nn");
+                    }
                 }
                 else
                 {
@@ -924,7 +931,6 @@ namespace Sistema.Controllers
             }
             else
             {
-                //TempData["MSG"] = "error|Apenas os administradores podem alterar os administradores!";
                 return Json("n");
             }
         }

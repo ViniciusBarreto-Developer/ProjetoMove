@@ -209,6 +209,15 @@ function setAdm() {
                             })
                             item.checked = !item.checked;
                         }
+                        else if (resJson == "nn") {
+                            Swal.fire({
+                                title: "Erro",
+                                text: "O projeto precisa ter no mínimo um Adm!",
+                                icon: "error",
+                                confirmButtonText: 'OK'
+                            })
+                            item.checked = !item.checked;
+                        }
                     })
 
             })
