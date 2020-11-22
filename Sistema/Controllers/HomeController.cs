@@ -33,7 +33,10 @@ namespace Sistema.Controllers
 
             VMPrincipal vmp = new VMPrincipal();
 
+            vmp.UsuarioId = usu.Id;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
             if (vmp.PesquisaTag != null)
             {
                 vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
@@ -49,7 +52,7 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            VMPrincipal vm = new VMPrincipal();
+            VMPrincipal vm = new VMPrincipal();            
 
             if (usu == null)
             {
@@ -60,8 +63,10 @@ namespace Sistema.Controllers
                 }
                 return View();
             }
-           
+
+            vm.UsuarioId = usu.Id;
             vm.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vm.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             if (vmp.PesquisaTag != null)
             {
@@ -628,6 +633,11 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
+            if (usu == null)
+            {
+                return RedirectToAction("Acesso");
+            }
+
             Projeto pro = db.Projeto.Find(id);
 
             foreach (var item in pro.IntegrantesProjetos)
@@ -650,7 +660,7 @@ namespace Sistema.Controllers
             return RedirectToAction("VisitarProjeto", new { id = id });
         }
         public ActionResult VisitarProjeto(int id)
-        {
+        {         
             Projeto pro = db.Projeto.Find(id);
             VMProjeto vm = new VMProjeto();
 

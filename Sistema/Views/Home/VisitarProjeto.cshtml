@@ -1,5 +1,9 @@
 ﻿@model Sistema.Models.VMProjeto
 
+@{
+    Layout = "~/Views/Shared/_LayoutProjeto.cshtml";
+}
+
 <div class="form-horizontal espaco">
     <div class="retangulo">
         <div class="infos">
@@ -107,7 +111,7 @@
                         </div>
                         y++;
                     }
-                    if(Model.IntegrantesProjetos.Count > 3)
+                    if (Model.IntegrantesProjetos.Count > 3)
                     {
                         <p>...</p>
                     }

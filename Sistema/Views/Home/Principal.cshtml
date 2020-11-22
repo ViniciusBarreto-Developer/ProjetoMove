@@ -68,7 +68,26 @@
     {
         foreach (var item in Model.ProjetoTags)
         {
-            if (item.Projeto.Ativo == true)
+            bool meuProjeto = false, projetoSalvo = false;
+            foreach (var meu in item.Projeto.IntegrantesProjetos)
+            {
+                if(meu.UsuarioID == Model.UsuarioId)
+                {
+                    meuProjeto = true;
+                }
+            }
+            if (Model.ProjetosSalvos != null)
+            {
+                foreach (var salvo in Model.ProjetosSalvos)
+                {
+                    if (item.ProjetoId == salvo.ProjetoId)
+                    {
+                        projetoSalvo = true;
+                    }
+                }
+            }
+
+            if (item.Projeto.Ativo == true && meuProjeto == false && projetoSalvo == false)
             {
                 <div class="card-container">
                     <div class="project-card">
