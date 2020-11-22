@@ -818,6 +818,7 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuProjeto", new { id = vmp.Id });
         }
+
         public ActionResult ExcluirIntegrante(int id)
         {
             var tag = db.IntegrantesProjeto.Find(id);
