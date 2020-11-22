@@ -241,7 +241,16 @@
                         <div class="integrante-info">
 
                             <div class="profile-pic profile-pic-mini">
-                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                                @if (item.Usuario.Foto == null)
+                                {
+                                    <div class="circle-pic avatar-placeholder">
+                                        <p>@item.Usuario.Nome.ToString()[0]</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                                }
                             </div>
 
                             <div class="integrante-contato">
@@ -252,7 +261,7 @@
                         <div class="integrante-edit">
                             @if (item.Adm)
                             {
-                                <input type="checkbox" id="checkbox-element-@item.Id" checked="checked" />
+                                <input type="checkbox" id="checkbox-element-@item.Id" checked="checked" value="@item.Id"/>
                                 <label for="checkbox-element-@item.Id">
                                     <span class="indicator"></span>
                                     <span class="label-text">Administrador</span>
@@ -260,7 +269,7 @@
                             }
                             else
                             {
-                                <input type="checkbox" id="checkbox-element-@item.Id" />
+                                <input type="checkbox" id="checkbox-element-@item.Id" value="@item.Id" />
                                 <label for="checkbox-element-@item.Id">
                                     <span class="indicator"></span>
                                     <span class="label-text">Administrador</span>
@@ -364,21 +373,7 @@
 
     </script>
 
-    <script>
-        const allCheckboxes = document.querySelectorAll('input[type="checkbox"');
-
-        allCheckboxes.forEach((item) => {
-            item.addEventListener('click', () => {
-                if (item.checked) {
-                    //POST true
-                }
-                else {
-                    //POST false
-                }
-            })
-        })
-
-    </script>
+ 
 }
 
 

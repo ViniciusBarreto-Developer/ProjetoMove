@@ -882,6 +882,9 @@ namespace Sistema.Controllers
             TempData["MSG"] = "error|Apenas os administradores podem remover um integrante!";
             return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
         }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
         public JsonResult AlterarAdm(int id)
         {
             string[] user = User.Identity.Name.Split('|');
@@ -909,7 +912,7 @@ namespace Sistema.Controllers
             }
             else
             {
-                TempData["MSG"] = "error|Apenas os administradores podem alterar os adminitrasores!";
+                TempData["MSG"] = "error|Apenas os administradores podem alterar os administradores!";
                 return Json("n");
             }
         }
