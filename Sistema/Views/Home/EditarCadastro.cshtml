@@ -79,7 +79,7 @@
         </div>
     </div>
 }
-<div class="modal-bg hidden-animated" id="modalExcluir">
+<div class="modal-bg hidden" id="modalExcluir">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Confirmar Exclusão da Conta</h3>
@@ -95,11 +95,12 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SenhaAtual, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.EditorFor(model => model.SenhaAtual, new { htmlAttributes = new { @class = "form-control" } })
+                    <p class="text-danger">Atenção! A exclusão é algo permanente!</p>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="submit" class="btn delete-acc">Confirmar</button>
             </div>
         }
     </div>

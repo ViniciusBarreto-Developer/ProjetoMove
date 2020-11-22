@@ -40,7 +40,25 @@ namespace Sistema.Controllers
             if (vmp.PesquisaTag != null)
             {
                 vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
-            }            
+            }
+            //else
+            //{
+            //    List<ProjetoTags> recomenda = new List<ProjetoTags>();
+            //    vmp.ProjetoTags = db.ProjetoTags.ToList();
+
+            //    foreach (var pro in vmp.ProjetoTags)
+            //    {
+            //        foreach (var item in vmp.UsuarioTags)
+            //        {
+            //            if (pro.TagId == item.TagId)
+            //            {
+            //                recomenda.Add(new ProjetoTags() { Id = pro.Id, TagId = pro.TagId, ProjetoId = pro.ProjetoId });
+            //                break;
+            //            }
+            //        }
+            //    }
+            //    vmp.ProjetoTags = recomenda;
+            //}
 
             return View(vmp);
         }
@@ -52,7 +70,7 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            VMPrincipal vm = new VMPrincipal();            
+            VMPrincipal vm = new VMPrincipal();
 
             if (usu == null)
             {
@@ -660,7 +678,7 @@ namespace Sistema.Controllers
             return RedirectToAction("VisitarProjeto", new { id = id });
         }
         public ActionResult VisitarProjeto(int id)
-        {         
+        {
             Projeto pro = db.Projeto.Find(id);
             VMProjeto vm = new VMProjeto();
 
@@ -690,7 +708,7 @@ namespace Sistema.Controllers
                 {
                     Projeto pro = db.Projeto.Find(vmp.Id);
                     //Excluir foto antiga
-                    if(pro.Logo != "projeto.svg")
+                    if (pro.Logo != "projeto.svg")
                     {
                         Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + pro.Logo);
                     }

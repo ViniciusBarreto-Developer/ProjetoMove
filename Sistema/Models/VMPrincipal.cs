@@ -12,5 +12,6 @@ namespace Sistema.Models
         public virtual ICollection<UsuarioTag> UsuarioTags { get; set; }
         public virtual ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }
+        public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
     }
 }
