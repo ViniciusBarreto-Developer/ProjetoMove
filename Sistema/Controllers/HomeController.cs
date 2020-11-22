@@ -731,6 +731,12 @@ namespace Sistema.Controllers
         public ActionResult EditarProjeto(VMProjeto vmp)
         {
             var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+
+            if(vmp.Nome == null || vmp.Descricao == null)
+            {
+                TempData["MSG"] = "error|O campo não pode ser vazio";
+                return Json('n');
+            }
             pro.Nome = vmp.Nome;
             pro.Descricao = vmp.Descricao;
             db.Projeto.AddOrUpdate(pro);
