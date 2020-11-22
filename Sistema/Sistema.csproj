@@ -159,6 +159,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTag.cs" />
     <Compile Include="Models\VMPerfil.cs" />
+    <Compile Include="Models\VMPrincipal.cs" />
     <Compile Include="Models\VMProjeto.cs" />
     <Compile Include="Models\VMUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Views\Home\VisitarPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutVisitarPerfil.cshtml" />
     <Content Include="Views\Home\VisitarProjeto.cshtml" />
+    <Content Include="Views\Shared\_LayoutProjeto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

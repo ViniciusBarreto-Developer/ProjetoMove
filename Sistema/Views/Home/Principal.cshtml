@@ -1,5 +1,5 @@
-﻿
-@model Sistema.Models.VMPerfil
+﻿@model Sistema.Models.VMPrincipal
+
 @{
     ViewBag.Title = "Principal";
 }
@@ -41,13 +41,90 @@
 
 <div class="search-tags">
     <ul class="tag-group">
-        <li class="tag-container"><div class="tag"><p>Games</p></div></li>
-        <li class="tag-container"><div class="tag"><p>Tecnologia</p></div></li>
-        <li class="tag-container"><div class="tag"><p>Mobile</p></div></li>
-        <li class="tag-container"><div class="tag"><p>Finança</p></div></li>
+        @{
+            if (Model != null && Model.UsuarioTags != null)
+            {
+                int x = 0;
+                foreach (var item in Model.UsuarioTags)
+                {
+                    <li class="tag-container"><div class="tag"><p>@item.Tag.Nome</p></div></li>
+                    x++;
+                }
+            }
+            else
+            {
+                <li class="tag-container"><div class="tag"><p>Games</p></div></li>
+                <li class="tag-container"><div class="tag"><p>Tecnologia</p></div></li>
+                <li class="tag-container"><div class="tag"><p>Mobile</p></div></li>
+                <li class="tag-container"><div class="tag"><p>Finança</p></div></li>
+            }
+        }
+
     </ul>
 </div>
 
-<div class="mensagem">
-    <p>Os projetos com as tags que você pesquisar aparecerão bem aqui ;)</p>
-</div>
+@{
+    if (Model != null && Model.ProjetoTags != null)
+    {
+        foreach (var item in Model.ProjetoTags)
+        {
+            bool meuProjeto = false, projetoSalvo = false;
+            foreach (var meu in item.Projeto.IntegrantesProjetos)
+            {
+                if(meu.UsuarioID == Model.UsuarioId)
+                {
+                    meuProjeto = true;
+                }
+            }
+            if (Model.ProjetosSalvos != null)
+            {
+                foreach (var salvo in Model.ProjetosSalvos)
+                {
+                    if (item.ProjetoId == salvo.ProjetoId)
+                    {
+                        projetoSalvo = true;
+                    }
+                }
+            }
+
+            if (item.Projeto.Ativo == true && meuProjeto == false && projetoSalvo == false)
+            {
+                <div class="card-container">
+                    <div class="project-card">
+                        <a href="@Url.Action("MeuProjeto", new { id = item.Id })">
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                            </div>
+                            <div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                            </div>
+                            <ul class="card-tags">
+                                @{
+                                    int n = 0;
+
+                                    foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+                                        if (n < 3)
+                                        {
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <div class="mensagem">
+            <p>Os projetos com as tags que você pesquisar aparecerão bem aqui ;)</p>
+        </div>
+    }
+}

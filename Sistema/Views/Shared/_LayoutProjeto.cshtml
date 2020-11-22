@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVE @ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+    <link href="~/Content/croppie.css" rel="stylesheet" />
+
+    @Styles.Render("~/content/styles/style.min.css")
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js' type="text/javascript"></script>
+</head>
+<body class="bg-blob-top">
+    <header id="top">
+        <nav class="navbar">
+            <a href='@Url.Action("Principal", "Home")' class="navbar-logo">
+                @*<img src='@Url.Content("~/Content/Images/MyLinkImage.png")' />*@
+                <img src='@Url.Content("~/content/img/logo.svg")' alt="Logo" />
+            </a>
+
+            <ul class="navbar-list">
+
+                <li>@Html.ActionLink("Descobrir", "Principal", "Home")</li>
+
+                @{
+                    string[] user = User.Identity.Name.Split('|');
+                } 
+
+                <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
+                <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+
+
+
+            </ul>
+        </nav>
+    </header>
+    <div class="content-container">
+        @RenderBody() @*Entra o conteudo das paginas filhas*@
+    </div>
+
+    <div class="back-to-top hidden">
+        <a href="#"><span class="iconify" data-icon="tabler:arrow-up" data-inline="false"></span></a>
+    </div>
+
+    <footer class="footer">
+        <ul class="socials">
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:brand-facebook" data-inline="false"></span></a>
+            </li>
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:brand-instagram" data-inline="false"></span></a>
+            </li>
+            <li>
+                <a href="#"><span class="iconify" data-icon="tabler:mail" data-inline="false"></span></a>
+            </li>
+        </ul>
+
+        <div class="copyright">
+            Copyright by MOVE
+        </div>
+
+        <div></div>
+    </footer>
+
+    @Scripts.Render("~/scripts/script.js")
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @*<script src="https://cdn.tiny.cloud/1/no-apikey/tinymce/5/tinymce.min.js"
+                referrerpolicy="origin"></script>
+        <script>tinymce.init({ selector: 'textarea' });</script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.1/dist/sweetalert2.min.js"></script>
+
+    @if (TempData["MSG"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+            var titulo = "";
+            switch ("@TempData["MSG"].ToString().Split('|')[0]") {
+            case "success":
+            titulo = "Sucesso";
+            break;
+            case "warning":
+            titulo = "Atenção";
+            break;
+            case "error":
+            titulo = "Erro";
+            break;
+            case "info":
+            titulo = "Informação";
+            break;
+                }
+            Swal.fire({
+                      title: titulo,
+                      text: "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
+                      icon: "@TempData["MSG"].ToString().Split('|')[0]",
+                      confirmButtonText: 'OK'
+                    })
+            @*swal.fire(titulo, "@Html.Raw(TempData["MSG"].ToString().Split('|')[1])",
+            "@TempData["MSG"].ToString().Split('|')[0]");*@
+            });
+        </script>
+    }
+
+    @Scripts.Render("~/scripts/jquery.mask.min.js")
+    <script>
+
+        $(document).ready(function () {
+
+            $('.cpf').mask('000.000.000-00', { reverse: true });
+
+        });
+        $(document).ready(function () {
+
+            $('.celular').mask('(00)0.0000-0000', { reverse: false });
+
+        });
+
+    </script>
+
+</body>
+</html>

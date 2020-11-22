@@ -22,7 +22,65 @@ namespace Sistema.Controllers
         Contexto db = new Contexto();
         public ActionResult Principal()
         {
-            return View();
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            if (usu == null)
+            {
+                return View();
+            }
+
+            VMPrincipal vmp = new VMPrincipal();
+
+            vmp.UsuarioId = usu.Id;
+            vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
+            if (vmp.PesquisaTag != null)
+            {
+                vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+            }            
+
+            return View(vmp);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Principal(VMPrincipal vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            VMPrincipal vm = new VMPrincipal();            
+
+            if (usu == null)
+            {
+                if (vmp.PesquisaTag != null)
+                {
+                    vm.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+                    return View(vm);
+                }
+                return View();
+            }
+
+            vm.UsuarioId = usu.Id;
+            vm.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vm.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+
+            if (vmp.PesquisaTag != null)
+            {
+                vm.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+            }
+
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult PesquisarProjetos(VMPrincipal vmp)
+        {
+            vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+
+            return RedirectToAction("Principal", new { vmp });
         }
         public ActionResult Cadastro()
         {
@@ -575,6 +633,11 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
+            if (usu == null)
+            {
+                return RedirectToAction("Acesso");
+            }
+
             Projeto pro = db.Projeto.Find(id);
 
             foreach (var item in pro.IntegrantesProjetos)
@@ -597,7 +660,7 @@ namespace Sistema.Controllers
             return RedirectToAction("VisitarProjeto", new { id = id });
         }
         public ActionResult VisitarProjeto(int id)
-        {
+        {         
             Projeto pro = db.Projeto.Find(id);
             VMProjeto vm = new VMProjeto();
 
@@ -611,7 +674,7 @@ namespace Sistema.Controllers
 
             return View(vm);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
         public JsonResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
@@ -635,7 +698,7 @@ namespace Sistema.Controllers
                     db.Projeto.AddOrUpdate(pro);
                     db.SaveChanges();
                     TempData["MSG"] = "success|Logo alterada com sucesso!";
-                    return Json('s'); 
+                    return Json('s');
                 }
                 else
                 {
@@ -746,5 +809,23 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
         }
+        public ActionResult AlterarAdm(int id)
+        {
+            IntegrantesProjeto inte = db.IntegrantesProjeto.Find(Convert.ToInt32(id));
+
+            if (inte.Adm)
+            {
+                inte.Adm = false;
+            }
+            else
+            {
+                inte.Adm = true;
+            }
+
+            db.Entry(inte).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(inte.Adm ? "t" : "f");
+        }
+
     }
 }
