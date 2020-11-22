@@ -809,7 +809,7 @@ namespace Sistema.Controllers
             Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();
 
             var inte = new IntegrantesProjeto();
-            inte.Adm = true;
+            inte.Adm = false;
             inte.ProjetoId = vmp.Id;
             inte.UsuarioID = usu.Id;
 
@@ -821,28 +821,83 @@ namespace Sistema.Controllers
 
         public ActionResult ExcluirIntegrante(int id)
         {
-            var tag = db.IntegrantesProjeto.Find(id);
-            db.IntegrantesProjeto.Remove(tag);
-            db.SaveChanges();
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
-        }
-        public ActionResult AlterarAdm(int id)
-        {
-            IntegrantesProjeto inte = db.IntegrantesProjeto.Find(Convert.ToInt32(id));
+            var inte = db.IntegrantesProjeto.Find(id);
+            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == inte.ProjetoId).FirstOrDefault();
+            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == inte.ProjetoId).Count();
+            int quant = db.IntegrantesProjeto.Where(x => x.ProjetoId == inte.ProjetoId).Count();
 
-            if (inte.Adm)
+            if (eu.Adm == true || inte.UsuarioID == usu.Id)
             {
-                inte.Adm = false;
+                if (inte.Adm == true)
+                {
+                    if (quantAdm > 1)
+                    {
+                        db.IntegrantesProjeto.Remove(inte);
+                        db.SaveChanges();
+
+                        return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+                    }
+                    else if (quant == 1)
+                    {
+                        db.IntegrantesProjeto.Remove(inte);                        
+
+                        Projeto pro = db.Projeto.Find(inte.ProjetoId);                        
+                        pro.Ativo = false;
+                        db.Projeto.AddOrUpdate(pro);
+
+                        db.SaveChanges();
+                        return RedirectToAction("MeuPerfil");
+                    }
+                    else
+                    {
+                        TempData["MSG"] = "error|Primeiro, escolha um integrante para ser Adiministrador!";
+                        return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+                    }
+
+                }
+                db.IntegrantesProjeto.Remove(inte);
+                db.SaveChanges();
+
+                return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+            }
+
+            TempData["MSG"] = "error|Apenas os administradores podem remover um integrante!";
+            return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+        }
+        public JsonResult AlterarAdm(int id)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            IntegrantesProjeto inte = db.IntegrantesProjeto.Find(Convert.ToInt32(id));
+            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == inte.ProjetoId).FirstOrDefault();
+            int quant = db.IntegrantesProjeto.Where(x => x.Adm == true).Count();
+
+            if (eu.Adm == true)
+            {
+                if (inte.Adm && quant > 1)
+                {
+                    inte.Adm = false;
+                }
+                else
+                {
+                    inte.Adm = true;
+                }
+
+                db.Entry(inte).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(inte.Adm ? "t" : "f");
             }
             else
             {
-                inte.Adm = true;
+                TempData["MSG"] = "error|Apenas os administradores podem alterar os adminitrasores!";
+                return Json("n");
             }
-
-            db.Entry(inte).State = EntityState.Modified;
-            db.SaveChanges();
-            return Json(inte.Adm ? "t" : "f");
         }
 
     }
