@@ -672,6 +672,8 @@ namespace Sistema.Controllers
                     return View(vmp);
                 }
             }
+
+
             return RedirectToAction("VisitarProjeto", new { id = id });
         }
         public ActionResult VisitarProjeto(int id)
@@ -731,6 +733,12 @@ namespace Sistema.Controllers
         public ActionResult EditarProjeto(VMProjeto vmp)
         {
             var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+
+            if (vmp.Nome == null || vmp.Descricao == null)
+            {
+                TempData["MSG"] = "error|O campo não pode ser vazio";
+                return Json('n');
+            }
             pro.Nome = vmp.Nome;
             pro.Descricao = vmp.Descricao;
             db.Projeto.AddOrUpdate(pro);
@@ -780,7 +788,7 @@ namespace Sistema.Controllers
             if (arq != null)
             {
                 Funcoes.Upload.CriarDiretorio();
-                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);                
+                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
                 string valor = Funcoes.Upload.UploadPdf(arq, nomearq);
                 if (valor == "sucesso")
                 {
@@ -919,6 +927,10 @@ namespace Sistema.Controllers
                 //TempData["MSG"] = "error|Apenas os administradores podem alterar os administradores!";
                 return Json("n");
             }
+        }
+        public JsonResult AutoCompleteTags()
+        {
+            return Json(db.Tag.ToList());
         }
 
     }

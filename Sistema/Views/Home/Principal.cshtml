@@ -69,9 +69,10 @@
         foreach (var item in Model.ProjetoTags)
         {
             bool meuProjeto = false, projetoSalvo = false;
+
             foreach (var meu in item.Projeto.IntegrantesProjetos)
             {
-                if(meu.UsuarioID == Model.UsuarioId)
+                if (meu.UsuarioID == Model.UsuarioId)
                 {
                     meuProjeto = true;
                 }
