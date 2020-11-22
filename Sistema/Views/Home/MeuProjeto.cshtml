@@ -29,7 +29,7 @@
                         @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
                     </div>
                     <div class="infos-txt">
-                        @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text", @id = "editTxt" })
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text"})
                         @Html.HiddenFor(k => k.Id)
                     </div>
                 }
@@ -376,7 +376,7 @@
 
     <script>
         const nomeInput = document.querySelector('#Nome');
-        const descInput = document.querySelector('#editTxt');
+        const descInput = document.querySelector('#Descricao');
         const headers = {
             "Content-Type": "application/json",
             "Access-Control-Origin": "*"
