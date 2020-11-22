@@ -70,28 +70,28 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            VMPrincipal vm = new VMPrincipal();
+            VMPrincipal vmpNova = new VMPrincipal();
 
             if (usu == null)
             {
                 if (vmp.PesquisaTag != null)
                 {
-                    vm.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
-                    return View(vm);
+                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+                    return View(vmpNova);
                 }
                 return View();
             }
 
-            vm.UsuarioId = usu.Id;
-            vm.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
-            vm.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmpNova.UsuarioId = usu.Id;
+            vmpNova.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
+            vmpNova.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             if (vmp.PesquisaTag != null)
             {
-                vm.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+                vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
             }
 
-            return View(vm);
+            return View(vmpNova);
         }
         [HttpPost]
         public ActionResult PesquisarProjetos(VMPrincipal vmp)
@@ -509,7 +509,6 @@ namespace Sistema.Controllers
         [ValidateInput(false)]
         public JsonResult EditarFoto(HttpPostedFileBase arq)
         {
-
             string valor = "";
 
             if (arq != null)
@@ -527,21 +526,18 @@ namespace Sistema.Controllers
                     usu.Foto = nomearq;
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
-                    //return RedirectToAction("MeuPerfil");
                     return Json("s");
                 }
                 else
                 {
                     ModelState.AddModelError("", valor);
                     TempData["MSG"] = "error|" + valor;
-                    //return RedirectToAction("MeuPerfil");
                     return Json("n");
                 }
             }
             else
             {
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
-                //return RedirectToAction("MeuPerfil");
                 return Json("n");
             }
         }
@@ -624,26 +620,27 @@ namespace Sistema.Controllers
                 db.Projeto.AddOrUpdate(pro);
                 db.SaveChanges();
 
-                IntegrantesProjeto inte = new IntegrantesProjeto();
+                IntegrantesProjeto integrante = new IntegrantesProjeto();
 
-                inte.Adm = true;
-                inte.ProjetoId = pro.Id;
-                inte.UsuarioID = usu.Id;
+                integrante.Adm = true;
+                integrante.ProjetoId = pro.Id;
+                integrante.UsuarioID = usu.Id;
 
-                db.IntegrantesProjeto.AddOrUpdate(inte);
+                db.IntegrantesProjeto.AddOrUpdate(integrante);
                 db.SaveChanges();
 
-                ProjetoTags tags = new ProjetoTags();
+                ProjetoTags tag = new ProjetoTags();
 
-                tags.ProjetoId = pro.Id;
-                tags.TagId = 1;
+                tag.ProjetoId = pro.Id;
+                tag.TagId = 1;
 
-                db.ProjetoTags.AddOrUpdate(tags);
+                db.ProjetoTags.AddOrUpdate(tag);
                 db.SaveChanges();
 
                 return RedirectToAction("MeuProjeto", new { id = pro.Id });
             }
-            return View(vmp);
+            TempData["MSG"] = "error|Preencha os dois campos para criar um projeto";
+            return RedirectToAction("MeuPerfil");
         }
         public ActionResult MeuProjeto(int id)
         {
@@ -662,17 +659,17 @@ namespace Sistema.Controllers
             {
                 if (item.UsuarioID == usu.Id)
                 {
-                    VMProjeto vm = new VMProjeto();
+                    VMProjeto vmp = new VMProjeto();
 
-                    vm.Id = pro.Id;
-                    vm.Nome = pro.Nome;
-                    vm.Descricao = pro.Descricao;
-                    vm.Logo = pro.Logo;
-                    vm.ProjetoTags = pro.ProjetoTags;
-                    vm.ArquivosProjetos = pro.ArquivosProjetos;
-                    vm.IntegrantesProjetos = pro.IntegrantesProjetos;
+                    vmp.Id = pro.Id;
+                    vmp.Nome = pro.Nome;
+                    vmp.Descricao = pro.Descricao;
+                    vmp.Logo = pro.Logo;
+                    vmp.ProjetoTags = pro.ProjetoTags;
+                    vmp.ArquivosProjetos = pro.ArquivosProjetos;
+                    vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
 
-                    return View(vm);
+                    return View(vmp);
                 }
             }
             return RedirectToAction("VisitarProjeto", new { id = id });
@@ -680,30 +677,28 @@ namespace Sistema.Controllers
         public ActionResult VisitarProjeto(int id)
         {
             Projeto pro = db.Projeto.Find(id);
-            VMProjeto vm = new VMProjeto();
+            VMProjeto vmp = new VMProjeto();
 
-            vm.Id = pro.Id;
-            vm.Nome = pro.Nome;
-            vm.Descricao = pro.Descricao;
-            vm.Logo = pro.Logo;
-            vm.ProjetoTags = pro.ProjetoTags;
-            vm.ArquivosProjetos = pro.ArquivosProjetos;
-            vm.IntegrantesProjetos = pro.IntegrantesProjetos;
+            vmp.Id = pro.Id;
+            vmp.Nome = pro.Nome;
+            vmp.Descricao = pro.Descricao;
+            vmp.Logo = pro.Logo;
+            vmp.ProjetoTags = pro.ProjetoTags;
+            vmp.ArquivosProjetos = pro.ArquivosProjetos;
+            vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
 
-            return View(vm);
+            return View(vmp);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
         public JsonResult EditarLogo(HttpPostedFileBase arq, VMProjeto vmp)
         {
-            string valor = "";
-
             if (arq != null)
             {
                 Funcoes.Upload.CriarDiretorio();
                 string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadImagem(arq, nomearq);
+                string valor = Funcoes.Upload.UploadImagem(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     Projeto pro = db.Projeto.Find(vmp.Id);
@@ -730,6 +725,18 @@ namespace Sistema.Controllers
                 TempData["MSG"] = "error|Escolha uma imagem primeiro";
                 return Json('n');
             }
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public ActionResult EditarProjeto(VMProjeto vmp)
+        {
+            var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+            pro.Nome = vmp.Nome;
+            pro.Descricao = vmp.Descricao;
+            db.Projeto.AddOrUpdate(pro);
+            db.SaveChanges();
+
+            return Json('s');
         }
         [HttpPost]
         public ActionResult AdicionarTagProjeto(VMProjeto vmp)
@@ -770,14 +777,11 @@ namespace Sistema.Controllers
         }
         public ActionResult AdicionarUpload(HttpPostedFileBase arq, VMProjeto vmp)
         {
-            string valor = "";
-
             if (arq != null)
             {
                 Funcoes.Upload.CriarDiretorio();
-                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
-                string kk = Path.GetExtension(arq.FileName);
-                valor = Funcoes.Upload.UploadPdf(arq, nomearq);
+                string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);                
+                string valor = Funcoes.Upload.UploadPdf(arq, nomearq);
                 if (valor == "sucesso")
                 {
                     var arqpro = new ArquivosProjeto();
@@ -822,12 +826,12 @@ namespace Sistema.Controllers
                     return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                 }
             }
-            var inte = new IntegrantesProjeto();
-            inte.Adm = false;
-            inte.ProjetoId = vmp.Id;
-            inte.UsuarioID = usu.Id;
+            var integrante = new IntegrantesProjeto();
+            integrante.Adm = false;
+            integrante.ProjetoId = vmp.Id;
+            integrante.UsuarioID = usu.Id;
 
-            db.IntegrantesProjeto.Add(inte);
+            db.IntegrantesProjeto.Add(integrante);
             db.SaveChanges();
 
             return RedirectToAction("MeuProjeto", new { id = vmp.Id });
@@ -839,27 +843,27 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            var inte = db.IntegrantesProjeto.Find(id);
-            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == inte.ProjetoId).FirstOrDefault();
-            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == inte.ProjetoId).Count();
-            int quant = db.IntegrantesProjeto.Where(x => x.ProjetoId == inte.ProjetoId).Count();
+            var integrante = db.IntegrantesProjeto.Find(id);
+            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == integrante.ProjetoId).FirstOrDefault();
+            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == integrante.ProjetoId).Count();
+            int quant = db.IntegrantesProjeto.Where(x => x.ProjetoId == integrante.ProjetoId).Count();
 
-            if (eu.Adm == true || inte.UsuarioID == usu.Id)
+            if (eu.Adm == true || integrante.UsuarioID == usu.Id)
             {
-                if (inte.Adm == true)
+                if (integrante.Adm == true)
                 {
                     if (quantAdm > 1)
                     {
-                        db.IntegrantesProjeto.Remove(inte);
+                        db.IntegrantesProjeto.Remove(integrante);
                         db.SaveChanges();
 
-                        return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+                        return RedirectToAction("MeuProjeto", new { id = integrante.ProjetoId });
                     }
                     else if (quant == 1)
                     {
-                        db.IntegrantesProjeto.Remove(inte);
+                        db.IntegrantesProjeto.Remove(integrante);
 
-                        Projeto pro = db.Projeto.Find(inte.ProjetoId);
+                        Projeto pro = db.Projeto.Find(integrante.ProjetoId);
                         pro.Ativo = false;
                         db.Projeto.AddOrUpdate(pro);
 
@@ -869,18 +873,18 @@ namespace Sistema.Controllers
                     else
                     {
                         TempData["MSG"] = "error|Primeiro, escolha um integrante para ser Adiministrador!";
-                        return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+                        return RedirectToAction("MeuProjeto", new { id = integrante.ProjetoId });
                     }
 
                 }
-                db.IntegrantesProjeto.Remove(inte);
+                db.IntegrantesProjeto.Remove(integrante);
                 db.SaveChanges();
 
-                return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+                return RedirectToAction("MeuProjeto", new { id = integrante.ProjetoId });
             }
 
             TempData["MSG"] = "error|Apenas os administradores podem remover um integrante!";
-            return RedirectToAction("MeuProjeto", new { id = inte.ProjetoId });
+            return RedirectToAction("MeuProjeto", new { id = integrante.ProjetoId });
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -891,24 +895,24 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            IntegrantesProjeto inte = db.IntegrantesProjeto.Find(Convert.ToInt32(id));
-            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == inte.ProjetoId).FirstOrDefault();
-            int quant = db.IntegrantesProjeto.Where(x => x.Adm == true).Count();
+            IntegrantesProjeto integrante = db.IntegrantesProjeto.Find(id);
+            IntegrantesProjeto eu = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.ProjetoId == integrante.ProjetoId).FirstOrDefault();
+            int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true).Count();
 
             if (eu.Adm == true)
             {
-                if (inte.Adm && quant > 1)
+                if (integrante.Adm && quantAdm > 1)
                 {
-                    inte.Adm = false;
+                    integrante.Adm = false;
                 }
                 else
                 {
-                    inte.Adm = true;
+                    integrante.Adm = true;
                 }
 
-                db.Entry(inte).State = EntityState.Modified;
+                db.Entry(integrante).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json(inte.Adm ? "t" : "f");
+                return Json(integrante.Adm ? "t" : "f");
             }
             else
             {
