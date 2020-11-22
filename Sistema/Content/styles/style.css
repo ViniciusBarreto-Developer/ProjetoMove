@@ -1034,14 +1034,51 @@ a.btn {
   text-align: center;
   margin-bottom: 2rem; }
 
-.hidden {
-  display: none; }
-
-.hidden-animated {
+input[type=checkbox] {
+  position: absolute;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.1s;
-  overflow: hidden; }
+  z-index: -9999; }
+
+input[type=checkbox] + label {
+  position: relative;
+  padding-left: 24px; }
+
+input[type=checkbox] + label .indicator {
+  position: absolute;
+  left: -4px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #874AFF;
+  cursor: pointer;
+  transition: box-shadow 200ms, border 200ms, background 200ms; }
+
+input[type=checkbox] + label .indicator:hover {
+  background: #eee9e9; }
+
+input[type=checkbox]:focus + label .indicator {
+  box-shadow: 0px 0px 1px 2px #7F3DFF; }
+
+.label-text {
+  position: relative;
+  top: 4px;
+  margin-right: 2rem; }
+
+input[type=checkbox]:checked + label .indicator {
+  background: #fff; }
+
+input[type=checkbox]:checked + label .indicator::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #874AFF;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
 
 .file-name {
   font-size: 0.833rem; }
@@ -1118,6 +1155,15 @@ a.btn {
 .scale-out-center {
   -webkit-animation: scale-out-center 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: scale-out-center 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both; }
+
+.hidden {
+  display: none; }
+
+.hidden-animated {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.1s;
+  overflow: hidden; }
 
 .flex {
   width: 100%;
@@ -1302,7 +1348,7 @@ a.btn {
         filter: brightness(97%); }
       .infos .imagem .img-projeto .logo-overlay {
         position: absolute;
-        z-index: 10; }
+        z-index: 1; }
       .infos .imagem .img-projeto .blurred {
         filter: blur(2px) brightness(90%); }
       .infos .imagem .img-projeto img {
@@ -1382,17 +1428,41 @@ a.btn {
     .projeto-equipe .equipe-container .profile-pic {
       margin: 0; }
 
-.integrante-modal {
-  text-align: left; }
-  .integrante-modal .integrante-edit {
+.integrantes-grid {
+  width: 100%; }
+  .integrantes-grid .integrante-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; }
+    justify-content: flex-start;
+    margin-bottom: 2rem; }
+    .integrantes-grid .integrante-container .btn {
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+      height: fit-content; }
+    .integrantes-grid .integrante-container .integrante-info {
+      color: #9F9999;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      width: 285px; }
+      .integrantes-grid .integrante-container .integrante-info .integrante-contato p:first-child {
+        margin-bottom: 6px;
+        /*background: red;*/ }
+      .integrantes-grid .integrante-container .integrante-info .profile-pic {
+        margin: 0 1rem 0 0; }
+    .integrantes-grid .integrante-container .integrante-edit {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: flex-start;
+      /*          margin-left: 4rem;
+            margin-top: 1rem;*/ }
 
 @media only screen and (max-width: 768px) {
   .retangulo {
     width: 100%;
     padding: 1rem; }
   .infos .input-infos input {
-    width: 80%; } }
+    width: 80%; }
+  .integrante-info {
+    margin-bottom: 1rem; } }

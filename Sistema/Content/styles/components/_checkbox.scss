@@ -1,0 +1,59 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+    z-index: -9999;
+}
+
+input[type=checkbox] + label {
+    position: relative;
+    padding-left: 24px;
+}
+
+input[type=checkbox] + label .indicator {
+    position: absolute;
+    left: -4px;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid $secondary-color;
+    cursor: pointer;
+    transition: box-shadow 200ms, border 200ms, background 200ms;
+}
+
+input[type=checkbox] + label .indicator:hover {
+    background: $neutral-color;
+}
+
+input[type=checkbox]:focus + label .indicator {
+    box-shadow: 0px 0px 1px 2px $secondary-darker;
+}
+
+.label-text {
+    position: relative;
+    top: 4px;
+    margin-right: 2rem;
+}
+
+
+input[type=checkbox]:checked + label .indicator {
+    background: #fff;
+}
+
+input[type=checkbox]:checked + label .indicator::after {
+
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+

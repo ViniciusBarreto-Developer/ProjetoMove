@@ -107,7 +107,7 @@
                         @if (item.Usuario.Foto == null)
                         {
                             <div class="circle-pic avatar-placeholder">
-                                <p>@Model.Nome.ToString()[0]</p>
+                                <p>@item.Usuario.Nome.ToString()[0]</p>
                             </div>
                         }
                         else
@@ -227,21 +227,50 @@
             </div>
         </div>
         <div class="modal-body">
-            <div class="integrante-modal">
-                <div class="integrante-edit">
 
-                    <ul class="tag-group">
-                        @foreach (var item in Model.IntegrantesProjetos)
-                        {
-                            <li class="tag-container">
-                                <div class="tag"><span class="tag-text">@item.Usuario.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirIntegrante", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
-                            </li>
 
-                        }
-                    </ul>
+            <div class="integrantes-grid">
+                @*<label>Administrador</label>*@
 
-                </div>
+                @foreach (var item in Model.IntegrantesProjetos)
+                {
+                    <div class="integrante-container">
+                        <div class="integrante-info">
+
+                            <div class="profile-pic profile-pic-mini">
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                            </div>
+
+                            <div class="integrante-contato">
+                                <p>@item.Usuario.Email</p>
+                                <p>@item.Usuario.Nome</p>
+                            </div>
+                        </div>
+                        <div class="integrante-edit">
+                            @if (item.Adm)
+                            {
+                                <input type="checkbox" id="checkbox-element-@item.Id" checked="checked" />
+                                <label for="checkbox-element-@item.Id">
+                                    <span class="indicator"></span>
+                                    <span class="label-text">Administrador</span>
+                                </label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="checkbox-element-@item.Id" />
+                                <label for="checkbox-element-@item.Id">
+                                    <span class="indicator"></span>
+                                    <span class="label-text">Administrador</span>
+                                </label>
+                                <button class="btn delete-acc" onclick="window.location.href='@Url.Action("ExcluirIntegrante", "Home", new { id = item.Id })'">Remover</button>
+                            }
+                        </div>
+                    </div>
+                }
+
             </div>
+
+
             @using (Html.BeginForm("AdicionarIntegrante", "Home", FormMethod.Post))
             {
                 <div class="form-group">
@@ -329,6 +358,22 @@
 
         const crImage = document.querySelector('.cr-image');
         crImage.classList.add('hidden');
+
+    </script>
+
+    <script>
+        const allCheckboxes = document.querySelectorAll('input[type="checkbox"');
+
+        allCheckboxes.forEach((item) => {
+            item.addEventListener('click', () => {
+                if (item.checked) {
+                    //POST true
+                }
+                else {
+                    //POST false
+                }
+            })
+        })
 
     </script>
 }

@@ -221,6 +221,7 @@
     <Content Include="Content\styles\pages\_principal.scss" />
     <Content Include="Content\styles\components\_animations.scss" />
     <Content Include="Content\styles\components\_croppie.scss" />
+    <Content Include="Content\styles\components\_checkbox.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />

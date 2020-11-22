@@ -46,7 +46,7 @@
 
             .logo-overlay {
                 position: absolute;
-                z-index: 10;
+                z-index: 1;
             }
 
             .blurred {
@@ -169,16 +169,52 @@
     }
 }
 
-.integrante-modal {
-    text-align: left;
+.integrantes-grid {
+    width: 100%;
 
-    .integrante-edit {
+    .integrante-container {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
+        margin-bottom: 2rem;
+
+
+        .btn {
+            font-size: $font-size-normal;
+            padding: 0.5rem 0.7rem;
+            height: fit-content;
+        }
+
+
+        .integrante-info {
+            color: #9F9999;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            width: 285px;
+            
+            
+            .integrante-contato p:first-child {
+                margin-bottom: 6px;
+                /*background: red;*/
+            }
+
+            .profile-pic {
+                margin: 0 1rem 0 0;
+            }
+        }
+
+        .integrante-edit {
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: flex-start;
+  /*          margin-left: 4rem;
+            margin-top: 1rem;*/
+        }
     }
 }
+
 
 @include medium-max() {
     .retangulo {
@@ -193,4 +229,10 @@
             }
         }
     }
+    
+    .integrante-info {
+        margin-bottom: 1rem;
+    }
+
+
 }
