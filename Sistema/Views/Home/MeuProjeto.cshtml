@@ -374,7 +374,38 @@
 
     </script>
 
+    <script>
+        const nomeInput = document.querySelector('#Nome');
+        const descInput = document.querySelector('#editTxt');
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        }
 
+        nomeInput.addEventListener('focusout', () => {
+            const data = {
+                id: @Model.Id,
+                nome: nomeInput.value
+            }
+            fetch("/Home/EditarNomeProjeto", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+        })
+
+        descInput.addEventListener('focusout', () => {
+            const data = {
+                id: @Model.Id,
+                descricao: descInput.value
+            }
+            fetch("/Home/EditarDescricao", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+        })
+    </script>
 }
 
 
