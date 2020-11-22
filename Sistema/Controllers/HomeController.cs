@@ -916,7 +916,7 @@ namespace Sistema.Controllers
             }
             else
             {
-                TempData["MSG"] = "error|Apenas os administradores podem alterar os administradores!";
+                //TempData["MSG"] = "error|Apenas os administradores podem alterar os administradores!";
                 return Json("n");
             }
         }

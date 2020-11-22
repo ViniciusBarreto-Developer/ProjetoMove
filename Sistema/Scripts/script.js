@@ -193,13 +193,23 @@ function setAdm() {
                 const data = {
                     id: item.value
                 }
-                console.log(data);
 
                 fetch("/Home/AlterarAdm", {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
-                })
+                }).then(res => res.json())
+                    .then(resJson => {
+                        if (resJson == "n") {
+                            Swal.fire({
+                                title: "Erro",
+                                text: "Apenas os administradores podem alterar os administradores!",
+                                icon: "error",
+                                confirmButtonText: 'OK'
+                            })
+                            item.checked = !item.checked;
+                        }
+                    })
 
             })
         })

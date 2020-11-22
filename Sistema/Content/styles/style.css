@@ -1458,6 +1458,25 @@ input[type=checkbox]:checked + label .indicator::after {
       /*          margin-left: 4rem;
             margin-top: 1rem;*/ }
 
+.search-email {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 3rem; }
+  .search-email .search-group {
+    display: flex; }
+    .search-email .search-group input {
+      font-size: 0.833rem;
+      border: 1px solid #9F9999;
+      border-radius: 20px;
+      padding: 0.5rem 0.7rem;
+      margin-right: 1rem;
+      width: 14rem; }
+    .search-email .search-group input:focus {
+      outline: none !important;
+      border: 1px solid #874AFF;
+      transition: 0.5s; }
+
 @media only screen and (max-width: 768px) {
   .retangulo {
     width: 100%;

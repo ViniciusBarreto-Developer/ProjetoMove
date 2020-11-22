@@ -39,7 +39,7 @@
             background: $background-color;
             position: relative;
             transition: filter 0.2s;
-            
+
             &:hover {
                 filter: brightness(97%);
             }
@@ -193,8 +193,8 @@
             align-items: center;
             text-align: left;
             width: 285px;
-            
-            
+
+
             .integrante-contato p:first-child {
                 margin-bottom: 6px;
                 /*background: red;*/
@@ -209,8 +209,34 @@
             flex: 1 1 auto;
             display: flex;
             justify-content: flex-start;
-  /*          margin-left: 4rem;
+            /*          margin-left: 4rem;
             margin-top: 1rem;*/
+        }
+    }
+}
+
+.search-email {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 3rem;
+
+    .search-group {
+        display: flex;
+
+        input {
+            font-size: $font-size-sm;
+            border: 1px solid $border-color;
+            border-radius: 20px;
+            padding: 0.5rem 0.7rem;
+            margin-right: 1rem;
+            width: 14rem;
+        }
+
+        input:focus {
+            outline: none !important;
+            border: 1px solid $secondary-color;
+            transition: 0.5s;
         }
     }
 }
@@ -229,10 +255,8 @@
             }
         }
     }
-    
+
     .integrante-info {
         margin-bottom: 1rem;
     }
-
-
 }

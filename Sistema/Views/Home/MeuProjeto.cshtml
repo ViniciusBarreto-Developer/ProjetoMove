@@ -73,7 +73,7 @@
 
         <div class="upload">
             <p class="upload-dica">
-                Recomedamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
+                Recomendamos que você insira algumas informações especificas sobre o seu projeto, o que ajudará possiveis investidores a compreender melhor os objetivos financeiros como projeções financeiras, pesquisa de mercado, valor de investimento, retorno financeiro...
             </p>
             <button class="upload-input" data-open-modal="modalUploads">
                 <span class="iconify" data-icon="tabler:cloud-upload" data-inline="false"></span>
@@ -260,7 +260,7 @@
                         <div class="integrante-edit">
                             @if (item.Adm)
                             {
-                                <input type="checkbox" id="checkbox-element-@item.Id" checked="checked" value="@item.Id"/>
+                                <input type="checkbox" id="checkbox-element-@item.Id" checked="checked" value="@item.Id" />
                                 <label for="checkbox-element-@item.Id">
                                     <span class="indicator"></span>
                                     <span class="label-text">Administrador</span>
@@ -284,12 +284,14 @@
 
             @using (Html.BeginForm("AdicionarIntegrante", "Home", FormMethod.Post))
             {
-                <div class="form-group">
+                <div class="search-email">
                     @Html.LabelFor(model => model.PesquisaEmail)
-                    @Html.EditorFor(model => model.PesquisaEmail)
-                    @Html.HiddenFor(model => model.Id)
-                    <button class="btn btn-primary">Confirmar</button>
-                    <span id="msg"></span>
+                    <div class="search-group">
+                        @Html.EditorFor(model => model.PesquisaEmail)
+                        @Html.HiddenFor(model => model.Id)
+                        <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                        <span id="msg"></span>
+                    </div>
                 </div>
             }
         </div>
@@ -372,7 +374,7 @@
 
     </script>
 
- 
+
 }
 
 
