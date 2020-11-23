@@ -397,7 +397,17 @@
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            })
+            }).then(res => res.json())
+                .then(resJson => {
+                    if (resJson == "n") {
+                        Swal.fire({
+                            title: "Erro",
+                            text: "Tag ja cadastrada!",
+                            icon: "error",
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
         })
 
     </script>

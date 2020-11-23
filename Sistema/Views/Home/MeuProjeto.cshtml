@@ -124,9 +124,9 @@
     </div>
 
     @*<div class="form-btns">
-        @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
-        <input type="submit" value="Concluir" class="btn btn-primary" />
-    </div>*@
+            @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
+            <input type="submit" value="Concluir" class="btn btn-primary" />
+        </div>*@
 </div>
 
 <div class="modal-bg hidden" id="modalPic">
@@ -189,13 +189,13 @@
             </ul>
 
 
-                <div class="tag-form-group">
-                    <select id="tag-input">
-                    </select>
-                    <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
-                    <span id="msg"></span>
-                </div>
-            
+            <div class="tag-form-group">
+                <select id="tag-input">
+                </select>
+                <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                <span id="msg"></span>
+            </div>
+
         </div>
     </div>
 </div>
@@ -390,7 +390,17 @@
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            })
+            }).then(res => res.json())
+                .then(resJson => {
+                    if (resJson == "n") {
+                        Swal.fire({
+                            title: "Erro",
+                            text: "O Nome do Projeto não pode ficar vazio!",
+                            icon: "error",
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
         })
 
         descInput.addEventListener('focusout', () => {
@@ -402,7 +412,17 @@
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            })
+            }).then(res => res.json())
+                .then(resJson => {
+                    if (resJson == "n") {
+                        Swal.fire({
+                            title: "Erro",
+                            text: "A Descrição não pode ficar vazia!",
+                            icon: "error",
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
         })
     </script>
 
@@ -437,7 +457,17 @@
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            })
+            }).then(res => res.json())
+                .then(resJson => {
+                    if (resJson == "n") {
+                        Swal.fire({
+                            title: "Erro",
+                            text: "Tag ja cadastrada!",
+                            icon: "error",
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                })
         })
 
     </script>
