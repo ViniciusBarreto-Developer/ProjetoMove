@@ -47,18 +47,18 @@ namespace Sistema.Controllers
                 vmp.ProjetoTags = db.ProjetoTags.OrderBy(x => x.ProjetoId).ToList();
                 
                 int proId = 0;
-                foreach (var pro in vmp.ProjetoTags)
+                foreach (var protag in vmp.ProjetoTags)
                 {                    
-                    foreach (var item in vmp.UsuarioTags)
+                    foreach (var usutag in vmp.UsuarioTags)
                     {
-                        if (pro.TagId == item.TagId)
+                        if (protag.TagId == usutag.TagId)
                         {
-                            if(proId == pro.Id)
+                            if(proId == protag.ProjetoId)
                             {
                                 break;
                             }
-                            recomenda.Add(pro);
-                            proId = pro.Id;
+                            recomenda.Add(protag);
+                            proId = protag.ProjetoId;
                             break;
                         }
                     }
