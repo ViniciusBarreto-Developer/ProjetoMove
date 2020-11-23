@@ -911,7 +911,7 @@ namespace Sistema.Controllers
             {
                 if (integrante.Adm)
                 {
-                    if(quantAdm > 1)
+                    if (quantAdm > 1)
                     {
                         integrante.Adm = false;
                     }
@@ -938,6 +938,35 @@ namespace Sistema.Controllers
         {
             return Json(db.Tag.ToList());
         }
+        public ActionResult SalvarProjeto(int id)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
+            var prosal = new ProjetosSalvos();
+
+            prosal.ProjetoId = id;
+            prosal.UsuarioId = usu.Id;
+
+            db.ProjetosSalvos.AddOrUpdate(prosal);
+            db.SaveChanges();
+
+            return Json("s");
+        }
+        public ActionResult RemoverProjetoSalvo(int id)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            var prosal = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id && x.ProjetoId == id).FirstOrDefault();
+
+            db.ProjetosSalvos.Remove(prosal);
+            db.SaveChanges();
+
+            return Json("s");
+        }
     }
+
 }
