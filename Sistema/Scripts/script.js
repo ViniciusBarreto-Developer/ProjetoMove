@@ -2,6 +2,7 @@
     backToTop();
     modalBehavior();
     validateEmail();
+    validateEmailRecuperacao();
     editBio();
     setAdm();
 });
@@ -161,9 +162,9 @@ function validateEmailRecuperacao() {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            })
-                .then((res) => res.json())
+            }).then((res) => res.json())
                 .then((resJson) => {
+                    console.log(resJson)
                     if (resJson === "s") {
                         msg.innerText = "E-mail já utilizado para recuperação";
                         msg.classList.add("text-danger", "field-validation-error")
@@ -176,7 +177,6 @@ function validateEmailRecuperacao() {
         });
     }
 }
-
 
 function setAdm() {
     const allCheckboxes = document.querySelectorAll('input[type="checkbox"');
