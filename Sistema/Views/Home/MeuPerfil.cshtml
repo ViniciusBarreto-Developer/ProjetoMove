@@ -243,14 +243,14 @@
                 }
             </ul>
 
-            @using (Html.BeginForm("AdicionarTag", "Home", FormMethod.Post, new { @class = "form single-col" }))
-            {
-                <div class="form-group-row">
-                    @Html.EditorFor(model => model.PesquisaTag)
+
+                <div class="tag-form-group">
+                    <select id="tag-input">
+                    </select>
                     <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
                     <span id="msg"></span>
                 </div>
-            }
+            
         </div>
     </div>
 </div>
@@ -309,7 +309,7 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
-          
+
         }
 
         $uploadCrop = $('#upload-demo').croppie({
@@ -357,6 +357,48 @@
 
         const crImage = document.querySelector('.cr-image');
         crImage.classList.add('hidden');
+
+    </script>
+
+
+    <script>
+
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*"
+        }
+
+        fetch("/Home/AutoCompleteTags", {
+            method: 'POST',
+            headers: headers,
+            body: null
+        }).then(res => res.json())
+            .then(resJson => renderOptions(resJson))
+
+            const tagSelect = document.querySelector('#tag-input');
+
+        function renderOptions(optList) {
+
+            optList.forEach((item) => {
+                const option = document.createElement('option');
+                option.setAttribute('value', item.Nome);
+                option.innerText = item.Nome;
+                tagSelect.appendChild(option);
+            })
+        }
+
+        const addTag = document.querySelector('#add-tag');
+
+        addTag.addEventListener('click', () => {
+            const data = {
+                PesquisaTag: tagSelect.value
+            }
+            fetch("/Home/AdicionarTag", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+        })
 
     </script>
 }

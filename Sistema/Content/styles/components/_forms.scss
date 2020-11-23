@@ -99,6 +99,21 @@
 }
 
 
+.tag-form-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+
+    select {
+        font-size: $font-size-sm;
+        border: 1px solid $border-color;
+        border-radius: 20px;
+        padding: 0.3rem 0.5rem;
+        width: 8rem;
+        margin-right: 1rem;
+    }
+}
+
 @include large-min() {
     .form-section {
         justify-content: center;

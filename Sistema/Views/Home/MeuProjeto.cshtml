@@ -29,7 +29,7 @@
                         @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
                     </div>
                     <div class="infos-txt">
-                        @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text"})
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "bio-text" })
                         @Html.HiddenFor(k => k.Id)
                     </div>
                 }
@@ -188,15 +188,14 @@
                 }
             </ul>
 
-            @using (Html.BeginForm("AdicionarTagProjeto", "Home", FormMethod.Post, new { @class = "form single-col" }))
-            {
-                <div class="form-group-row">
-                    @Html.EditorFor(model => model.PesquisaTag)
-                    @Html.HiddenFor(model => model.Id)
+
+                <div class="tag-form-group">
+                    <select id="tag-input">
+                    </select>
                     <button class="add-tag" type="submit" id="add-tag"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
                     <span id="msg"></span>
                 </div>
-            }
+            
         </div>
     </div>
 </div>
@@ -405,6 +404,42 @@
                 body: JSON.stringify(data)
             })
         })
+    </script>
+
+    <script>
+        fetch("/Home/AutoCompleteTags", {
+            method: 'POST',
+            headers: headers,
+            body: null
+        }).then(res => res.json())
+            .then(resJson => renderOptions(resJson))
+
+            const tagSelect = document.querySelector('#tag-input');
+
+        function renderOptions(optList) {
+
+            optList.forEach((item) => {
+                const option = document.createElement('option');
+                option.setAttribute('value', item.Nome);
+                option.innerText = item.Nome;
+                tagSelect.appendChild(option);
+            })
+        }
+
+        const addTag = document.querySelector('#add-tag');
+
+        addTag.addEventListener('click', () => {
+            const data = {
+                Id: @Model.Id,
+                PesquisaTag: tagSelect.value
+            }
+            fetch("/Home/AdicionarTagProjeto", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+        })
+
     </script>
 }
 

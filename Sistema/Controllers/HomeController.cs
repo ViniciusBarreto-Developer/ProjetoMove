@@ -555,7 +555,7 @@ namespace Sistema.Controllers
             return Json('s');
         }
         [HttpPost]
-        public ActionResult AdicionarTag(VMPerfil vmp)
+        public JsonResult AdicionarTag(VMPerfil vmp)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -564,7 +564,7 @@ namespace Sistema.Controllers
             if (db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault() == null)
             {
                 TempData["MSG"] = "error|Tag não encontrada";
-                return RedirectToAction("MeuPerfil");
+                return Json("n");
             }
 
             var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
@@ -574,7 +574,7 @@ namespace Sistema.Controllers
                 if (item.TagId == tag.Id && item.UsuarioId == usu.Id)
                 {
                     TempData["MSG"] = "error|Tag já cadastrada";
-                    return RedirectToAction("MeuPerfil");
+                    return Json("nn");
                 }
             }
             var usutag = new UsuarioTag();
@@ -583,7 +583,7 @@ namespace Sistema.Controllers
 
             db.UsuarioTag.Add(usutag);
             db.SaveChanges();
-            return RedirectToAction("MeuPerfil");
+            return Json("s");
 
         }
         public ActionResult ExcluirTag(int id)
@@ -763,13 +763,14 @@ namespace Sistema.Controllers
             return Json('s');
         }
         [HttpPost]
-        public ActionResult AdicionarTagProjeto(VMProjeto vmp)
+        public JsonResult AdicionarTagProjeto(VMProjeto vmp)
         {
 
             if (db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault() == null)
             {
                 TempData["MSG"] = "error|Tag não encontrada";
-                return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                //return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                return Json("n");
             }
 
             var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
@@ -779,7 +780,8 @@ namespace Sistema.Controllers
                 if (item.TagId == tag.Id && item.ProjetoId == vmp.Id)
                 {
                     TempData["MSG"] = "error|Tag já cadastrada";
-                    return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                    //return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+                    return Json("nn");
                 }
             }
 
@@ -789,7 +791,8 @@ namespace Sistema.Controllers
 
             db.ProjetoTags.Add(protag);
             db.SaveChanges();
-            return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+            //return RedirectToAction("MeuProjeto", new { id = vmp.Id });
+            return Json("s");
         }
         public ActionResult ExcluirTagProjeto(int id)
         {
