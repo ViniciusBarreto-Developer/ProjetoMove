@@ -36,30 +36,35 @@ namespace Sistema.Controllers
             vmp.UsuarioId = usu.Id;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+            List<ProjetoTags> recomenda = new List<ProjetoTags>();
 
             if (vmp.PesquisaTag != null)
             {
                 vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+            }          
+            else if (vmp.UsuarioTags.Count() > 0)
+            {
+                vmp.ProjetoTags = db.ProjetoTags.OrderBy(x => x.ProjetoId).ToList();
+                
+                int proId = 0;
+                foreach (var pro in vmp.ProjetoTags)
+                {                    
+                    foreach (var item in vmp.UsuarioTags)
+                    {
+                        if (pro.TagId == item.TagId)
+                        {
+                            if(proId == pro.Id)
+                            {
+                                break;
+                            }
+                            recomenda.Add(pro);
+                            proId = pro.Id;
+                            break;
+                        }
+                    }
+                }
+                vmp.ProjetoTags = recomenda;
             }
-            //else
-            //{
-            //    List<ProjetoTags> recomenda = new List<ProjetoTags>();
-            //    vmp.ProjetoTags = db.ProjetoTags.ToList();
-
-            //    foreach (var pro in vmp.ProjetoTags)
-            //    {
-            //        foreach (var item in vmp.UsuarioTags)
-            //        {
-            //            if (pro.TagId == item.TagId)
-            //            {
-            //                recomenda.Add(new ProjetoTags() { Id = pro.Id, TagId = pro.TagId, ProjetoId = pro.ProjetoId });
-            //                break;
-            //            }
-            //        }
-            //    }
-            //    vmp.ProjetoTags = recomenda;
-            //}
-
             return View(vmp);
         }
         [HttpPost]
