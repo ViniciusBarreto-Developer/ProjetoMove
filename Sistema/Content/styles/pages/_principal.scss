@@ -44,3 +44,21 @@
     font-size: 15px;
     text-align: center;
 }
+
+
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(372px, 1fr));
+    justify-content: center;
+
+    .card-container {
+        margin: 0 auto;
+        max-width: 450px;
+        width: 100%;
+
+        .project-card {
+            background: $background-color;
+        }
+    }
+}

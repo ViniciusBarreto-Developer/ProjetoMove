@@ -171,6 +171,7 @@
     <Content Include="Content\img\add-logo-transp.svg" />
     <Content Include="Content\img\add-logo.svg" />
     <Content Include="Content\img\bg-profile.svg" />
+    <Content Include="Content\img\blob-bg-projeto.svg" />
     <Content Include="Content\img\blob-bg.svg" />
     <Content Include="Content\img\blob-middle.svg" />
     <Content Include="Content\img\blob-top.svg" />

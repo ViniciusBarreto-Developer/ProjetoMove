@@ -15,7 +15,7 @@
 .project-card {
     padding: 2rem 1rem;
     text-align: center;
-    border-radius: 60px;
+    border-radius: 30px;
     background: #fff;
     position: relative;
 
@@ -41,8 +41,9 @@
 
 
     .card-img {
-        border-radius: 30px;
-        width: 100%;
+        border-radius: 20px;
+        min-width: calc(#{$project-img-width} / 4);
+        min-height: calc(#{$project-img-height} / 4);
         height: auto;
         overflow: hidden;
 
@@ -60,6 +61,7 @@
     .card-text {
         text-align: left;
         color: $text-color;
+        height: 4rem;
     }
 
     .card-tags {
