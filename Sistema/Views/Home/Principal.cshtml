@@ -67,6 +67,7 @@
     @{
         if (Model != null && Model.ProjetoTags != null)
         {
+            int quant = 0;
             foreach (var item in Model.ProjetoTags)
             {
                 bool meuProjeto = false, projetoSalvo = false;
@@ -89,7 +90,7 @@
                     }
                 }
 
-                if (item.Projeto.Ativo == true && meuProjeto == false && projetoSalvo == false)
+                if (meuProjeto == false && projetoSalvo == false)
                 {
                     <div class="card-container">
                         <div class="project-card">
@@ -120,7 +121,14 @@
                             </a>
                         </div>
                     </div>
+                    quant++;
                 }
+            }
+            if (quant == 0)
+            {
+                <div class="mensagem">
+                    <p>Não encontramos nada :(</p>
+                </div>
             }
         }
         else

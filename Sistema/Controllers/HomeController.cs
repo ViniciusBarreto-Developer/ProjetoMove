@@ -76,7 +76,7 @@ namespace Sistema.Controllers
             {
                 if (vmp.PesquisaTag != null)
                 {
-                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo != false).ToList();
                     return View(vmpNova);
                 }
                 return View();
@@ -88,7 +88,7 @@ namespace Sistema.Controllers
 
             if (vmp.PesquisaTag != null)
             {
-                vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
+                vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo != false).ToList();
             }
 
             return View(vmpNova);
