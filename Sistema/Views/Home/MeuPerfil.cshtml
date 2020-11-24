@@ -72,7 +72,7 @@
         </ul>
     </div>
 
-    <h2 class="profile-section-title">Meus projetos</h2>
+        <h2 class="profile-section-title">Meus projetos</h2>
 </section>
 
 <section class="projects-section">
@@ -191,21 +191,15 @@
         @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="modal-body">
-                @*<div class="profile-pic" id="preview-container">
-                        <img class="circle-pic" id="img-preview" />
-                    </div>*@
-
                 <div class="preview-container">
                     <div id="upload-demo">
 
                     </div>
                 </div>
-
                 <span class="file-name" id="preview-file-name"></span>
             </div>
             <div class="modal-footer">
                 <div class="form-btns">
-                    @*<input name="arq" class="btn btn-secondary" type="file" id="img-input" />*@
                     <label for="upload" class="btn btn-secondary">Selecione um arquivo</label>
                     <input name="arq" class="btn btn-secondary" type="file" id="upload" />
                     <button class="btn btn-primary upload-result">Confirmar</button>
@@ -218,7 +212,7 @@
 <div class="modal-bg hidden" id="modalTags">
     <div class="modal">
         <div class="modal-header">
-            <h3 class="modal-title">Editar interesses</h3>
+            <h3 class="modal-title">Editar meus interesses</h3>
             <div class="close-modal" data-close-modal="modalTags">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>

@@ -943,7 +943,15 @@ namespace Sistema.Controllers
         {
             return Json(db.Tag.ToList());
         }
-        public ActionResult SalvarProjeto(int id)
+        public JsonResult TagsUsuario()
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id));
+        }
+            public ActionResult SalvarProjeto(int id)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
