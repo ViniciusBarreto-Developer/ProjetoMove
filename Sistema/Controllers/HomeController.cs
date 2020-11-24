@@ -678,6 +678,10 @@ namespace Sistema.Controllers
         }
         public ActionResult VisitarProjeto(int id)
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
             Projeto pro = db.Projeto.Find(id);
             VMProjeto vmp = new VMProjeto();
 
@@ -688,6 +692,7 @@ namespace Sistema.Controllers
             vmp.ProjetoTags = pro.ProjetoTags;
             vmp.ArquivosProjetos = pro.ArquivosProjetos;
             vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
+            vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             return View(vmp);
         }
@@ -983,6 +988,14 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
             return Json("s");
+        }
+        public ActionResult VisualizarPdf(int id)
+        {
+            VMPdf vm = new VMPdf();
+
+            vm.ArquivosProjetos = db.ArquivosProjeto.Find(id);
+
+            return View(vm);
         }
     }
 

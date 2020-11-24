@@ -83,9 +83,13 @@
                     int quant = 0;
                     foreach (var item in Model.ArquivosProjetos)
                     {
-                        <div class="uploads-icon">
-                            <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                        </div>
+
+                        <a onclick="window.location.href='@Url.Action("VisualizarPdf", "Home", new { id = item.Id })'">
+                            <div class="uploads-icon">
+                                <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
+                            </div>
+                        </a>
+
                         quant++;
                     }
                     if (quant == 0)
