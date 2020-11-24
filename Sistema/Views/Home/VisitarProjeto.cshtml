@@ -103,6 +103,12 @@
                     }
                 }
             </div>
+            @if (quant > 0)
+            {
+                <div class="uploads-icon">
+                    *Clique no documento para visualizar
+                </div>
+            }
         </div>
     </div>
 
@@ -228,7 +234,7 @@
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
-                }).then(() => salvarBtn.classList.remove('salvo'));               
+                }).then(() => salvarBtn.classList.remove('salvo'));
             }
             else {
                 fetch("/Home/SalvarProjeto", {
