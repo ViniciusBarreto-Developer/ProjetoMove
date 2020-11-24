@@ -1516,6 +1516,7 @@ input[type=checkbox]:checked + label .indicator::after {
 .descricao {
   position: relative; }
   .descricao .salvar-projeto {
+    cursor: pointer;
     position: absolute;
     right: 0; }
     .descricao .salvar-projeto svg path {
@@ -1523,5 +1524,9 @@ input[type=checkbox]:checked + label .indicator::after {
     .descricao .salvar-projeto svg:hover path {
       fill: #05f296;
       transition: fill 0.2s; }
-  .descricao .salvo {
-    fill: #05f296; }
+  .descricao .salvo svg path {
+    fill: #05f296;
+    transition: fill 0.2s; }
+  .descricao .salvo svg:hover path {
+    fill: #02e88f;
+    transition: fill 0.2s; }

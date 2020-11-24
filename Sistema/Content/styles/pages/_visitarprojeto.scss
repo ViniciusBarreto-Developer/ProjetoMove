@@ -5,6 +5,7 @@
     position: relative;
 
     .salvar-projeto {
+        cursor: pointer;
         position: absolute;
         right: 0;
 
@@ -23,6 +24,18 @@
     }
 
     .salvo {
-        fill: $primary-color;
+        svg {
+            path {
+                fill: $primary-color;
+                transition: fill 0.2s;
+            }
+
+            &:hover {
+                path {
+                    fill: $primary-darker;
+                    transition: fill 0.2s;
+                }
+            }
+        }
     }
 }

@@ -224,18 +224,18 @@
             }
 
             if (salvarBtn.classList.contains('salvo')) {
+                fetch("/Home/RemoverProjetoSalvo", {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(() => salvarBtn.classList.remove('salvo'));               
+            }
+            else {
                 fetch("/Home/SalvarProjeto", {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }).then(() => salvarBtn.classList.add('salvo'));
-            }
-            else {
-                fetch("/Home/RemoverProjetoSalvo", {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }).then(() => salvarBtn.classList.remove('salvo'));
             }
         })
     </script>
