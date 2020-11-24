@@ -1335,6 +1335,9 @@ input[type=checkbox]:checked + label .indicator::after {
   .projects-section {
     grid-template-columns: repeat(3, minmax(300px, 1fr)); } }
 
+.modal .form-group {
+  text-align: center; }
+
 .retangulo {
   width: 100%;
   background-color: #EEE;
@@ -1435,6 +1438,7 @@ input[type=checkbox]:checked + label .indicator::after {
   .upload .uploads-icon {
     padding: 2rem; }
     .upload .uploads-icon svg {
+      cursor: pointer;
       width: 4rem;
       height: 4rem; }
 
@@ -1530,3 +1534,6 @@ input[type=checkbox]:checked + label .indicator::after {
   .descricao .salvo svg:hover path {
     fill: #02e88f;
     transition: fill 0.2s; }
+
+.content-container .canvas-pdf {
+  text-align: center; }
