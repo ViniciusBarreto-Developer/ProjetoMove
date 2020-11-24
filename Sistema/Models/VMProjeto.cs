@@ -28,4 +28,9 @@ namespace Sistema.Models
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }
         public virtual ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
     }
+
+    public class VMPdf
+    {
+        public ArquivosProjeto ArquivosProjetos { get; set; }
+    }
 }

@@ -985,6 +985,14 @@ namespace Sistema.Controllers
 
             return Json("s");
         }
+        public ActionResult VisualizarPdf(int id)
+        {
+            VMPdf vm = new VMPdf();
+
+            vm.ArquivosProjetos = db.ArquivosProjeto.Find(id);
+
+            return View(vm);
+        }
     }
 
 }
