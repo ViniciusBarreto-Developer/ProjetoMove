@@ -943,7 +943,7 @@ namespace Sistema.Controllers
         {
             return Json(db.Tag.ToList());
         }
-        public ActionResult SalvarProjeto(int id)
+        public JsonResult SalvarProjeto(int id)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -959,7 +959,7 @@ namespace Sistema.Controllers
 
             return Json("s");
         }
-        public ActionResult RemoverProjetoSalvo(int id)
+        public JsonResult RemoverProjetoSalvo(int id)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];

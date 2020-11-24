@@ -54,6 +54,19 @@
 
                     </ul>
                 </div>
+                @*if(isSalvo)
+                <a class="salvar-projeto salvo" id="salvar-projeto">
+                    <svg width="33" height="46" viewBox="0 0 33 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M33 46V4.6646C33 3.42747 32.5033 2.24101 31.6192 1.36623C30.7351 0.491448 29.536 0 28.2857 0H4.71429C3.46398 0 2.26488 0.491448 1.38078 1.36623C0.496682 2.24101 0 3.42747 0 4.6646V46L16.5 35.339L33 46ZM7.07143 13.9938L13.3579 13.2172L16.5 6.99691L19.6421 13.2172L25.9286 13.9938L20.6886 18.3995L22.7865 25.6553L16.5 21.5085L10.2135 25.6553L12.3114 18.3995L7.07143 13.9938Z" fill="#9F9999" />
+                    </svg>
+                </a>*@
+
+                @*else*@
+                    <a class="salvar-projeto" id="salvar-projeto">
+                        <svg width="33" height="46" viewBox="0 0 33 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M33 46V4.6646C33 3.42747 32.5033 2.24101 31.6192 1.36623C30.7351 0.491448 29.536 0 28.2857 0H4.71429C3.46398 0 2.26488 0.491448 1.38078 1.36623C0.496682 2.24101 0 3.42747 0 4.6646V46L16.5 35.339L33 46ZM7.07143 13.9938L13.3579 13.2172L16.5 6.99691L19.6421 13.2172L25.9286 13.9938L20.6886 18.3995L22.7865 25.6553L16.5 21.5085L10.2135 25.6553L12.3114 18.3995L7.07143 13.9938Z" fill="#9F9999" />
+                        </svg>
+                    </a>
             </div>
         </div>
 
@@ -181,5 +194,34 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        const salvarBtn = document.querySelector('#salvar-projeto');
+
+        salvarBtn.addEventListener('click', () => {
+            const headers = {
+                "Content-Type": "application/json",
+                "Access-Control-Origin": "*"
+            };
+            const data = {
+                id: @Model.Id,
+            }
+
+            if (salvarBtn.classList.contains('salvo')) {
+                fetch("/Home/SalvarProjeto", {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(() => salvarBtn.classList.add('salvo'));
+            }
+            else {
+                fetch("/Home/RemoverProjetoSalvo", {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(() => salvarBtn.classList.remove('salvo'));
+            }
+        })
+    </script>
 }
 

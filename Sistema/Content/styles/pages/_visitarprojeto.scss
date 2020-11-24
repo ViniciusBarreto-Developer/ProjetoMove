@@ -1,0 +1,28 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.descricao {
+    position: relative;
+
+    .salvar-projeto {
+        position: absolute;
+        right: 0;
+
+        svg {
+            path {
+                transition: fill 0.2s;
+            }
+
+            &:hover {
+                path {
+                    fill: $primary-color;
+                    transition: fill 0.2s;
+                }
+            }
+        }
+    }
+
+    .salvo {
+        fill: $primary-color;
+    }
+}

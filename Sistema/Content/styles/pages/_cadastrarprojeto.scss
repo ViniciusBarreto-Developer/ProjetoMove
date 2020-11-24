@@ -1,12 +1,8 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
-.form-horizontal {
-    width: 100%;
-}
-
 .retangulo {
-    width: 70vw;
+    width: 100%;
     background-color: $background-color;
     border-radius: 2rem;
     margin: 0 auto;
@@ -26,17 +22,16 @@
         margin-bottom: 2rem;
         border-radius: 20px;
         /*flex: 1 1 auto;*/
-/*        background: url("../img/blob-bg-projeto.svg") no-repeat center;
+        /*        background: url("../img/blob-bg-projeto.svg") no-repeat center;
         background-size: 80%;
         padding: 5rem;*/
         /*overflow: visible;*/
-
         .img-projeto {
             border-radius: 20px;
             background: #fff;
             min-width: calc(#{$project-img-width} / 4);
             min-height: calc(#{$project-img-height} / 4);
-            max-width: calc((#{$project-img-width} / 2) + 3vw);
+            max-width: calc((#{$project-img-width} / 2) + 2vw);
             /*max-width: $project-img-width;*/
             display: flex;
             align-content: center;
@@ -251,7 +246,6 @@
     .retangulo {
         width: 100%;
         padding: 2rem 1rem 1rem 1rem;
-        
     }
 
     .infos {

@@ -1335,11 +1335,8 @@ input[type=checkbox]:checked + label .indicator::after {
   .projects-section {
     grid-template-columns: repeat(3, minmax(300px, 1fr)); } }
 
-.form-horizontal {
-  width: 100%; }
-
 .retangulo {
-  width: 70vw;
+  width: 100%;
   background-color: #EEE;
   border-radius: 2rem;
   margin: 0 auto;
@@ -1366,7 +1363,7 @@ input[type=checkbox]:checked + label .indicator::after {
       background: #fff;
       min-width: calc(756px / 4);
       min-height: calc(532px / 4);
-      max-width: calc((756px / 2) + 3vw);
+      max-width: calc((756px / 2) + 2vw);
       /*max-width: $project-img-width;*/
       display: flex;
       align-content: center;
@@ -1515,3 +1512,16 @@ input[type=checkbox]:checked + label .indicator::after {
     width: 80%; }
   .integrante-info {
     margin-bottom: 1rem; } }
+
+.descricao {
+  position: relative; }
+  .descricao .salvar-projeto {
+    position: absolute;
+    right: 0; }
+    .descricao .salvar-projeto svg path {
+      transition: fill 0.2s; }
+    .descricao .salvar-projeto svg:hover path {
+      fill: #05f296;
+      transition: fill 0.2s; }
+  .descricao .salvo {
+    fill: #05f296; }
