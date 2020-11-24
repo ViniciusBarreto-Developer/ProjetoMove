@@ -808,7 +808,7 @@ namespace Sistema.Controllers
                 {
                     var arqpro = new ArquivosProjeto();
                     arqpro.ProjetoId = vmp.Id;
-                    arqpro.Tipo = ArquivosProjeto.Tipos.Arquivo;
+                    arqpro.Nome = vmp.NomeArquivo;
                     arqpro.Arquivo = nomearq;
 
                     db.ArquivosProjeto.Add(arqpro);

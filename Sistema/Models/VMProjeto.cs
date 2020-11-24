@@ -23,6 +23,9 @@ namespace Sistema.Models
         public string PesquisaTag { get; set; }
         [Display(Name = "E-mail do Integrante")]
         public string PesquisaEmail { get; set; }
+        [Required]
+        [Display(Name = "Nome do arquivo")]
+        public string NomeArquivo { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }

@@ -12,15 +12,10 @@ namespace Sistema.Models
         [Required]
         public string Arquivo { get; set; }
         [Required]
-        public Tipos Tipo { get; set; }
+        public string Nome{ get; set; }
         [Required]
         public int ProjetoId { get; set; }
         public virtual Projeto Projeto { get; set; }
 
-        public enum Tipos
-        {
-            Imagem,
-            Arquivo
-        }
     }
 }

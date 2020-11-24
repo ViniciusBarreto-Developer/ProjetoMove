@@ -88,6 +88,7 @@
                             <div class="uploads-icon">
                                 <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                             </div>
+                            <h2>@item.Nome</h2>
                         </a>
 
                         quant++;
@@ -217,6 +218,10 @@
         </div>
         @using (Html.BeginForm("AdicionarUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            <div class="">
+                @Html.LabelFor(model => model.NomeArquivo)
+                @Html.EditorFor(model => model.NomeArquivo)
+            </div>
             @Html.HiddenFor(model => model.Id)
             <div class="modal-footer">
                 <input name="arq" class="btn btn-secondary" type="file" />
@@ -238,7 +243,6 @@
 
 
             <div class="integrantes-grid">
-                @*<label>Administrador</label>*@
 
                 @foreach (var item in Model.IntegrantesProjetos)
                 {
@@ -496,7 +500,7 @@
                     headers: headers,
                     body: JSON.stringify(data)
                 }).then(removeTagElement(e.currentTarget));
-                    
+
             })
 
         })
@@ -520,7 +524,7 @@
             tagText.innerText = text;
             const tagIconContainer = document.createElement('div');
             tagIconContainer.id = 'remove-tag';
-            
+
             const tagIcon = document.createElement('input');
             tagIcon.classList.add('iconify');
             tagIcon.dataset.icon = 'tabler:x';

@@ -52,7 +52,7 @@ namespace Sistema.Models
             arp.ToTable("arp_arquivosProjeto");
             arp.Property(x => x.Id).HasColumnName("arp_codigo");
             arp.Property(x => x.Arquivo).HasColumnName("arp_arquivo");
-            arp.Property(x => x.Tipo).HasColumnName("arp_tipo");
+            arp.Property(x => x.Nome).HasColumnName("arp_nome");
             arp.Property(x => x.ProjetoId).HasColumnName("pro_codigo");
 
             var inp = mb.Entity<IntegrantesProjeto>();
