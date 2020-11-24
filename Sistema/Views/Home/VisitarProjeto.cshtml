@@ -90,7 +90,8 @@
                     int quant = 0;
                     foreach (var item in Model.ArquivosProjetos)
                     {
-                        <a onclick="window.location.href='@Url.Action("VisualizarPdf", "Home", new { id = item.Id })'">
+                        @*<a onclick="window.location.href='@Url.Action("VisualizarPdf", "Home", new { id = item.Id })'">*@
+                        <a onclick="window.open('@Url.Action("VisualizarPdf", "Home", new { id = item.Id })', '_blank');">
                             <div class="uploads-icon">
                                 <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                             </div>
