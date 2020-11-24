@@ -41,19 +41,19 @@ namespace Sistema.Controllers
             if (vmp.PesquisaTag != null)
             {
                 vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
-            }          
+            }
             else if (vmp.UsuarioTags.Count() > 0)
             {
                 vmp.ProjetoTags = db.ProjetoTags.OrderBy(x => x.ProjetoId).ToList();
-                
+
                 int proId = 0;
                 foreach (var protag in vmp.ProjetoTags)
-                {                    
+                {
                     foreach (var usutag in vmp.UsuarioTags)
                     {
                         if (protag.TagId == usutag.TagId)
                         {
-                            if(proId == protag.ProjetoId)
+                            if (proId == protag.ProjetoId)
                             {
                                 break;
                             }
@@ -951,7 +951,7 @@ namespace Sistema.Controllers
 
             return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id));
         }
-            public ActionResult SalvarProjeto(int id)
+        public JsonResult SalvarProjeto(int id)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
