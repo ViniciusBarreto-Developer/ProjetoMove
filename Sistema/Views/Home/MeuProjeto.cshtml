@@ -57,7 +57,7 @@
                             }
                             if (x == 0)
                             {
-                                <li class="tag-container">
+                                <li class="tag-container tag-placeholder">
                                     <div class="tag"><span class="tag-text">As tags aparecerão aqui!</span></div>
                                 </li>
                             }
@@ -188,7 +188,7 @@
                     }
                     if (i == 0)
                     {
-                        <li class="tag-container">
+                        <li class="tag-container tag-placeholder">
                             <div class="tag"><span class="tag-text">Utilize o campo abaixo para adicionar um interesse!</span></div>
                         </li>
                     }
@@ -502,6 +502,10 @@
         })
 
         function renderNewTag(text) {
+            const placeholder = document.querySelectorAll('.tag-placeholder');
+            if (placeholder) {
+                placeholder.forEach((item) => item.remove())
+            }
             const tagGroups = document.querySelectorAll('.tag-group');
 
 
