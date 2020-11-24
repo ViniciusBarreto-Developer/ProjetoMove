@@ -584,13 +584,15 @@ namespace Sistema.Controllers
             return Json("s");
 
         }
-        public ActionResult ExcluirTag(int id)
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult ExcluirTag(string texto)
         {
-            var tag = db.UsuarioTag.Find(id);
+            var tag = db.UsuarioTag.Where(x => x.Tag.Nome == texto).ToList().FirstOrDefault();
             db.UsuarioTag.Remove(tag);
             db.SaveChanges();
 
-            return RedirectToAction("MeuPerfil");
+            return Json(null);
         }
         public ActionResult ExcluirProjetosSalvos(int id)
         {
@@ -780,13 +782,15 @@ namespace Sistema.Controllers
 
             return Json("s");
         }
-        public ActionResult ExcluirTagProjeto(int id)
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
+        public JsonResult ExcluirTagProjeto(string texto)
         {
-            var tag = db.ProjetoTags.Find(id);
+            var tag = db.ProjetoTags.Where(x => x.Tag.Nome == texto).ToList().FirstOrDefault();
             db.ProjetoTags.Remove(tag);
             db.SaveChanges();
 
-            return RedirectToAction("MeuProjeto", new { id = tag.ProjetoId });
+            return Json(null);
         }
         public ActionResult AdicionarUpload(HttpPostedFileBase arq, VMProjeto vmp)
         {

@@ -175,7 +175,10 @@
                     foreach (var item in Model.ProjetoTags)
                     {
                         <li class="tag-container">
-                            <div class="tag"><span class="tag-text">@item.Tag.Nome</span><input onclick="window.location.href='@Url.Action("ExcluirTagProjeto", "Home", new { id = item.Id })'" class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            <div class="tag">
+                                <span class="tag-text">@item.Tag.Nome</span>
+                                <div id="remove-tag"> <input class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                            </div>
                         </li>
                         i++;
                     }
@@ -434,7 +437,7 @@
         }).then(res => res.json())
             .then(resJson => renderOptions(resJson))
 
-            const tagSelect = document.querySelector('#tag-input');
+        const tagSelect = document.querySelector('#tag-input');
 
         function renderOptions(optList) {
 
@@ -448,11 +451,16 @@
 
         const addTag = document.querySelector('#add-tag');
 
+        const removeTag = document.querySelectorAll('#remove-tag');
+
         addTag.addEventListener('click', () => {
             const data = {
                 Id: @Model.Id,
                 PesquisaTag: tagSelect.value
             }
+
+            const newTag = tagSelect.value;
+
             fetch("/Home/AdicionarTagProjeto", {
                 method: 'POST',
                 headers: headers,
@@ -467,8 +475,107 @@
                             confirmButtonText: 'OK'
                         })
                     }
+                    else {
+                        renderNewTag(newTag);
+                    }
                 })
         })
+
+        removeTag.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                const data = {
+                    texto: e.currentTarget.previousElementSibling.innerText
+                }
+                console.log(data);
+                fetch("/Home/ExcluirTagProjeto", {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(removeTagElement(e.currentTarget));
+                    
+            })
+
+        })
+
+        function renderNewTag(text) {
+            const tagGroups = document.querySelectorAll('.tag-group');
+
+
+            const [tagGroup, tagGroupModal] = tagGroups;
+
+            const tagContainer = document.createElement('li');
+            tagContainer.classList.add('tag-container');
+            const tag = document.createElement('div');
+            tag.classList.add('tag');
+            const tagText = document.createElement('span');
+            tagText.classList.add('tag-text');
+            tagText.innerText = text;
+            const tagIconContainer = document.createElement('div');
+            tagIconContainer.id = 'remove-tag';
+            
+            const tagIcon = document.createElement('input');
+            tagIcon.classList.add('iconify');
+            tagIcon.dataset.icon = 'tabler:x';
+            tagIcon.dataset.inline = 'true';
+
+            tagIconContainer.appendChild(tagIcon);
+            tag.appendChild(tagText);
+            tag.appendChild(tagIconContainer);
+            tagContainer.appendChild(tag);
+            tagGroupModal.appendChild(tagContainer);
+
+
+            if (tagGroup.childElementCount - 1 < 3) {
+                const tagContainer2 = document.createElement('li');
+                tagContainer2.classList.add('tag-container');
+                const tag2 = document.createElement('div');
+                tag2.classList.add('tag');
+                const tagText2 = document.createElement('span');
+                tagText2.classList.add('tag-text');
+                tagText2.innerText = text;
+
+                tag2.appendChild(tagText2);
+                tagContainer2.appendChild(tag2);
+                tagGroup.insertBefore(tagContainer2, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
+            }
+            else if (tagGroup.childElementCount - 1 === 3) {
+                const tagContainerDots = document.createElement('li');
+                tagContainerDots.classList.add('tag-container');
+                const tagDots = document.createElement('div');
+                tagDots.classList.add('tag');
+                const tagTextDots = document.createElement('span');
+                tagTextDots.classList.add('tag-text');
+                tagTextDots.innerText = '...';
+
+                tagDots.appendChild(tagTextDots);
+                tagContainerDots.appendChild(tagDots);
+                tagGroup.insertBefore(tagContainerDots, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
+            }
+
+
+        }
+
+        function removeTagElement(tag) {
+            const tagContainerModal = tag.parentElement.parentElement;
+            const tagGroups = document.querySelectorAll('.tag-group');
+            const [tagGroup, tagGroupModal] = tagGroups;
+            const tagContainer = Array.from(tagGroup.children).filter((tagContainer) => tagContainer.firstElementChild.innerText === tag.previousElementSibling.innerText);
+            tagContainerModal.remove();
+
+                    console.log(tagGroup.children)
+            if (tagContainer) {
+                if (tagGroup.childElementCount - 1 === 4) {
+                    tagGroup.lastElementChild.previousElementSibling.remove();
+                    const clone = tagGroupModal.children[2].cloneNode(true);
+                    clone.firstElementChild.lastElementChild.remove();
+                    //console.log(clone);
+                    tagGroup.insertBefore(clone, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
+                }
+                tagContainer[0].remove();
+            }
+
+
+        }
 
     </script>
 }
