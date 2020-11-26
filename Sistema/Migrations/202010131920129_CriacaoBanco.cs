@@ -119,23 +119,6 @@ namespace Sistema.Migrations
             DropForeignKey("dbo.inp_integrantesProjeto", "usu_codigo", "dbo.usu_usuario");
             DropForeignKey("dbo.inp_integrantesProjeto", "pro_codigo", "dbo.pro_projeto");
             DropForeignKey("dbo.arp_arquivosProjeto", "pro_codigo", "dbo.pro_projeto");
-            DropIndex("dbo.ust_usuarioTag", new[] { "usu_codigo" });
-            DropIndex("dbo.ust_usuarioTag", new[] { "tag_codigo" });
-            DropIndex("dbo.prt_projetoTags", new[] { "tag_codigo" });
-            DropIndex("dbo.prt_projetoTags", new[] { "pro_codigo" });
-            DropIndex("dbo.prs_projetoSalvos", new[] { "usu_codigo" });
-            DropIndex("dbo.prs_projetoSalvos", new[] { "pro_codigo" });
-            DropIndex("dbo.inp_integrantesProjeto", new[] { "pro_codigo" });
-            DropIndex("dbo.inp_integrantesProjeto", new[] { "usu_codigo" });
-            DropIndex("dbo.arp_arquivosProjeto", new[] { "pro_codigo" });
-            DropTable("dbo.ust_usuarioTag");
-            DropTable("dbo.tag_tag");
-            DropTable("dbo.prt_projetoTags");
-            DropTable("dbo.prs_projetoSalvos");
-            DropTable("dbo.usu_usuario");
-            DropTable("dbo.inp_integrantesProjeto");
-            DropTable("dbo.pro_projeto");
-            DropTable("dbo.arp_arquivosProjeto");
         }
     }
 }

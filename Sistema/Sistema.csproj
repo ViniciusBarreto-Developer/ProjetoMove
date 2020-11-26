@@ -147,9 +147,14 @@
     <Compile Include="Migrations\202010131920129_CriacaoBanco.Designer.cs">
       <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011260358355_TableDenuncia.cs" />
+    <Compile Include="Migrations\202011260358355_TableDenuncia.Designer.cs">
+      <DependentUpon>202011260358355_TableDenuncia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArquivosProjeto.cs" />
     <Compile Include="Models\Contexto.cs" />
+    <Compile Include="Models\Denuncias.cs" />
     <Compile Include="Models\Funcoes.cs" />
     <Compile Include="Models\IntegrantesProjeto.cs" />
     <Compile Include="Models\Projeto.cs" />
@@ -284,6 +289,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010131920129_CriacaoBanco.resx">
       <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011260358355_TableDenuncia.resx">
+      <DependentUpon>202011260358355_TableDenuncia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
