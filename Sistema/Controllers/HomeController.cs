@@ -674,7 +674,7 @@ namespace Sistema.Controllers
             }
 
 
-            return RedirectToAction("VisitarProjeto", new { id = id });
+            return RedirectToAction("VisitarProjeto", new { id });
         }
         public ActionResult VisitarProjeto(int id)
         {
@@ -1017,6 +1017,26 @@ namespace Sistema.Controllers
             TempData["MSG"] = "success|Sua denúncia foi enviada!";
 
             return RedirectToAction("VisitarPerfil", new { id = vmp.Id });
+        }
+        public ActionResult DenunciarProjeto(VMProjeto vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            Denuncias den = new Denuncias();
+            den.UsuarioDenuncianteId = usu.Id;
+            den.ProjetoDenunciadoId = vmp.Id;
+            den.DataCadastro = DateTime.Now.ToString();
+            den.Status = "Esperando análise";
+            den.Motivo = vmp.MotivoDenuncia;
+
+            db.Denuncias.Add(den);
+            db.SaveChanges();
+
+            TempData["MSG"] = "success|Sua denúncia foi enviada!";
+
+            return RedirectToAction("MeuProjeto", new { id = vmp.Id });
         }
     }
 
