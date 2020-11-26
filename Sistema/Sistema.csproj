@@ -143,13 +143,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010131920129_CriacaoBanco.cs" />
-    <Compile Include="Migrations\202010131920129_CriacaoBanco.Designer.cs">
-      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011260358355_TableDenuncia.cs" />
-    <Compile Include="Migrations\202011260358355_TableDenuncia.Designer.cs">
-      <DependentUpon>202011260358355_TableDenuncia.cs</DependentUpon>
+    <Compile Include="Migrations\202011261603185_CriacaoBanco.cs" />
+    <Compile Include="Migrations\202011261603185_CriacaoBanco.Designer.cs">
+      <DependentUpon>202011261603185_CriacaoBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArquivosProjeto.cs" />
@@ -287,11 +283,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010131920129_CriacaoBanco.resx">
-      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011260358355_TableDenuncia.resx">
-      <DependentUpon>202011260358355_TableDenuncia.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011261603185_CriacaoBanco.resx">
+      <DependentUpon>202011261603185_CriacaoBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,18 +7,18 @@ namespace Sistema.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class TableDenuncia : IMigrationMetadata
+    public sealed partial class CriacaoBanco : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TableDenuncia));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CriacaoBanco));
         
         string IMigrationMetadata.Id
         {
-            get { return "202011260358355_TableDenuncia"; }
+            get { return "202011261603185_CriacaoBanco"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

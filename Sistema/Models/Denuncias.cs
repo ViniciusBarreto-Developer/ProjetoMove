@@ -18,12 +18,12 @@ namespace Sistema.Models
         public string Status { get; set; }
         [Required]        
         public int UsuarioDenuncianteId { get; set; }
-        [ForeignKey("UsuarioDenuncianteId")]
+        [ForeignKey("UsuarioDenuncianteId")]        
         public Usuario UsuarioDenunciante { get; set; }
-        public int UsuarioDenunciadoId { get; set; }
+        public int? UsuarioDenunciadoId { get; set; }
         [ForeignKey("UsuarioDenunciadoId")]
         public Usuario UsuarioDenunciado { get; set; }
-        public int ProjetoDenunciadoId { get; set; }
+        public int? ProjetoDenunciadoId { get; set; }
         [ForeignKey("ProjetoDenunciadoId")]
         public Projeto ProjetoDenunciado { get; set; }
 

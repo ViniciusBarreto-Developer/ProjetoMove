@@ -22,6 +22,7 @@ namespace Sistema.Models
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        public string MotivoDenuncia { get; set; }
         public virtual ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<UsuarioTag> UsuarioTags { get; set; }

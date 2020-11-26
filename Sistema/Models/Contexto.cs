@@ -90,8 +90,6 @@ namespace Sistema.Models
             den.Property(x => x.UsuarioDenunciadoId).HasColumnName("den_usuarioDenunciadoId");
             den.Property(x => x.ProjetoDenunciadoId).HasColumnName("den_projetoDenunciadoId");
 
-            //mb.Entity<Denuncias>().HasForeignKey(p => p.AuthorFK);
-
         }
         
     }
