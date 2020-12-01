@@ -27,10 +27,19 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     string[] user = User.Identity.Name.Split('|');
+                    if (user[1] == "adm")
+                    {
 
-                    <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
-                    <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+                        <li>@Html.ActionLink("DenunciaUsuario", "DenunciaUsuario", "Adm")</li>
+                        <li>@Html.ActionLink("DenunciaProjeto", "DenunciaProjeto", "Adm")</li>
+                        <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
 
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
+                        <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+                    }
                 }
                 else
                 {

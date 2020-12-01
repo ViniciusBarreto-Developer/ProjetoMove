@@ -273,7 +273,6 @@
     <Content Include="Views\Home\VisitarProjeto.cshtml" />
     <Content Include="Views\Shared\_LayoutProjeto.cshtml" />
     <Content Include="Views\Home\VisualizarPdf.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdm.cshtml" />
     <Content Include="Views\Adm\Index.cshtml" />
     <Content Include="Views\Adm\DenunciaUsuario.cshtml" />
     <Content Include="Views\Adm\DenunciaProjeto.cshtml" />

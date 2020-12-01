@@ -231,13 +231,14 @@ namespace Sistema.Controllers
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
             senhacrip).ToList().FirstOrDefault();
             if (usu != null && usu.Ativo != false)
-            {
-                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
-
+            {                
                 if (usu.Adm == true)
                 {
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + "adm", false);
                     return RedirectToAction("Index", "Adm");
                 }
+
+                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 return RedirectToAction("Principal", "Home");
             }
             else
@@ -464,18 +465,27 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
         }
-        public ActionResult MeuPerfil()
+        public ActionResult MeuPerfil(int? id)
         {
-            string[] user = User.Identity.Name.Split('|');
-            string email = user[0];
-
-            if (user[0] == null || user[0] == "")
-            {
-                return RedirectToAction("Principal");
-            }
-            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-
             VMPerfil vmp = new VMPerfil();
+            Usuario usu = new Usuario();
+
+            if (id == null)
+            {
+                string[] user = User.Identity.Name.Split('|');
+                string email = user[0];
+
+                if (user[0] == null || user[0] == "")
+                {
+                    return RedirectToAction("Principal");
+                }
+                usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            }
+            else
+            {
+                usu = db.Usuario.Find(id);
+            }            
 
             vmp.Id = usu.Id;
             vmp.Biografia = usu.Biografia;
@@ -655,13 +665,13 @@ namespace Sistema.Controllers
             if (usu == null)
             {
                 return RedirectToAction("Acesso");
-            }
+            }            
 
             Projeto pro = db.Projeto.Find(id);
 
             foreach (var item in pro.IntegrantesProjetos)
             {
-                if (item.UsuarioID == usu.Id)
+                if (item.UsuarioID == usu.Id || user[1] == "adm")
                 {
                     VMProjeto vmp = new VMProjeto();
 
@@ -676,7 +686,6 @@ namespace Sistema.Controllers
                     return View(vmp);
                 }
             }
-
 
             return RedirectToAction("VisitarProjeto", new { id });
         }
