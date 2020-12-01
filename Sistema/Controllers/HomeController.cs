@@ -146,7 +146,7 @@ namespace Sistema.Controllers
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
                 usu.Biografia = "";
-                usu.ativo = true;
+                usu.Ativo = true;
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
@@ -230,10 +230,14 @@ namespace Sistema.Controllers
             string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
             senhacrip).ToList().FirstOrDefault();
-            if (usu != null && usu.ativo != false)
+            if (usu != null && usu.Ativo != false)
             {
                 FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
 
+                if (usu.Adm == true)
+                {
+                    return RedirectToAction("Index", "Adm");
+                }
                 return RedirectToAction("Principal", "Home");
             }
             else
@@ -346,7 +350,7 @@ namespace Sistema.Controllers
             }
             if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
             {
-                usu.ativo = false;
+                usu.Ativo = false;
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
 

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Sistema.Models.Denuncias>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<div class="results-grid">
+    @{
+        int quant = 0;
+        foreach (var item in Model)
+        {
+            <div class="card-container">
+                <div class="project-card">
+                    <a @*href="@Url.Action("MeuProjeto", new { id = item.ProjetoDenunciadoId })"*@>
+                        <div>
+                            <h3 class="card-title">Denunciante: @item.UsuarioDenunciante.Nome</h3>
+                            <p class="card-text">Motivo: @item.Motivo</p>
+                        </div>
+                        <div class="card-img">
+                            <img src="~/Uploads/@item.ProjetoDenunciado.Logo" alt="Imagem do projeto" />
+                        </div>
+                        <div>
+                            <h3 class="card-title">@item.ProjetoDenunciado.Nome</h3>
+                            <p class="card-text">@item.ProjetoDenunciado.Descricao</p>
+                        </div>
+                        <ul class="card-tags">
+                            @{
+                                int n = 0;
+
+                                foreach (var pro in item.ProjetoDenunciado.ProjetoTags)
+                                {
+                                    if (n < 3)
+                                    {
+                                        <li class="tag-container">
+                                            <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                        </li>
+                                        n++;
+                                    }
+                                }
+                            }
+                        </ul>
+                    </a>
+                </div>
+            </div>
+            quant++;
+        }
+        if (quant == 0)
+        {
+            <div class="mensagem">
+                <p>Sem Denuncias Pendentes :)</p>
+            </div>
+        }
+    }
+</div>
+
+
