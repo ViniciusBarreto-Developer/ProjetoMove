@@ -27,6 +27,9 @@ namespace Sistema.Models
         [Display(Name = "Nome do arquivo")]
         public string NomeArquivo { get; set; }
         public string MotivoDenuncia { get; set; }
+        public Boolean Adm { get; set; }
+        [Display(Name = "Quantidade de Dias:")]
+        public int Punicao { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }

@@ -147,6 +147,7 @@ namespace Sistema.Controllers
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
                 usu.Biografia = "";
                 usu.Ativo = true;
+                usu.Punicao = DateTime.Now;
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
@@ -485,6 +486,7 @@ namespace Sistema.Controllers
             else
             {
                 usu = db.Usuario.Find(id);
+                vmp.Adm = true;
             }            
 
             vmp.Id = usu.Id;
@@ -631,6 +633,7 @@ namespace Sistema.Controllers
                 pro.Descricao = vmp.Descricao;
                 pro.Ativo = true;
                 pro.DataCadastro = DateTime.Now;
+                pro.Punicao = DateTime.Now;
                 db.Projeto.AddOrUpdate(pro);
                 db.SaveChanges();
 
@@ -682,6 +685,11 @@ namespace Sistema.Controllers
                     vmp.ProjetoTags = pro.ProjetoTags;
                     vmp.ArquivosProjetos = pro.ArquivosProjetos;
                     vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
+
+                    if(user[1] == "adm")
+                    {
+                        vmp.Adm = true;
+                    }
 
                     return View(vmp);
                 }
