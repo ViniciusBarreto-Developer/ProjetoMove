@@ -685,6 +685,7 @@ namespace Sistema.Controllers
                     vmp.ProjetoTags = pro.ProjetoTags;
                     vmp.ArquivosProjetos = pro.ArquivosProjetos;
                     vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
+                    vmp.Ativo = pro.Ativo;
 
                     if(user[1] == "adm")
                     {

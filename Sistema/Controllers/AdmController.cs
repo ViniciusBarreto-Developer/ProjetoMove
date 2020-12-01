@@ -21,7 +21,7 @@ namespace Sistema.Controllers
         }
         public ActionResult DenunciaProjeto()
         {
-            return View(db.Denuncias.Where(x => x.ProjetoDenunciadoId != null).ToList());
+            return View(db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").ToList());
         }
         public ActionResult ExcluirProjeto(VMProjeto vmp)
         {
@@ -31,6 +31,9 @@ namespace Sistema.Controllers
             db.Projeto.AddOrUpdate(pro);
 
             db.SaveChanges();
+
+            TempData["MSG"] = "success|Projeto Excluído!";
+
             return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
         }
         public ActionResult PunirProjeto(VMProjeto vmp)
@@ -39,7 +42,7 @@ namespace Sistema.Controllers
 
             int result = DateTime.Compare(pro.Punicao, DateTime.Now);
 
-            if(result < 0)
+            if (result < 0)
             {
                 pro.Punicao = DateTime.Now.AddDays(vmp.Punicao);
             }
@@ -47,11 +50,23 @@ namespace Sistema.Controllers
             {
                 pro.Punicao = pro.Punicao.AddDays(vmp.Punicao);
             }
-            
+
             db.Projeto.AddOrUpdate(pro);
 
             db.SaveChanges();
+            TempData["MSG"] = "success|Punição Aplicada!";
+
             return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
+        }
+        public ActionResult ConcluirDenuncia(int id)
+        {
+            Denuncias den = db.Denuncias.Find(id);
+
+            den.Status = "Concluído";
+            db.Denuncias.AddOrUpdate(den);
+            db.SaveChanges();
+
+            return RedirectToAction("DenunciaProjeto");
         }
 
     }
