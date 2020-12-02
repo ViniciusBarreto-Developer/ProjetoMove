@@ -1442,6 +1442,11 @@ input[type=checkbox]:checked + label .indicator::after {
       width: 4rem;
       height: 4rem; }
 
+#upload-arq {
+  opacity: 0;
+  position: absolute;
+  z-index: -1; }
+
 .projeto-equipe {
   width: 70vw;
   text-align: center;

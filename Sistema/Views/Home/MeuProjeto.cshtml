@@ -218,13 +218,15 @@
         </div>
         @using (Html.BeginForm("AdicionarUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <div class="">
+            <div class="form-group" style="width: 16rem; margin: 0 auto">
                 @Html.LabelFor(model => model.NomeArquivo)
                 @Html.EditorFor(model => model.NomeArquivo)
             </div>
             @Html.HiddenFor(model => model.Id)
-            <div class="modal-footer">
-                <input name="arq" class="btn btn-secondary" type="file" />
+
+            <div class="form-btns">
+                <label for="upload-arq" class="btn btn-secondary">Selecione um arquivo</label>
+                <input name="arq" class="btn btn-secondary" type="file" id="upload-arq" />
                 <button class="btn btn-primary">Confirmar</button>
             </div>
         }
