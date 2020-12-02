@@ -17,7 +17,7 @@ namespace Sistema.Controllers
         }
         public ActionResult DenunciaUsuario()
         {
-            return View(db.Denuncias.Where(x => x.UsuarioDenunciadoId != null).ToList());
+            return View(db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").ToList());
         }
         public ActionResult DenunciaProjeto()
         {
