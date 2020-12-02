@@ -35,6 +35,7 @@ namespace Sistema.Models
             usu.Property(x => x.Ativo).HasColumnName("usu_ativo");
             usu.Property(x => x.Adm).HasColumnName("usu_adm");
             usu.Property(x => x.Punicao).HasColumnName("usu_punicao");
+            usu.Property(x => x.Inativo).HasColumnName("usu_inativo");
 
             var pro = mb.Entity<Projeto>();
             pro.ToTable("pro_projeto");
