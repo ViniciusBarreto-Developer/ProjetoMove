@@ -24,6 +24,9 @@ namespace Sistema.Models
         public string Descricao { get; set; }
         public string MotivoDenuncia { get; set; }
         public Boolean Adm { get; set; }
+        [Display(Name = "Quantidade de Dias:")]
+        public int Punicao { get; set; }
+        public bool Ativo { get; set; }
         public virtual ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<UsuarioTag> UsuarioTags { get; set; }

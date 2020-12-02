@@ -494,6 +494,7 @@ namespace Sistema.Controllers
             vmp.Nome = usu.Nome;
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
+            vmp.Ativo = usu.Ativo;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();

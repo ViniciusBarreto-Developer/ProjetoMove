@@ -10,22 +10,25 @@
         foreach (var item in Model)
         {
             <div class="card-container">
-                <div class="project-card">
-                    <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciadoId })">
-                        <div>
-                            <h3 class="card-title">Denunciante: @item.UsuarioDenunciante.Nome</h3>
-                            <p class="card-text">Motivo: @item.Motivo</p>
+                    <div class="project-card">
+                        <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciadoId })">
+                            <div>
+                                <h3 class="card-title">Denunciante: @item.UsuarioDenunciante.Nome</h3>
+                                <p class="card-text">Motivo: @item.Motivo</p>
+                            </div>
+                            <h3 class="card-title">Usuário Denunciado</h3>
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.UsuarioDenunciado.Foto" alt="Foto do Denunciado" />
+                            </div>
+                            <div>
+                                <h3 class="card-title">@item.UsuarioDenunciado.Nome</h3>
+                                <p class="card-text">@item.UsuarioDenunciado.Biografia</p>
+                            </div>
+                        </a>
+                        <div class="form-btns">
+                            <a class="btn btn-primary" onclick="window.location.href='@Url.Action("ConcluirDenuncia", "Adm", new { id = item.Id })'">Concluir</a>
                         </div>
-                        <h3 class="card-title">Usuário Denunciado</h3>
-                        <div class="card-img">
-                            <img src="~/Uploads/@item.UsuarioDenunciado.Foto" alt="Foto do Denunciado" />
-                        </div>
-                        <div>
-                            <h3 class="card-title">@item.UsuarioDenunciado.Nome</h3>
-                            <p class="card-text">@item.UsuarioDenunciado.Biografia</p>
-                        </div>
-                    </a>
-                </div>
+                    </div>
             </div>
             quant++;
         }

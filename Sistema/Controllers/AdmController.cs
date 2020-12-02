@@ -66,8 +66,45 @@ namespace Sistema.Controllers
             db.Denuncias.AddOrUpdate(den);
             db.SaveChanges();
 
+            if(den.ProjetoDenunciado == null)
+            {
+                return RedirectToAction("DenunciaUsuario");
+            }
             return RedirectToAction("DenunciaProjeto");
         }
+        public ActionResult PunirUsuario(VMPerfil vmp)
+        {
+            Usuario usu = db.Usuario.Find(vmp.Id);
 
+            int result = DateTime.Compare(usu.Punicao, DateTime.Now);
+
+            if (result < 0)
+            {
+                usu.Punicao = DateTime.Now.AddDays(vmp.Punicao);
+            }
+            else
+            {
+                usu.Punicao = usu.Punicao.AddDays(vmp.Punicao);
+            }
+
+            db.Usuario.AddOrUpdate(usu);
+
+            db.SaveChanges();
+            TempData["MSG"] = "success|Punição Aplicada!";
+
+            return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });
+        }
+        public ActionResult ExcluirUsuario(VMPerfil vmp)
+        {
+            Usuario usu = db.Usuario.Find(vmp.Id);
+            usu.Ativo = false;
+            db.Usuario.AddOrUpdate(usu);
+
+            db.SaveChanges();
+
+            TempData["MSG"] = "success|Usuario Excluído!";
+
+            return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });
+        }
     }
 }
