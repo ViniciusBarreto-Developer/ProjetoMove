@@ -231,8 +231,15 @@ namespace Sistema.Controllers
             string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
             senhacrip).ToList().FirstOrDefault();
-            if (usu != null && usu.Ativo != false)
-            {                
+            if (usu != null && usu.Ativo == true)
+            {
+                int result = DateTime.Compare(usu.Punicao, DateTime.Now);
+                if (result > 0)
+                {
+                    int dias = (usu.Punicao - DateTime.Now).Days;
+                    TempData["MSG"] = "error|Sua conta foi bloqueada temporariamente por infringir as regras da comunidade. Sua conta será desbloqueada em " + dias + "dia(s)";
+                    return View();
+                }
                 if (usu.Adm == true)
                 {
                     FormsAuthentication.SetAuthCookie(usu.Email + "|" + "adm", false);
@@ -241,6 +248,11 @@ namespace Sistema.Controllers
 
                 FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 return RedirectToAction("Principal", "Home");
+            }
+            else if (usu.Inativo == "Adm")
+            {
+                TempData["MSG"] = "error|Sua conta foi bloqueada por infringir as regras da comunidade.";
+                return View();
             }
             else
             {
@@ -353,6 +365,7 @@ namespace Sistema.Controllers
             if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
             {
                 usu.Ativo = false;
+                usu.Inativo = "Usuário";
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
 
@@ -487,7 +500,7 @@ namespace Sistema.Controllers
             {
                 usu = db.Usuario.Find(id);
                 vmp.Adm = true;
-            }            
+            }
 
             vmp.Id = usu.Id;
             vmp.Biografia = usu.Biografia;
@@ -669,7 +682,7 @@ namespace Sistema.Controllers
             if (usu == null)
             {
                 return RedirectToAction("Acesso");
-            }            
+            }
 
             Projeto pro = db.Projeto.Find(id);
 
@@ -688,7 +701,7 @@ namespace Sistema.Controllers
                     vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
                     vmp.Ativo = pro.Ativo;
 
-                    if(user[1] == "adm")
+                    if (user[1] == "adm")
                     {
                         vmp.Adm = true;
                     }
@@ -858,7 +871,7 @@ namespace Sistema.Controllers
             Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();
             var integrantes = db.IntegrantesProjeto.Where(x => x.ProjetoId == vmp.Id).ToList();
 
-            if (usu == null)
+            if (usu == null || usu.Ativo == false)
             {
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return RedirectToAction("MeuProjeto", new { id = vmp.Id });

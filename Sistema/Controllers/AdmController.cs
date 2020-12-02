@@ -98,6 +98,7 @@ namespace Sistema.Controllers
         {
             Usuario usu = db.Usuario.Find(vmp.Id);
             usu.Ativo = false;
+            usu.Inativo = "Adm";
             db.Usuario.AddOrUpdate(usu);
 
             db.SaveChanges();
