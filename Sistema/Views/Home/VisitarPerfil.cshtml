@@ -25,6 +25,7 @@
     </div>
 
     <h1 class="username">@Model.Nome</h1>
+    <button class="add-tag" data-open-modal="modalDenuncia"><span class="iconify" data-icon="tabler:x" data-inline="false"></span></button>
 
     <div class="profile-info">
         <div class="bio">
@@ -150,6 +151,32 @@
     </div>
 </div>
 
+<div class="modal-bg hidden" id="modalDenuncia">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Denunciar Usuário</h3>
+            <div class="close-modal" data-close-modal="modalDenuncia">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("DenunciarUsuario", "Home", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.LabelFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "bio-text" })
+                        @Html.ValidationMessageFor(model => model.MotivoDenuncia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Denunciar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 
 

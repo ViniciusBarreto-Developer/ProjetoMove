@@ -82,6 +82,7 @@
                 }
 
             </div>
+            <button class="add-tag" data-open-modal="modalDenuncia"><span class="iconify" data-icon="tabler:x" data-inline="false"></span></button>
         </div>
 
         <div class="upload">
@@ -216,6 +217,34 @@
         </div>
     </div>
 </div>
+
+<div class="modal-bg hidden" id="modalDenuncia">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Denunciar Projeto</h3>
+            <div class="close-modal" data-close-modal="modalDenuncia">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("DenunciarProjeto", "Home", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.LabelFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "bio-text" })
+                        @Html.ValidationMessageFor(model => model.MotivoDenuncia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Denunciar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 

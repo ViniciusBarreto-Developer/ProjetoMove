@@ -146,7 +146,8 @@ namespace Sistema.Controllers
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
                 usu.Biografia = "";
-                usu.ativo = true;
+                usu.Ativo = true;
+                usu.Punicao = DateTime.Now;
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
@@ -230,10 +231,15 @@ namespace Sistema.Controllers
             string senhacrip = Funcoes.HashTexto(ace.Senha, "SHA512");
             Usuario usu = db.Usuario.Where(t => t.Email == ace.Email && t.Senha ==
             senhacrip).ToList().FirstOrDefault();
-            if (usu != null && usu.ativo != false)
-            {
-                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
+            if (usu != null && usu.Ativo != false)
+            {                
+                if (usu.Adm == true)
+                {
+                    FormsAuthentication.SetAuthCookie(usu.Email + "|" + "adm", false);
+                    return RedirectToAction("Index", "Adm");
+                }
 
+                FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 return RedirectToAction("Principal", "Home");
             }
             else
@@ -346,7 +352,7 @@ namespace Sistema.Controllers
             }
             if (Funcoes.HashTexto(edit.SenhaAtual, "SHA512") == usu.Senha)
             {
-                usu.ativo = false;
+                usu.Ativo = false;
                 db.Usuario.AddOrUpdate(usu);
                 db.SaveChanges();
 
@@ -460,24 +466,35 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
         }
-        public ActionResult MeuPerfil()
+        public ActionResult MeuPerfil(int? id)
         {
-            string[] user = User.Identity.Name.Split('|');
-            string email = user[0];
-
-            if (user[0] == null || user[0] == "")
-            {
-                return RedirectToAction("Principal");
-            }
-            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-
             VMPerfil vmp = new VMPerfil();
+            Usuario usu = new Usuario();
+
+            if (id == null)
+            {
+                string[] user = User.Identity.Name.Split('|');
+                string email = user[0];
+
+                if (user[0] == null || user[0] == "")
+                {
+                    return RedirectToAction("Principal");
+                }
+                usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            }
+            else
+            {
+                usu = db.Usuario.Find(id);
+                vmp.Adm = true;
+            }            
 
             vmp.Id = usu.Id;
             vmp.Biografia = usu.Biografia;
             vmp.Nome = usu.Nome;
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
+            vmp.Ativo = usu.Ativo;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
@@ -617,6 +634,7 @@ namespace Sistema.Controllers
                 pro.Descricao = vmp.Descricao;
                 pro.Ativo = true;
                 pro.DataCadastro = DateTime.Now;
+                pro.Punicao = DateTime.Now;
                 db.Projeto.AddOrUpdate(pro);
                 db.SaveChanges();
 
@@ -651,13 +669,13 @@ namespace Sistema.Controllers
             if (usu == null)
             {
                 return RedirectToAction("Acesso");
-            }
+            }            
 
             Projeto pro = db.Projeto.Find(id);
 
             foreach (var item in pro.IntegrantesProjetos)
             {
-                if (item.UsuarioID == usu.Id)
+                if (item.UsuarioID == usu.Id || user[1] == "adm")
                 {
                     VMProjeto vmp = new VMProjeto();
 
@@ -668,13 +686,18 @@ namespace Sistema.Controllers
                     vmp.ProjetoTags = pro.ProjetoTags;
                     vmp.ArquivosProjetos = pro.ArquivosProjetos;
                     vmp.IntegrantesProjetos = pro.IntegrantesProjetos;
+                    vmp.Ativo = pro.Ativo;
+
+                    if(user[1] == "adm")
+                    {
+                        vmp.Adm = true;
+                    }
 
                     return View(vmp);
                 }
             }
 
-
-            return RedirectToAction("VisitarProjeto", new { id = id });
+            return RedirectToAction("VisitarProjeto", new { id });
         }
         public ActionResult VisitarProjeto(int id)
         {
@@ -996,6 +1019,47 @@ namespace Sistema.Controllers
             vm.ArquivosProjetos = db.ArquivosProjeto.Find(id);
 
             return View(vm);
+        }
+        [HttpPost]
+        public ActionResult DenunciarUsuario(VMPerfil vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            Denuncias den = new Denuncias();
+            den.UsuarioDenuncianteId = usu.Id;
+            den.UsuarioDenunciadoId = vmp.Id;
+            den.DataCadastro = DateTime.Now.ToString();
+            den.Status = "Esperando análise";
+            den.Motivo = vmp.MotivoDenuncia;
+
+            db.Denuncias.Add(den);
+            db.SaveChanges();
+
+            TempData["MSG"] = "success|Sua denúncia foi enviada!";
+
+            return RedirectToAction("VisitarPerfil", new { id = vmp.Id });
+        }
+        public ActionResult DenunciarProjeto(VMProjeto vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            Denuncias den = new Denuncias();
+            den.UsuarioDenuncianteId = usu.Id;
+            den.ProjetoDenunciadoId = vmp.Id;
+            den.DataCadastro = DateTime.Now.ToString();
+            den.Status = "Esperando análise";
+            den.Motivo = vmp.MotivoDenuncia;
+
+            db.Denuncias.Add(den);
+            db.SaveChanges();
+
+            TempData["MSG"] = "success|Sua denúncia foi enviada!";
+
+            return RedirectToAction("MeuProjeto", new { id = vmp.Id });
         }
     }
 

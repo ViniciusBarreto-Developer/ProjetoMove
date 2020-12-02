@@ -139,17 +139,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010131920129_CriacaoBanco.cs" />
-    <Compile Include="Migrations\202010131920129_CriacaoBanco.Designer.cs">
-      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
+    <Compile Include="Migrations\202011261603185_CriacaoBanco.cs" />
+    <Compile Include="Migrations\202011261603185_CriacaoBanco.Designer.cs">
+      <DependentUpon>202011261603185_CriacaoBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArquivosProjeto.cs" />
     <Compile Include="Models\Contexto.cs" />
+    <Compile Include="Models\Denuncias.cs" />
     <Compile Include="Models\Funcoes.cs" />
     <Compile Include="Models\IntegrantesProjeto.cs" />
     <Compile Include="Models\Projeto.cs" />
@@ -271,6 +273,9 @@
     <Content Include="Views\Home\VisitarProjeto.cshtml" />
     <Content Include="Views\Shared\_LayoutProjeto.cshtml" />
     <Content Include="Views\Home\VisualizarPdf.cshtml" />
+    <Content Include="Views\Adm\Index.cshtml" />
+    <Content Include="Views\Adm\DenunciaUsuario.cshtml" />
+    <Content Include="Views\Adm\DenunciaProjeto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -282,8 +287,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010131920129_CriacaoBanco.resx">
-      <DependentUpon>202010131920129_CriacaoBanco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011261603185_CriacaoBanco.resx">
+      <DependentUpon>202011261603185_CriacaoBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

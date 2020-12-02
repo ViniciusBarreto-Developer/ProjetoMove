@@ -17,7 +17,7 @@ namespace Sistema.Models
         public DbSet<ProjetoTags> ProjetoTags { get; set; }
         public DbSet<ProjetosSalvos> ProjetosSalvos { get; set; }
         public DbSet<UsuarioTag> UsuarioTag { get; set; }
-
+        public DbSet<Denuncias> Denuncias { get; set; }
         protected override void OnModelCreating(DbModelBuilder mb)
         {
             var usu = mb.Entity<Usuario>();
@@ -32,7 +32,9 @@ namespace Sistema.Models
             usu.Property(x => x.EmailRecuperacao).HasColumnName("usu_emailRecuperacao");
             usu.Property(x => x.Senha).HasColumnName("usu_senha");
             usu.Property(x => x.Biografia).HasColumnName("usu_biografia");
-            usu.Property(x => x.ativo).HasColumnName("usu_ativo");
+            usu.Property(x => x.Ativo).HasColumnName("usu_ativo");
+            usu.Property(x => x.Adm).HasColumnName("usu_adm");
+            usu.Property(x => x.Punicao).HasColumnName("usu_punicao");
 
             var pro = mb.Entity<Projeto>();
             pro.ToTable("pro_projeto");
@@ -80,7 +82,18 @@ namespace Sistema.Models
             ust.Property(x => x.TagId).HasColumnName("tag_codigo");
             ust.Property(x => x.UsuarioId).HasColumnName("usu_codigo");
 
+            var den = mb.Entity<Denuncias>();
+            den.ToTable("den_denuncias");
+            den.Property(x => x.Id).HasColumnName("den_codigo");
+            den.Property(x => x.DataCadastro).HasColumnName("den_dataCadastro");
+            den.Property(x => x.Motivo).HasColumnName("den_motivo");
+            den.Property(x => x.Status).HasColumnName("den_status");
+            den.Property(x => x.UsuarioDenuncianteId).HasColumnName("den_usuarioDenuncianteId");
+            den.Property(x => x.UsuarioDenunciadoId).HasColumnName("den_usuarioDenunciadoId");
+            den.Property(x => x.ProjetoDenunciadoId).HasColumnName("den_projetoDenunciadoId");
+
         }
+        
     }
 
 }

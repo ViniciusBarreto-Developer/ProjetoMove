@@ -13,7 +13,7 @@ namespace Sistema.Migrations
                     {
                         arp_codigo = c.Int(nullable: false, identity: true),
                         arp_arquivo = c.String(nullable: false, unicode: false),
-                        arp_tipo = c.Int(nullable: false),
+                        arp_nome = c.String(nullable: false, unicode: false),
                         pro_codigo = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.arp_codigo)
@@ -28,6 +28,7 @@ namespace Sistema.Migrations
                         pro_descricao = c.String(maxLength: 500, storeType: "nvarchar"),
                         pro_logo = c.String(unicode: false),
                         pro_dataCadastro = c.DateTime(nullable: false, precision: 0),
+                        pro_ativo = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.pro_codigo);
             
@@ -50,28 +51,18 @@ namespace Sistema.Migrations
                     {
                         usu_codigo = c.Int(nullable: false, identity: true),
                         usu_nome = c.String(nullable: false, maxLength: 200, storeType: "nvarchar"),
-                        usu_nomeSocial = c.String(maxLength: 200, storeType: "nvarchar"),
-                        usu_dataNascimento = c.DateTime(nullable: false, precision: 0),
-                        usu_cpf = c.Long(nullable: false),
+                        usu_dataNascimento = c.String(nullable: false, unicode: false),
+                        usu_cpf = c.String(nullable: false, maxLength: 14, storeType: "nvarchar"),
+                        usu_celular = c.String(maxLength: 15, storeType: "nvarchar"),
                         usu_email = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
                         usu_emailRecuperacao = c.String(nullable: false, maxLength: 100, storeType: "nvarchar"),
                         usu_senha = c.String(nullable: false, unicode: false),
                         usu_foto = c.String(unicode: false),
                         usu_biografia = c.String(unicode: false),
+                        usu_ativo = c.Boolean(nullable: false),
+                        Hash = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.usu_codigo);
-            
-            CreateTable(
-                "dbo.prs_projetoSalvos",
-                c => new
-                    {
-                        prs_codigo = c.Int(nullable: false, identity: true),
-                        pro_codigo = c.Int(nullable: false),
-                        usu_codigo = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.prs_codigo)
-                .ForeignKey("dbo.pro_projeto", t => t.pro_codigo, cascadeDelete: true)
-                .ForeignKey("dbo.usu_usuario", t => t.usu_codigo, cascadeDelete: true);
             
             CreateTable(
                 "dbo.prt_projetoTags",
@@ -95,13 +86,42 @@ namespace Sistema.Migrations
                 .PrimaryKey(t => t.tag_codigo);
             
             CreateTable(
-                "dbo.ust_usuarioTag",
+                "dbo.den_denuncias",
                 c => new
                     {
-                        ust_codigo = c.Int(nullable: false, identity: true),
-                        tag_codigo = c.Int(nullable: false),
+                        den_codigo = c.Int(nullable: false, identity: true),
+                        den_dataCadastro = c.String(nullable: false, unicode: false),
+                        den_motivo = c.String(nullable: false, unicode: false),
+                        den_status = c.String(nullable: false, unicode: false),
+                        den_usuarioDenuncianteId = c.Int(nullable: false),
+                        den_usuarioDenunciadoId = c.Int(),
+                        den_projetoDenunciadoId = c.Int(),
+                    })
+                .PrimaryKey(t => t.den_codigo)
+                .ForeignKey("dbo.pro_projeto", t => t.den_projetoDenunciadoId)
+                .ForeignKey("dbo.usu_usuario", t => t.den_usuarioDenunciadoId)
+                .ForeignKey("dbo.usu_usuario", t => t.den_usuarioDenuncianteId, cascadeDelete: true);
+            
+            CreateTable(
+                "dbo.prs_projetoSalvos",
+                c => new
+                    {
+                        prs_codigo = c.Int(nullable: false, identity: true),
+                        pro_codigo = c.Int(nullable: false),
                         usu_codigo = c.Int(nullable: false),
                     })
+                .PrimaryKey(t => t.prs_codigo)
+                .ForeignKey("dbo.pro_projeto", t => t.pro_codigo, cascadeDelete: true)
+                .ForeignKey("dbo.usu_usuario", t => t.usu_codigo, cascadeDelete: true);
+
+            CreateTable(
+                "dbo.ust_usuarioTag",
+                c => new
+                {
+                    ust_codigo = c.Int(nullable: false, identity: true),
+                    tag_codigo = c.Int(nullable: false),
+                    usu_codigo = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.ust_codigo)
                 .ForeignKey("dbo.tag_tag", t => t.tag_codigo, cascadeDelete: true)
                 .ForeignKey("dbo.usu_usuario", t => t.usu_codigo, cascadeDelete: true);
@@ -112,26 +132,21 @@ namespace Sistema.Migrations
         {
             DropForeignKey("dbo.ust_usuarioTag", "usu_codigo", "dbo.usu_usuario");
             DropForeignKey("dbo.ust_usuarioTag", "tag_codigo", "dbo.tag_tag");
-            DropForeignKey("dbo.prt_projetoTags", "tag_codigo", "dbo.tag_tag");
-            DropForeignKey("dbo.prt_projetoTags", "pro_codigo", "dbo.pro_projeto");
             DropForeignKey("dbo.prs_projetoSalvos", "usu_codigo", "dbo.usu_usuario");
             DropForeignKey("dbo.prs_projetoSalvos", "pro_codigo", "dbo.pro_projeto");
+            DropForeignKey("dbo.den_denuncias", "den_usuarioDenuncianteId", "dbo.usu_usuario");
+            DropForeignKey("dbo.den_denuncias", "den_usuarioDenunciadoId", "dbo.usu_usuario");
+            DropForeignKey("dbo.den_denuncias", "den_projetoDenunciadoId", "dbo.pro_projeto");
+            DropForeignKey("dbo.prt_projetoTags", "tag_codigo", "dbo.tag_tag");
+            DropForeignKey("dbo.prt_projetoTags", "pro_codigo", "dbo.pro_projeto");
             DropForeignKey("dbo.inp_integrantesProjeto", "usu_codigo", "dbo.usu_usuario");
             DropForeignKey("dbo.inp_integrantesProjeto", "pro_codigo", "dbo.pro_projeto");
             DropForeignKey("dbo.arp_arquivosProjeto", "pro_codigo", "dbo.pro_projeto");
-            DropIndex("dbo.ust_usuarioTag", new[] { "usu_codigo" });
-            DropIndex("dbo.ust_usuarioTag", new[] { "tag_codigo" });
-            DropIndex("dbo.prt_projetoTags", new[] { "tag_codigo" });
-            DropIndex("dbo.prt_projetoTags", new[] { "pro_codigo" });
-            DropIndex("dbo.prs_projetoSalvos", new[] { "usu_codigo" });
-            DropIndex("dbo.prs_projetoSalvos", new[] { "pro_codigo" });
-            DropIndex("dbo.inp_integrantesProjeto", new[] { "pro_codigo" });
-            DropIndex("dbo.inp_integrantesProjeto", new[] { "usu_codigo" });
-            DropIndex("dbo.arp_arquivosProjeto", new[] { "pro_codigo" });
             DropTable("dbo.ust_usuarioTag");
+            DropTable("dbo.prs_projetoSalvos");
+            DropTable("dbo.den_denuncias");
             DropTable("dbo.tag_tag");
             DropTable("dbo.prt_projetoTags");
-            DropTable("dbo.prs_projetoSalvos");
             DropTable("dbo.usu_usuario");
             DropTable("dbo.inp_integrantesProjeto");
             DropTable("dbo.pro_projeto");
