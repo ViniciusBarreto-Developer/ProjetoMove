@@ -186,7 +186,7 @@
                         <li class="tag-container">
                             <div class="tag">
                                 <span class="tag-text">@item.Tag.Nome</span>
-                                <div id="remove-tag"> <input class="iconify" data-icon="tabler:x" data-inline="true" /></div>
+                                <div class="remove-tag"><span class="iconify" data-icon="tabler:x" data-inline="true"> </span></div>
                             </div>
                         </li>
                         i++;
@@ -499,15 +499,11 @@
 
         const addTag = document.querySelector('#add-tag');
 
-        const removeTag = document.querySelectorAll('#remove-tag');
-
         addTag.addEventListener('click', () => {
             const data = {
                 Id: @Model.Id,
                 PesquisaTag: tagSelect.value
             }
-
-            const newTag = tagSelect.value;
 
             fetch("/Home/AdicionarTagProjeto", {
                 method: 'POST',
@@ -524,110 +520,109 @@
                         })
                     }
                     else {
-                        renderNewTag(newTag);
+                        renderNewTags(resJson);
                     }
                 })
         })
 
+        let removeTag = document.querySelectorAll('.remove-tag');
+
         removeTag.forEach((item) => {
             item.addEventListener('click', (e) => {
-                const data = {
-                    texto: e.currentTarget.previousElementSibling.innerText
-                }
-                console.log(data);
-                fetch("/Home/ExcluirTagProjeto", {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }).then(removeTagElement(e.currentTarget));
-
+                removeTags(e);
             })
-
         })
 
-        function renderNewTag(text) {
-            const placeholder = document.querySelectorAll('.tag-placeholder');
-            if (placeholder) {
-                placeholder.forEach((item) => item.remove())
-            }
-            const tagGroups = document.querySelectorAll('.tag-group');
-
-
-            const [tagGroup, tagGroupModal] = tagGroups;
-
-            const tagContainer = document.createElement('li');
-            tagContainer.classList.add('tag-container');
-            const tag = document.createElement('div');
-            tag.classList.add('tag');
-            const tagText = document.createElement('span');
-            tagText.classList.add('tag-text');
-            tagText.innerText = text;
-            const tagIconContainer = document.createElement('div');
-            tagIconContainer.id = 'remove-tag';
-
-            const tagIcon = document.createElement('input');
-            tagIcon.classList.add('iconify');
-            tagIcon.dataset.icon = 'tabler:x';
-            tagIcon.dataset.inline = 'true';
-
-            tagIconContainer.appendChild(tagIcon);
-            tag.appendChild(tagText);
-            tag.appendChild(tagIconContainer);
-            tagContainer.appendChild(tag);
-            tagGroupModal.appendChild(tagContainer);
-
-
-            if (tagGroup.childElementCount - 1 < 3) {
-                const tagContainer2 = document.createElement('li');
-                tagContainer2.classList.add('tag-container');
-                const tag2 = document.createElement('div');
-                tag2.classList.add('tag');
-                const tagText2 = document.createElement('span');
-                tagText2.classList.add('tag-text');
-                tagText2.innerText = text;
-
-                tag2.appendChild(tagText2);
-                tagContainer2.appendChild(tag2);
-                tagGroup.insertBefore(tagContainer2, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
-            }
-            else if (tagGroup.childElementCount - 1 === 3) {
-                const tagContainerDots = document.createElement('li');
-                tagContainerDots.classList.add('tag-container');
-                const tagDots = document.createElement('div');
-                tagDots.classList.add('tag');
-                const tagTextDots = document.createElement('span');
-                tagTextDots.classList.add('tag-text');
-                tagTextDots.innerText = '...';
-
-                tagDots.appendChild(tagTextDots);
-                tagContainerDots.appendChild(tagDots);
-                tagGroup.insertBefore(tagContainerDots, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
-            }
-
-
-        }
-
-        function removeTagElement(tag) {
-            const tagContainerModal = tag.parentElement.parentElement;
-            const tagGroups = document.querySelectorAll('.tag-group');
-            const [tagGroup, tagGroupModal] = tagGroups;
-            const tagContainer = Array.from(tagGroup.children).filter((tagContainer) => tagContainer.firstElementChild.innerText === tag.previousElementSibling.innerText);
-            tagContainerModal.remove();
-
-                    console.log(tagGroup.children)
-            if (tagContainer) {
-                if (tagGroup.childElementCount - 1 === 4) {
-                    tagGroup.lastElementChild.previousElementSibling.remove();
-                    const clone = tagGroupModal.children[2].cloneNode(true);
-                    clone.firstElementChild.lastElementChild.remove();
-                    //console.log(clone);
-                    tagGroup.insertBefore(clone, document.querySelector('button[data-open-modal="modalTag"]').parentElement);
+        function removeTags(e) {
+                const data = {
+                    texto: e.currentTarget.previousElementSibling.innerText,
+                    Id: @Model.Id
                 }
-                tagContainer[0].remove();
-            }
+            fetch("/Home/ExcluirTagProjeto", {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            }).then((res) => res.json())
+                .then((resJson) => renderNewTags(resJson));
 
 
         }
+
+        function renderNewTags(resJson) {
+                    const tagGroups = document.querySelectorAll('.tag-group');
+                    const [tagGroup, tagGroupModal] = tagGroups;
+                    const tagsModal = resJson.map(({Nome }) =>
+                           `<li class="tag-container">
+                                <div class="tag">
+                                    <span class="tag-text">${Nome}</span>
+                                    <div class="remove-tag">
+                                        <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+                                    </div>
+                                </div>
+                            </li>`
+                    ).join('');
+
+                    const tamanhoJson = Object.keys(resJson).length;
+
+                    if (tamanhoJson > 3) {
+                        const tags = resJson.slice(0, 3).map(({Nome }) =>
+                            `<li class="tag-container">
+                                <div class="tag">
+                                    <span class="tag-text">${Nome}</span>
+                                </div>
+                            </li>`
+                        );
+                        tags.push(`<li class="tag-container">
+                                        <div class="tag">
+                                            <span class="tag-text">...</span>
+                                        </div>
+                                   </li>
+                                   <li>
+                                        <button class="add-tag" onclick="openModalAgain('modalTag')"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                                   </li>`
+                        );
+                        const joinedTags = tags.join('');
+                        tagGroup.innerHTML = joinedTags;
+                    }
+                    else {
+                        const tags = resJson.slice(0, tamanhoJson).map(({ Nome }) =>
+                            `<li class="tag-container">
+                                <div class="tag">
+                                    <span class="tag-text">${Nome}</span>
+                                </div>
+                            </li>`
+                        )
+                        tags.push(` <li>
+                            <button class="add-tag" onclick="openModalAgain('modalTag')"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                        </li>`)
+
+                        const joinedTags = tags.join('');
+                        tagGroup.innerHTML = joinedTags;
+                    }
+
+                    tagGroupModal.innerHTML = tagsModal;
+
+                    removeTag = document.querySelectorAll('.remove-tag');
+
+                    removeTag.forEach((item) => {
+                        item.addEventListener('click', (e) => {
+                            removeTags(e);
+                        })
+                    })
+        }
+
+        function openModalAgain(targetId) {
+            const modalBg = document.querySelector(`#${targetId}`);
+            const modal = document.querySelector(`#${targetId}`).firstElementChild
+
+            console.log(modal);
+            document.body.style.overflow = 'hidden';
+            modalBg.classList.remove('hidden');
+            modal.classList.remove('scale-out-center');
+            modal.classList.add('scale-in-center');
+
+        }
+
 
     </script>
 }

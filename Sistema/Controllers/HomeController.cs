@@ -598,18 +598,22 @@ namespace Sistema.Controllers
 
             db.UsuarioTag.Add(usutag);
             db.SaveChanges();
-            return Json("s");
+
+
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new {x.Tag.Nome}));
 
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
-        public JsonResult ExcluirTag(string texto)
+        public JsonResult ExcluirTag(string texto, int id)
         {
             var tag = db.UsuarioTag.Where(x => x.Tag.Nome == texto).ToList().FirstOrDefault();
             db.UsuarioTag.Remove(tag);
             db.SaveChanges();
 
-            return Json(null);
+            var usu = db.Usuario.Where(t => t.Id == id).ToList().FirstOrDefault();
+
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new {x.Tag.Nome }));
         }
         public ActionResult ExcluirProjetosSalvos(int id)
         {
@@ -808,17 +812,21 @@ namespace Sistema.Controllers
             db.ProjetoTags.Add(protag);
             db.SaveChanges();
 
-            return Json("s");
+            var pro = db.Projeto.Where(t => t.Id == vmp.Id).ToList().FirstOrDefault();
+
+            return Json(db.ProjetoTags.Where(x => x.ProjetoId == pro.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome }));
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateInput(false)]
-        public JsonResult ExcluirTagProjeto(string texto)
+        public JsonResult ExcluirTagProjeto(string texto, int id)
         {
             var tag = db.ProjetoTags.Where(x => x.Tag.Nome == texto).ToList().FirstOrDefault();
             db.ProjetoTags.Remove(tag);
             db.SaveChanges();
 
-            return Json(null);
+            var pro = db.Projeto.Where(t => t.Id == id).ToList().FirstOrDefault();
+
+            return Json(db.ProjetoTags.Where(x => x.ProjetoId == pro.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome }));
         }
         public ActionResult AdicionarUpload(HttpPostedFileBase arq, VMProjeto vmp)
         {
@@ -981,7 +989,14 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id));
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome}));
+        }
+
+        public JsonResult TagsProjeto(int id)
+        {
+            var pro = db.Projeto.Where(t => t.Id == id).ToList().FirstOrDefault();
+
+            return Json(db.ProjetoTags.Where(x => x.ProjetoId == pro.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome }));
         }
         public JsonResult SalvarProjeto(int id)
         {

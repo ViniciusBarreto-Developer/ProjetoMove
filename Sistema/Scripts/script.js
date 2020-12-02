@@ -46,9 +46,11 @@ function modalBehavior() {
 
         function openModal(targetId) {
             return () => {
+                console.log(targetId);
                 const modalBg = document.querySelector(`#${targetId}`);
                 const modal = document.querySelector(`#${targetId}`).firstElementChild
 
+                console.log(modal);
                 document.body.style.overflow = 'hidden';
                 modalBg.classList.remove('hidden');
                 modal.classList.remove('scale-out-center');
@@ -85,6 +87,7 @@ function modalBehavior() {
         }
     }
 }
+
 
 function editBio() {
     const bioTxt = document.querySelector('#editTxt');
