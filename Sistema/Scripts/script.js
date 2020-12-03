@@ -120,7 +120,7 @@ function validateEmail() {
             "Content-Type": "application/json",
             "Access-Control-Origin": "*"
         }
-        emailInput.addEventListener('focusout', () => {
+        emailInput.addEventListener('change', () => {
 
             const data = {
                 email: emailInput.value
@@ -139,6 +139,7 @@ function validateEmail() {
                         button.setAttribute("disabled", "disabled");
                     }
                     else {
+                        msg.innerText = "";
                         button.removeAttribute("disabled");
                     }
                 });
@@ -155,7 +156,7 @@ function validateEmailRecuperacao() {
             "Content-Type": "application/json",
             "Access-Control-Origin": "*"
         }
-        emailInput.addEventListener('focusout', () => {
+        emailInput.addEventListener('change', () => {
 
             const data = {
                 email: emailInput.value
