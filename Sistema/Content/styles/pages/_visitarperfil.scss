@@ -1,0 +1,23 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+
+
+.username-wrapper {
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+ 
+
+    .username {
+        display: inline;
+    }
+
+    .btn-report {
+        position: absolute;
+        top: 0;
+        right: -3rem;
+    }
+
+}

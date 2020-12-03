@@ -115,6 +115,13 @@ a.btn {
 }
 
 
+.btn-report {
+    background: none;
+    border: none;
+    font-size: $font-size-title;
+    color: $danger-color;
+}
+
 @include medium-max() {
     .form-btns {
         flex-direction: column;

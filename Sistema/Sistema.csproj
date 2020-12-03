@@ -230,6 +230,7 @@
     <Content Include="Content\styles\pages\_visitarprojeto.scss" />
     <Content Include="Content\styles\pages\_visualizarpdf.scss" />
     <Content Include="Content\styles\pages\_editarperfil.scss" />
+    <Content Include="Content\styles\pages\_visitarperfil.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
