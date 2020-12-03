@@ -338,8 +338,8 @@ namespace Sistema.Controllers
                     usu.Celular = edit.Celular;
                     usu.DataNascimento = edit.DataNascimento;
                     usu.Cpf = edit.Cpf;
-                    edit.Email = usu.Email;
-                    edit.EmailRecuperacao = usu.EmailRecuperacao;
+                    usu.Email = edit.Email;
+                    usu.EmailRecuperacao = edit.EmailRecuperacao;
 
                     if (edit.Senha != null)
                     {
