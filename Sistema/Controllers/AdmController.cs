@@ -101,6 +101,14 @@ namespace Sistema.Controllers
             usu.Inativo = "Adm";
             db.Usuario.AddOrUpdate(usu);
 
+            foreach (var item in db.IntegrantesProjeto){
+                if(item.UsuarioID == usu.Id)
+                {
+                    IntegrantesProjeto integrante = db.IntegrantesProjeto.Find(item.Id);
+
+                }
+            }
+
             db.SaveChanges();
 
             TempData["MSG"] = "success|Usuario Excluído!";
