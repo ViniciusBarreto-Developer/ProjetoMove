@@ -48,10 +48,11 @@
     .username {
         font-size: $font-size-title;
         text-align: center;
-        margin-bottom: 2rem !important;
+        max-width: 16rem;
     }
 
     .profile-info {
+        margin-top: 2rem;
         display: grid;
         /*grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
        grid-template-rows: 1fr 1fr;*/
