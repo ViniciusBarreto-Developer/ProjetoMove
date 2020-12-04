@@ -30,6 +30,7 @@ namespace Sistema.Models
         public Boolean Adm { get; set; }
         [Display(Name = "Quantidade de Dias:")]
         public int Punicao { get; set; }
+        public IntegrantesProjeto EuIntegrante { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }

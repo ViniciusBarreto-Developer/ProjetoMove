@@ -45,11 +45,14 @@ namespace Sistema.Models
             pro.Property(x => x.Logo).HasColumnName("pro_logo");
             pro.Property(x => x.DataCadastro).HasColumnName("pro_dataCadastro");
             pro.Property(x => x.Ativo).HasColumnName("pro_ativo");
+            pro.Property(x => x.Punicao).HasColumnName("pro_punicao");
+            pro.Property(x => x.Inativo).HasColumnName("pro_inativo");
 
             var tag = mb.Entity<Tag>();
             tag.ToTable("tag_tag");
             tag.Property(x => x.Id).HasColumnName("tag_codigo");
             tag.Property(x => x.Nome).HasColumnName("tag_nome");
+            tag.Property(x => x.Pesquisada).HasColumnName("tag_pesquisada");
 
             var arp = mb.Entity<ArquivosProjeto>();
             arp.ToTable("arp_arquivosProjeto");
@@ -64,6 +67,8 @@ namespace Sistema.Models
             inp.Property(x => x.ProjetoId).HasColumnName("pro_codigo");
             inp.Property(x => x.UsuarioID).HasColumnName("usu_codigo");
             inp.Property(x => x.Adm).HasColumnName("inp_adm");
+            inp.Property(x => x.Ativo).HasColumnName("inp_ativo");
+            inp.Property(x => x.Inativo).HasColumnName("inp_inativo");
 
             var prt = mb.Entity<ProjetoTags>();
             prt.ToTable("prt_projetoTags");
@@ -89,6 +94,9 @@ namespace Sistema.Models
             den.Property(x => x.DataCadastro).HasColumnName("den_dataCadastro");
             den.Property(x => x.Motivo).HasColumnName("den_motivo");
             den.Property(x => x.Status).HasColumnName("den_status");
+            den.Property(x => x.Punicao).HasColumnName("den_punicao");
+            den.Property(x => x.DataPunicao).HasColumnName("den_dataPunicao");
+            den.Property(x => x.AdmId).HasColumnName("den_admId");
             den.Property(x => x.UsuarioDenuncianteId).HasColumnName("den_usuarioDenuncianteId");
             den.Property(x => x.UsuarioDenunciadoId).HasColumnName("den_usuarioDenunciadoId");
             den.Property(x => x.ProjetoDenunciadoId).HasColumnName("den_projetoDenunciadoId");

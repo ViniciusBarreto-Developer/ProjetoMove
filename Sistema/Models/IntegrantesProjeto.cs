@@ -16,6 +16,8 @@ namespace Sistema.Models
         public int ProjetoId { get; set; }
         [Required]
         public Boolean Adm { get; set; }
+        public Boolean Ativo { get; set; }
+        public string Inativo { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Projeto Projeto { get; set; }
         ICollection<Projeto> Projetos { get; set; }

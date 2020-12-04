@@ -25,10 +25,12 @@ namespace Sistema.Migrations
                     {
                         pro_codigo = c.Int(nullable: false, identity: true),
                         pro_nome = c.String(nullable: false, maxLength: 50, storeType: "nvarchar"),
-                        pro_descricao = c.String(maxLength: 500, storeType: "nvarchar"),
-                        pro_logo = c.String(unicode: false),
+                        pro_descricao = c.String(nullable: false, maxLength: 500, storeType: "nvarchar"),
+                        pro_logo = c.String(nullable: false, unicode: false),
                         pro_dataCadastro = c.DateTime(nullable: false, precision: 0),
                         pro_ativo = c.Boolean(nullable: false),
+                        pro_punicao = c.DateTime(precision: 0),
+                        pro_inativo = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.pro_codigo);
             
@@ -40,6 +42,8 @@ namespace Sistema.Migrations
                         usu_codigo = c.Int(nullable: false),
                         pro_codigo = c.Int(nullable: false),
                         inp_adm = c.Boolean(nullable: false),
+                        inp_ativo = c.Boolean(nullable: false),
+                        inp_inativo = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.inp_codigo)
                 .ForeignKey("dbo.pro_projeto", t => t.pro_codigo, cascadeDelete: true)
@@ -61,6 +65,9 @@ namespace Sistema.Migrations
                         usu_biografia = c.String(unicode: false),
                         usu_ativo = c.Boolean(nullable: false),
                         Hash = c.String(unicode: false),
+                        usu_adm = c.Boolean(nullable: false),
+                        usu_punicao = c.DateTime(precision: 0),
+                        usu_inativo = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.usu_codigo);
             
@@ -82,6 +89,7 @@ namespace Sistema.Migrations
                     {
                         tag_codigo = c.Int(nullable: false, identity: true),
                         tag_nome = c.String(nullable: false, unicode: false),
+                        tag_pesquisada = c.Int(),
                     })
                 .PrimaryKey(t => t.tag_codigo);
             
@@ -93,11 +101,15 @@ namespace Sistema.Migrations
                         den_dataCadastro = c.String(nullable: false, unicode: false),
                         den_motivo = c.String(nullable: false, unicode: false),
                         den_status = c.String(nullable: false, unicode: false),
+                        den_punicao = c.Int(),
+                        den_dataPunicao = c.DateTime(precision: 0),
                         den_usuarioDenuncianteId = c.Int(nullable: false),
                         den_usuarioDenunciadoId = c.Int(),
                         den_projetoDenunciadoId = c.Int(),
+                        den_admId = c.Int(),
                     })
                 .PrimaryKey(t => t.den_codigo)
+                .ForeignKey("dbo.usu_usuario", t => t.den_admId)
                 .ForeignKey("dbo.pro_projeto", t => t.den_projetoDenunciadoId)
                 .ForeignKey("dbo.usu_usuario", t => t.den_usuarioDenunciadoId)
                 .ForeignKey("dbo.usu_usuario", t => t.den_usuarioDenuncianteId, cascadeDelete: true);
@@ -113,15 +125,15 @@ namespace Sistema.Migrations
                 .PrimaryKey(t => t.prs_codigo)
                 .ForeignKey("dbo.pro_projeto", t => t.pro_codigo, cascadeDelete: true)
                 .ForeignKey("dbo.usu_usuario", t => t.usu_codigo, cascadeDelete: true);
-
+            
             CreateTable(
                 "dbo.ust_usuarioTag",
                 c => new
-                {
-                    ust_codigo = c.Int(nullable: false, identity: true),
-                    tag_codigo = c.Int(nullable: false),
-                    usu_codigo = c.Int(nullable: false),
-                })
+                    {
+                        ust_codigo = c.Int(nullable: false, identity: true),
+                        tag_codigo = c.Int(nullable: false),
+                        usu_codigo = c.Int(nullable: false),
+                    })
                 .PrimaryKey(t => t.ust_codigo)
                 .ForeignKey("dbo.tag_tag", t => t.tag_codigo, cascadeDelete: true)
                 .ForeignKey("dbo.usu_usuario", t => t.usu_codigo, cascadeDelete: true);
@@ -137,6 +149,7 @@ namespace Sistema.Migrations
             DropForeignKey("dbo.den_denuncias", "den_usuarioDenuncianteId", "dbo.usu_usuario");
             DropForeignKey("dbo.den_denuncias", "den_usuarioDenunciadoId", "dbo.usu_usuario");
             DropForeignKey("dbo.den_denuncias", "den_projetoDenunciadoId", "dbo.pro_projeto");
+            DropForeignKey("dbo.den_denuncias", "den_admId", "dbo.usu_usuario");
             DropForeignKey("dbo.prt_projetoTags", "tag_codigo", "dbo.tag_tag");
             DropForeignKey("dbo.prt_projetoTags", "pro_codigo", "dbo.pro_projeto");
             DropForeignKey("dbo.inp_integrantesProjeto", "usu_codigo", "dbo.usu_usuario");

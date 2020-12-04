@@ -19,6 +19,10 @@ namespace Sistema.Models
         [Required]
         public string Status { get; set; }
 
+        public int Punicao { get; set; }
+
+        public DateTime DataPunicao { get; set; }        
+
         [Required]        
         public int UsuarioDenuncianteId { get; set; }
 
@@ -34,6 +38,11 @@ namespace Sistema.Models
 
         [ForeignKey("ProjetoDenunciadoId")]
         public virtual Projeto ProjetoDenunciado { get; set; }
+
+        public int? AdmId { get; set; }
+
+        [ForeignKey("AdmId")]
+        public virtual Usuario Adm { get; set; }
 
     }
 }
