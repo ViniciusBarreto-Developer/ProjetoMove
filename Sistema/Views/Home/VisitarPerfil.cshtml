@@ -189,18 +189,10 @@
                     </div>
 
                     <div>
-                        @Html.RadioButtonFor(model => model.MotivoDenuncia, "Falsidade Ideológica", new { id = "falsidade" })
-                        <label class="infracao" for="falsidade">
+                        @Html.RadioButtonFor(model => model.MotivoDenuncia, "Perfil Falso", new { id = "falso" })
+                        <label class="infracao" for="falso">
                             <span class="indicator"></span>
-                            <span class="label-text">Falsidade Ideológica (Usuário se passando por outra pessoa.)</span>
-                        </label>
-                    </div>
-
-                    <div>
-                        @Html.RadioButtonFor(model => model.MotivoDenuncia, "Usuário Fake", new { id = "fake" })
-                        <label class="infracao" for="fake">
-                            <span class="indicator"></span>
-                            <span class="label-text">Usuário Fake (Usuário não existe de verdade.)</span>
+                            <span class="label-text">Falsidade Ideológica (ex: utilizar foto, informações de outra pessoa, assumir uma identidade inexistente...)</span>
                         </label>
                     </div>
 

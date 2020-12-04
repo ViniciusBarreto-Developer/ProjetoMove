@@ -58,6 +58,12 @@ namespace Sistema.Controllers
                             bool meu = false;
 
                             Projeto pro = db.Projeto.Find(protag.ProjetoId);
+
+                            if (pro.Punicao > DateTime.Now)
+                            {
+                                break;
+                            }
+
                             foreach (var subitem in pro.IntegrantesProjetos)
                             {
                                 if (subitem.UsuarioID == usu.Id && subitem.Ativo == true)
@@ -104,7 +110,11 @@ namespace Sistema.Controllers
             {
                 if (vmp.PesquisaTag != null)
                 {
-                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo == true).ToList();
+                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo == true && x.Projeto.Punicao < DateTime.Now).ToList();
+
+                    Tag tag = db.Tag.Where(x => x.Nome == vmp.PesquisaTag).FirstOrDefault();
+                    tag.Pesquisada++;
+
                     return View(vmpNova);
                 }
                 return View();
@@ -631,7 +641,7 @@ namespace Sistema.Controllers
             vmp.Email = usu.Email;
             vmp.Foto = usu.Foto;
             vmp.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
-            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.Ativo == true).ToList();
+            vmp.IntegrantesProjetos = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.Ativo == true && x.Projeto.Punicao < DateTime.Now).ToList();
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
 
             return View(vmp);
