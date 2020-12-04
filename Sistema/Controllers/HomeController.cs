@@ -773,6 +773,7 @@ namespace Sistema.Controllers
                     vmp.ProjetoTags = pro.ProjetoTags;
                     vmp.ArquivosProjetos = pro.ArquivosProjetos;
                     vmp.IntegrantesProjetos = pro.IntegrantesProjetos.Where(x => x.Ativo == true).ToList();
+                    vmp.EuIntegrante = vmp.IntegrantesProjetos.Where(x => x.UsuarioID == usu.Id).FirstOrDefault();
                     vmp.Ativo = pro.Ativo;
 
                     if (user[1] == "adm")
