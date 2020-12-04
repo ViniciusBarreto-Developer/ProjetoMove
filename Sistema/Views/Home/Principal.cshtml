@@ -70,59 +70,37 @@
             int quant = 0;
             foreach (var item in Model.ProjetoTags)
             {
-                bool meuProjeto = false, projetoSalvo = false;
+                <div class="card-container">
+                    <div class="project-card">
+                        <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
+                            </div>
+                            <div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                            </div>
+                            <ul class="card-tags">
+                                @{
+                                    int n = 0;
 
-                foreach (var meu in item.Projeto.IntegrantesProjetos)
-                {
-                    if (meu.UsuarioID == Model.UsuarioId)
-                    {
-                        meuProjeto = true;
-                    }
-                }
-                if (Model.ProjetosSalvos != null)
-                {
-                    foreach (var salvo in Model.ProjetosSalvos)
-                    {
-                        if (item.ProjetoId == salvo.ProjetoId)
-                        {
-                            projetoSalvo = true;
-                        }
-                    }
-                }
-
-                if (meuProjeto == false && projetoSalvo == false)
-                {
-                    <div class="card-container">
-                        <div class="project-card">
-                            <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
-                                <div class="card-img">
-                                    <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
-                                </div>
-                                <div>
-                                    <h3 class="card-title">@item.Projeto.Nome</h3>
-                                    <p class="card-text">@item.Projeto.Descricao</p>
-                                </div>
-                                <ul class="card-tags">
-                                    @{
-                                        int n = 0;
-
-                                        foreach (var pro in item.Projeto.ProjetoTags)
+                                    foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+                                        if (n < 3)
                                         {
-                                            if (n < 3)
-                                            {
-                                                <li class="tag-container">
-                                                    <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                                </li>
-                                                n++;
-                                            }
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
                                         }
                                     }
-                                </ul>
-                            </a>
-                        </div>
+                                }
+                            </ul>
+                        </a>
                     </div>
-                    quant++;
-                }
+                </div>
+                quant++;
+
             }
             if (quant == 0)
             {

@@ -38,13 +38,9 @@ namespace Sistema.Controllers
             vmp.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
             List<ProjetoTags> recomenda = new List<ProjetoTags>();
 
-            if (vmp.PesquisaTag != null)
+            if (vmp.UsuarioTags.Count() > 0)
             {
-                vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
-            }
-            else if (vmp.UsuarioTags.Count() > 0)
-            {
-                vmp.ProjetoTags = db.ProjetoTags.OrderBy(x => x.ProjetoId).ToList();
+                vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Projeto.Ativo == true).OrderBy(x => x.ProjetoId).ToList();
 
                 int proId = 0;
                 foreach (var protag in vmp.ProjetoTags)
@@ -57,12 +53,39 @@ namespace Sistema.Controllers
                             {
                                 break;
                             }
-                            recomenda.Add(protag);
-                            proId = protag.ProjetoId;
-                            break;
+
+                            bool salvo = false;
+                            bool meu = false;
+
+                            Projeto pro = db.Projeto.Find(protag.ProjetoId);
+                            foreach (var subitem in pro.IntegrantesProjetos)
+                            {
+                                if (subitem.UsuarioID == usu.Id && subitem.Ativo == true)
+                                {
+                                    meu = true;
+                                    break;
+                                }
+                            }
+                            var prosal = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+                            foreach (var subitem in prosal)
+                            {
+                                if (subitem.ProjetoId == protag.ProjetoId)
+                                {
+                                    salvo = true;
+                                    break;
+                                }
+                            }
+
+                            if (salvo == false && meu == false)
+                            {
+                                recomenda.Add(protag);
+                                proId = protag.ProjetoId;
+                                break;
+                            }
                         }
                     }
                 }
+
                 vmp.ProjetoTags = recomenda;
             }
             return View(vmp);
@@ -81,7 +104,7 @@ namespace Sistema.Controllers
             {
                 if (vmp.PesquisaTag != null)
                 {
-                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo != false).ToList();
+                    vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo == true).ToList();
                     return View(vmpNova);
                 }
                 return View();
@@ -90,27 +113,37 @@ namespace Sistema.Controllers
             vmpNova.UsuarioId = usu.Id;
             vmpNova.UsuarioTags = db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList();
             vmpNova.ProjetosSalvos = db.ProjetosSalvos.Where(x => x.UsuarioId == usu.Id).ToList();
+            List<ProjetoTags> resultado = new List<ProjetoTags>();
 
             if (vmp.PesquisaTag != null)
             {
-                vmpNova.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo != false).ToList();
-            }
+                foreach (var item in db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag && x.Projeto.Ativo == true).ToList())
+                {
+                    bool salvo = false;
+                    bool meu = false;
 
+                    foreach (var subitem in item.Projeto.IntegrantesProjetos)
+                    {
+                        if (subitem.UsuarioID == usu.Id && subitem.Ativo == true)
+                        {
+                            meu = true;
+                        }
+                    }
+                    foreach (var subitem in vmpNova.ProjetosSalvos)
+                    {
+                        if (subitem.ProjetoId == item.ProjetoId)
+                        {
+                            salvo = true;
+                        }
+                    }
+                    if (meu == false && salvo == false)
+                    {
+                        resultado.Add(item);
+                    }
+                }
+            }
+            vmpNova.ProjetoTags = resultado;
             return View(vmpNova);
-        }
-        [HttpPost]
-        public ActionResult PesquisarProjetos(VMPrincipal vmp)
-        {
-            vmp.ProjetoTags = db.ProjetoTags.Where(x => x.Tag.Nome == vmp.PesquisaTag).ToList();
-
-            Tag tag = db.Tag.Where(x => x.Nome == vmp.PesquisaTag).FirstOrDefault();
-
-            if (tag != null)
-            {
-                tag.Pesquisada++;
-            }
-
-            return RedirectToAction("Principal", new { vmp });
         }
         public ActionResult Cadastro()
         {
@@ -153,7 +186,7 @@ namespace Sistema.Controllers
                 usu.EmailRecuperacao = cad.EmailRecuperacao;
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
                 usu.Biografia = "";
-                usu.Ativo = true;                
+                usu.Ativo = true;
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();
@@ -239,17 +272,20 @@ namespace Sistema.Controllers
             senhacrip).ToList().FirstOrDefault();
             if (usu != null && usu.Ativo == true)
             {
-                if (usu.Punicao != null)
+                int result = DateTime.Compare(usu.Punicao, DateTime.Now);
+                if (result > 0)
                 {
-                    int result = DateTime.Compare(usu.Punicao, DateTime.Now);
-                    if (result > 0)
-                    {
-                        int dias = (usu.Punicao - DateTime.Now).Days;
-                        TempData["MSG"] = "error|Sua conta foi bloqueada temporariamente por infringir as regras da comunidade. Sua conta será desbloqueada em " + dias + "dia(s)";
-                        return View();
-                    }
+                    int dias = (usu.Punicao - DateTime.Now).Days;
+                    TempData["MSG"] = "error|Sua conta foi bloqueada temporariamente por infringir as regras da comunidade. Sua conta será desbloqueada em " + dias + "dia(s)";
+                    return View();
                 }
-                
+
+                if (usu.Inativo == "Adm")
+                {
+                    TempData["MSG"] = "error|Sua conta foi bloqueada por infringir as regras da comunidade.";
+                    return View();
+                }
+
                 if (usu.Adm == true)
                 {
                     FormsAuthentication.SetAuthCookie(usu.Email + "|" + "adm", false);
@@ -258,11 +294,6 @@ namespace Sistema.Controllers
 
                 FormsAuthentication.SetAuthCookie(usu.Email + "|" + usu.Nome, false);
                 return RedirectToAction("Principal", "Home");
-            }
-            else if (usu.Inativo == "Adm")
-            {
-                TempData["MSG"] = "error|Sua conta foi bloqueada por infringir as regras da comunidade.";
-                return View();
             }
             else
             {
@@ -388,7 +419,7 @@ namespace Sistema.Controllers
                     int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == item.ProjetoId).Count();
                     int quant = db.IntegrantesProjeto.Where(x => x.ProjetoId == item.ProjetoId && x.Ativo == true).Count();
 
-                    if(item.Adm == true)
+                    if (item.Adm == true)
                     {
                         if (quant == 1)
                         {
@@ -402,7 +433,7 @@ namespace Sistema.Controllers
                             db.Projeto.AddOrUpdate(pro);
                             db.SaveChanges();
                         }
-                        else if(quantAdm > 1)
+                        else if (quantAdm > 1)
                         {
                             inte.Ativo = false;
                             inte.Inativo = "Usuário";
@@ -678,7 +709,7 @@ namespace Sistema.Controllers
             db.SaveChanges();
 
 
-            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new {x.Tag.Nome}));
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Nome }));
 
         }
         [AcceptVerbs(HttpVerbs.Post)]
@@ -691,7 +722,7 @@ namespace Sistema.Controllers
 
             var usu = db.Usuario.Where(t => t.Id == id).ToList().FirstOrDefault();
 
-            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new {x.Tag.Nome }));
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Nome }));
         }
         public ActionResult ExcluirProjetosSalvos(int id)
         {
@@ -961,7 +992,7 @@ namespace Sistema.Controllers
             {
                 if (item.UsuarioID == usu.Id)
                 {
-                    if(item.Ativo == true)
+                    if (item.Ativo == true)
                     {
                         TempData["MSG"] = "error|Integrante já adicionado";
                         return RedirectToAction("MeuProjeto", new { id = vmp.Id });
@@ -976,10 +1007,10 @@ namespace Sistema.Controllers
 
                         return RedirectToAction("MeuProjeto", new { id = vmp.Id });
                     }
-                    
+
                 }
             }
-            
+
             integrante.Adm = false;
             integrante.Ativo = true;
             integrante.ProjetoId = vmp.Id;
@@ -1099,7 +1130,7 @@ namespace Sistema.Controllers
             string email = user[0];
             var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome}));
+            return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Id, x.Tag.Nome }));
         }
 
         public JsonResult TagsProjeto(int id)
