@@ -93,6 +93,7 @@ namespace Sistema.Models
             den.Property(x => x.Id).HasColumnName("den_codigo");
             den.Property(x => x.DataCadastro).HasColumnName("den_dataCadastro");
             den.Property(x => x.Motivo).HasColumnName("den_motivo");
+            den.Property(x => x.Observacao).HasColumnName("den_observacao");
             den.Property(x => x.Status).HasColumnName("den_status");
             den.Property(x => x.Punicao).HasColumnName("den_punicao");
             den.Property(x => x.DataPunicao).HasColumnName("den_dataPunicao");

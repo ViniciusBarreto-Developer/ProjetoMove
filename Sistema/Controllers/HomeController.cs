@@ -1188,7 +1188,13 @@ namespace Sistema.Controllers
             den.UsuarioDenunciadoId = vmp.Id;
             den.DataCadastro = DateTime.Now.ToString();
             den.Status = "Esperando análise";
+            if(vmp.MotivoDenuncia == null)
+            {
+                TempData["MSG"] = "error|Selecione uma Opção!";
+                return RedirectToAction("VisitarPerfil", new { id = vmp.Id });
+            }
             den.Motivo = vmp.MotivoDenuncia;
+            den.Observacao = vmp.Observacao;
 
             db.Denuncias.Add(den);
             db.SaveChanges();

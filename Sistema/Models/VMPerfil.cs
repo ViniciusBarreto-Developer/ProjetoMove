@@ -23,6 +23,7 @@ namespace Sistema.Models
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public string MotivoDenuncia { get; set; }
+        public string Observacao { get; set; }
         public Boolean Adm { get; set; }
         [Display(Name = "Quantidade de Dias:")]
         public int Punicao { get; set; }
