@@ -1,6 +1,7 @@
 ﻿@import '../abstracts/variables';
 @import '../abstracts/mixins';
 
+
 .descricao {
     position: relative;
 
@@ -37,5 +38,11 @@
                 }
             }
         }
+    }
+
+    .btn-report {
+        position: absolute;
+        top: -1rem;
+        right: 0;
     }
 }

@@ -1635,6 +1635,10 @@ input[type=radio]:checked + label .indicator::after {
   .descricao .salvo svg:hover path {
     fill: #02e88f;
     transition: fill 0.2s; }
+  .descricao .btn-report {
+    position: absolute;
+    top: -1rem;
+    right: 0; }
 
 .username-wrapper {
   text-align: center;
