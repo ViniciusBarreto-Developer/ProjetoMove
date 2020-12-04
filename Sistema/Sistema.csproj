@@ -231,6 +231,9 @@
     <Content Include="Content\styles\pages\_visualizarpdf.scss" />
     <Content Include="Content\styles\pages\_editarperfil.scss" />
     <Content Include="Content\styles\pages\_visitarperfil.scss" />
+    <Content Include="Content\styles\components\_modaldenuncia.scss" />
+    <Content Include="Content\styles\components\_radio.scss" />
+    <Content Include="Content\styles\components\_textarea.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />

@@ -1,0 +1,49 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+.modal.modal-denuncia {
+
+    .modal-body {
+
+        .infracoes-help {
+            margin-bottom: 3rem;
+            :first-child {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .infracoes-container {
+            max-width: 500px;
+            margin: 0 auto;
+
+
+            .infracao {
+                padding: 0;
+                text-align: left;
+                margin-bottom: 2rem;
+                display: flex;
+                justify-content: space-between;
+
+                .label-text {
+                    flex-shrink: 1;
+                }
+
+                .indicator {
+                    flex-shrink: 0;
+                }
+
+            }
+        }
+
+        .denuncia-obs-container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1vw 0 1vw;
+        }
+    }
+
+    .modal-footer {
+        padding-top: 0;
+        text-align: center;
+    }
+}

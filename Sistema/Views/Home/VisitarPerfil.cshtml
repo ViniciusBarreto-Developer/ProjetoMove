@@ -24,14 +24,14 @@
         </div>
     </div>
 
-    <div class="username-wrapper" >
+    <div class="username-wrapper">
         <h1 class="username">@Model.Nome</h1>
         <button class="btn-report" data-open-modal="modalDenuncia"><span class="iconify" data-icon="tabler:alert-octagon" data-inline="true"></span></button>
     </div>
 
     <div class="profile-info">
         <div class="bio">
-            <textarea class="bio-text">@Model.Biografia</textarea>
+            <p class="bio-text">@Model.Biografia</p>
         </div>
     </div>
 
@@ -154,7 +154,7 @@
 </div>
 
 <div class="modal-bg hidden" id="modalDenuncia">
-    <div class="modal">
+    <div class="modal modal-denuncia">
         <div class="modal-header">
             <h3 class="modal-title">Denunciar Usuário</h3>
             <div class="close-modal" data-close-modal="modalDenuncia">
@@ -162,21 +162,59 @@
             </div>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("DenunciarUsuario", "Home", FormMethod.Post))
-            {
-                <div class="modal-body">
-                    <div class="form-group">
-                        @Html.HiddenFor(model => model.Id)
-                        @Html.LabelFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.TextAreaFor(model => model.MotivoDenuncia, htmlAttributes: new { @class = "bio-text" })
-                        @Html.ValidationMessageFor(model => model.MotivoDenuncia, "", new { @class = "text-danger" })
-                    </div>
+            @*@using (Html.BeginForm("DenunciarUsuario", "Home", FormMethod.Post))
+        {*@
+            <div class="infracoes-help">
+                <p>Lamentamos que isso aconteceu ;(</p>
+                <p>Selecione abaixo o tipo de infração que ocorreu(selecione apenas uma opção).</p>
+            </div>
+
+            <div class="infracoes-container">
+                <div>
+                    <input id="linguajar" type="radio" name="infracao" value="linguajar" />
+                    <label class="infracao" for="linguajar">
+                        <span class="indicator"></span>
+                        <span class="label-text">Linguajar impróprio(ex: palavrões...)</span>
+                    </label>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary">Denunciar</button>
+
+
+                <div>
+                    <input id="imagem" type="radio" name="infracao" value="imagem" />
+                    <label class="infracao" for="imagem">
+                        <span class="indicator"></span>
+                        <span class="label-text">Imagens de conteúdo impróprio(ex: pornografia...)</span>
+                    </label>
                 </div>
-            }
+
+                <div>
+                    <input id="odio" type="radio" name="infracao" value="odio" />
+                    <label class="infracao" for="odio">
+                        <span class="indicator"></span>
+                        <span class="label-text">Crime de ódio(ex: injuria racial, homofobia...)</span>
+                    </label>
+                </div>
+
+                <div>
+                    <input id="plagio" type="radio" name="infracao" value="plagio" />
+                    <label class="infracao" for="plagio">
+                        <span class="indicator"></span>
+                        <span class="label-text">Plágio(ex: trabalho copiado de um terceiro...)</span>
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="denuncia-obs-container">
+                <label>Se deseja fazer alguma observação, insira abaixo</label>
+                <textarea class="textarea"></textarea>
+            </div>
         </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary">Denunciar</button>
+        </div>
+        @* } *@
     </div>
 </div>
 
