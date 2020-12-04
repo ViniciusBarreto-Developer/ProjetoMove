@@ -300,7 +300,19 @@
 
             @using (Html.BeginForm("AdicionarIntegrante", "Home", FormMethod.Post))
             {
-                if (Model.EuIntegrante.Adm == true)
+                if (Model.Adm == true)
+                {
+                    <div class="search-email">
+                        @Html.LabelFor(model => model.PesquisaEmail)
+                        <div class="search-group">
+                            @Html.EditorFor(model => model.PesquisaEmail)
+                            @Html.HiddenFor(model => model.Id)
+                            <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
+                            <span id="msg"></span>
+                        </div>
+                    </div>
+                }
+                else if (Model.EuIntegrante.Adm == true)
                 {
                     <div class="search-email">
                         @Html.LabelFor(model => model.PesquisaEmail)

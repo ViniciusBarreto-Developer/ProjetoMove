@@ -16,6 +16,8 @@ namespace Sistema.Models
         [Required]
         public string Motivo { get; set; }
 
+        public string Observacao { get; set; }
+
         [Required]
         public string Status { get; set; }
 

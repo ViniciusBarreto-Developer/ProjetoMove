@@ -31,6 +31,7 @@ namespace Sistema.Models
         [Display(Name = "Quantidade de Dias:")]
         public int Punicao { get; set; }
         public IntegrantesProjeto EuIntegrante { get; set; }
+        public string Observacao { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }
         public virtual ICollection<ArquivosProjeto> ArquivosProjetos { get; set; }
         public virtual ICollection<ProjetoTags> ProjetoTags { get; set; }
