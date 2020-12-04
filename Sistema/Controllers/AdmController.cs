@@ -66,7 +66,7 @@ namespace Sistema.Controllers
             db.Denuncias.AddOrUpdate(den);
             db.SaveChanges();
 
-            if(den.ProjetoDenunciado == null)
+            if (den.ProjetoDenunciado == null)
             {
                 return RedirectToAction("DenunciaUsuario");
             }
@@ -99,21 +99,71 @@ namespace Sistema.Controllers
             Usuario usu = db.Usuario.Find(vmp.Id);
             usu.Ativo = false;
             usu.Inativo = "Adm";
+
             db.Usuario.AddOrUpdate(usu);
+            db.SaveChanges();
 
-            foreach (var item in db.IntegrantesProjeto){
-                if(item.UsuarioID == usu.Id)
+            var integrante = db.IntegrantesProjeto.Where(x => x.UsuarioID == usu.Id && x.Ativo == true).ToList();
+
+            foreach (var item in integrante)
+            {
+                Projeto pro = db.Projeto.Find(item.ProjetoId);
+                IntegrantesProjeto inte = db.IntegrantesProjeto.Find(item.Id);
+                int quantAdm = db.IntegrantesProjeto.Where(x => x.Adm == true && x.ProjetoId == item.ProjetoId).Count();
+                int quant = db.IntegrantesProjeto.Where(x => x.ProjetoId == item.ProjetoId && x.Ativo == true).Count();
+
+                if (item.Adm == true)
                 {
-                    IntegrantesProjeto integrante = db.IntegrantesProjeto.Find(item.Id);
+                    if (quant == 1)
+                    {
+                        inte.Ativo = false;
+                        inte.Inativo = "Usuário";
+                        db.IntegrantesProjeto.AddOrUpdate(inte);
+                        db.SaveChanges();
 
+                        pro.Ativo = false;
+                        pro.Inativo = "Usuário";
+                        db.Projeto.AddOrUpdate(pro);
+                        db.SaveChanges();
+                    }
+                    else if (quantAdm > 1)
+                    {
+                        inte.Ativo = false;
+                        inte.Inativo = "Usuário";
+                        inte.Adm = false;
+                        db.IntegrantesProjeto.AddOrUpdate(inte);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        IntegrantesProjeto NovoAdm = db.IntegrantesProjeto.Where(x => x.ProjetoId == item.ProjetoId && x.UsuarioID != usu.Id).FirstOrDefault();
+
+                        NovoAdm.Adm = true;
+                        db.IntegrantesProjeto.AddOrUpdate(NovoAdm);
+                        db.SaveChanges();
+
+                        inte.Ativo = false;
+                        inte.Inativo = "Usuário";
+                        inte.Adm = false;
+                        db.IntegrantesProjeto.AddOrUpdate(inte);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    inte.Ativo = false;
+                    inte.Inativo = "Usuário";
+                    db.IntegrantesProjeto.AddOrUpdate(inte);
+                    db.SaveChanges();
                 }
             }
-
-            db.SaveChanges();
 
             TempData["MSG"] = "success|Usuario Excluído!";
 
             return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });
+
         }
+
+
     }
 }
