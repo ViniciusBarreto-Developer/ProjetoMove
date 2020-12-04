@@ -785,7 +785,7 @@ namespace Sistema.Controllers
                 return RedirectToAction("Acesso");
             }
 
-            Projeto pro = db.Projeto.Find(id);
+            Projeto pro = db.Projeto.Find(id);            
 
             foreach (var item in pro.IntegrantesProjetos)
             {
@@ -810,6 +810,23 @@ namespace Sistema.Controllers
                     if (user[1] == "adm")
                     {
                         vmp.Adm = true;
+                        return View(vmp);
+                    }
+
+                    int result = DateTime.Compare(pro.Punicao, DateTime.Now);
+                    if (result > 0)
+                    {
+                        int dias = (pro.Punicao - DateTime.Now).Days;
+                        if (dias == 0)
+                        {
+                            TempData["MSG"] = "error|O projeto foi bloqueado temporariamente por infringir as regras da comunidade. O projeto será desbloqueado em menos de 24 horas.";
+                        }
+                        else
+                        {
+                            TempData["MSG"] = "error|O projeto foi bloqueado temporariamente por infringir as regras da comunidade. O projeto será desbloqueado em " + dias + "dia(s)";
+
+                        }
+                        return RedirectToAction("MeuPerfil");
                     }
 
                     return View(vmp);
@@ -1199,7 +1216,7 @@ namespace Sistema.Controllers
             db.Denuncias.Add(den);
             db.SaveChanges();
 
-            TempData["MSG"] = "success|Sua denúncia foi enviada!";
+            TempData["MSG"] = "success|Agradeçemos sua contribuição!";
 
             return RedirectToAction("VisitarPerfil", new { id = vmp.Id });
         }
@@ -1215,11 +1232,12 @@ namespace Sistema.Controllers
             den.DataCadastro = DateTime.Now.ToString();
             den.Status = "Esperando análise";
             den.Motivo = vmp.MotivoDenuncia;
+            den.Observacao = vmp.Observacao;
 
             db.Denuncias.Add(den);
             db.SaveChanges();
 
-            TempData["MSG"] = "success|Sua denúncia foi enviada!";
+            TempData["MSG"] = "success|Agradeçemos sua contribuição!";
 
             return RedirectToAction("MeuProjeto", new { id = vmp.Id });
         }

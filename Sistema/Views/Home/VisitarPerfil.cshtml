@@ -167,13 +167,13 @@
             <div class="modal-body">
 
                 <div class="infracoes-help">
-                    <p>Lamentamos que isso aconteceu ;(</p>
-                    <p>Selecione abaixo o tipo de infração que ocorreu(selecione apenas uma opção).</p>
+                    <p>Lamentamos que isso aconteceu :(</p>
+                    <p>Selecione abaixo o tipo de infração que ocorreu:</p>
                 </div>
 
                 <div class="infracoes-container">
                     <div>
-                        @Html.RadioButton("MotivoDenuncia","Conteúdo impróprio",false, new { id = "conteudo" })
+                        @Html.RadioButtonFor(model => model.MotivoDenuncia, "Conteúdo impróprio", new { id = "conteudo" })
                         <label class="infracao" for="conteudo">
                             <span class="indicator"></span>
                             <span class="label-text">Conteúdo impróprio (ex: pornografia, palavrões...)</span>
