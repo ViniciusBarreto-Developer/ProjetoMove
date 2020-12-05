@@ -1,7 +1,8 @@
-﻿@{
+﻿@model Sistema.Models.VMAdm
+
+@{
     Layout = "~/Views/Shared/_LayoutPerfil.cshtml";
 }
-
 
 <section class="profile-section content-container">
     <div class="bg">
@@ -9,30 +10,22 @@
 
     <div class="profile-pic-container">
         <div class="profile-pic">
-            @*@if (Model.Foto == null)
-                {*@
+
             <div class="circle-pic avatar-placeholder">
-                <p>A</p>
+                <img class="circle-pic" src="~/Content/img/adm.png" alt="Foto de perfil" />
             </div>
-            @*}
-                else
-                {
-                    <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
-                }*@
 
         </div>
-        <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>
     </div>
 
-    <div class="username-wrapper"><h1 class="username">Nome</h1></div>
-    @*<div class="username-wrapper"><h1 class="username">@Model.Nome</h1></div>*@
+    <div class="username-wrapper"><h1 class="username">@Model.NomeAdm</h1></div>
 
     <div class="profile-info">
-        <span>Email</span>
+        @*<span>Email</span>*@
         <div class="bio-adm">
             <p>Administrador</p>
         </div>
-        
+
     </div>
 
     <h2 class="profile-section-title">Denúncias de perfis</h2>
@@ -86,7 +79,6 @@
 
     </div>
 
-    <div class="add-project"><a class="btn btn-primary" data-open-modal="modalProjetos">Novo projeto<span class="iconify" data-icon="tabler:plus" data-inline="true"></span></a></div>
 </section>
 
 <section class="content-container section-separator">
@@ -146,139 +138,48 @@
 <section class="adm-stats">
     <div class="tags-stats-container">
         <h3 class="stats-title">Fluxo de tags</h3>
-        @*foreach*@
-        <div class="tag-stats">
-            <div class="tag-title-stats">
-                <div class="tag-container">
-                    <div class="tag"><span class="tag-text">Tag</span></div>
-                </div>
-            </div>
-            <ul class="tag-uses">
-                <li>Número de projetos: <span>666</span></li>
-                <li>Número de perfis de usuário: <span>666</span></li>
-                <li>Número de vezes pesquisada: <span>666</span></li>
-            </ul>
-        </div>
 
         <div class="tag-stats">
             <div class="tag-title-stats">
                 <div class="tag-container">
-                    <div class="tag"><span class="tag-text">Tecnologia</span></div>
+                    <div class="tag"><span class="tag-text">Quantidade</span></div>
                 </div>
             </div>
-
             <ul class="tag-uses">
-                <li>Número de projetos: <span>666</span></li>
-                <li>Número de perfis de usuário: <span>666</span></li>
-                <li>Número de vezes pesquisada: <span>666</span></li>
+                <li>Projetos Cadastrados: <span>@Model.NumeroProjetos</span></li>
+                <li>Usuarios Cadastrados: <span>@Model.NumeroUsuarios</span></li>
             </ul>
         </div>
-    </div>
-</section>
-
-
-<div class="modal-bg hidden" id="modalPic">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 class="modal-title">Editar Foto</h3>
-            <div class="close-modal" data-close-modal="modalPic">
-                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
-            </div>
-        </div>
-        @using (Html.BeginForm("EditarFoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @foreach (var item in Model.Tags)
         {
-            <div class="modal-body">
-                <div class="preview-container">
-                    <div id="upload-demo">
-
+            <div class="tag-stats">
+                <div class="tag-title-stats">
+                    <div class="tag-container">
+                        <div class="tag"><span class="tag-text">@item.Nome</span></div>
                     </div>
                 </div>
-                <span class="file-name" id="preview-file-name"></span>
-            </div>
-            <div class="modal-footer">
-                <div class="form-btns">
-                    <label for="upload" class="btn btn-secondary">Selecione um arquivo</label>
-                    <input name="arq" class="btn btn-secondary" type="file" id="upload" />
-                    <button class="btn btn-primary upload-result">Confirmar</button>
-                </div>
-            </div>
-        }
-    </div>
-</div>
 
-@section Scripts {
+                <ul class="tag-uses">
 
-    <script src="~/Scripts/croppie.js"></script>
-
-    <script>
-        var $uploadCrop;
-
-
-        function readFile(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('.upload-demo').addClass('ready');
-                    $uploadCrop.croppie('bind', {
-                        url: e.target.result
-                    }).then(function () {
-                        console.log('jQuery bind complete');
-                    });
-
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-
-        }
-
-        $uploadCrop = $('#upload-demo').croppie({
-            viewport: {
-                width: 128,
-                height: 128,
-                type: 'circle'
-            }
-        });
-
-
-        $('#upload').on('change', function () {
-            crImage.classList.remove('hidden');
-            const file = document.querySelector('#upload').value;
-            const fileName = document.querySelector('#preview-file-name');
-            fileName.innerText = file.substring(file.lastIndexOf('\\') + 1)
-            readFile(this);
-        });
-
-        $('.upload-result').on('click', function (ev) {
-            ev.preventDefault();
-            $uploadCrop.croppie('result', {
-                type: 'blob',
-                //size: 'viewport'
-                size: { width: 256, height: 256 }
-            }).then(function (resp) {
-                resp = resp.slice(0, resp.size, "image/png")
-
-                let data = new FormData();
-                data.append('arq', resp, 'blob.png');
-
-                $.ajax({
-                    url: "/Home/EditarFoto",
-                    type: 'POST',
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        document.location.reload();
+                    @foreach (var subitem in Model.QuantidadeTagsProjetos)
+                    {
+                        if (subitem.IdTag == item.Id)
+                        {
+                            <li>Número de projetos: <span>@subitem.Quantidade</span></li>
+                        }
                     }
-                });
+                    @foreach (var subitem in Model.QuantidadeTagsUsuarios)
+                    {
+                        if (subitem.IdTag == item.Id)
+                        {
+                            <li>Número de perfis de usuário: <span>@subitem.Quantidade</span></li>
+                        }
+                    }
 
-            });
-        });
+                    <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
+                </ul>
+            </div>
+        }
 
-        const crImage = document.querySelector('.cr-image');
-        crImage.classList.add('hidden');
-
-    </script>
-}
+    </div>
+</section>

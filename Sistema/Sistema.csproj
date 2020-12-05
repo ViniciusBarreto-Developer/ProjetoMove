@@ -160,6 +160,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTag.cs" />
+    <Compile Include="Models\VMAdm.cs" />
     <Compile Include="Models\VMPerfil.cs" />
     <Compile Include="Models\VMPrincipal.cs" />
     <Compile Include="Models\VMProjeto.cs" />

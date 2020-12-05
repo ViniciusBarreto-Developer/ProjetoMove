@@ -115,6 +115,8 @@ namespace Sistema.Controllers
                     Tag tag = db.Tag.Where(x => x.Nome == vmp.PesquisaTag).FirstOrDefault();
                     tag.Pesquisada++;
 
+                    db.Tag.AddOrUpdate(tag);
+                    db.SaveChanges();
                     return View(vmpNova);
                 }
                 return View();
@@ -151,6 +153,12 @@ namespace Sistema.Controllers
                         resultado.Add(item);
                     }
                 }
+
+                Tag tag = db.Tag.Where(x => x.Nome == vmp.PesquisaTag).FirstOrDefault();
+                tag.Pesquisada++;
+
+                db.Tag.AddOrUpdate(tag);
+                db.SaveChanges();
             }
             vmpNova.ProjetoTags = resultado;
             return View(vmpNova);

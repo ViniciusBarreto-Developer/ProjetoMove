@@ -13,7 +13,45 @@ namespace Sistema.Controllers
         Contexto db = new Contexto();
         public ActionResult Index()
         {
-            return View();
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            VMAdm vma = new VMAdm();
+
+            vma.AdmId = usu.Id;
+            vma.NomeAdm = usu.Nome;
+            vma.NumeroUsuarios = db.Usuario.Count();
+            vma.NumeroProjetos = db.Projeto.Count();
+            vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").ToList();
+            vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").ToList();
+            vma.Tags = db.Tag.OrderByDescending(x => x.Pesquisada).ToList();
+
+            int quantTags = vma.Tags.Count();
+
+            var quantpro = Enumerable.Range(1, quantTags).Select(i => new QuantidadeTagsProjetos()).ToList();
+            var quantusu = Enumerable.Range(1, quantTags).Select(i => new QuantidadeTagsUsuarios()).ToList();
+
+            int y = 0;
+            foreach (var item in vma.Tags)
+            {
+                quantpro[y].IdTag = item.Id;
+                quantpro[y].Quantidade = db.ProjetoTags.Where(x => x.TagId == item.Id).Count();
+
+                y++;
+            }
+            y = 0;
+            foreach (var item in vma.Tags)
+            {
+                quantusu[y].IdTag = item.Id;
+                quantusu[y].Quantidade = db.UsuarioTag.Where(x => x.TagId == item.Id).Count();
+
+                y++;
+            }
+            vma.QuantidadeTagsProjetos = quantpro;
+            vma.QuantidadeTagsUsuarios = quantusu;
+
+            return View(vma);
         }
         public ActionResult DenunciaUsuario()
         {
