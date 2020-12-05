@@ -45,19 +45,28 @@
         }
     }
 
-    .username {
-        font-size: $font-size-title;
-        text-align: center;
-        max-width: 16rem;
+    .username-wrapper {
+        margin-top: 1rem;
+        .username {
+            font-size: $font-size-title;
+            text-align: center;
+            max-width: 16rem;
+        }
     }
 
     .profile-info {
-        margin-top: 2rem;
+        margin-top: 1rem;
         display: grid;
         /*grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
        grid-template-rows: 1fr 1fr;*/
         grid-template-areas: 'email email' 'bio bio';
         grid-row-gap: 2rem;
+
+        span {
+            font-size: $font-size-sm;
+            grid-area: email;
+            text-align: center;
+        }
 
         .bio {
             grid-area: bio;
@@ -83,6 +92,7 @@
 .section-separator {
     padding-bottom: 0.5rem;
 }
+
 .profile-section-title {
     font-size: $font-size-xl;
     display: inline;
@@ -105,11 +115,9 @@
             height: 320px;
 
             .project-card {
-
             }
         }
     }
-
 }
 
 .add-project {
@@ -122,6 +130,7 @@
 
     .btn {
         display: inline-block;
+
         .iconify {
             font-size: $font-size-lg;
             margin-left: 0.5rem;

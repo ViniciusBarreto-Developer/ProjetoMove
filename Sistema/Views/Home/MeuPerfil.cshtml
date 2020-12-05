@@ -466,7 +466,7 @@
         function removeTags(e) {
                 const data = {
                     texto: e.currentTarget.previousElementSibling.innerText,
-                    Id: @Model.Id
+                    Id: @Model.Id,
                 }
             fetch("/Home/ExcluirTag", {
                 method: 'POST',

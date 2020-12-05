@@ -21,7 +21,7 @@
     <div class="username-wrapper"><h1 class="username">@Model.NomeAdm</h1></div>
 
     <div class="profile-info">
-        @*<span>Email</span>*@
+        <span>Email</span>
         <div class="bio-adm">
             <p>Administrador</p>
         </div>
@@ -136,52 +136,52 @@
 </section>
 
 <section class="adm-stats">
-    <div class="tags-stats-container">
+    <div class="tags-stats-card">
         <h3 class="stats-title">Fluxo de tags</h3>
-
-        <div class="tag-stats">
-            <div class="tag-title-stats">
-                <div class="tag-container">
-                    <div class="tag"><span class="tag-text">Quantidade</span></div>
-                </div>
-            </div>
-            <ul class="tag-uses">
-                <li>Projetos Cadastrados: <span>@Model.NumeroProjetos</span></li>
-                <li>Usuarios Cadastrados: <span>@Model.NumeroUsuarios</span></li>
-            </ul>
-        </div>
-        @foreach (var item in Model.Tags)
-        {
+        <div class="tags-stats-content">
             <div class="tag-stats">
                 <div class="tag-title-stats">
                     <div class="tag-container">
-                        <div class="tag"><span class="tag-text">@item.Nome</span></div>
+                        <div class="tag"><span class="tag-text">Quantidade</span></div>
                     </div>
                 </div>
-
                 <ul class="tag-uses">
-
-                    @foreach (var subitem in Model.QuantidadeTagsProjetos)
-                    {
-                        if (subitem.IdTag == item.Id)
-                        {
-                            <li>Número de projetos: <span>@subitem.Quantidade</span></li>
-                        }
-                    }
-                    @foreach (var subitem in Model.QuantidadeTagsUsuarios)
-                    {
-                        if (subitem.IdTag == item.Id)
-                        {
-                            <li>Número de perfis de usuário: <span>@subitem.Quantidade</span></li>
-                        }
-                    }
-
-                    <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
+                    <li>Projetos Cadastrados: <span>@Model.NumeroProjetos</span></li>
+                    <li>Usuarios Cadastrados: <span>@Model.NumeroUsuarios</span></li>
                 </ul>
             </div>
-        }
+            @foreach (var item in Model.Tags)
+            {
+                <div class="tag-stats">
+                    <div class="tag-title-stats">
+                        <div class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Nome</span></div>
+                        </div>
+                    </div>
 
-    </div>
+                    <ul class="tag-uses">
+
+                        @foreach (var subitem in Model.QuantidadeTagsProjetos)
+                        {
+                            if (subitem.IdTag == item.Id)
+                            {
+                                <li>Número de projetos: <span>@subitem.Quantidade</span></li>
+                            }
+                        }
+                        @foreach (var subitem in Model.QuantidadeTagsUsuarios)
+                        {
+                            if (subitem.IdTag == item.Id)
+                            {
+                                <li>Número de perfis de usuário: <span>@subitem.Quantidade</span></li>
+                            }
+                        }
+
+                        <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
+                    </ul>
+                </div>
+            }</div>
+
+        </div>
 </section>
 
 
