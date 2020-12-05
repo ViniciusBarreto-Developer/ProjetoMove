@@ -1,4 +1,5 @@
-﻿/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+﻿@charset "UTF-8";
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
 /**
@@ -1431,6 +1432,67 @@ input[type=radio]:checked + label .indicator::after {
   .projects-section {
     grid-template-columns: repeat(3, minmax(300px, 1fr)); } }
 
+.profile-info .bio-adm {
+  padding-bottom: 4rem;
+  text-align: center;
+  grid-area: bio; }
+
+.adm-stats {
+  margin: 4rem 0; }
+  .adm-stats .tags-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: calc(48rem + 1vw);
+    min-width: 350px;
+    max-height: 36rem;
+    margin: 0 auto;
+    padding: 2rem;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 30px; }
+    .adm-stats .tags-stats-container .stats-title {
+      font-size: 1.44rem;
+      margin-bottom: 1rem; }
+    .adm-stats .tags-stats-container .tag-stats {
+      display: flex;
+      align-content: center;
+      border: 1px solid #eee9e9;
+      padding: 1rem 0.5rem; }
+      .adm-stats .tags-stats-container .tag-stats .tag-title-stats {
+        display: flex;
+        align-items: center;
+        padding-bottom: 0.5rem;
+        min-width: 120px; }
+      .adm-stats .tags-stats-container .tag-stats .tag-uses {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 2rem; }
+        .adm-stats .tags-stats-container .tag-stats .tag-uses span {
+          color: #05f296; }
+
+@media only screen and (max-width: 768px) {
+  .tag-uses {
+    grid-template-rows: auto !important;
+    grid-template-columns: 1fr !important;
+    grid-row-gap: 0.5rem; } }
+
+/*<section class="adm-stats" >
+<div class="tags-stats-container" >
+@*foreach*@
+<div class="tag-stats" >
+<div class="tag-container" >
+<div class="tag" > <span class="tag-text" > Tag</span > </div >
+</div >
+<ul class="tag-uses" >
+<li > Número de projetos: 666</li >
+<li > Número de perfis de usuário: 666</li >
+<li > Número de vezes pesquisada: 666</li >
+</ul >
+</div >
+</div >
+</section >
+*/
 .modal .form-group {
   text-align: center; }
 

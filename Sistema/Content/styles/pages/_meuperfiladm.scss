@@ -1,0 +1,84 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+
+.profile-info .bio-adm{
+    padding-bottom: 4rem;
+    text-align: center;
+    grid-area: bio;
+}
+
+.adm-stats {
+    margin: 4rem 0;
+
+    .tags-stats-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        max-width: calc(48rem + 1vw);
+        min-width: 350px;
+        max-height: 36rem;
+        margin: 0 auto;
+        padding: 2rem;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 30px;
+
+        .stats-title {
+            font-size: $font-size-xl;
+            margin-bottom: 1rem;
+        }
+
+        .tag-stats {
+            display: flex;
+            align-content: center;
+            border: 1px solid $neutral-color;
+            padding: 1rem 0.5rem;
+
+            .tag-title-stats {
+                display: flex;
+                align-items: center;
+                padding-bottom: 0.5rem;
+                min-width: 120px;
+            }
+
+            .tag-uses {
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1fr 1fr;
+                grid-column-gap: 2rem;
+
+                span {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
+
+@include medium-max() {
+    .tag-uses {
+        grid-template-rows: auto !important;
+        grid-template-columns: 1fr !important;
+        grid-row-gap:0.5rem;
+    }
+
+
+
+}
+
+/*<section class="adm-stats" >
+<div class="tags-stats-container" >
+@*foreach*@
+<div class="tag-stats" >
+<div class="tag-container" >
+<div class="tag" > <span class="tag-text" > Tag</span > </div >
+</div >
+<ul class="tag-uses" >
+<li > Número de projetos: 666</li >
+<li > Número de perfis de usuário: 666</li >
+<li > Número de vezes pesquisada: 666</li >
+</ul >
+</div >
+</div >
+</section >
+*/

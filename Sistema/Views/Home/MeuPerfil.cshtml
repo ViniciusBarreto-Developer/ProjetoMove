@@ -29,6 +29,7 @@
     <div class="username-wrapper"><h1 class="username">@Model.Nome</h1></div>
 
     <div class="profile-info">
+        <span>@Model.Email</span>
         <div class="bio">
             @using (Html.BeginForm("EditarBiografia", "Home", FormMethod.Post))
             {
