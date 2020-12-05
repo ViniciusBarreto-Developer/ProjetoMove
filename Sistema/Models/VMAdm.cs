@@ -11,6 +11,7 @@ namespace Sistema.Models
         public string NomeAdm { get; set; }        
         public int NumeroUsuarios { get; set; }
         public int NumeroProjetos { get; set; }
+        public virtual List<int> Quantidade { get; set; }
         public virtual ICollection<Denuncias> DenunciasProjetos { get; set; }
         public virtual ICollection<Denuncias> DenunciasUsuarios { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
@@ -25,6 +26,11 @@ namespace Sistema.Models
     public class QuantidadeTagsUsuarios
     {
         public int IdTag { get; set; }
+        public int Quantidade { get; set; }
+    }
+    public class QuantidadeDenuncias
+    {
+        public int IdDenuncia { get; set; }
         public int Quantidade { get; set; }
     }
 }

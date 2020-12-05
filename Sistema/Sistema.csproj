@@ -282,6 +282,7 @@
     <Content Include="Views\Adm\Index.cshtml" />
     <Content Include="Views\Adm\DenunciaUsuario.cshtml" />
     <Content Include="Views\Adm\DenunciaProjeto.cshtml" />
+    <Content Include="Views\Adm\MaisDenuncias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

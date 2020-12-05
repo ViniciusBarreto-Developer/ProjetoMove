@@ -53,9 +53,41 @@ namespace Sistema.Controllers
 
             return View(vma);
         }
+        public ActionResult MaisDenuncias(int id)
+        {
+            VMAdm vma = new VMAdm();
+            vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status != "Concluído").ToList();
+
+            return View(vma);
+        }
         public ActionResult DenunciaUsuario()
         {
-            return View(db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").ToList());
+            VMAdm vma = new VMAdm();
+
+            var den = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").OrderBy(x => x.UsuarioDenunciadoId).ToList();
+            List<Denuncias> resultado = new List<Denuncias>();
+            List<int> quant = new List<int>();
+
+            int IdDenunciado = 0;
+            int y = -1;
+            foreach (var item in den)
+            {
+                if (IdDenunciado != item.UsuarioDenunciadoId)
+                {
+                    resultado.Add(item);
+                    IdDenunciado = (int)item.UsuarioDenunciadoId;
+
+                    y++;
+                    quant.Add(0);
+                }
+                else
+                {
+                    quant[y]++;
+                }
+            }
+            vma.DenunciasUsuarios = resultado;
+            vma.Quantidade = quant;
+            return View(vma);
         }
         public ActionResult DenunciaProjeto()
         {
