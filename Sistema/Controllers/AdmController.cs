@@ -156,21 +156,7 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
         }
-        public ActionResult ConcluirDenuncia(int id)
-        {
-            Denuncias den = db.Denuncias.Find(id);
-
-            den.Status = "Concluído";
-            db.Denuncias.AddOrUpdate(den);
-            db.SaveChanges();
-
-            if (den.ProjetoDenunciado == null)
-            {
-                return RedirectToAction("DenunciaUsuario");
-            }
-            return RedirectToAction("DenunciaProjeto");
-        }
-        public ActionResult PunirUsuario(VMPerfil vmp)
+        public ActionResult PenalizarUsuario(VMPerfil vmp)
         {
             Usuario usu = db.Usuario.Find(vmp.Id);
 
@@ -186,8 +172,29 @@ namespace Sistema.Controllers
             }
 
             db.Usuario.AddOrUpdate(usu);
-
             db.SaveChanges();
+
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var adm = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+                     
+            var denuncias = db.Denuncias.Where(x => x.UsuarioDenunciadoId == usu.Id && x.Status != "Concluído").ToList();
+
+            foreach (var item in denuncias)
+            {
+                Denuncias den = db.Denuncias.Find(item.Id);
+
+                den.AdmId = adm.Id;
+                den.Punicao = vmp.Punicao;
+                den.MotivoPunicao = vmp.MotivoPunicao;
+                den.DataPunicao = DateTime.Now;
+                den.Status = "Concluído";
+
+                db.Denuncias.AddOrUpdate(den);
+                db.SaveChanges();
+            }
+            
+
             TempData["MSG"] = "success|Punição Aplicada!";
 
             return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });

@@ -23,7 +23,9 @@ namespace Sistema.Models
 
         public int Punicao { get; set; }
 
-        public DateTime DataPunicao { get; set; }        
+        public DateTime DataPunicao { get; set; }
+
+        public string MotivoPunicao { get; set; }
 
         [Required]        
         public int UsuarioDenuncianteId { get; set; }

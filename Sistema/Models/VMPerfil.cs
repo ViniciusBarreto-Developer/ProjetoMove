@@ -22,11 +22,14 @@ namespace Sistema.Models
         [Required]
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        public int IdDenuncia { get; set; }
         public string MotivoDenuncia { get; set; }
         public string Observacao { get; set; }
         public Boolean Adm { get; set; }
         [Display(Name = "Quantidade de Dias:")]
         public int Punicao { get; set; }
+        [Display(Name = "Motivo da Penalidade:")]
+        public string MotivoPunicao { get; set; }
         public bool Ativo { get; set; }
         public virtual ICollection<ProjetosSalvos> ProjetosSalvos { get; set; }
         public virtual ICollection<IntegrantesProjeto> IntegrantesProjetos { get; set; }

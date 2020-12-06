@@ -104,6 +104,7 @@ namespace Sistema.Migrations
                     den_status = c.String(nullable: false, unicode: false),
                     den_punicao = c.Int(),
                     den_dataPunicao = c.DateTime(precision: 0),
+                    den_motivoPunicao = c.String(unicode: false),
                     den_usuarioDenuncianteId = c.Int(nullable: false),
                     den_usuarioDenunciadoId = c.Int(),
                     den_projetoDenunciadoId = c.Int(),

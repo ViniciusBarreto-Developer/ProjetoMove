@@ -593,7 +593,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
         }
-        public ActionResult MeuPerfil(int? id)
+        public ActionResult MeuPerfil(int? id, int? idDenuncia)
         {
             VMPerfil vmp = new VMPerfil();
             Usuario usu = new Usuario();
@@ -614,6 +614,10 @@ namespace Sistema.Controllers
             {
                 usu = db.Usuario.Find(id);
                 vmp.Adm = true;
+                if (idDenuncia != null)
+                {
+                    vmp.IdDenuncia = (int)idDenuncia;
+                }
             }
 
             vmp.Id = usu.Id;
@@ -792,7 +796,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "error|Preencha os dois campos para criar um projeto";
             return RedirectToAction("MeuPerfil");
         }
-        public ActionResult MeuProjeto(int id)
+        public ActionResult MeuProjeto(int id, int? idDenuncia)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -803,7 +807,7 @@ namespace Sistema.Controllers
                 return RedirectToAction("Acesso");
             }
 
-            Projeto pro = db.Projeto.Find(id);            
+            Projeto pro = db.Projeto.Find(id);
 
             foreach (var item in pro.IntegrantesProjetos)
             {
@@ -828,6 +832,10 @@ namespace Sistema.Controllers
                     if (user[1] == "adm")
                     {
                         vmp.Adm = true;
+                        if (idDenuncia != null)
+                        {
+                            vmp.IdDenuncia = (int)idDenuncia;
+                        }
                         return View(vmp);
                     }
 
@@ -1223,7 +1231,7 @@ namespace Sistema.Controllers
             den.UsuarioDenunciadoId = vmp.Id;
             den.DataCadastro = DateTime.Now.ToString();
             den.Status = "Esperando análise";
-            if(vmp.MotivoDenuncia == null)
+            if (vmp.MotivoDenuncia == null)
             {
                 TempData["MSG"] = "error|Selecione uma Opção!";
                 return RedirectToAction("VisitarPerfil", new { id = vmp.Id });
