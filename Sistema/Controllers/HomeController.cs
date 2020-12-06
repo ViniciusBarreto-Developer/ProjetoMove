@@ -593,7 +593,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
         }
-        public ActionResult MeuPerfil(int? id, int? idDenuncia)
+        public ActionResult MeuPerfil(int? id)
         {
             VMPerfil vmp = new VMPerfil();
             Usuario usu = new Usuario();
@@ -614,10 +614,6 @@ namespace Sistema.Controllers
             {
                 usu = db.Usuario.Find(id);
                 vmp.Adm = true;
-                if (idDenuncia != null)
-                {
-                    vmp.IdDenuncia = (int)idDenuncia;
-                }
             }
 
             vmp.Id = usu.Id;
@@ -796,7 +792,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "error|Preencha os dois campos para criar um projeto";
             return RedirectToAction("MeuPerfil");
         }
-        public ActionResult MeuProjeto(int id, int? idDenuncia)
+        public ActionResult MeuProjeto(int id)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -832,10 +828,6 @@ namespace Sistema.Controllers
                     if (user[1] == "adm")
                     {
                         vmp.Adm = true;
-                        if (idDenuncia != null)
-                        {
-                            vmp.IdDenuncia = (int)idDenuncia;
-                        }
                         return View(vmp);
                     }
 

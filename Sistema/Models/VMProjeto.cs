@@ -25,8 +25,7 @@ namespace Sistema.Models
         public string PesquisaEmail { get; set; }
         [Required]
         [Display(Name = "Nome do arquivo")]
-        public string NomeArquivo { get; set; }
-        public int IdDenuncia { get; set; }        
+        public string NomeArquivo { get; set; }   
         public string MotivoDenuncia { get; set; }
         public Boolean Adm { get; set; }
         [Display(Name = "Quantidade de Dias:")]

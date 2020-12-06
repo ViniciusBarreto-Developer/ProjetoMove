@@ -134,7 +134,7 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
         }
-        public ActionResult PunirProjeto(VMProjeto vmp)
+        public ActionResult PenalizarProjeto(VMProjeto vmp)
         {
             Projeto pro = db.Projeto.Find(vmp.Id);
 
@@ -150,11 +150,31 @@ namespace Sistema.Controllers
             }
 
             db.Projeto.AddOrUpdate(pro);
-
             db.SaveChanges();
-            TempData["MSG"] = "success|Punição Aplicada!";
 
-            return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var adm = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            var denuncias = db.Denuncias.Where(x => x.ProjetoDenunciadoId == pro.Id && x.Status != "Concluído").ToList();
+
+            foreach (var item in denuncias)
+            {
+                Denuncias den = db.Denuncias.Find(item.Id);
+
+                den.AdmId = adm.Id;
+                den.Punicao = vmp.Punicao;
+                den.MotivoPunicao = vmp.MotivoPunicao;
+                den.DataPunicao = DateTime.Now;
+                den.Status = "Concluído";
+
+                db.Denuncias.AddOrUpdate(den);
+                db.SaveChanges();
+            }
+
+            TempData["MSG"] = "success|Penalidade Aplicada!";
+
+            return RedirectToAction("Index");
         }
         public ActionResult PenalizarUsuario(VMPerfil vmp)
         {
@@ -192,12 +212,11 @@ namespace Sistema.Controllers
 
                 db.Denuncias.AddOrUpdate(den);
                 db.SaveChanges();
-            }
-            
+            }            
 
-            TempData["MSG"] = "success|Punição Aplicada!";
+            TempData["MSG"] = "success|Penalidade Aplicada!";
 
-            return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });
+            return RedirectToAction("Index");
         }
         public ActionResult ExcluirUsuario(VMPerfil vmp)
         {

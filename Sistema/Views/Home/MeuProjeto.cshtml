@@ -338,7 +338,7 @@
             </div>
         </div>
         <div class="modal-body">
-            @using (Html.BeginForm("PunirProjeto", "Adm", FormMethod.Post))
+            @using (Html.BeginForm("PenalizarProjeto", "Adm", FormMethod.Post))
             {
                 <div class="modal-body">
                     <div class="form-group">
@@ -347,12 +347,17 @@
                         @Html.EditorFor(model => model.Punicao, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Punicao, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
+                        @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
+                    </div>
+                </div>                
                 <div class="modal-footer">
                     <div class="form-btns">
                         @if (Model.Ativo)
                         {
-                            <a class="btn delete-acc" onclick="window.location.href='@Url.Action("ExcluirProjeto", "Adm", new { id = Model.Id })'">Excluir Projeto</a>
+                            <a class="btn delete-acc" onclick="window.location.href='@Url.Action("ExcluirProjeto", "Adm", new { id = Model.Id })'">Desativar Projeto</a>
                         }
                         <button type="submit" class="btn btn-primary">Aplicar</button>
                     </div>
