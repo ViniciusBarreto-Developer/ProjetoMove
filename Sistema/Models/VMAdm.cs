@@ -8,10 +8,12 @@ namespace Sistema.Models
     public class VMAdm
     {
         public int AdmId { get; set; }
-        public string NomeAdm { get; set; }        
+        public string NomeAdm { get; set; }
+        public string EmailAdm { get; set; }
         public int NumeroUsuarios { get; set; }
         public int NumeroProjetos { get; set; }
-        public virtual List<int> Quantidade { get; set; }
+        public virtual List<int> QuantidadeUsu { get; set; }
+        public virtual List<int> QuantidadePro { get; set; }
         public virtual ICollection<Denuncias> DenunciasProjetos { get; set; }
         public virtual ICollection<Denuncias> DenunciasUsuarios { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }

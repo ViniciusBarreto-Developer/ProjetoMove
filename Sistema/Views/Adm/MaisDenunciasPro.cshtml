@@ -1,0 +1,60 @@
+﻿@model Sistema.Models.VMAdm
+
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog modal-bg ">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Detalhes do produto</h4>
+        </div>
+        <div class="modal-body">
+            <div class="results-grid">
+                @foreach (var item in Model.DenunciasProjetos)
+                {
+                    <div class="card-container">
+                        <div class="project-card card-denuncia-projeto">
+
+                            <h4 class="card-denuncia-title">@item.Motivo</h4>
+                            <a href="@Url.Action("MeuProjeto", "Home", new { id = item.ProjetoDenunciado.Id })">
+                                <div class="card-img">
+                                    <img src="~/Uploads/@item.ProjetoDenunciado.Logo" alt="Projeto denunciado" />
+                                </div>
+                            </a>
+                            <div>
+                                <h3 class="card-title">@item.ProjetoDenunciado.Nome</h3>
+
+                                <p class="card-text">@item.Observacao</p>
+                            </div>
+                            <div class="card-denunciantes">
+                                <span>Denunciado por</span>
+                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
+                                    <div class="profile-pic profile-pic-mini">
+                                        @if (item.UsuarioDenunciante.Foto == null)
+                                        {
+                                            <div class="circle-pic avatar-placeholder">
+                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" />
+                                        }
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+
+

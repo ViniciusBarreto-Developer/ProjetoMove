@@ -29,11 +29,7 @@
                     string[] user = User.Identity.Name.Split('|');
                     if (user[1] == "adm")
                     {
-
-                        <li>@Html.ActionLink("DenunciaUsuario", "DenunciaUsuario", "Adm")</li>
-                        <li>@Html.ActionLink("DenunciaProjeto", "DenunciaProjeto", "Adm")</li>
                         <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
-
                     }
                     else
                     {

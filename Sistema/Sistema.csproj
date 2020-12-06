@@ -280,9 +280,8 @@
     <Content Include="Views\Shared\_LayoutProjeto.cshtml" />
     <Content Include="Views\Home\VisualizarPdf.cshtml" />
     <Content Include="Views\Adm\Index.cshtml" />
-    <Content Include="Views\Adm\DenunciaUsuario.cshtml" />
-    <Content Include="Views\Adm\DenunciaProjeto.cshtml" />
-    <Content Include="Views\Adm\MaisDenuncias.cshtml" />
+    <Content Include="Views\Adm\MaisDenunciasUsu.cshtml" />
+    <Content Include="Views\Adm\MaisDenunciasPro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
