@@ -29,6 +29,7 @@
                     string[] user = User.Identity.Name.Split('|');
                     if (user[1] == "adm")
                     {
+                        <li>@Html.ActionLink("Historico", "Historico", "Adm")</li>
                         <li>@Html.ActionLink("Denuncias", "Index", "Adm")</li>
                         <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
                     }
