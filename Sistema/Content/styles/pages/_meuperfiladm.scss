@@ -2,7 +2,7 @@
 @import '../abstracts/mixins';
 
 
-.profile-info .bio-adm{
+.profile-info .bio-adm {
     padding-bottom: 4rem;
     text-align: center;
     grid-area: bio;
@@ -29,7 +29,7 @@
             flex-direction: column;
             gap: 0.5rem;
             max-height: 50vh;
-            overflow: scroll;
+            overflow: auto;
 
             &::-webkit-scrollbar {
                 width: 0.5em;
@@ -71,15 +71,74 @@
     }
 }
 
+
+.card-container .card-denuncia-projeto {
+    .card-denuncia-title {
+        font-size: $font-size-xl;
+        color: $secondary-color;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        min-height: 4rem;
+    }
+
+    .card-denunciantes {
+        margin-top: 1rem;
+        color: $text-color;
+
+        .profile-pic-mini {
+            margin: 0.5rem auto 0 auto;
+        }
+
+        .numero-denunciantes {
+            font-size: $font-size-sm;
+            position: relative;
+            bottom: 2rem;
+            left: 3rem;
+        }
+    }
+}
+
+.card-container .card-denuncia-perfil {
+    .card-denuncia-title {
+        font-size: $font-size-xl;
+        color: $secondary-color;
+        margin-bottom: 1rem;
+    }
+
+    .card-img {
+        border-radius: 50%;
+        max-width: calc(12rem + 1vw);
+        margin: 0 auto;
+    }
+
+    .card-text {
+        min-height: 4rem;
+    }
+
+    .card-denunciantes {
+        color: $text-color;
+
+        .profile-pic-mini {
+            margin: 0.5rem auto 0 auto;
+        }
+
+        .numero-denunciantes {
+            font-size: $font-size-sm;
+            position: relative;
+            bottom: 2rem;
+            left: 3rem;
+        }
+    }
+}
+
 @include medium-max() {
     .tag-uses {
         grid-template-rows: auto !important;
         grid-template-columns: 1fr !important;
-        grid-row-gap:0.5rem;
+        grid-row-gap: 0.5rem;
     }
-
-
-
 }
 
 /*<section class="adm-stats" >

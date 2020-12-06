@@ -1459,7 +1459,7 @@ input[type=radio]:checked + label .indicator::after {
       flex-direction: column;
       gap: 0.5rem;
       max-height: 50vh;
-      overflow: scroll; }
+      overflow: auto; }
       .adm-stats .tags-stats-card .tags-stats-content::-webkit-scrollbar {
         width: 0.5em;
         height: 0.5em; }
@@ -1484,6 +1484,48 @@ input[type=radio]:checked + label .indicator::after {
         grid-column-gap: 2rem; }
         .adm-stats .tags-stats-card .tag-stats .tag-uses span {
           color: #05f296; }
+
+.card-container .card-denuncia-projeto .card-denuncia-title {
+  font-size: 1.44rem;
+  color: #874AFF;
+  margin-bottom: 1rem; }
+
+.card-container .card-denuncia-projeto .card-text {
+  min-height: 4rem; }
+
+.card-container .card-denuncia-projeto .card-denunciantes {
+  margin-top: 1rem;
+  color: #333333; }
+  .card-container .card-denuncia-projeto .card-denunciantes .profile-pic-mini {
+    margin: 0.5rem auto 0 auto; }
+  .card-container .card-denuncia-projeto .card-denunciantes .numero-denunciantes {
+    font-size: 0.833rem;
+    position: relative;
+    bottom: 2rem;
+    left: 3rem; }
+
+.card-container .card-denuncia-perfil .card-denuncia-title {
+  font-size: 1.44rem;
+  color: #874AFF;
+  margin-bottom: 1rem; }
+
+.card-container .card-denuncia-perfil .card-img {
+  border-radius: 50%;
+  max-width: calc(12rem + 1vw);
+  margin: 0 auto; }
+
+.card-container .card-denuncia-perfil .card-text {
+  min-height: 4rem; }
+
+.card-container .card-denuncia-perfil .card-denunciantes {
+  color: #333333; }
+  .card-container .card-denuncia-perfil .card-denunciantes .profile-pic-mini {
+    margin: 0.5rem auto 0 auto; }
+  .card-container .card-denuncia-perfil .card-denunciantes .numero-denunciantes {
+    font-size: 0.833rem;
+    position: relative;
+    bottom: 2rem;
+    left: 3rem; }
 
 @media only screen and (max-width: 768px) {
   .tag-uses {

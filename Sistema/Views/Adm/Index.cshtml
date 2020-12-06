@@ -10,11 +10,7 @@
 
     <div class="profile-pic-container">
         <div class="profile-pic">
-
-            <div class="circle-pic avatar-placeholder">
-                <img class="circle-pic" src="~/Content/img/adm.png" alt="Foto de perfil" />
-            </div>
-
+            <img class="circle-pic" src="~/Content/img/adm.png" alt="Foto de perfil" />
         </div>
     </div>
 
@@ -28,7 +24,7 @@
 
     </div>
 
-    <h2 class="profile-section-title">Denúncias de perfis</h2>
+    <h2 class="profile-section-title">Projetos denunciados</h2>
 </section>
 
 <section class="projects-section">
@@ -36,41 +32,137 @@
     <div class="glider-contain">
         <div class="glider">
             @*@foreach (var item in Model.IntegrantesProjetos)
-                {
-                    if (item.Projeto.Ativo == true)
-                    {
-                        <div class="card-container">
-                            <div class="project-card">
-                                <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
-                                    <div class="card-img">
-                                        <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
-                                    </div>
-                                    <div>
-                                        <h3 class="card-title">@item.Projeto.Nome</h3>
-                                        <p class="card-text">@item.Projeto.Descricao</p>
-                                    </div>
-                                    <ul class="card-tags">
-                                        @{
-                                            int n = 0;
-
-                                            foreach (var pro in item.Projeto.ProjetoTags)
-                                            {
-
-                                                if (n < 3)
-                                                {
-                                                    <li class="tag-container">
-                                                        <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                                    </li>
-                                                    n++;
-                                                }
-                                            }
-                                        }
-                                    </ul>
-                                </a>
+        {
+            if (item.Projeto.Ativo == true)
+            {
+                <div class="card-container">
+                    <div class="project-card">
+                        <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
                             </div>
+                            <div>
+                                <h3 class="card-title">@item.Projeto.Nome</h3>
+                                <p class="card-text">@item.Projeto.Descricao</p>
+                            </div>
+                            <ul class="card-tags">
+                                @{
+                                    int n = 0;
+
+                                    foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+
+                                        if (n < 3)
+                                        {
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+            }
+        }*@
+            <div class="card-container">
+                <div class="project-card card-denuncia-projeto">
+                    <a href="#">
+
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img src="~/Uploads/projeto.svg" alt="Projeto denunciado" />
                         </div>
-                    }
-                }*@
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="project-card card-denuncia-projeto">
+                    <a href="#">
+
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img src="~/Uploads/projeto.svg" alt="Projeto denunciado" />
+                        </div>
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="project-card card-denuncia-projeto">
+                    <a href="#">
+
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img src="~/Uploads/projeto.svg" alt="Projeto denunciado" />
+                        </div>
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
@@ -82,7 +174,7 @@
 </section>
 
 <section class="content-container section-separator">
-    <h2 class="profile-section-title">Denúncias de projetos</h2>
+    <h2 class="profile-section-title">Perfis denunciados</h2>
 </section>
 
 <section class="projects-section">
@@ -90,41 +182,138 @@
     <div class="glider-contain">
         <div class="glider">
             @*@foreach (var item in Model.ProjetosSalvos)
-                {
-                    if (item.Projeto.Ativo == true)
-                    {
-                        <div class="card-container">
-                            <div class="project-card">
-                                <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
-                                    <div class="card-img">
-                                        <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
-                                    </div>
-                                    <h3 class="card-title">@item.Projeto.Nome</h3>
-                                    <p class="card-text">@item.Projeto.Descricao</p>
-                                    <ul class="card-tags">
-                                        @{
-                                            int n = 0;
-
-                                            foreach (var pro in item.Projeto.ProjetoTags)
-                                            {
-                                                if (n < 3)
-                                                {
-                                                    <li class="tag-container">
-                                                        <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
-                                                    </li>
-                                                    n++;
-                                                }
-                                            }
-                                        }
-                                    </ul>
-                                </a>
-
-                                <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
-
+        {
+            if (item.Projeto.Ativo == true)
+            {
+                <div class="card-container">
+                    <div class="project-card">
+                        <a href="@Url.Action("MeuProjeto", new { id = item.ProjetoId })">
+                            <div class="card-img">
+                                <img src="~/Uploads/@item.Projeto.Logo" alt="Imagem do projeto" />
                             </div>
+                            <h3 class="card-title">@item.Projeto.Nome</h3>
+                            <p class="card-text">@item.Projeto.Descricao</p>
+                            <ul class="card-tags">
+                                @{
+                                    int n = 0;
+
+                                    foreach (var pro in item.Projeto.ProjetoTags)
+                                    {
+                                        if (n < 3)
+                                        {
+                                            <li class="tag-container">
+                                                <div class="tag"><span class="tag-text">@pro.Tag.Nome</span></div>
+                                            </li>
+                                            n++;
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </a>
+
+                        <button class="btn-delete" onclick="location.href='@Url.Action("ExcluirProjetosSalvos", "Home", new { id = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+
+                    </div>
+                </div>
+            }
+        }*@
+
+            <div class="card-container">
+                <div class="project-card card-denuncia-perfil">
+                    <a href="#">
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img class="circle-pic" src="~/Uploads/20201124170624474.png" alt="Perfil denunciado" />
                         </div>
-                    }
-                }*@
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" alt="Denunciante"/>
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="project-card card-denuncia-perfil">
+                    <a href="#">
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img class="circle-pic" src="~/Uploads/20201124170624474.png" alt="Perfil denunciado" />
+                        </div>
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" alt="Denunciante"/>
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="project-card card-denuncia-perfil">
+                    <a href="#">
+                        <h4 class="card-denuncia-title">Denúncia</h4>
+
+                        <div class="card-img">
+                            <img class="circle-pic" src="~/Uploads/20201124170624474.png" alt="Perfil denunciado" />
+                        </div>
+                        <div>
+                            <h3 class="card-title">Nome</h3>
+                            <p class="card-text">Observações</p>
+                        </div>
+                        <div class="card-denunciantes">
+                            <span>Denunciado por</span>
+                            <div class="profile-pic profile-pic-mini">
+                                @*@if (item.Usuario.Foto == null)
+                            {*@
+                                <div class="circle-pic avatar-placeholder">
+                                    <p>D</p>
+                                </div>
+                                @*}
+                            else
+                            {
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" alt="Denunciante"/>
+                            }*@
+                            </div>
+                            <span class="numero-denunciantes">+666</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
@@ -179,9 +368,10 @@
                         <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
                     </ul>
                 </div>
-            }</div>
-
+            }
         </div>
+
+    </div>
 </section>
 
 
