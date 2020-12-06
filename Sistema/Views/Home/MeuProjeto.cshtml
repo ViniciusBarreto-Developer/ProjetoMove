@@ -108,7 +108,7 @@
             @foreach (var item in Model.IntegrantesProjetos)
             {
                 <div class="profile-pic profile-pic-mini">
-                    <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
+                    <a href="@Url.Action("MeuPerfil", new { id = item.UsuarioID })">
 
                         @if (item.Usuario.Foto == null)
                         {
@@ -129,7 +129,7 @@
     @if (Model.Adm == true)
     {
         <div class="form-btns">
-            <input type="submit" data-open-modal="modalPunicao" value="Punição" class="btn btn-primary" />
+            <input type="submit" data-open-modal="modalPunicao" value="Penalizar" class="btn btn-primary" />
         </div>
     }
     @*<div class="form-btns">
