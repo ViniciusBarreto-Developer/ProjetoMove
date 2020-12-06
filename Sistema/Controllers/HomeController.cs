@@ -1001,7 +1001,19 @@ namespace Sistema.Controllers
                 return RedirectToAction("MeuProjeto", new { id = vmp.Id });
             }
         }
-        [HttpPost]
+        public ActionResult RemoverUpload(int idProjeto, int idArquivo)
+        {
+            ArquivosProjeto arq = db.ArquivosProjeto.Find(idArquivo);
+
+            Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + arq.Arquivo);
+
+            db.ArquivosProjeto.Remove(arq);
+            db.SaveChanges();
+
+            TempData["MSG"] = "success|Documento removido!";
+            return RedirectToAction("MeuProjeto", new { id = idProjeto });
+        }
+            [HttpPost]
         public ActionResult AdicionarIntegrante(VMProjeto vmp)
         {
             Usuario usu = db.Usuario.Where(x => x.Email == vmp.PesquisaEmail).ToList().FirstOrDefault();

@@ -89,7 +89,7 @@
                             </div>
                             <h2>@item.Nome</h2>
                         </a>
-
+                        <button class="btn delete-acc" onclick="window.location.href='@Url.Action("RemoverUpload", "Home", new { idProjeto = Model.Id, idArquivo = item.Id })'">x</button>
                         quant++;
                     }
                     if (quant == 0)
