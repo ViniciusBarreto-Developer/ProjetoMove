@@ -160,6 +160,7 @@
 
                 <span class="file-name" id="preview-file-name"></span>
             </div>
+            <p class="text-danger">Extensões Permitidas: .png .jpeg .jpg - máx. 2Mb</p>
             <div class="modal-footer">
                 <div class="form-btns">
                     <label for="upload" class="btn btn-secondary">Selecione um arquivo</label>
@@ -227,8 +228,10 @@
             <div class="form-group" style="width: 16rem; margin: 0 auto">
                 @Html.LabelFor(model => model.NomeArquivo)
                 @Html.EditorFor(model => model.NomeArquivo)
+                @Html.HiddenFor(model => model.Id)
             </div>
-            @Html.HiddenFor(model => model.Id)
+
+            <p class="text-danger">Extensões Permitidas: .pdf - máx. 10Mb</p>
 
             <div class="form-btns">
                 <label for="upload-arq" class="btn btn-secondary">Selecione um arquivo</label>
