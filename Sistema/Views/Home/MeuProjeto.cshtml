@@ -108,7 +108,7 @@
             @foreach (var item in Model.IntegrantesProjetos)
             {
                 <div class="profile-pic profile-pic-mini">
-                    <a href="@Url.Action("MeuPerfil", new { id = item.UsuarioID })">
+                    <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
 
                         @if (item.Usuario.Foto == null)
                         {
@@ -126,16 +126,18 @@
             }
         </div>
     </div>
-    @if (Model.Adm == true)
-    {
-        <div class="form-btns">
-            <input type="submit" data-open-modal="modalPunicao" value="Penalizar" class="btn btn-primary" />
-        </div>
-    }
-    @*<div class="form-btns">
-            @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
-            <input type="submit" value="Concluir" class="btn btn-primary" />
-        </div>*@
+    <section class="content-container section-separator">
+        @if (Model.Adm == true)
+        {
+            <div class="form-btns">
+                @if (Model.Ativo)
+                {
+                    <input data-open-modal="modalDesativar" value="Desativar" class="btn btn-primary" />
+                }
+                <input data-open-modal="modalPenalizar" value="Penalizar" class="btn btn-primary" />
+            </div>
+        }
+    </section>
 </div>
 
 <div class="modal-bg hidden" id="modalPic">
@@ -329,41 +331,67 @@
     </div>
 </div>
 
-<div class="modal-bg hidden" id="modalPunicao">
+<div class="modal-bg hidden" id="modalPenalizar">
     <div class="modal">
         <div class="modal-header">
-            <h3 class="modal-title">Punir Projeto</h3>
-            <div class="close-modal" data-close-modal="modalPunicao">
+            <h3 class="modal-title">Penalizar Projeto</h3>
+            <div class="close-modal" data-close-modal="modalPenalizar">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
-        <div class="modal-body">
-            @using (Html.BeginForm("PenalizarProjeto", "Adm", FormMethod.Post))
-            {
-                <div class="modal-body">
-                    <div class="form-group">
-                        @Html.HiddenFor(model => model.Id)
-                        @Html.LabelFor(model => model.Punicao, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.Punicao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Punicao, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
-                        @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
-                    </div>
-                </div>                
-                <div class="modal-footer">
-                    <div class="form-btns">
-                        @if (Model.Ativo)
-                        {
-                            <a class="btn delete-acc" onclick="window.location.href='@Url.Action("ExcluirProjeto", "Adm", new { id = Model.Id })'">Desativar Projeto</a>
-                        }
-                        <button type="submit" class="btn btn-primary">Aplicar</button>
-                    </div>
+
+        @using (Html.BeginForm("PenalizarProjeto", "Adm", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.LabelFor(model => model.Punicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Punicao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Punicao, "", new { @class = "text-danger" })
                 </div>
-            }
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.IdDenuncia)
+                    @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
+                    @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-btns">
+                    <button type="submit" class="btn btn-primary">Penalizar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="modal-bg hidden" id="modalDesativar">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Desativar Projeto</h3>
+            <div class="close-modal" data-close-modal="modalDesativar">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
         </div>
+
+        @using (Html.BeginForm("DesativarProjeto", "Adm", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
+                    @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-btns">
+                    <button type="submit" class="btn delete-acc">Desativar</button>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
 

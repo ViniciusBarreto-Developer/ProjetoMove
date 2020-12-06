@@ -489,25 +489,6 @@ namespace Sistema.Controllers
             TempData["MSG"] = "error|Senha atual errada";
             return RedirectToAction("EditarCadastro");
         }
-        public ActionResult Email()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Email(Mensagem msg)
-        {
-            if (ModelState.IsValid)
-            {
-                TempData["MSG"] = Funcoes.EnviarEmail(msg.Email,
-                msg.Assunto, msg.CorpoMsg);
-            }
-            else
-            {
-                TempData["MSG"] = "warning|Preencha todos os campos";
-            }
-            return View(msg);
-        }
         public ActionResult EsqueceuSenha()
         {
             return View();
@@ -593,7 +574,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View(red);
         }
-        public ActionResult MeuPerfil(int? id)
+        public ActionResult MeuPerfil(int? id, int? idDenuncia)
         {
             VMPerfil vmp = new VMPerfil();
             Usuario usu = new Usuario();
@@ -614,6 +595,11 @@ namespace Sistema.Controllers
             {
                 usu = db.Usuario.Find(id);
                 vmp.Adm = true;
+
+                if(idDenuncia != null)
+                {
+                    vmp.IdDenuncia = (int)idDenuncia;
+                }
             }
 
             vmp.Id = usu.Id;
@@ -636,7 +622,7 @@ namespace Sistema.Controllers
             string email = user[0];
             var usuAtual = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            if (usuAtual.Id == usu.Id)
+            if (usuAtual.Id == usu.Id || usuAtual.Adm == true)
             {
                 return RedirectToAction("MeuPerfil");
             }
@@ -792,7 +778,7 @@ namespace Sistema.Controllers
             TempData["MSG"] = "error|Preencha os dois campos para criar um projeto";
             return RedirectToAction("MeuPerfil");
         }
-        public ActionResult MeuProjeto(int id)
+        public ActionResult MeuProjeto(int id, int? idDenuncia)
         {
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
@@ -828,6 +814,11 @@ namespace Sistema.Controllers
                     if (user[1] == "adm")
                     {
                         vmp.Adm = true;
+
+                        if (idDenuncia != null)
+                        {
+                            vmp.IdDenuncia = (int)idDenuncia;
+                        }
                         return View(vmp);
                     }
 

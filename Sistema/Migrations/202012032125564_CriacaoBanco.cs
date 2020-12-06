@@ -103,6 +103,7 @@ namespace Sistema.Migrations
                     den_observacao = c.String(unicode: false),
                     den_status = c.String(nullable: false, unicode: false),
                     den_punicao = c.Int(),
+                    den_desativado = c.Boolean(),
                     den_dataPunicao = c.DateTime(precision: 0),
                     den_motivoPunicao = c.String(unicode: false),
                     den_usuarioDenuncianteId = c.Int(nullable: false),

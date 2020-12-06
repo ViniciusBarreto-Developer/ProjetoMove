@@ -185,7 +185,11 @@
     @if (Model.Adm == true)
     {
         <div class="form-btns">
-            <input type="submit" data-open-modal="modalPunicao" value="Penalizar" class="btn btn-primary" />
+            @if (Model.Ativo)
+            {
+                <input data-open-modal="modalDesativar" value="Desativar" class="btn btn-primary" />
+            }
+            <input data-open-modal="modalPenalizar" value="Penalizar" class="btn btn-primary" />
         </div>
     }
 </section>
@@ -292,11 +296,11 @@
     </div>
 </div>
 
-<div class="modal-bg hidden" id="modalPunicao">
+<div class="modal-bg hidden" id="modalPenalizar">
     <div class="modal">
         <div class="modal-header">
             <h3 class="modal-title">Penalizar Usuário</h3>
-            <div class="close-modal" data-close-modal="modalPunicao">
+            <div class="close-modal" data-close-modal="modalPenalizar">
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
@@ -311,6 +315,7 @@
                     @Html.ValidationMessageFor(model => model.Punicao, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
+                    @Html.HiddenFor(model => model.IdDenuncia)
                     @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
                     @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
@@ -318,11 +323,36 @@
             </div>
             <div class="modal-footer">
                 <div class="form-btns">
-                    @if (Model.Ativo)
-                    {
-                        <a class="btn delete-acc" onclick="window.location.href='@Url.Action("ExcluirUsuario", "Adm", new { id = Model.Id })'">Desativar Usuário</a>
-                    }
-                    <button type="submit" class="btn btn-primary">Aplicar</button>
+                    <button type="submit" class="btn btn-primary">Penalizar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="modal-bg hidden" id="modalDesativar">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Desativar Usuário</h3>
+            <div class="close-modal" data-close-modal="modalDesativar">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("DesativarUsuario", "Adm", FormMethod.Post))
+        {
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
+                    @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-btns">
+                    <button type="submit" class="btn delete-acc">Desativar</button>
                 </div>
             </div>
         }

@@ -29,6 +29,7 @@ namespace Sistema.Models
         public string MotivoDenuncia { get; set; }
         public Boolean Adm { get; set; }
         [Display(Name = "Quantidade de Dias:")]
+        public int IdDenuncia { get; set; }
         public int Punicao { get; set; }
         public IntegrantesProjeto EuIntegrante { get; set; }
         public string Observacao { get; set; }

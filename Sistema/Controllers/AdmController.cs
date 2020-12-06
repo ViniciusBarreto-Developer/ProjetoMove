@@ -25,7 +25,7 @@ namespace Sistema.Controllers
             vma.NumeroUsuarios = db.Usuario.Count();
             vma.NumeroProjetos = db.Projeto.Count();
             vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").ToList();
-            
+
             //FLUXO DE TAGS
             vma.Tags = db.Tag.OrderByDescending(x => x.Pesquisada).ToList();
             int quantTags = vma.Tags.Count();
@@ -120,20 +120,7 @@ namespace Sistema.Controllers
             vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status != "Concluído").ToList();
 
             return View(vma);
-        }
-        public ActionResult ExcluirProjeto(VMProjeto vmp)
-        {
-
-            Projeto pro = db.Projeto.Find(vmp.Id);
-            pro.Ativo = false;
-            db.Projeto.AddOrUpdate(pro);
-
-            db.SaveChanges();
-
-            TempData["MSG"] = "success|Projeto Excluído!";
-
-            return RedirectToAction("MeuProjeto", "Home", new { vmp.Id });
-        }
+        }        
         public ActionResult PenalizarProjeto(VMProjeto vmp)
         {
             Projeto pro = db.Projeto.Find(vmp.Id);
@@ -158,21 +145,86 @@ namespace Sistema.Controllers
 
             var denuncias = db.Denuncias.Where(x => x.ProjetoDenunciadoId == pro.Id && x.Status != "Concluído").ToList();
 
-            foreach (var item in denuncias)
+            if(denuncias.Count() > 0)
             {
-                Denuncias den = db.Denuncias.Find(item.Id);
+                foreach (var item in denuncias)
+                {
+                    Denuncias den = db.Denuncias.Find(item.Id);
 
-                den.AdmId = adm.Id;
-                den.Punicao = vmp.Punicao;
-                den.MotivoPunicao = vmp.MotivoPunicao;
-                den.DataPunicao = DateTime.Now;
-                den.Status = "Concluído";
+                    den.AdmId = adm.Id;
+                    den.Punicao = vmp.Punicao;
+                    den.MotivoPunicao = vmp.MotivoPunicao;
+                    den.DataPunicao = DateTime.Now;
+                    den.Status = "Concluído";
 
-                db.Denuncias.AddOrUpdate(den);
-                db.SaveChanges();
+                    db.Denuncias.AddOrUpdate(den);
+                    db.SaveChanges();
+                }
             }
 
+            var proAdm = db.IntegrantesProjeto.Where(x => x.ProjetoId == pro.Id && x.Adm == true).ToList();
+
+            if (vmp.Punicao > 0)
+            {
+                foreach (var item in proAdm)
+                {
+                    TempData["MSG"] = Funcoes.EnviarEmail(item.Usuario.Email,
+                    "MOVE - Seu Projeto "+ pro.Nome +" sofreu uma Penalidade", vmp.MotivoPunicao);
+                }
+            }
+            else
+            {
+                foreach (var item in proAdm)
+                {
+                    TempData["MSG"] = Funcoes.EnviarEmail(item.Usuario.Email,
+                    "MOVE - Comunicado sobre seu Projeto "+ pro.Nome +" ...", vmp.MotivoPunicao);
+                }
+            }
+            
+
             TempData["MSG"] = "success|Penalidade Aplicada!";
+
+            return RedirectToAction("Index");
+        }
+        public ActionResult DesativarProjeto(VMProjeto vmp)
+        {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var adm = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
+            Projeto pro = db.Projeto.Find(vmp.Id);
+            pro.Ativo = false;
+            db.Projeto.AddOrUpdate(pro);
+            db.SaveChanges();
+
+            var denuncias = db.Denuncias.Where(x => x.ProjetoDenunciadoId == pro.Id && x.Status != "Concluído").ToList();
+
+            if (denuncias.Count() > 0)
+            {
+                foreach (var item in denuncias)
+                {
+                    Denuncias den = db.Denuncias.Find(item.Id);
+                    den.AdmId = adm.Id;
+                    den.Punicao = 0;
+                    den.MotivoPunicao = vmp.MotivoPunicao;
+                    den.DataPunicao = DateTime.Now;
+                    den.Status = "Concluído";
+                    den.Desativado = true;
+
+                    db.Denuncias.AddOrUpdate(den);
+                    db.SaveChanges();
+                }
+            }
+
+            var proAdm = db.IntegrantesProjeto.Where(x => x.ProjetoId == pro.Id && x.Adm == true).ToList();
+
+            foreach (var item in proAdm)
+            {
+                TempData["MSG"] = Funcoes.EnviarEmail(item.Usuario.Email,
+                "MOVE - Seu projeto "+ pro.Nome +" foi Desativado!", vmp.MotivoPunicao);
+            }
+
+            TempData["MSG"] = "success|Projeto Desativado!";
 
             return RedirectToAction("Index");
         }
@@ -197,29 +249,47 @@ namespace Sistema.Controllers
             string[] user = User.Identity.Name.Split('|');
             string email = user[0];
             var adm = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-                     
+
             var denuncias = db.Denuncias.Where(x => x.UsuarioDenunciadoId == usu.Id && x.Status != "Concluído").ToList();
 
-            foreach (var item in denuncias)
+            if (denuncias.Count() > 0)
             {
-                Denuncias den = db.Denuncias.Find(item.Id);
+                foreach (var item in denuncias)
+                {
+                    Denuncias den = db.Denuncias.Find(item.Id);
 
-                den.AdmId = adm.Id;
-                den.Punicao = vmp.Punicao;
-                den.MotivoPunicao = vmp.MotivoPunicao;
-                den.DataPunicao = DateTime.Now;
-                den.Status = "Concluído";
+                    den.AdmId = adm.Id;
+                    den.Punicao = vmp.Punicao;
+                    den.MotivoPunicao = vmp.MotivoPunicao;
+                    den.DataPunicao = DateTime.Now;
+                    den.Status = "Concluído";
 
-                db.Denuncias.AddOrUpdate(den);
-                db.SaveChanges();
-            }            
+                    db.Denuncias.AddOrUpdate(den);
+                    db.SaveChanges();
+                }
+            }
+
+            if (vmp.Punicao > 0)
+            {
+                TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
+                "MOVE - Sua Conta foi Penalizada!", vmp.MotivoPunicao);
+            }
+            else
+            {
+                TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
+                "MOVE - Comunicado sobre sua conta...", vmp.MotivoPunicao);
+            }
 
             TempData["MSG"] = "success|Penalidade Aplicada!";
 
             return RedirectToAction("Index");
         }
-        public ActionResult ExcluirUsuario(VMPerfil vmp)
+        public ActionResult DesativarUsuario(VMPerfil vmp)
         {
+            string[] user = User.Identity.Name.Split('|');
+            string email = user[0];
+            var adm = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+
             Usuario usu = db.Usuario.Find(vmp.Id);
             usu.Ativo = false;
             usu.Inativo = "Adm";
@@ -282,12 +352,31 @@ namespace Sistema.Controllers
                 }
             }
 
-            TempData["MSG"] = "success|Usuario Excluído!";
+            TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
+                "MOVE - Sua Conta foi Desativada!", vmp.MotivoPunicao);
 
-            return RedirectToAction("MeuPerfil", "Home", new { vmp.Id });
+            var denuncias = db.Denuncias.Where(x => x.UsuarioDenunciadoId == usu.Id && x.Status != "Concluído").ToList();
 
+            if (denuncias.Count() > 0)
+            {
+                foreach (var item in denuncias)
+                {
+                    Denuncias den = db.Denuncias.Find(item.Id);
+                    den.AdmId = adm.Id;
+                    den.Punicao = 0;
+                    den.MotivoPunicao = vmp.MotivoPunicao;
+                    den.DataPunicao = DateTime.Now;
+                    den.Status = "Concluído";
+                    den.Desativado = true;
+
+                    db.Denuncias.AddOrUpdate(den);
+                    db.SaveChanges();
+                }
+            }
+
+            TempData["MSG"] = "success|Conta Desativada!";
+
+            return RedirectToAction("Index");
         }
-
-
     }
 }

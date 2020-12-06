@@ -39,7 +39,7 @@
                         <div class="project-card card-denuncia-projeto">
 
                             <h4 class="card-denuncia-title">@item.Motivo</h4>
-                            <a href="@Url.Action("MeuProjeto", "Home", new { id = item.ProjetoDenunciado.Id})">
+                            <a href="@Url.Action("MeuProjeto", "Home", new { id = item.ProjetoDenunciado.Id, idDenuncia = item.Id })">
                                 <div class="card-img">
                                     <img src="~/Uploads/@item.ProjetoDenunciado.Logo" alt="Projeto denunciado" />
                                 </div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="card-denunciantes">
                                 <span>Denunciado por</span>
-                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
+                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id, idDenuncia = item.Id })">
                                     <div class="profile-pic profile-pic-mini">
                                         @if (item.UsuarioDenunciante.Foto == null)
                                         {

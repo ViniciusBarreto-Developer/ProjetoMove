@@ -22,6 +22,7 @@ namespace Sistema.Models
         public string Status { get; set; }
 
         public int Punicao { get; set; }
+        public Boolean Desativado { get; set; }
 
         public DateTime DataPunicao { get; set; }
 

@@ -266,7 +266,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Acesso.cshtml" />
     <Content Include="Views\Home\Cadastro.cshtml" />
-    <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Home\EsqueceuSenha.cshtml" />
     <Content Include="Views\Home\Redefinir.cshtml" />
     <Content Include="Views\Home\Principal.cshtml" />
