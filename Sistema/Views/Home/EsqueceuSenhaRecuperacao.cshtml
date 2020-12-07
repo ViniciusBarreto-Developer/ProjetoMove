@@ -1,11 +1,11 @@
 ﻿@model Sistema.Models.EsqueceuSenha
 
 @{
-    ViewBag.Title = "Recuperar senha";
+    ViewBag.Title = "Recuperar senha E-mail de Recuperação";
 }
 
 <h1 class="heading-page">Solicitar recuperação de senha</h1>
-<p class="sub-heading">Entre com seu E-mail e enviaremos uma solicitação de recuperação! ;)</p>
+<p class="sub-heading">Entre com seu E-mail de Recuperação e enviaremos uma solicitação de recuperação! ;)</p>
 
 @using (Html.BeginForm())
 {
@@ -15,15 +15,14 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("E-mail de Recuperação", htmlAttributes: new { @class = "control-label col-md-2" })
 
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            @Html.ActionLink("Não tenho acesso ao meu E-mail", "EsqueceuSenhaRecuperacao", "", new { @class = "forgot-password" })
         </div>
 
         <div class="form-btns">
-            @Html.ActionLink("Voltar", "Acesso", "", new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Voltar", "EsqueceuSenha", "", new { @class = "btn btn-secondary" })
             <input type="submit" value="Continuar" class="btn btn-primary" />
         </div>
     </div>

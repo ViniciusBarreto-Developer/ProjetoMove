@@ -144,9 +144,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012032125564_CriacaoBanco.cs" />
-    <Compile Include="Migrations\202012032125564_CriacaoBanco.Designer.cs">
-      <DependentUpon>202012032125564_CriacaoBanco.cs</DependentUpon>
+    <Compile Include="Migrations\202012062323031_CriacaoBanco.cs" />
+    <Compile Include="Migrations\202012062323031_CriacaoBanco.Designer.cs">
+      <DependentUpon>202012062323031_CriacaoBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArquivosProjeto.cs" />
@@ -282,6 +282,7 @@
     <Content Include="Views\Adm\MaisDenunciasUsu.cshtml" />
     <Content Include="Views\Adm\MaisDenunciasPro.cshtml" />
     <Content Include="Views\Adm\Historico.cshtml" />
+    <Content Include="Views\Home\EsqueceuSenhaRecuperacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -293,8 +294,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012032125564_CriacaoBanco.resx">
-      <DependentUpon>202012032125564_CriacaoBanco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012062323031_CriacaoBanco.resx">
+      <DependentUpon>202012062323031_CriacaoBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
