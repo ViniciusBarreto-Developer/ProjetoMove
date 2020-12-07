@@ -13,7 +13,7 @@ namespace Sistema.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202012032125564_CriacaoBanco"; }
+            get { return "202012062323031_CriacaoBanco"; }
         }
         
         string IMigrationMetadata.Source

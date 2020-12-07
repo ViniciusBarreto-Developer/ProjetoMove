@@ -113,6 +113,7 @@ namespace Sistema.Models
     {
         [EmailAddress]
         [Required]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
     }
     public class RedefinirSenha

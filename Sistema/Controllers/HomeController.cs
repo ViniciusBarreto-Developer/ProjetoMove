@@ -518,6 +518,35 @@ namespace Sistema.Controllers
             TempData["MSG"] = "warning|Preencha todos os campos";
             return View();
         }
+        public ActionResult EsqueceuSenhaRecuperacao()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EsqueceuSenhaRecuperacao(EsqueceuSenha esq)
+        {
+            if (ModelState.IsValid)
+            {
+                Contexto db = new Contexto();
+                var usu = db.Usuario.Where(x => x.EmailRecuperacao == esq.Email).ToList().FirstOrDefault();
+                if (usu != null)
+                {
+                    usu.Hash = Funcoes.Codifica(DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss.ffff"));
+                    db.Entry(usu).State = EntityState.Modified;
+                    db.SaveChanges();
+                    string msg = "<h3>Sistema</h3>";
+                    msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
+                    Funcoes.EnviarEmail(usu.EmailRecuperacao, "Redefinição de senha", msg);
+                    TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
+                    return RedirectToAction("Principal");
+                }
+                TempData["MSG"] = "error|E-mail não encontrado";
+                return View();
+            }
+            TempData["MSG"] = "warning|Preencha todos os campos";
+            return View();
+        }
         public ActionResult Redefinir(string id)
         {
             if (!String.IsNullOrEmpty(id))
