@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -686,8 +687,11 @@ namespace Sistema.Controllers
                     string[] user = User.Identity.Name.Split('|');
                     string email = user[0];
                     var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-                    //Excluir foto antiga
-                    Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + usu.Foto);
+                    //Excluir foto antiga se não for foto padrão
+                    if(!Regex.IsMatch(usu.Foto, @"^[a-z.]+$"))
+                    {
+                        Funcoes.Upload.ExcluirArquivo(Request.PhysicalApplicationPath + "Uploads\\" + usu.Foto);
+                    }
                     usu.Foto = nomearq;
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
