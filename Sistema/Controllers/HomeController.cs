@@ -653,9 +653,13 @@ namespace Sistema.Controllers
             string email = user[0];
             var usuAtual = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
 
-            if (usuAtual.Id == usu.Id || usuAtual.Adm == true)
+            if (usuAtual.Id == usu.Id)
             {
                 return RedirectToAction("MeuPerfil");
+            }
+            if (usuAtual.Adm == true)
+            {
+                return RedirectToAction("MeuPerfil", new { id });
             }
 
             VMPerfil vmp = new VMPerfil();
