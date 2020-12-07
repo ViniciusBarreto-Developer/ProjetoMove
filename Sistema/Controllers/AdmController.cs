@@ -208,10 +208,11 @@ namespace Sistema.Controllers
             VMAdm vma = new VMAdm();
             vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status != "Concluído").ToList();
 
-            if(vma.DenunciasUsuarios.Count() == 0)
+            if (vma.DenunciasUsuarios.Count() == 0)
             {
                 vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status == "Concluído").ToList();
             }
+
             var denuncias = vma.DenunciasUsuarios.Select(z => new
             {
                 DenuncianteUrl = "/Home/MeuPerfil/" + z.UsuarioDenuncianteId,
@@ -228,6 +229,11 @@ namespace Sistema.Controllers
         {
             VMAdm vma = new VMAdm();
             vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status != "Concluído").ToList();
+
+            if(vma.DenunciasProjetos.Count() == 0)
+            {
+                vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status == "Concluído").ToList();
+            }
 
             var denuncias = vma.DenunciasProjetos.Select(z => new
             {

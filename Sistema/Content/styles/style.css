@@ -1528,9 +1528,10 @@ input[type=radio]:checked + label .indicator::after {
     margin: 0.5rem auto 0 auto; }
   .card-container .card-denuncia-perfil .card-denunciantes .numero-denunciantes {
     font-size: 0.833rem;
+    padding: 1rem;
     position: relative;
-    bottom: 2rem;
-    left: 3rem; }
+    bottom: 2.5rem;
+    left: 2.5rem; }
 
 .mais-denuncias-list .mais-denuncias-item .denuncia-extra-container {
   display: flex;
