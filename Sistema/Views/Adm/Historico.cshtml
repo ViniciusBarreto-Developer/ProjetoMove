@@ -1,0 +1,229 @@
+﻿@model Sistema.Models.VMAdm
+
+@{
+    Layout = "~/Views/Shared/_LayoutPerfil.cshtml";
+}
+
+<section class="profile-section content-container">
+    <div class="bg">
+    </div>
+
+    <div class="profile-pic-container">
+        <div class="profile-pic">
+            <img class="circle-pic" src="~/Content/img/adm.png" alt="Foto de perfil" />
+        </div>
+    </div>
+
+    <div class="username-wrapper"><h1 class="username">@Model.NomeAdm</h1></div>
+
+    <div class="profile-info">
+        <span>@Model.EmailAdm</span>
+        <div class="bio-adm">
+            <p>Administrador</p>
+        </div>
+
+    </div>
+
+    <h2 class="profile-section-title">Projetos denunciados</h2>
+</section>
+
+<section class="projects-section">
+
+    <div class="glider-contain">
+        <div class="glider">
+            @{
+                int y = 0;
+                foreach (var item in Model.DenunciasProjetos)
+                {
+                    <div class="card-container">
+                        <div class="project-card card-denuncia-projeto">
+
+                            <h4 class="card-denuncia-title">@item.Motivo</h4>
+                            <a href="@Url.Action("MeuProjeto", "Home", new { id = item.ProjetoDenunciado.Id, idDenuncia = item.Id })">
+                                <div class="card-img">
+                                    <img src="~/Uploads/@item.ProjetoDenunciado.Logo" alt="Projeto denunciado" />
+                                </div>
+                            </a>
+                            <div>
+                                <h3 class="card-title">@item.ProjetoDenunciado.Nome</h3>
+
+                                <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+                            </div>
+                            <div class="card-denunciantes">
+                                <span>Denunciado por</span>
+                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
+                                    <div class="profile-pic profile-pic-mini">
+                                        @if (item.UsuarioDenunciante.Foto == null)
+                                        {
+                                            <div class="circle-pic avatar-placeholder">
+                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" />
+                                        }
+                                    </div>
+                                </a>
+                                <a href="#" class="MaisDenunciasPro" data-id="@item.ProjetoDenunciadoId">
+                                    @if (Model.QuantidadePro[y] > 0)
+                                    {
+                                        <span class="numero-denunciantes">+ @Model.QuantidadePro[y]</span>
+                                    }
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    y++;
+                }
+            }
+        </div>
+
+        <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
+        <button aria-label="Next" class="glider-next"><span class="iconify" data-icon="tabler:chevron-right" data-inline="false"></span></button>
+        <div role="tablist" class="glider-dots"></div>
+
+    </div>
+</section>
+
+<section class="content-container section-separator">
+    <h2 class="profile-section-title">Perfis denunciados</h2>
+</section>
+
+<section class="projects-section">
+
+    <div class="glider-contain">
+        <div class="glider">
+            @{
+                int z = 0;
+                foreach (var item in Model.DenunciasUsuarios)
+                {
+                    <div class="card-container">
+                        <div class="project-card card-denuncia-perfil">
+                            <h4 class="card-denuncia-title">@item.Motivo</h4>
+                            <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciado.Id})">
+                                <div class="card-img">
+                                    <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciado.Foto" alt="Perfil denunciado" />
+                                </div>
+                            </a>
+                            <div>
+                                <h3 class="card-title">@item.UsuarioDenunciado.Nome</h3>
+                                <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+                            </div>
+                            <div class="card-denunciantes">
+                                <span>Denunciado por</span>
+                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id, idDenuncia = item.Id })">
+                                    <div class="profile-pic profile-pic-mini">
+                                        @if (item.UsuarioDenunciante.Foto == null)
+                                        {
+                                            <div class="circle-pic avatar-placeholder">
+                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
+                                        }
+                                    </div>
+                                </a>
+                                <a href="#" class="MaisDenunciasUsu" data-id="@item.UsuarioDenunciadoId">
+                                    @if (Model.QuantidadeUsu[z] > 0)
+                                    {
+                                        <span class="numero-denunciantes">+ @Model.QuantidadeUsu[z]</span>
+                                    }
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    z++;
+                }
+            }
+        </div>
+
+        <button aria-label="Previous" class="glider-prev"><span class="iconify" data-icon="tabler:chevron-left" data-inline="false"></span></button>
+        <button aria-label="Next" class="glider-next"><span class="iconify" data-icon="tabler:chevron-right" data-inline="false"></span></button>
+        <div role="tablist" id="resp-dots" class="glider-dots"></div>
+
+    </div>
+
+</section>
+
+<section class="adm-stats">
+    <div class="tags-stats-card">
+        <h3 class="stats-title">Fluxo de tags</h3>
+        <div class="tags-stats-content">
+            <div class="tag-stats">
+                <div class="tag-title-stats">
+                    <div class="tag-container">
+                        <div class="tag"><span class="tag-text">Quantidade</span></div>
+                    </div>
+                </div>
+                <ul class="tag-uses">
+                    <li>Projetos Cadastrados: <span>@Model.NumeroProjetos</span></li>
+                    <li>Usuarios Cadastrados: <span>@Model.NumeroUsuarios</span></li>
+                </ul>
+            </div>
+            @foreach (var item in Model.Tags)
+            {
+                <div class="tag-stats">
+                    <div class="tag-title-stats">
+                        <div class="tag-container">
+                            <div class="tag"><span class="tag-text">@item.Nome</span></div>
+                        </div>
+                    </div>
+
+                    <ul class="tag-uses">
+
+                        @foreach (var subitem in Model.QuantidadeTagsProjetos)
+                        {
+                            if (subitem.IdTag == item.Id)
+                            {
+                                <li>Número de projetos: <span>@subitem.Quantidade</span></li>
+                            }
+                        }
+                        @foreach (var subitem in Model.QuantidadeTagsUsuarios)
+                        {
+                            if (subitem.IdTag == item.Id)
+                            {
+                                <li>Número de perfis de usuário: <span>@subitem.Quantidade</span></li>
+                            }
+                        }
+
+                        <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
+                    </ul>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+<div class="modal fade" id="modal">
+
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".MaisDenunciasUsu").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("MaisDenunciasUsu?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+    <script>
+        $(function () {
+            $(".MaisDenunciasPro").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("MaisDenunciasPro?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}
+
+
+
