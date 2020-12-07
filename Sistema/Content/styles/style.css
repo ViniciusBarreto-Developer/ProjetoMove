@@ -729,7 +729,7 @@ a.btn {
 .btn, .swal2-styled.swal2-confirm {
   border: none;
   border-radius: 100px;
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem 0.7rem;
   font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
