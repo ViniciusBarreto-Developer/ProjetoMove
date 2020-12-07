@@ -53,16 +53,9 @@
                                 <span>Denunciado por</span>
                                 <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
                                     <div class="profile-pic profile-pic-mini">
-                                        @if (item.UsuarioDenunciante.Foto == null)
-                                        {
-                                            <div class="circle-pic avatar-placeholder">
-                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" />
-                                        }
+
+                                        <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" />
+
                                     </div>
                                 </a>
 
@@ -115,16 +108,9 @@
                                 <span>Denunciado por</span>
                                 <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id, idDenuncia = item.Id })">
                                     <div class="profile-pic profile-pic-mini">
-                                        @if (item.UsuarioDenunciante.Foto == null)
-                                        {
-                                            <div class="circle-pic avatar-placeholder">
-                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
-                                        }
+
+                                        <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
+
                                     </div>
                                 </a>
 
@@ -254,19 +240,19 @@
                     resJson.forEach(({ DenuncianteUrl, DenuncianteNome, DenuncianteFoto, MotivoDenuncia, ObsDenuncia }) => {
                         const denuncia =
                             `
-                                    <li class='mais-denuncias-item'>
-                                        <a href="${DenuncianteUrl}" class="denuncia-extra-container">
-                                            <div class="denuncia-extra-img">
-                                                <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}.png" class="circle-pic"/></div>
-                                            </div>
-                                            <div class="denuncia-extra-info">
-                                                <span>${DenuncianteNome}</span>
-                                                <span>${MotivoDenuncia}</span>
-                                                <p>${ObsDenuncia}</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                `
+                                            <li class='mais-denuncias-item'>
+                                                <a href="${DenuncianteUrl}" class="denuncia-extra-container">
+                                                    <div class="denuncia-extra-img">
+                                                        <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}" class="circle-pic"/></div>
+                                                    </div>
+                                                    <div class="denuncia-extra-info">
+                                                        <span>${DenuncianteNome}</span>
+                                                        <span>${MotivoDenuncia}</span>
+                                                        <p>${ObsDenuncia}</p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        `
                         denunciasUl.innerHTML += denuncia;
                     });
                 }

@@ -11,16 +11,8 @@
 
     <div class="profile-pic-container">
         <div class="profile-pic">
-            @if (Model.Foto == null)
-            {
-                <div class="circle-pic avatar-placeholder">
-                    <p>@Model.Nome.ToString()[0]</p>
-                </div>
-            }
-            else
-            {
-                <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
-            }
+
+            <img class="circle-pic" src="~/Uploads/@Model.Foto" alt="Foto de perfil" />
 
         </div>
         <a class="profile-pic-edit" href="#" data-open-modal="modalPic"><span class="iconify" data-icon="tabler:camera" data-inline="false"></span></a>

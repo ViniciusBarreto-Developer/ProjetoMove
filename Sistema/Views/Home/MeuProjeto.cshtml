@@ -110,16 +110,8 @@
                 <div class="profile-pic profile-pic-mini">
                     <a href="@Url.Action("VisitarPerfil", new { id = item.UsuarioID })">
 
-                        @if (item.Usuario.Foto == null)
-                        {
-                            <div class="circle-pic avatar-placeholder">
-                                <p>@item.Usuario.Nome.ToString()[0]</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
-                        }
+                        <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
+
 
                     </a>
                 </div>
@@ -261,16 +253,8 @@
                         <div class="integrante-info">
 
                             <div class="profile-pic profile-pic-mini">
-                                @if (item.Usuario.Foto == null)
-                                {
-                                    <div class="circle-pic avatar-placeholder">
-                                        <p>@item.Usuario.Nome.ToString()[0]</p>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
-                                }
+
+                                <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
                             </div>
 
                             <div class="integrante-contato">

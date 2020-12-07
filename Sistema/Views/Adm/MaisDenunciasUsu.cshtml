@@ -29,16 +29,9 @@
                                 <span>Denunciado por</span>
                                 <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
                                     <div class="profile-pic profile-pic-mini">
-                                        @if (item.UsuarioDenunciante.Foto == null)
-                                        {
-                                            <div class="circle-pic avatar-placeholder">
-                                                <p>@item.UsuarioDenunciante.Nome.ToString()[0]</p>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
-                                        }
+
+                                        <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
+
                                     </div>
                                 </a>
                             </div>

@@ -205,6 +205,7 @@ namespace Sistema.Controllers
                 usu.Senha = Funcoes.HashTexto(cad.Senha, "SHA512");
                 usu.Biografia = "";
                 usu.Ativo = true;
+                usu.Foto = cad.Nome.ToLower()[0] + ".svg";
 
                 db.Usuario.Add(usu);
                 db.SaveChanges();

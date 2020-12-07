@@ -1544,6 +1544,7 @@ input[type=radio]:checked + label .indicator::after {
     height: 6rem; }
 
 .mais-denuncias-list .mais-denuncias-item .denuncia-extra-info {
+  padding-top: 0.5rem;
   margin-left: 1rem;
   text-align: left;
   max-width: calc(32rem + 1vw); }
