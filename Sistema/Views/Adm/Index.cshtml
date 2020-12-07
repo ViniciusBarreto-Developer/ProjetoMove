@@ -65,12 +65,12 @@
                                         }
                                     </div>
                                 </a>
-                                <a href="#" class="MaisDenunciasPro" data-id="@item.ProjetoDenunciadoId">
-                                    @if (Model.QuantidadePro[y] > 0)
-                                    {
-                                        <span class="numero-denunciantes">+ @Model.QuantidadePro[y]</span>
-                                    }
-                                </a>
+
+                                @if (Model.QuantidadePro[y] > 0)
+                                {
+                                    <span class="numero-denunciantes" data-id="@item.ProjetoDenunciadoId" data-url="MaisDenunciasPro" data-open-modal="modalDenunciantes">+@Model.QuantidadePro[y]</span>
+                                }
+
                             </div>
 
                         </div>
@@ -127,12 +127,11 @@
                                         }
                                     </div>
                                 </a>
-                                <a href="#" class="MaisDenunciasUsu" data-id="@item.UsuarioDenunciadoId">
-                                    @if (Model.QuantidadeUsu[z] > 0)
-                                    {
-                                        <span class="numero-denunciantes">+ @Model.QuantidadeUsu[z]</span>
-                                    }
-                                </a>
+
+                                @if (Model.QuantidadeUsu[z] > 0)
+                                {
+                                    <span class="numero-denunciantes" data-id="@item.UsuarioDenunciadoId" data-url="MaisDenunciasUsu" data-open-modal="modalDenunciantes">+@Model.QuantidadeUsu[z]</span>
+                                }
 
                                 @*<button class="btn btn-primary MaisDenunciasUsu" data-id="@item.UsuarioDenunciadoId" value="+"></button>*@
                             </div>
@@ -201,31 +200,100 @@
 
     </div>
 </section>
-<div class="modal fade" id="modal">
+@*<div class="modal fade" id="modal">
 
+    </div>*@
+
+<div class="modal-bg hidden" id="modalDenunciantes">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Mais denúncias</h3>
+            <div class="close-modal" data-close-modal="modalDenunciantes">
+                <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <ul class="mais-denuncias-list" id="denuncias-list">
+            </ul>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+
+    </div>
 </div>
 
 @section scripts{
     <script>
-        $(function () {
-            $(".MaisDenunciasUsu").click(function () {
-                var id = $(this).attr("data-id");
-                $("#modal").load("MaisDenunciasUsu?id=" + id, function () {
-                    $("#modal").modal();
-                })
-            });
+        const maisDenuncias = document.querySelectorAll('.numero-denunciantes');
+
+        maisDenuncias.forEach((item) => {
+            item.addEventListener('click', ({ currentTarget }) => {
+                const url = `/Adm/${currentTarget.dataset.url}`;
+                const headers = {
+                    "Content-Type": "application/json",
+                    "Access-Control-Origin": "*"
+                }
+
+                const data = {
+                    id: currentTarget.dataset.id
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(res => res.json())
+                    .then(resJson => renderMaisDenuncias(resJson));
+
+                function renderMaisDenuncias(resJson) {
+                    const denunciasUl = document.querySelector('#denuncias-list');
+                    denunciasUl.innerHTML = '';
+
+                    resJson.forEach(({ DenuncianteUrl, DenuncianteNome, DenuncianteFoto, MotivoDenuncia, ObsDenuncia }) => {
+                        const denuncia =
+                            `
+                                    <li class='mais-denuncias-item'>
+                                        <a href="${DenuncianteUrl}" class="denuncia-extra-container">
+                                            <div class="denuncia-extra-img">
+                                                <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}.png" class="circle-pic"/></div>
+                                            </div>
+                                            <div class="denuncia-extra-info">
+                                                <span>${DenuncianteNome}</span>
+                                                <span>${MotivoDenuncia}</span>
+                                                <p>${ObsDenuncia}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                `
+                        denunciasUl.innerHTML += denuncia;
+                    });
+                }
+
+            })
         })
     </script>
-    <script>
-        $(function () {
-            $(".MaisDenunciasPro").click(function () {
-                var id = $(this).attr("data-id");
-                $("#modal").load("MaisDenunciasPro?id=" + id, function () {
-                    $("#modal").modal();
-                })
-            });
-        })
-    </script>
+    @*<script>
+            $(function () {
+                $(".MaisDenunciasUsu").click(function () {
+                    var id = $(this).attr("data-id");
+                    $("#modal").load("MaisDenunciasUsu?id=" + id, function () {
+                        $("#modal").modal();
+                    })
+                });
+            })
+        </script>
+        <script>
+            $(function () {
+                $(".MaisDenunciasPro").click(function () {
+                    var id = $(this).attr("data-id");
+                    $("#modal").load("MaisDenunciasPro?id=" + id, function () {
+                        $("#modal").modal();
+                    })
+                });
+            })
+        </script>*@
 }
 
 

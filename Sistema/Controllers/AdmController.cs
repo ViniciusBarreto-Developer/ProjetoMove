@@ -107,19 +107,39 @@ namespace Sistema.Controllers
 
             return View(vma);
         }
-        public ActionResult MaisDenunciasUsu(int id)
+        [HttpPost]
+        public JsonResult MaisDenunciasUsu(int id)
         {
             VMAdm vma = new VMAdm();
             vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status != "Concluído").ToList();
 
-            return View(vma);
+            var denuncias = vma.DenunciasUsuarios.Select(z => new
+            {
+                DenuncianteUrl = "/Home/MeuPerfil/" + z.UsuarioDenuncianteId,
+                DenuncianteNome = z.UsuarioDenunciante.Nome,
+                DenuncianteFoto = z.UsuarioDenunciante.Foto,
+                MotivoDenuncia = z.Motivo,
+                ObsDenuncia = z.Observacao
+            });
+
+            return Json(denuncias);
         }
-        public ActionResult MaisDenunciasPro(int id)
+        [HttpPost]
+        public JsonResult MaisDenunciasPro(int id)
         {
             VMAdm vma = new VMAdm();
             vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status != "Concluído").ToList();
 
-            return View(vma);
+            var denuncias = vma.DenunciasProjetos.Select(z => new
+            {
+                DenuncianteUrl = "/Home/MeuPerfil/" + z.UsuarioDenuncianteId,
+                DenuncianteNome = z.UsuarioDenunciante.Nome,
+                DenuncianteFoto = z.UsuarioDenunciante.Foto,
+                MotivoDenuncia = z.Motivo,
+                ObsDenuncia = z.Observacao
+            }) ;
+
+            return Json(denuncias);
         }        
         public ActionResult PenalizarProjeto(VMProjeto vmp)
         {

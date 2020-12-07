@@ -84,6 +84,7 @@
     }
 
     .card-denunciantes {
+        min-height: 6rem;
         margin-top: 1rem;
         color: $text-color;
 
@@ -93,9 +94,10 @@
 
         .numero-denunciantes {
             font-size: $font-size-sm;
+            padding: 1rem;
             position: relative;
-            bottom: 2rem;
-            left: 3rem;
+            bottom: 2.5rem;
+            left: 2.5rem;
         }
     }
 }
@@ -118,6 +120,8 @@
     }
 
     .card-denunciantes {
+        min-height: 6rem;
+        margin-top: 1rem;
         color: $text-color;
 
         .profile-pic-mini {
@@ -133,11 +137,54 @@
     }
 }
 
+.mais-denuncias-list {
+    .mais-denuncias-item {
+        .denuncia-extra-container {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+
+        .denuncia-extra-img {
+            display: flex;
+            align-items: center;
+
+            .profile-pic-mini {
+                width: 6rem;
+                height: 6rem;
+            }
+        }
+
+        .denuncia-extra-info {
+            margin-left: 1rem;
+            text-align: left;
+            max-width: calc(32rem + 1vw);
+
+            :first-child {
+                margin-right: 2rem;
+            }
+
+            :nth-child(2) {
+                color: $secondary-color;
+            }
+
+            :last-child {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}
+
 @include medium-max() {
     .tag-uses {
         grid-template-rows: auto !important;
         grid-template-columns: 1fr !important;
         grid-row-gap: 0.5rem;
+    }
+
+
+    .denuncia-extra-container {
+        flex-direction: column;
+        justify-content: center;
     }
 }
 

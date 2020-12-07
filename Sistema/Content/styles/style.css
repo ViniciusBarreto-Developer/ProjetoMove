@@ -444,7 +444,8 @@ table {
   outline-color: #05f296; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #333333; }
 
 li {
   list-style: none; }
@@ -1494,15 +1495,17 @@ input[type=radio]:checked + label .indicator::after {
   min-height: 4rem; }
 
 .card-container .card-denuncia-projeto .card-denunciantes {
+  min-height: 6rem;
   margin-top: 1rem;
   color: #333333; }
   .card-container .card-denuncia-projeto .card-denunciantes .profile-pic-mini {
     margin: 0.5rem auto 0 auto; }
   .card-container .card-denuncia-projeto .card-denunciantes .numero-denunciantes {
     font-size: 0.833rem;
+    padding: 1rem;
     position: relative;
-    bottom: 2rem;
-    left: 3rem; }
+    bottom: 2.5rem;
+    left: 2.5rem; }
 
 .card-container .card-denuncia-perfil .card-denuncia-title {
   font-size: 1.44rem;
@@ -1518,6 +1521,8 @@ input[type=radio]:checked + label .indicator::after {
   min-height: 4rem; }
 
 .card-container .card-denuncia-perfil .card-denunciantes {
+  min-height: 6rem;
+  margin-top: 1rem;
   color: #333333; }
   .card-container .card-denuncia-perfil .card-denunciantes .profile-pic-mini {
     margin: 0.5rem auto 0 auto; }
@@ -1527,11 +1532,36 @@ input[type=radio]:checked + label .indicator::after {
     bottom: 2rem;
     left: 3rem; }
 
+.mais-denuncias-list .mais-denuncias-item .denuncia-extra-container {
+  display: flex;
+  margin-bottom: 2rem; }
+
+.mais-denuncias-list .mais-denuncias-item .denuncia-extra-img {
+  display: flex;
+  align-items: center; }
+  .mais-denuncias-list .mais-denuncias-item .denuncia-extra-img .profile-pic-mini {
+    width: 6rem;
+    height: 6rem; }
+
+.mais-denuncias-list .mais-denuncias-item .denuncia-extra-info {
+  margin-left: 1rem;
+  text-align: left;
+  max-width: calc(32rem + 1vw); }
+  .mais-denuncias-list .mais-denuncias-item .denuncia-extra-info :first-child {
+    margin-right: 2rem; }
+  .mais-denuncias-list .mais-denuncias-item .denuncia-extra-info :nth-child(2) {
+    color: #874AFF; }
+  .mais-denuncias-list .mais-denuncias-item .denuncia-extra-info :last-child {
+    margin-top: 0.5rem; }
+
 @media only screen and (max-width: 768px) {
   .tag-uses {
     grid-template-rows: auto !important;
     grid-template-columns: 1fr !important;
-    grid-row-gap: 0.5rem; } }
+    grid-row-gap: 0.5rem; }
+  .denuncia-extra-container {
+    flex-direction: column;
+    justify-content: center; } }
 
 /*<section class="adm-stats" >
 <div class="tags-stats-container" >
