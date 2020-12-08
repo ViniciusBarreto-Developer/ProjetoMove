@@ -206,7 +206,6 @@
                         @Html.ValidationMessageFor(model => model.Punicao, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.HiddenFor(model => model.IdDenuncia)
                         @Html.LabelFor(model => model.MotivoPunicao, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.TextAreaFor(model => model.MotivoPunicao, new { @class = "bio-text" })
                         @Html.ValidationMessageFor(model => model.MotivoPunicao, "", new { @class = "text-danger" })
