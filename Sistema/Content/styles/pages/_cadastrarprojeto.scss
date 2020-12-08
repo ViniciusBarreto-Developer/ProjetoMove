@@ -244,13 +244,21 @@
 .search-email {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 3rem;
 
     .search-group {
-        display: flex;
+        display: grid;
+        grid-template-areas: "label label"
+                             "input btn";
+
+        label {
+            text-align: left;
+            grid-area: label;
+        }
 
         input {
+            grid-area: input;
             font-size: $font-size-sm;
             border: 1px solid $border-color;
             border-radius: 20px;
@@ -263,6 +271,10 @@
             outline: none !important;
             border: 1px solid $secondary-color;
             transition: 0.5s;
+        }
+
+        button {
+            grid-area: btn;
         }
     }
 }

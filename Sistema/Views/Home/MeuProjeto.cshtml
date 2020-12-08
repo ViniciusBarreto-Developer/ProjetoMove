@@ -321,7 +321,6 @@
                         <div class="integrante-info">
 
                             <div class="profile-pic profile-pic-mini">
-
                                 <img class="circle-pic" src="~/Uploads/@item.Usuario.Foto" />
                             </div>
 
@@ -360,8 +359,8 @@
                 if (Model.Adm == true)
                 {
                     <div class="search-email">
-                        @Html.LabelFor(model => model.PesquisaEmail)
                         <div class="search-group">
+                        @Html.LabelFor(model => model.PesquisaEmail)
                             @Html.EditorFor(model => model.PesquisaEmail)
                             @Html.HiddenFor(model => model.Id)
                             <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
@@ -372,8 +371,8 @@
                 else if (Model.EuIntegrante.Adm == true)
                 {
                     <div class="search-email">
-                        @Html.LabelFor(model => model.PesquisaEmail)
                         <div class="search-group">
+                            @Html.LabelFor(model => model.PesquisaEmail)
                             @Html.EditorFor(model => model.PesquisaEmail)
                             @Html.HiddenFor(model => model.Id)
                             <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
