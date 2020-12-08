@@ -46,8 +46,16 @@
                             </a>
                             <div>
                                 <h3 class="card-title">@item.ProjetoDenunciado.Nome</h3>
+                                @if (item.Desativado == true)
+                                {
+                                    <p class="card-text">Desativado - @item.MotivoPunicao</p>
 
-                                <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+
+                                }
                             </div>
                             <div class="card-denunciantes">
                                 <span>Denunciado por</span>
@@ -103,7 +111,16 @@
                             </a>
                             <div>
                                 <h3 class="card-title">@item.UsuarioDenunciado.Nome</h3>
-                                <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+                                @if (item.Desativado == true)
+                                {
+                                    <p class="card-text">Desativado - @item.MotivoPunicao</p>
+
+                                }
+                                else
+                                {
+                                    <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
+
+                                }
                             </div>
                             <div class="card-denunciantes">
                                 <span>Denunciado por</span>
@@ -117,7 +134,7 @@
 
                                 @if (Model.QuantidadeUsu[z] > 0)
                                 {
-                                    <span class="numero-denunciantes" data-id="@item.UsuarioDenunciadoId" data-url="MaisDenunciasUsu" data-open-modal="modalDenunciantes">+@Model.QuantidadePro[z]</span>
+                                    <span class="numero-denunciantes" data-id="@item.UsuarioDenunciadoId" data-url="MaisDenunciasUsu" data-open-modal="modalDenunciantes">+ @Model.QuantidadeUsu[z]</span>
                                 }
 
                             </div>

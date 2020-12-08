@@ -120,7 +120,6 @@ namespace Sistema.Controllers
             vma.EmailAdm = usu.Email;
             vma.NumeroUsuarios = db.Usuario.Count();
             vma.NumeroProjetos = db.Projeto.Count();
-            vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").ToList();
 
             //FLUXO DE TAGS
             vma.Tags = db.Tag.OrderByDescending(x => x.Pesquisada).ToList();
@@ -294,7 +293,7 @@ namespace Sistema.Controllers
                 foreach (var item in proAdm)
                 {
                     TempData["MSG"] = Funcoes.EnviarEmail(item.Usuario.Email,
-                    "MOVE - Seu Projeto "+ pro.Nome +" sofreu uma Penalidade", vmp.MotivoPunicao);
+                    "MOVE - Seu Projeto "+ pro.Nome +" sofreu uma Penalidade", "Seu projeto foi Desativado por " + vmp.Punicao + " dias, motivo: "+ vmp.MotivoPunicao);
                 }
             }
             else
@@ -397,7 +396,7 @@ namespace Sistema.Controllers
             if (vmp.Punicao > 0)
             {
                 TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
-                "MOVE - Sua Conta foi Penalizada!", vmp.MotivoPunicao);
+                "MOVE - Sua Conta foi Penalizada!", "Sua Conta foi Desativada por " + vmp.Punicao +" dias, motivo: "+ vmp.MotivoPunicao);
             }
             else
             {
