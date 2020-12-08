@@ -126,8 +126,6 @@
         }
     }
 
-
-
     .upload-arq {
         display: flex;
         align-items: center;
@@ -135,15 +133,34 @@
         flex-wrap: wrap;
     }
 
-    
-
+   
     .uploads-icon {
-        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        padding: 1rem;
+        width: 12rem;
 
-        svg {
+        a>svg {
             cursor: pointer;
             width: 4rem;
             height: 4rem;
+        }
+
+        .delete-arq {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            background: $danger-color;
+            border: none;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            color: #fff;
         }
     }
 }

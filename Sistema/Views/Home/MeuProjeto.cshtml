@@ -83,13 +83,13 @@
                     foreach (var item in Model.ArquivosProjetos)
                     {
 
-                        <a onclick="window.open('@Url.Action("VisualizarPdf", "Home", new { id = item.Id })', '_blank');">
-                            <div class="uploads-icon">
+                        <div class="uploads-icon">
+                            <a onclick="window.open('@Url.Action("VisualizarPdf", "Home", new { id = item.Id })', '_blank');">
                                 <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
-                            </div>
+                            </a>
                             <h2>@item.Nome</h2>
-                        </a>
-                        <button class="btn delete-acc" onclick="window.location.href='@Url.Action("RemoverUpload", "Home", new { idProjeto = Model.Id, idArquivo = item.Id })'">x</button>
+                            <button class="delete-arq" onclick="window.location.href='@Url.Action("RemoverUpload", "Home", new { idProjeto = Model.Id, idArquivo = item.Id })'" ><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+                        </div>
                         quant++;
                     }
                     if (quant == 0)
@@ -128,7 +128,7 @@
     <div class="form-btns">
         @if (Model.Ativo)
         {
-            <input type="button"  data-open-modal="modalDesativar" value="Desativar" class="btn delete-acc" />
+            <input type="button" data-open-modal="modalDesativar" value="Desativar" class="btn delete-acc" />
         }
         <input type="button" data-open-modal="modalPenalizar" value="Penalizar" class="btn btn-primary" />
     </div>

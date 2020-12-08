@@ -1682,11 +1682,29 @@ input[type=radio]:checked + label .indicator::after {
     justify-content: center;
     flex-wrap: wrap; }
   .upload .uploads-icon {
-    padding: 2rem; }
-    .upload .uploads-icon svg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+    width: 12rem; }
+    .upload .uploads-icon a > svg {
       cursor: pointer;
       width: 4rem;
       height: 4rem; }
+    .upload .uploads-icon .delete-arq {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: absolute;
+      right: 1rem;
+      background: #ff9090;
+      border: none;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      color: #fff; }
 
 #upload-arq {
   opacity: 0;
