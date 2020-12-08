@@ -29,7 +29,7 @@
                 @{
                     string[] user = User.Identity.Name.Split('|');
 
-                    <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
+                    <li>@Html.ActionLink(user[1].Substring(0, user[1].IndexOf(' ')), "MeuPerfil", "Home")</li>
                 }
 
 

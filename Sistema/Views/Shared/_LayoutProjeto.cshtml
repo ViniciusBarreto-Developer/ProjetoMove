@@ -37,7 +37,7 @@
                     else
                     {
                         <li>@Html.ActionLink("Descobrir", "Principal", "Home")</li>
-                        <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
+                        <li>@Html.ActionLink(user[1].Substring(0, user[1].IndexOf(' ')), "MeuPerfil", "Home")</li>
                         <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
                     }
                 }
