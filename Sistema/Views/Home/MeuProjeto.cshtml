@@ -360,7 +360,7 @@
                 {
                     <div class="search-email">
                         <div class="search-group">
-                        @Html.LabelFor(model => model.PesquisaEmail)
+                            @Html.LabelFor(model => model.PesquisaEmail)
                             @Html.EditorFor(model => model.PesquisaEmail)
                             @Html.HiddenFor(model => model.Id)
                             <button class="add-tag" type="submit"><span class="iconify" data-icon="tabler:plus" data-inline="false"></span></button>
@@ -573,9 +573,9 @@
         })
 
         function removeTags(e) {
-                const data = {
-                    texto: e.currentTarget.previousElementSibling.innerText,
-                    Id: @Model.Id
+            const data = {
+                texto: e.currentTarget.previousElementSibling.innerText,
+                Id: @Model.Id
                 }
             fetch("/Home/ExcluirTagProjeto", {
                 method: 'POST',

@@ -296,7 +296,7 @@ namespace Sistema.Controllers
                     "MOVE - Seu Projeto "+ pro.Nome +" sofreu uma Penalidade", "Seu projeto foi Desativado por " + vmp.Punicao + " dias, motivo: "+ vmp.MotivoPunicao);
                 }
             }
-            else
+            else if (vmp.MotivoPunicao != null)
             {
                 foreach (var item in proAdm)
                 {
@@ -398,7 +398,7 @@ namespace Sistema.Controllers
                 TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
                 "MOVE - Sua Conta foi Penalizada!", "Sua Conta foi Desativada por " + vmp.Punicao +" dias, motivo: "+ vmp.MotivoPunicao);
             }
-            else
+            else if(vmp.MotivoPunicao != null)
             {
                 TempData["MSG"] = Funcoes.EnviarEmail(usu.Email,
                 "MOVE - Comunicado sobre sua conta...", vmp.MotivoPunicao);

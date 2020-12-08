@@ -53,8 +53,14 @@
                                 }
                                 else
                                 {
-                                    <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
-
+                                    if (item.MotivoPunicao == null)
+                                    {
+                                        <p class="card-text">Denúncia Descartada</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">@item.Punicao dias - @item.MotivoPunicao</p>
+                                    }
                                 }
                             </div>
                             <div class="card-denunciantes">
@@ -118,8 +124,14 @@
                                 }
                                 else
                                 {
-                                    <p class="card-text">@item.Punicao - @item.MotivoPunicao</p>
-
+                                    if (item.MotivoPunicao == null)
+                                    {
+                                        <p class="card-text">Denúncia Descartada</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">@item.Punicao dias - @item.MotivoPunicao</p>
+                                    }
                                 }
                             </div>
                             <div class="card-denunciantes">
@@ -254,19 +266,19 @@
                     resJson.forEach(({ DenuncianteUrl, DenuncianteNome, DenuncianteFoto, MotivoDenuncia, ObsDenuncia }) => {
                         const denuncia =
                             `
-                                                        <li class='mais-denuncias-item'>
-                                                            <a href="${DenuncianteUrl}" class="denuncia-extra-container">
-                                                                <div class="denuncia-extra-img">
-                                                                    <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}" class="circle-pic"/></div>
-                                                                </div>
-                                                                <div class="denuncia-extra-info">
-                                                                    <span>${DenuncianteNome}</span>
-                                                                    <span>${MotivoDenuncia}</span>
-                                                                    <p>${ObsDenuncia}</p>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    `
+                                                            <li class='mais-denuncias-item'>
+                                                                <a href="${DenuncianteUrl}" class="denuncia-extra-container">
+                                                                    <div class="denuncia-extra-img">
+                                                                        <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}" class="circle-pic"/></div>
+                                                                    </div>
+                                                                    <div class="denuncia-extra-info">
+                                                                        <span>${DenuncianteNome}</span>
+                                                                        <span>${MotivoDenuncia}</span>
+                                                                        <p>${ObsDenuncia}</p>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        `
                         denunciasUl.innerHTML += denuncia;
                     });
                 }
