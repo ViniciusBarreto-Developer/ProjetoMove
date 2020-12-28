@@ -28,7 +28,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 O sistema tem o intuito de dar visibilidade aos projetos desenvolvidos dentro e fora das instituições de ensino, queremos facilitar a busca por parceiros de equipe, 
 patrocínio e investidores a todos que queiram tirar sua ideia do papel.
 
-## 🔖 Telas do Projeto
+## 🔖 Layout
 
 - https://www.behance.net/gallery/110317323/Move
 
