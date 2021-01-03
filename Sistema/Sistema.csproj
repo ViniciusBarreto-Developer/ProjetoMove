@@ -153,6 +153,7 @@
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Denuncias.cs" />
     <Compile Include="Models\Funcoes.cs" />
+    <Compile Include="Models\FuncoesAdm.cs" />
     <Compile Include="Models\IntegrantesProjeto.cs" />
     <Compile Include="Models\Projeto.cs" />
     <Compile Include="Models\ProjetosSalvos.cs" />
