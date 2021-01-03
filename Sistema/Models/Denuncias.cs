@@ -48,6 +48,5 @@ namespace Sistema.Models
 
         [ForeignKey("AdmId")]
         public virtual Usuario Adm { get; set; }
-
     }
 }

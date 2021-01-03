@@ -32,7 +32,6 @@
     <div class="glider-contain">
         <div class="glider">
             @{
-                int y = 0;
                 foreach (var item in Model.DenunciasProjetos)
                 {
                     <div class="card-container">
@@ -51,24 +50,22 @@
                             </div>
                             <div class="card-denunciantes">
                                 <span>Denunciado por</span>
-                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
-                                    <div class="profile-pic profile-pic-mini">
+                                <div class="profile-pic profile-pic-mini">
+                                    <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id })">
 
                                         <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" />
+                                    </a>
+                                </div>                                
 
-                                    </div>
-                                </a>
-
-                                @if (Model.QuantidadePro[y] > 0)
+                                @if (item.QuantidadeDenuncias > 0)
                                 {
-                                    <span class="numero-denunciantes" data-id="@item.ProjetoDenunciadoId" data-url="MaisDenunciasPro" data-open-modal="modalDenunciantes">+@Model.QuantidadePro[y]</span>
+                                    <span class="numero-denunciantes" data-id="@item.ProjetoDenunciadoId" data-url="MaisDenunciasPro" data-open-modal="modalDenunciantes">+@item.QuantidadeDenuncias</span>
                                 }
 
                             </div>
 
                         </div>
                     </div>
-                    y++;
                 }
             }
         </div>
@@ -89,7 +86,6 @@
     <div class="glider-contain">
         <div class="glider">
             @{
-                int z = 0;
                 foreach (var item in Model.DenunciasUsuarios)
                 {
                     <div class="card-container">
@@ -106,24 +102,22 @@
                             </div>
                             <div class="card-denunciantes">
                                 <span>Denunciado por</span>
-                                <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id, idDenuncia = item.Id })">
-                                    <div class="profile-pic profile-pic-mini">
+                                <div class="profile-pic profile-pic-mini">
+                                    <a href="@Url.Action("MeuPerfil", "Home", new { id = item.UsuarioDenunciante.Id, idDenuncia = item.Id })">
 
                                         <img class="circle-pic" src="~/Uploads/@item.UsuarioDenunciante.Foto" alt="Denunciante" />
+                                    </a>
+                                </div>
 
-                                    </div>
-                                </a>
-
-                                @if (Model.QuantidadeUsu[z] > 0)
+                                @if (item.QuantidadeDenuncias > 0)
                                 {
-                                    <span class="numero-denunciantes" data-id="@item.UsuarioDenunciadoId" data-url="MaisDenunciasUsu" data-open-modal="modalDenunciantes">+@Model.QuantidadeUsu[z]</span>
+                                    <span class="numero-denunciantes" data-id="@item.UsuarioDenunciadoId" data-url="MaisDenunciasUsu" data-open-modal="modalDenunciantes">+@item.QuantidadeDenuncias</span>
                                 }
 
                             </div>
 
                         </div>
                     </div>
-                    z++;
                 }
             }
         </div>
@@ -236,19 +230,19 @@
                     resJson.forEach(({ DenuncianteUrl, DenuncianteNome, DenuncianteFoto, MotivoDenuncia, ObsDenuncia }) => {
                         const denuncia =
                             `
-                                            <li class='mais-denuncias-item'>
-                                                <a href="${DenuncianteUrl}" class="denuncia-extra-container">
-                                                    <div class="denuncia-extra-img">
-                                                        <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}" class="circle-pic"/></div>
-                                                    </div>
-                                                    <div class="denuncia-extra-info">
-                                                        <span>${DenuncianteNome}</span>
-                                                        <span>${MotivoDenuncia}</span>
-                                                        <p>${ObsDenuncia}</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        `
+                                                <li class='mais-denuncias-item'>
+                                                    <a href="${DenuncianteUrl}" class="denuncia-extra-container">
+                                                        <div class="denuncia-extra-img">
+                                                            <div class="profile-pic profile-pic-mini"><img src="/Uploads/${DenuncianteFoto}" class="circle-pic"/></div>
+                                                        </div>
+                                                        <div class="denuncia-extra-info">
+                                                            <span>${DenuncianteNome}</span>
+                                                            <span>${MotivoDenuncia}</span>
+                                                            <p>${ObsDenuncia}</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            `
                         denunciasUl.innerHTML += denuncia;
                     });
                 }

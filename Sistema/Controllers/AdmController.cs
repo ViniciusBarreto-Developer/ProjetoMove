@@ -22,66 +22,19 @@ namespace Sistema.Controllers
             vma.AdmId = usu.Id;
             vma.NomeAdm = usu.Nome;
             vma.EmailAdm = usu.Email;
+
+            var projetosDenunciados = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").OrderBy(x => x.ProjetoDenunciadoId).ToList();
+            vma.DenunciasProjetos = FuncoesAdm.DenunciasAgrupadas(projetosDenunciados).OrderByDescending(x => x.QuantidadeDenuncias).ToList();
+
+            var usuariosDenunciados = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").OrderBy(x => x.UsuarioDenunciadoId).ToList();
+            vma.DenunciasUsuarios = FuncoesAdm.DenunciasAgrupadas(usuariosDenunciados).OrderByDescending(x => x.QuantidadeDenuncias).ToList();
+
             vma.NumeroUsuarios = db.Usuario.Count();
             vma.NumeroProjetos = db.Projeto.Count();
-            vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").ToList();
-
             vma.Tags = db.Tag.OrderByDescending(x => x.Pesquisada).ToList();
             vma.QuantidadeTagsUsuarios = FuncoesAdm.QuantidadeTagsUsuarios(vma.Tags);
             vma.QuantidadeTagsProjetos = FuncoesAdm.QuantidadeTagsProjetos(vma.Tags);
             
-            //DENUNCIAS DE USUARIOS
-            var denUsu = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status != "Concluído").OrderBy(x => x.UsuarioDenunciadoId).ToList();
-            List<Denuncias> resultadoUsu = new List<Denuncias>();
-            List<int> quantUsu = new List<int>();
-
-            int IdDenunciado = 0;          
-            int y = -1;
-            foreach (var item in denUsu)
-            {
-                if (IdDenunciado != item.UsuarioDenunciadoId)
-                {
-                    resultadoUsu.Add(item);
-                    IdDenunciado = (int)item.UsuarioDenunciadoId;
-
-                    y++;
-                    quantUsu.Add(0);
-                }
-                else
-                {
-                    quantUsu[y]++;
-                }
-            }
-            vma.DenunciasUsuarios = resultadoUsu;
-            vma.QuantidadeUsu = quantUsu;
-            //...DENUNCIAS DE USUARIOS
-
-            //DENUNCIAS DE PROJETOS
-            var denPro = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status != "Concluído").OrderBy(x => x.ProjetoDenunciadoId).ToList();
-            List<Denuncias> resultadoPro = new List<Denuncias>();
-            List<int> quantPro = new List<int>();
-
-            int IdProjetoDenunciado = 0;
-            y = -1;
-            foreach (var item in denPro)
-            {
-                if (IdProjetoDenunciado != item.ProjetoDenunciadoId)
-                {
-                    resultadoPro.Add(item);
-                    IdProjetoDenunciado = (int)item.ProjetoDenunciadoId;
-
-                    y++;
-                    quantPro.Add(0);
-                }
-                else
-                {
-                    quantPro[y]++;
-                }
-            }
-            vma.DenunciasProjetos = resultadoPro;
-            vma.QuantidadePro = quantPro;
-            //...DENUNCIAS DE PROJETOS
-
             return View(vma);
         }
         public ActionResult Historico()
@@ -95,78 +48,32 @@ namespace Sistema.Controllers
             vma.AdmId = usu.Id;
             vma.NomeAdm = usu.Nome;
             vma.EmailAdm = usu.Email;
+
             vma.NumeroUsuarios = db.Usuario.Count();
             vma.NumeroProjetos = db.Projeto.Count();
-
             vma.Tags = db.Tag.OrderByDescending(x => x.Pesquisada).ToList();
             vma.QuantidadeTagsUsuarios = FuncoesAdm.QuantidadeTagsUsuarios(vma.Tags);
             vma.QuantidadeTagsProjetos = FuncoesAdm.QuantidadeTagsProjetos(vma.Tags);
 
-            //DENUNCIAS DE USUARIOS
-            var denUsu = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status == "Concluído").OrderBy(x => x.UsuarioDenunciadoId).ToList();
-            List<Denuncias> resultadoUsu = new List<Denuncias>();
-            List<int> quantUsu = new List<int>();
+            var projetosDenunciados = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status == "Concluído").OrderBy(x => x.ProjetoDenunciadoId).ToList();
+            vma.DenunciasProjetos = FuncoesAdm.DenunciasAgrupadas(projetosDenunciados).OrderByDescending(x => x.QuantidadeDenuncias).ToList(); ;
 
-            int IdDenunciado = 0;
-            int y = -1;
-            foreach (var item in denUsu)
-            {
-                if (IdDenunciado != item.UsuarioDenunciadoId)
-                {
-                    resultadoUsu.Add(item);
-                    IdDenunciado = (int)item.UsuarioDenunciadoId;
-
-                    y++;
-                    quantUsu.Add(0);
-                }
-                else
-                {
-                    quantUsu[y]++;
-                }
-            }
-            vma.DenunciasUsuarios = resultadoUsu;
-            vma.QuantidadeUsu = quantUsu;
-            //...DENUNCIAS DE USUARIOS
-
-            //DENUNCIAS DE PROJETOS
-            var denPro = db.Denuncias.Where(x => x.ProjetoDenunciadoId != null && x.Status == "Concluído").OrderBy(x => x.ProjetoDenunciadoId).ToList();
-            List<Denuncias> resultadoPro = new List<Denuncias>();
-            List<int> quantPro = new List<int>();
-
-            int IdProjetoDenunciado = 0;
-            y = -1;
-            foreach (var item in denPro)
-            {
-                if (IdProjetoDenunciado != item.ProjetoDenunciadoId)
-                {
-                    resultadoPro.Add(item);
-                    IdProjetoDenunciado = (int)item.ProjetoDenunciadoId;
-
-                    y++;
-                    quantPro.Add(0);
-                }
-                else
-                {
-                    quantPro[y]++;
-                }
-            }
-            vma.DenunciasProjetos = resultadoPro;
-            vma.QuantidadePro = quantPro;
-            //...DENUNCIAS DE PROJETOS
+            var usuariosDenunciados = db.Denuncias.Where(x => x.UsuarioDenunciadoId != null && x.Status == "Concluído").OrderBy(x => x.UsuarioDenunciadoId).ToList();
+            vma.DenunciasUsuarios = FuncoesAdm.DenunciasAgrupadas(usuariosDenunciados).OrderByDescending(x => x.QuantidadeDenuncias).ToList(); ;
 
             return View(vma);
         }
         public ActionResult MaisDenunciasUsu(int id)
         {
             VMAdm vma = new VMAdm();
-            vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status != "Concluído").ToList();
+            vma.MaisDenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status != "Concluído").ToList();
 
-            if (vma.DenunciasUsuarios.Count() == 0)
+            if (vma.MaisDenunciasUsuarios.Count() == 0)
             {
-                vma.DenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status == "Concluído").ToList();
+                vma.MaisDenunciasUsuarios = db.Denuncias.Where(x => x.UsuarioDenunciadoId == id && x.Status == "Concluído").ToList();
             }
 
-            var denuncias = vma.DenunciasUsuarios.Select(z => new
+            var denuncias = vma.MaisDenunciasUsuarios.Select(z => new
             {
                 DenuncianteUrl = "/Home/MeuPerfil/" + z.UsuarioDenuncianteId,
                 DenuncianteNome = z.UsuarioDenunciante.Nome,
@@ -181,14 +88,14 @@ namespace Sistema.Controllers
         public JsonResult MaisDenunciasPro(int id)
         {
             VMAdm vma = new VMAdm();
-            vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status != "Concluído").ToList();
+            vma.MaisDenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status != "Concluído").ToList();
 
-            if(vma.DenunciasProjetos.Count() == 0)
+            if(vma.MaisDenunciasProjetos.Count() == 0)
             {
-                vma.DenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status == "Concluído").ToList();
+                vma.MaisDenunciasProjetos = db.Denuncias.Where(x => x.ProjetoDenunciadoId == id && x.Status == "Concluído").ToList();
             }
 
-            var denuncias = vma.DenunciasProjetos.Select(z => new
+            var denuncias = vma.MaisDenunciasProjetos.Select(z => new
             {
                 DenuncianteUrl = "/Home/MeuPerfil/" + z.UsuarioDenuncianteId,
                 DenuncianteNome = z.UsuarioDenunciante.Nome,
