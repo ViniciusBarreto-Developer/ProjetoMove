@@ -383,7 +383,7 @@ namespace Sistema.Controllers
 
             if (usu == null)
             {
-                return RedirectToAction("Acesso");
+                return RedirectToAction("Acesso", "Usuario");
             }
 
             Projeto pro = db.Projeto.Find(id);

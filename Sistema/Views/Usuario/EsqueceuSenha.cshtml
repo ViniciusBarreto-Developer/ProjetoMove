@@ -19,11 +19,11 @@
 
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            @Html.ActionLink("Não tenho acesso ao meu E-mail", "EsqueceuSenhaRecuperacao", "", new { @class = "forgot-password" })
+            @Html.ActionLink("Não tenho acesso ao meu E-mail", "EsqueceuSenhaRecuperacao", "Usuario", new { @class = "forgot-password" })
         </div>
 
         <div class="form-btns">
-            @Html.ActionLink("Voltar", "Acesso", "", new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Voltar", "Acesso", "Usuario", new { @class = "btn btn-secondary" })
             <input type="submit" value="Continuar" class="btn btn-primary" />
         </div>
     </div>

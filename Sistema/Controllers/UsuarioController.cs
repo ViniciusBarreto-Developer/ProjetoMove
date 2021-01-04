@@ -173,7 +173,7 @@ namespace Sistema.Controllers
         public ActionResult Sair()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Principal");
+            return RedirectToAction("Principal", "Home");
         }
         public ActionResult EditarCadastro()
         {
@@ -251,7 +251,7 @@ namespace Sistema.Controllers
                     db.Usuario.AddOrUpdate(usu);
                     db.SaveChanges();
                     TempData["MSG"] = "success|Seus dados foram atualizados!";
-                    return RedirectToAction("MeuPerfil");
+                    return RedirectToAction("MeuPerfil", "Home");
                 }
                 else
                 {
@@ -335,7 +335,7 @@ namespace Sistema.Controllers
                 }
 
                 FormsAuthentication.SignOut();
-                return RedirectToAction("Principal");
+                return RedirectToAction("Principal", "Home");
             }
             TempData["MSG"] = "error|Senha atual errada";
             return RedirectToAction("EditarCadastro");
@@ -360,7 +360,7 @@ namespace Sistema.Controllers
                     msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
                     Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
                     TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
-                    return RedirectToAction("Principal");
+                    return RedirectToAction("Principal", "Home");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View();
@@ -389,7 +389,7 @@ namespace Sistema.Controllers
                     msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
                     Funcoes.EnviarEmail(usu.EmailRecuperacao, "Redefinição de senha", msg);
                     TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
-                    return RedirectToAction("Principal");
+                    return RedirectToAction("Principal", "Home");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View();
@@ -415,19 +415,19 @@ namespace Sistema.Controllers
                             return View(red);
                         }
                         TempData["MSG"] = "warning|Esse link já expirou!";
-                        return RedirectToAction("Principal");
+                        return RedirectToAction("Principal", "Home");
                     }
                     catch
                     {
                         TempData["MSG"] = "error|Hash inválida!";
-                        return RedirectToAction("Principal");
+                        return RedirectToAction("Principal", "Home");
                     }
                 }
                 TempData["MSG"] = "error|Hash inválida!";
-                return RedirectToAction("Principal");
+                return RedirectToAction("Principal", "Home");
             }
             TempData["MSG"] = "error|Acesso inválido!";
-            return RedirectToAction("Principal");
+            return RedirectToAction("Principal", "Home");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -443,7 +443,7 @@ namespace Sistema.Controllers
                     db.Entry(usu).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["MSG"] = "success|Senha redefinida com sucesso!";
-                    return RedirectToAction("Principal");
+                    return RedirectToAction("Principal", "Home");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
                 return View(red);

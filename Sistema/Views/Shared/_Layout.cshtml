@@ -31,18 +31,18 @@
                     {
                         <li>@Html.ActionLink("Historico", "Historico", "Adm")</li>
                         <li>@Html.ActionLink("Denuncias", "Index", "Adm")</li>
-                        <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+                        <li>@Html.ActionLink("Sair", "Sair", "Usuario")</li>
                     }
                     else
                     {
                         <li>@Html.ActionLink(user[1].Substring(0, user[1].IndexOf(' ')), "MeuPerfil", "Home")</li>
-                        <li>@Html.ActionLink("Sair", "Sair", "Home")</li>
+                        <li>@Html.ActionLink("Sair", "Sair", "Usuario")</li>
                     }
                 }
                 else
                 {
-                    <li>@Html.ActionLink("Cadastro", "Cadastro", "Home")</li>
-                    <li>@Html.ActionLink("Entrar", "Acesso", "Home")</li>
+                    <li>@Html.ActionLink("Cadastro", "Cadastro", "Usuario")</li>
+                    <li>@Html.ActionLink("Entrar", "Acesso", "Usuario")</li>
                 }
             </ul>
         </nav>

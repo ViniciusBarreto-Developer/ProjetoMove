@@ -124,7 +124,7 @@ function validateEmail() {
                 email: emailInput.value
             }
 
-            fetch("/Home/ValidarEmail", {
+            fetch("/Usuario/ValidarEmail", {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
@@ -160,7 +160,7 @@ function validateEmailRecuperacao() {
                 email: emailInput.value
             }
 
-            fetch("/Home/ValidarEmailRecuperacao", {
+            fetch("/Usuario/ValidarEmailRecuperacao", {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
