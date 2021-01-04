@@ -17,8 +17,8 @@ namespace Sistema.Models
         public virtual ICollection<Denuncias> MaisDenunciasProjetos { get; set; }
         public virtual ICollection<Denuncias> MaisDenunciasUsuarios { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
-        public virtual ICollection<QuantidadeTagsProjetos> QuantidadeTagsProjetos { get; set; }
-        public virtual ICollection<QuantidadeTagsUsuarios> QuantidadeTagsUsuarios { get; set; }
+        public virtual List<QuantidadeTagsProjetos> QuantidadeTagsProjetos { get; set; }
+        public virtual List<QuantidadeTagsUsuarios> QuantidadeTagsUsuarios { get; set; }
     }
     public class QuantidadeTagsProjetos
     {

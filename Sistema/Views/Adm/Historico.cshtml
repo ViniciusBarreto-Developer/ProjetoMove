@@ -175,6 +175,9 @@
                     <li>Usuarios Cadastrados: <span>@Model.NumeroUsuarios</span></li>
                 </ul>
             </div>
+            @{
+                int i = 0;
+            }
             @foreach (var item in Model.Tags)
             {
                 <div class="tag-stats">
@@ -186,20 +189,9 @@
 
                     <ul class="tag-uses">
 
-                        @foreach (var subitem in Model.QuantidadeTagsProjetos)
-                        {
-                            if (subitem.IdTag == item.Id)
-                            {
-                                <li>Número de projetos: <span>@subitem.Quantidade</span></li>
-                            }
-                        }
-                        @foreach (var subitem in Model.QuantidadeTagsUsuarios)
-                        {
-                            if (subitem.IdTag == item.Id)
-                            {
-                                <li>Número de perfis de usuário: <span>@subitem.Quantidade</span></li>
-                            }
-                        }
+                        <li>Número de projetos: <span>@Model.QuantidadeTagsProjetos[i].Quantidade</span></li>
+
+                        <li>Número de perfis de usuário: <span>@Model.QuantidadeTagsUsuarios[i++].Quantidade</span></li>
 
                         <li>Número de vezes pesquisada: <span>@item.Pesquisada</span></li>
                     </ul>
