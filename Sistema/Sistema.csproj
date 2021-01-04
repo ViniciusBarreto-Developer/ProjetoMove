@@ -141,6 +141,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,14 +266,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Acesso.cshtml" />
-    <Content Include="Views\Home\Cadastro.cshtml" />
-    <Content Include="Views\Home\EsqueceuSenha.cshtml" />
-    <Content Include="Views\Home\Redefinir.cshtml" />
+    <Content Include="Views\Usuario\Acesso.cshtml" />
+    <Content Include="Views\Usuario\Cadastro.cshtml" />
+    <Content Include="Views\Usuario\EsqueceuSenha.cshtml" />
+    <Content Include="Views\Usuario\Redefinir.cshtml" />
     <Content Include="Views\Home\Principal.cshtml" />
     <Content Include="Views\Home\MeuPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutPerfil.cshtml" />
-    <Content Include="Views\Home\EditarCadastro.cshtml" />
+    <Content Include="Views\Usuario\EditarCadastro.cshtml" />
     <Content Include="Views\Home\MeuProjeto.cshtml" />
     <Content Include="Views\Home\VisitarPerfil.cshtml" />
     <Content Include="Views\Shared\_LayoutVisitarPerfil.cshtml" />
@@ -283,7 +284,7 @@
     <Content Include="Views\Adm\MaisDenunciasUsu.cshtml" />
     <Content Include="Views\Adm\MaisDenunciasPro.cshtml" />
     <Content Include="Views\Adm\Historico.cshtml" />
-    <Content Include="Views\Home\EsqueceuSenhaRecuperacao.cshtml" />
+    <Content Include="Views\Usuario\EsqueceuSenhaRecuperacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
