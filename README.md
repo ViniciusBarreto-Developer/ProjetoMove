@@ -42,4 +42,4 @@ Design - Isabelly Filgueira –  (https://github.com/IFilgueira)
 
 ---
 
-Um projeto acadêmico feito com ♥
+Projeto acadêmico desenvolvido no 5º Semestre do curso ADS ♥
