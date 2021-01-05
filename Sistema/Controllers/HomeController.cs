@@ -289,9 +289,7 @@ namespace Sistema.Controllers
         [HttpPost]
         public JsonResult AdicionarTag(VMPerfil vmp)
         {
-            string[] user = User.Identity.Name.Split('|');
-            string email = user[0];
-            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
+            var usu = db.Usuario.Find(vmp.Id);
 
             var tag = db.Tag.Where(t => t.Nome == vmp.PesquisaTag).ToList().FirstOrDefault();
 
@@ -321,7 +319,7 @@ namespace Sistema.Controllers
             db.UsuarioTag.Remove(tag);
             db.SaveChanges();
 
-            var usu = db.Usuario.Where(t => t.Id == id).ToList().FirstOrDefault();
+            var usu = db.Usuario.Find(id);
 
             return Json(db.UsuarioTag.Where(x => x.UsuarioId == usu.Id).ToList().Select(x => new { x.Tag.Nome }));
         }
@@ -333,12 +331,8 @@ namespace Sistema.Controllers
 
             return RedirectToAction("MeuPerfil");
         }
-        public ActionResult CriarProjeto(HttpPostedFileBase arquivo, VMPerfil vmp)
+        public ActionResult CriarProjeto(VMPerfil vmp)
         {
-            string[] user = User.Identity.Name.Split('|');
-            string email = user[0];
-            var usu = db.Usuario.Where(t => t.Email == email).ToList().FirstOrDefault();
-
             if (ModelState.IsValid)
             {
                 Projeto pro = new Projeto();
@@ -357,7 +351,7 @@ namespace Sistema.Controllers
                 integrante.Adm = true;
                 integrante.Ativo = true;
                 integrante.ProjetoId = pro.Id;
-                integrante.UsuarioID = usu.Id;
+                integrante.UsuarioID = vmp.Id;
 
                 db.IntegrantesProjeto.AddOrUpdate(integrante);
                 db.SaveChanges();

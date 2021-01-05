@@ -335,9 +335,10 @@
                 <span class="iconify" data-icon="tabler:x" data-inline="true"></span>
             </div>
         </div>
-        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("CriarProjeto", "Home", FormMethod.Post))
         {
             <div class="modal-body">
+                @Html.HiddenFor(model => model.Id)
                 <div class="form-group">
                     @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.EditorFor(model => model.NomeProjeto)
