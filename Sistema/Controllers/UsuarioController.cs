@@ -13,6 +13,10 @@ namespace Sistema.Controllers
     public class UsuarioController : Controller
     {
         Contexto db = new Contexto();
+        public ActionResult Principal()
+        {
+            return RedirectToAction("Principal","Home");
+        }
         public ActionResult Cadastro()
         {
             return View();

@@ -279,7 +279,6 @@
     <Content Include="Views\Shared\_LayoutVisitarPerfil.cshtml" />
     <Content Include="Views\Home\VisitarProjeto.cshtml" />
     <Content Include="Views\Shared\_LayoutProjeto.cshtml" />
-    <Content Include="Views\Home\VisualizarPdf.cshtml" />
     <Content Include="Views\Adm\Index.cshtml" />
     <Content Include="Views\Adm\MaisDenunciasUsu.cshtml" />
     <Content Include="Views\Adm\MaisDenunciasPro.cshtml" />

@@ -71,7 +71,7 @@
 
         <div class="form-btns">
             <a class="btn delete-acc" data-open-modal="modalExcluir">Excluir Conta</a>
-            @Html.ActionLink("Voltar", "Principal", "Home", new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Voltar", "Principal", "Usuario", new { @class = "btn btn-secondary" })
             <input type="submit" id="concluir" value="Salvar" class="btn btn-primary" />
         </div>
     </div>
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        @using (Html.BeginForm("ExcluirConta", "Home", FormMethod.Post, new { @class = "form single-col" }))
+        @using (Html.BeginForm("ExcluirConta", "Usuario", FormMethod.Post, new { @class = "form single-col" }))
         {
             <div class="modal-body">
 
