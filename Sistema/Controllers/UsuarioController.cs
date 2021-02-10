@@ -361,9 +361,9 @@ namespace Sistema.Controllers
                     db.Entry(usu).State = EntityState.Modified;
                     db.SaveChanges();
                     string msg = "<h3>Sistema</h3>";
-                    msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
+                    msg += "Para alterar sua senha <a href='http://localhost:55455/Usuario/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
                     Funcoes.EnviarEmail(usu.Email, "Redefinição de senha", msg);
-                    TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
+                    TempData["MSG"] = "success|Um link para a redefinição foi enviado ao e-mail!";
                     return RedirectToAction("Principal", "Home");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
@@ -390,9 +390,9 @@ namespace Sistema.Controllers
                     db.Entry(usu).State = EntityState.Modified;
                     db.SaveChanges();
                     string msg = "<h3>Sistema</h3>";
-                    msg += "Para alterar sua senha <a href='http://localhost:55455/Home/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
+                    msg += "Para alterar sua senha <a href='http://localhost:55455/Usuario/Redefinir/" + usu.Hash + "'target = '_blank' > clique aqui </ a > ";
                     Funcoes.EnviarEmail(usu.EmailRecuperacao, "Redefinição de senha", msg);
-                    TempData["MSG"] = "success|Solicitação de redefinição de Senha feita com sucesso!";
+                    TempData["MSG"] = "success|Um link para a redefinição foi enviado ao e-mail!";
                     return RedirectToAction("Principal", "Home");
                 }
                 TempData["MSG"] = "error|E-mail não encontrado";
