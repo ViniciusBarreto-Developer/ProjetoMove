@@ -84,11 +84,11 @@
                     {
 
                         <div class="uploads-icon">
-                            <a onclick="window.open('@Url.Action("VisualizarPdf", "Home", new { id = item.Id })', '_blank');">
+                            <a onclick="window.open('../../Uploads/@item.Arquivo', '_blank');">
                                 <span class="iconify" data-icon="tabler:file-text" data-inline="false"></span>
                             </a>
                             <h2>@item.Nome</h2>
-                            <button class="delete-arq" onclick="window.location.href='@Url.Action("RemoverUpload", "Home", new { idProjeto = Model.Id, idArquivo = item.Id })'" ><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
+                            <button class="delete-arq" onclick="window.location.href='@Url.Action("RemoverUpload", "Home", new { idProjeto = Model.Id, idArquivo = item.Id })'"><span class="iconify" data-icon="tabler:trash" data-inline="false"></span></button>
                         </div>
                         quant++;
                     }
