@@ -35,7 +35,14 @@
                     }
                     else
                     {
-                        <li>@Html.ActionLink(user[1].Substring(0, user[1].IndexOf(' ')), "MeuPerfil", "Home")</li>
+                        if (user[1].IndexOf(' ') != -1)
+                        {
+                            <li>@Html.ActionLink(user[1].Substring(0, user[1].IndexOf(' ')), "MeuPerfil", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(user[1], "MeuPerfil", "Home")</li>
+                        }
                         <li>@Html.ActionLink("Sair", "Sair", "Usuario")</li>
                     }
                 }
